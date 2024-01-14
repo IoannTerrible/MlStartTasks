@@ -1,0 +1,50 @@
+2023-12-29 11:56:05.978 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 17
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 12:47:19.334 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 17
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.206 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.445 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.236 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+

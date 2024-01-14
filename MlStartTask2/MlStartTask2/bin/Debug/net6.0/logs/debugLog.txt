@@ -1,0 +1,710 @@
+2023-12-29 19:59:01.152 +03:00 [DBG] 
+Note: X array index 0 = 6,290335225039021 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.196 +03:00 [DBG] 
+Note: X array index 1 = 15,507785766177824 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.196 +03:00 [DBG] 
+Note: X array index 2 = 0,7028777887544068 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.196 +03:00 [DBG] 
+Note: X array index 3 = -5,689466777013259 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.196 +03:00 [DBG] 
+Note: X array index 4 = -7,065375603058311 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.196 +03:00 [DBG] 
+Note: X array index 5 = -8,269423924195822 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.196 +03:00 [DBG] 
+Note: X array index 6 = 12,128772213542112 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.196 +03:00 [DBG] 
+Note: X array index 7 = -8,790301575177097 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.197 +03:00 [DBG] 
+Note: X array index 8 = 14,974857308733514 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.197 +03:00 [DBG] 
+Note: X array index 9 = 14,89860317796347 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.197 +03:00 [DBG] 
+Note: X array index 10 = -6,717757473343019 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.197 +03:00 [DBG] 
+Note: X array index 11 = -7,094010540769452 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.197 +03:00 [DBG] 
+Note: X array index 12 = 2,88498569066521 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.199 +03:00 [DBG] 
+Note: Checking and configuring file 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 19:59:01.206 +03:00 [DBG] 
+Note: answer = не число
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.422 +03:00 [DBG] 
+Note: X array index 0 = -5,634713979249264 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 1 = 2,929733830880834 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 2 = 0,9254520465795626 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 3 = -7,517646072524654 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 4 = 6,3549627216322735 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 5 = 9,00400958292059 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 6 = 8,261268186362965 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 7 = -0,26424006695193125 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 8 = 15,978528579174869 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 9 = -10,432386796825357 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 10 = -3,886946152920919 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.440 +03:00 [DBG] 
+Note: X array index 11 = 14,355520728897394 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.441 +03:00 [DBG] 
+Note: X array index 12 = 1,2556658409388466 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.441 +03:00 [DBG] 
+Note: Checking and configuring file 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:08:35.445 +03:00 [DBG] 
+Note: answer = не число
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.513 +03:00 [DBG] 
+Note: X array index 0 = -11,247484838008498 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 1 = 6,67584194063735 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 2 = -3,847558220713388 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 3 = 6,070501981687717 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 4 = -4,006152696422941 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 5 = 13,555622871952707 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 6 = -9,844544439269725 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 7 = 7,416802556043382 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 8 = -0,5744205232468219 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 9 = -4,931113126787176 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.529 +03:00 [DBG] 
+Note: X array index 10 = 10,133901795121334 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.530 +03:00 [DBG] 
+Note: X array index 11 = 6,435524656501152 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.530 +03:00 [DBG] 
+Note: X array index 12 = -7,431162370239943 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2023-12-29 20:15:51.530 +03:00 [DBG] 
+Note: Checking and configuring file 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.199 +03:00 [DBG] 
+Note: X array index 0 = 9,683979591076994 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 1 = 10,463123181789587 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 2 = -8,511269907081099 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 3 = -9,699420317699747 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 4 = 15,799036522331894 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 5 = -10,27889409912258 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 6 = -8,057852954857031 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 7 = 7,285987439493711 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 8 = 10,898138146333824 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 9 = 15,66178562964687 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.229 +03:00 [DBG] 
+Note: X array index 10 = -4,699989405897643 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.230 +03:00 [DBG] 
+Note: X array index 11 = -5,916556620750145 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.230 +03:00 [DBG] 
+Note: X array index 12 = 14,644167458122435 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.231 +03:00 [DBG] 
+Note: Checking and configuring file 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-01 18:24:23.236 +03:00 [DBG] 
+Note: answer = не число
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 12
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:13:16.689 +03:00 [DBG] 
+Note: X array index 0 = -5,219265295811919 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 21
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:19.100 +03:00 [DBG] 
+Note: X array index 0 = 11,325143583513828 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:23.060 +03:00 [DBG] 
+Note: X array index 1 = 3,8960359403211426 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:23.799 +03:00 [DBG] 
+Note: X array index 2 = -8,73710049970938 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:24.382 +03:00 [DBG] 
+Note: X array index 3 = 2,7482373923358994 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:24.807 +03:00 [DBG] 
+Note: X array index 4 = 2,4976227363863344 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:25.317 +03:00 [DBG] 
+Note: X array index 5 = 11,732695707982849 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:25.926 +03:00 [DBG] 
+Note: X array index 6 = 14,324154389202322 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:26.494 +03:00 [DBG] 
+Note: X array index 7 = 4,177039585345741 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:27.774 +03:00 [DBG] 
+Note: X array index 8 = -3,317941937996661 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:28.998 +03:00 [DBG] 
+Note: X array index 9 = 12,474461749073773 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+2024-01-14 14:14:32.318 +03:00 [DBG] 
+Note: X array index 10 = 10,910428049672305 
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 20
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
