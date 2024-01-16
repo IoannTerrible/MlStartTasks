@@ -208,3 +208,33 @@ Column: 13
 
 Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
 
+2024-01-15 17:13:24.297 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-15 17:13:24.299 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-15 17:13:24.300 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 10File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
