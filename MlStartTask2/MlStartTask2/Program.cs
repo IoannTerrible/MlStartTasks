@@ -20,7 +20,7 @@ namespace MlStartTask2
 
             for (int i = 0; i < x.Length; i++)
             {
-                x[i] = random.NextDouble(-12,   16);
+                x[i] = random.NextDouble(-12, 16);
                 Logger.LogByTemplate(Debug, note: $"X array index {i} = {x[i]} ");
             }
 
@@ -101,12 +101,15 @@ namespace MlStartTask2
             {
                 Logger.LogByTemplate(Error,
                     ex
-                    ,$"Parsing failed. Invalid format in config file.");
+                    , $"Parsing failed. Invalid format in config file.");
             }
             finally
             {
                 Log.CloseAndFlush();
             }
+            Person Neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
+            Person Korotishka = new Person("Незнайка", "Житель солнечного города");
+            Neshnaika.PerformAction(new List<Item> { new Item("Акция1"), new Item("Акция2") }, "продал");
         }
     }
 }
