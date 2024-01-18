@@ -48,3 +48,63 @@ Column: 13
 
 Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
 
+2024-01-17 19:52:08.226 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-17 19:52:54.737 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-17 19:53:19.500 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-17 19:53:55.434 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-17 21:17:48.309 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-18 21:40:27.867 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+

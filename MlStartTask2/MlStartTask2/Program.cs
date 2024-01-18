@@ -65,16 +65,29 @@ namespace MlStartTask2
             {
                 Logger.LogByTemplate(Debug,
                     note: "Config file not found, creating with default content ");
-                string content = "7 10";
+                string content = "7 9 5";
                 File.WriteAllText(filePath, content);
             }
 
             string realContent = File.ReadAllText(filePath);
-            int num1, num2;
+            int num1, num2, delayInSeconds;
+            if (!int.TryParse(realContent.Split()[0], out num1)) 
+            {
+                Logger.LogByTemplate(Error, note: $"Error while Parsing first param from file");
+            }
+            if (!int.TryParse(realContent.Split()[1], out num2)) 
+            {
+                Logger.LogByTemplate(Error, note: $"Error while Parsing second param from file");
+            }
+            if (!int.TryParse(realContent.Split()[2], out delayInSeconds))
+            {
+                Logger.LogByTemplate(Error, note: $"Error while Parsing third param from file");
+            }
+
             try
             {
-                num1 = int.Parse(realContent.Split()[0]);
-                num2 = int.Parse(realContent.Split()[1]);
+
+
                 Logger.LogByTemplate(Information,
                     note: $"Parsing successful. num1: {num1}, num2: {num2}");
 
@@ -107,9 +120,18 @@ namespace MlStartTask2
             {
                 Log.CloseAndFlush();
             }
+            static async Task PrintLinesWithDelay(string[] lines, int delayMilliseconds)
+            {
+                foreach (var line in lines)
+                {
+                    Console.WriteLine(line);
+                    await Task.Delay(delayMilliseconds);
+                }
+            }
             Person Neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
             Person Korotishka = new Person("Незнайка", "Житель солнечного города");
-            Neshnaika.PerformAction(new List<Item> { new Item("Акция1"), new Item("Акция2") }, "продал");
+            Neshnaika.PerformAction(new List<Item> { new Item("Акция1"), new Item("Акция2") }, Actions.SellShares);
+
         }
     }
 }
