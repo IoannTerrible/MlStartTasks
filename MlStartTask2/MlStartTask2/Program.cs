@@ -1,11 +1,12 @@
 ﻿using Serilog;
+using System.Reflection;
 using static Serilog.Events.LogEventLevel;
 
 namespace MlStartTask2
 {
     class Program
     {
-        static void Main()
+        static async Task Main()
         {
             Logger.CreateLogDirectory(
                 Debug,
@@ -71,11 +72,11 @@ namespace MlStartTask2
 
             string realContent = File.ReadAllText(filePath);
             int num1, num2, delayInSeconds;
-            if (!int.TryParse(realContent.Split()[0], out num1)) 
+            if (!int.TryParse(realContent.Split()[0], out num1))
             {
                 Logger.LogByTemplate(Error, note: $"Error while Parsing first param from file");
             }
-            if (!int.TryParse(realContent.Split()[1], out num2)) 
+            if (!int.TryParse(realContent.Split()[1], out num2))
             {
                 Logger.LogByTemplate(Error, note: $"Error while Parsing second param from file");
             }
@@ -120,7 +121,7 @@ namespace MlStartTask2
             {
                 Log.CloseAndFlush();
             }
-            static async Task PrintLinesWithDelay(string[] lines, int delayMilliseconds)
+            static async Task PrintLinesWithDelay(List<string> lines, int delayMilliseconds)
             {
                 foreach (var line in lines)
                 {
@@ -128,9 +129,19 @@ namespace MlStartTask2
                     await Task.Delay(delayMilliseconds);
                 }
             }
+            List<string> lines = new List<string>();
             Person Neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
-            Person Korotishka = new Person("Незнайка", "Житель солнечного города");
-            Neshnaika.PerformAction(new List<Item> { new Item("Акция1"), new Item("Акция2") }, Actions.SellShares);
+            Person Kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
+            Person Korotishka = new Person("Коротышка", "Житель солнечного города");
+            Crowd ThoseWhoWishingToPurchaseShares = new Crowd("Те кто хочет купить акции компании больших растений", "Желающие Приобрести Акции");
+
+            lines.AddRange(Korotishka.PerformAction(new List<Item> { new Item("Деньги") }, Actions.InvestMoney));
+            lines.AddRange(Korotishka.BuyShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
+            lines.Add(Korotishka.PerfomSimplyAction(Actions.Departure));
+            lines.Add(ThoseWhoWishingToPurchaseShares.GetState("Cтановилось всё больше и больше"));
+            lines.AddRange(Neshnaika.SellShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
+            lines.AddRange(Kozlik.SellShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
+            await PrintLinesWithDelay(lines, delayInSeconds);
 
         }
     }

@@ -25,17 +25,19 @@ namespace MlStartTask2
     {
         BuyShares,
         SellShares,
-        DepositMoney
+        DepositMoney,
+        InvestMoney,
+        Departure
     }
     interface IItemProcessor
     {
-        void ProcessItems(string Name, List<Item> items, Actions action);
+        List<string> ProcessItems(string Name, List<Item> items, Actions action);
     }
     interface IFinancialOperations
     {
-        void BuyShares(List<Item> shares);
-        void SellShares(List<Item> shares);
-        void DepositMoney(double money, BankAccount account);
+        List<string> BuyShares(List<Item> shares);
+        List<string> SellShares(List<Item> shares);
+        string DepositMoney(double money, BankAccount account);
     }
     abstract class IntelligenceСreature
     {
@@ -45,8 +47,14 @@ namespace MlStartTask2
         {
             Description = des;
         }
-
-        public virtual void PerformAction(List<Item> items, Actions action) { }
+        public virtual List<string> PerformAction(List<Item> items, Actions action)
+        {
+            return new List<string>();
+        }
+        public virtual string GetState(string state)
+        {
+            return state;
+        }
     }
 
     internal class Person : IntelligenceСreature, IFinancialOperations, IItemProcessor
@@ -56,13 +64,17 @@ namespace MlStartTask2
         {
             Name = name;
         }
-        public void ProcessItems(string Name, List<Item> items, Actions action)
+        public List<string> ProcessItems(string Name, List<Item> items, Actions action)
         {
+            List<string> result = new List<string>();
             string actionDescription = GetActionDescription(action);
+
             foreach (var item in items)
             {
-                Console.WriteLine($"{Name} {actionDescription} предмет {item.Name}");
+                result.Add($"{Name} {actionDescription} предмет {item.Name}");
             }
+
+            return result;
         }
         private string GetActionDescription(Actions action)
         {
@@ -73,25 +85,31 @@ namespace MlStartTask2
                 case Actions.SellShares:
                     return "продает";
                 case Actions.DepositMoney:
-                    return "вкладывает деньги";
-                // Добавьте другие действия по мере необходимости
+                    return "вкладывает";
+                case Actions.InvestMoney:
+                    return "инвестирует";
+                case Actions.Departure:
+                    return "удалился";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(action), action, null);
             }
         }
-        public override void PerformAction(List<Item> items, Actions action)
+        public override List<string> PerformAction(List<Item> items, Actions action)
         {
-            ProcessItems(Name, items, action);
+            return ProcessItems(Name, items, action);
+        }
+        public string PerfomSimplyAction(Actions action)
+        {
+            return $"{Name} {GetActionDescription(action)}";
+        }
+        public List<string> BuyShares(List<Item> shares)
+        {
+            return ProcessItems(Name, shares, Actions.BuyShares);
         }
 
-        public void BuyShares(List<Item> shares)
+        public List<string> SellShares(List<Item> shares)
         {
-            ProcessItems(Name, shares, Actions.BuyShares);
-        }
-
-        public void SellShares(List<Item> shares)
-        {
-            ProcessItems(Name, shares, Actions.SellShares);
+            return ProcessItems(Name, shares, Actions.SellShares);
         }
         public class BankAccount
         {
@@ -106,34 +124,32 @@ namespace MlStartTask2
                 Person = person;
             }
 
-            public void DisplayBalance()
+            public string DisplayBalance()
             {
-                Console.WriteLine($"{Person.Name}'s баланс: {Balance}");
+                return ($"{Person.Name}'s баланс: {Balance}");
             }
         }
-        public void DepositMoney(double money, BankAccount account)
+        public string DepositMoney(double money, BankAccount account)
         {
-            Console.WriteLine($"{Name} вкладывает {money}, на {account}");
             account.Balance += money;
+            return ($"{Name} вкладывает {money}, на {account}");
         }
     }
     class Crowd : IntelligenceСreature
     {
-        public Crowd(string des) : base(des)
+        public string DescriptionOfCrowd { get; set; }
+        public string NameOfCrowd { get; set; }
+        public Crowd(string des, string name) : base(des)
         {
-
+            DescriptionOfCrowd = des;
+            NameOfCrowd = name;
+        }
+        public override string GetState(string state)
+        {
+            return $"{NameOfCrowd} {state}";
         }
     }
-
-    internal class Item
-    {
-        public string Name { get; set; }
-
-        public Item(string name)
-        {
-            Name = name;
-        }
-    }
+    internal record Item(string Name);
     class Bank
     {
         public string Name { get; set; }
