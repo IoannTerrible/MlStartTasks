@@ -85,6 +85,42 @@ namespace MlStartTask2
                 Logger.LogByTemplate(Error, note: $"Error while Parsing third param from file");
             }
 
+            List<string> lines = new List<string>();
+            Person Neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
+            Person Kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
+            Person Korotishka = new Person("Коротышка", "Неназванный житель");
+            Person Miga = new Person("Мига", "Житель лунного города");
+            Bank Bank1 = new Bank("Банк1", 1000000, 10);
+            Storage UnburnedCloset = new Storage("НезгораемыйШкаф");
+            Storage UnburnedChest0 = new Storage("НезгораемыйСундук1");
+            Storage UnburnedChest1 = new Storage("НезгораемыйСундук2");
+            UnburnedChest0.StoreItems(new List<Item> { new Item("Акция1"), new Item("Акция2"), new Item("Акция3") });
+            UnburnedChest1.StoreItems(new List<Item> { new Item("Акция4"), new Item("Акция5"), new Item("Акция6") });
+
+            Crowd ThoseWhoWishingToPurchaseShares = new Crowd("Те кто хочет купить акции компании больших растений", "Желающие Приобрести Акции");
+            Crowd Passersby = new Crowd("Коротышки на улице", "Прохожие");
+            Crowd Population = new Crowd("Население города", "Население города");
+
+            lines.AddRange(Korotishka.PerformAction(new List<Item> { new Item("Деньги") }, Actions.InvestMoney));
+            lines.AddRange(Korotishka.BuyShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
+            lines.Add(Korotishka.PerfomSimplyAction(Actions.Departure));
+            lines.Add(ThoseWhoWishingToPurchaseShares.GetState("Cтановилось всё больше и больше"));
+            lines.AddRange(Neshnaika.SellShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
+            lines.AddRange(Kozlik.SellShares(new List<Item> { new Item("Акция3"), new Item("Акция4") }));
+            lines.Add(Miga.PerfomSimplyAction(Actions.Move));
+            lines.Add(Bank1.MoneyExchange(Miga));
+            lines.Add(Miga.PerformActionToStoreItem(
+                sourceItem: new Item("Деньги"),
+                action: Actions.InvestMoney,
+                storage: UnburnedCloset));
+            UnburnedCloset.StoreItems(itemsToStore: new List<Item> { new Item("Деньги"), new Item("Деньги") });
+            lines.Add(ThoseWhoWishingToPurchaseShares.GetState("Толклись на улице, дожидаясь открытия конторы"));
+            lines.Add(Passersby.GetState("Заинтересовались происходящим"));
+            lines.Add(Population.GetState("Узнало об акциях Общества Гигантских растений"));
+            lines.Add(Population.GetState("Спешило накупить акций Общества Гигантских растений для выгодной перепродажи"));
+            UnburnedChest0.RetrieveItems(UnburnedChest0.items.Count);
+            UnburnedChest1.RetrieveItems(UnburnedChest1.items.Count);
+
             try
             {
 
@@ -108,7 +144,10 @@ namespace MlStartTask2
                 {
                     Logger.LogByTemplate(Warning,
                         note: $"The calculated result is not a valid number. answer = {answer} Please check your input data.");
+                    Logger.LogByTemplate(Error, note: "Failed to generate number. try again");
+                    throw new Exception("Failed to generate number. try again");
                 }
+                AddNarrativeline(answer);
                 Console.WriteLine(answer);
             }
             catch (Exception ex)
@@ -116,6 +155,7 @@ namespace MlStartTask2
                 Logger.LogByTemplate(Error,
                     ex
                     , $"Parsing failed. Invalid format in config file.");
+                Console.WriteLine(ex.Message);
             }
             finally
             {
@@ -129,19 +169,14 @@ namespace MlStartTask2
                     await Task.Delay(delayMilliseconds);
                 }
             }
-            List<string> lines = new List<string>();
-            Person Neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
-            Person Kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
-            Person Korotishka = new Person("Коротышка", "Житель солнечного города");
-            Crowd ThoseWhoWishingToPurchaseShares = new Crowd("Те кто хочет купить акции компании больших растений", "Желающие Приобрести Акции");
 
-            lines.AddRange(Korotishka.PerformAction(new List<Item> { new Item("Деньги") }, Actions.InvestMoney));
-            lines.AddRange(Korotishka.BuyShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
-            lines.Add(Korotishka.PerfomSimplyAction(Actions.Departure));
-            lines.Add(ThoseWhoWishingToPurchaseShares.GetState("Cтановилось всё больше и больше"));
-            lines.AddRange(Neshnaika.SellShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
-            lines.AddRange(Kozlik.SellShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
-            await PrintLinesWithDelay(lines, delayInSeconds);
+            void AddNarrativeline(double number)
+            {
+                lines.Add($"Все акции общества были распроданы со средней стоимостью {Math.Abs(number)}");
+            }
+
+
+            await PrintLinesWithDelay(lines, delayInSeconds*1000);
 
         }
     }

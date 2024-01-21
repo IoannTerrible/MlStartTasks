@@ -1,0 +1,171 @@
+2024-01-20 18:50:13.403 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-20 18:50:46.811 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-20 18:50:46.832 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 148
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-20 18:51:08.566 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-20 18:51:08.575 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 148
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-20 19:14:42.323 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-20 19:14:42.331 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 148
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-21 16:10:55.252 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-21 16:10:55.268 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 148
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-21 16:10:58.295 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-21 16:10:58.301 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 148
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-21 16:11:00.607 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-21 16:11:00.616 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 148
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-21 16:11:03.682 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-21 16:11:03.689 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 148
+
+Column: 21
+
+Method: Void MoveNext()
+
+

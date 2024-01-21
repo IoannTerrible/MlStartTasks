@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static MlStartTask2.Person;
+﻿using static MlStartTask2.Person;
 //Коротышка.Выложил деньги
 //Коротышка.Получил Акции
 //Коротышка.Удалился
@@ -27,7 +21,8 @@ namespace MlStartTask2
         SellShares,
         DepositMoney,
         InvestMoney,
-        Departure
+        Departure,
+        Move
     }
     interface IItemProcessor
     {
@@ -51,6 +46,7 @@ namespace MlStartTask2
         {
             return new List<string>();
         }
+
         public virtual string GetState(string state)
         {
             return state;
@@ -90,6 +86,8 @@ namespace MlStartTask2
                     return "инвестирует";
                 case Actions.Departure:
                     return "удалился";
+                case Actions.Move:
+                    return "ездил";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(action), action, null);
             }
@@ -97,6 +95,10 @@ namespace MlStartTask2
         public override List<string> PerformAction(List<Item> items, Actions action)
         {
             return ProcessItems(Name, items, action);
+        }
+        public string PerformActionToStoreItem(Item sourceItem, Actions action, Storage storage)
+        {
+            return $"{Name} {GetActionDescription(action)} {sourceItem.Name} в {storage.Name}";
         }
         public string PerfomSimplyAction(Actions action)
         {
@@ -150,6 +152,37 @@ namespace MlStartTask2
         }
     }
     internal record Item(string Name);
+
+    class Storage
+    {
+        public List<Item> items;
+        public string Name { get; set; }
+
+        public Storage(string name)
+        {
+            items = new List<Item>();
+            Name = name;
+        }
+
+        public void StoreItems(List<Item> itemsToStore)
+        {
+            items.AddRange(itemsToStore);
+        }
+
+        public List<Item> RetrieveItems(int quantity)
+        {
+            if (quantity > items.Count)
+            {
+                quantity = items.Count;
+            }
+
+            List<Item> retrievedItems = items.GetRange(0, quantity);
+            items.RemoveRange(0, quantity);
+
+            return retrievedItems;
+        }
+    }
+
     class Bank
     {
         public string Name { get; set; }
@@ -162,6 +195,10 @@ namespace MlStartTask2
             Money = money;
             PercentageRate = pros;
         }
+        public string MoneyExchange(Person person)
+        {
+            return $"{person.Name} обменивал купюры";
 
+        }
     }
 }
