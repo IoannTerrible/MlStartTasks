@@ -88,7 +88,7 @@ namespace MlStartTask2
             List<string> lines = new List<string>();
             Person Neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
             Person Kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
-            Person Korotishka = new Person("Коротышка", "Неназванный житель");
+            Person Korotishka = new Person("Коротышка", "Неназванный житель лунного города");
             Person Miga = new Person("Мига", "Житель лунного города");
             Bank Bank1 = new Bank("Банк1", 1000000, 10);
             Storage UnburnedCloset = new Storage("НезгораемыйШкаф");
