@@ -169,3 +169,164 @@ Column: 21
 Method: Void MoveNext()
 
 
+2024-01-22 18:24:55.553 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:24:55.568 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 150
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-22 18:37:09.196 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:09.208 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 150
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-22 18:37:11.729 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:11.736 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 150
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-22 19:58:23.720 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:23.731 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 152
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-22 19:58:47.354 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:47.362 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 152
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-22 19:58:51.467 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:51.475 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 152
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-01-22 19:58:54.845 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:54.854 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Program.cs
+
+Line: 152
+
+Column: 21
+
+Method: Void MoveNext()
+
+

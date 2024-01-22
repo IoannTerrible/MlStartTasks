@@ -86,40 +86,44 @@ namespace MlStartTask2
             }
 
             List<string> lines = new List<string>();
-            Person Neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
-            Person Kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
-            Person Korotishka = new Person("Коротышка", "Неназванный житель лунного города");
-            Person Miga = new Person("Мига", "Житель лунного города");
-            Bank Bank1 = new Bank("Банк1", 1000000, 10);
-            Storage UnburnedCloset = new Storage("НезгораемыйШкаф");
-            Storage UnburnedChest0 = new Storage("НезгораемыйСундук1");
-            Storage UnburnedChest1 = new Storage("НезгораемыйСундук2");
-            UnburnedChest0.StoreItems(new List<Item> { new Item("Акция1"), new Item("Акция2"), new Item("Акция3") });
-            UnburnedChest1.StoreItems(new List<Item> { new Item("Акция4"), new Item("Акция5"), new Item("Акция6") });
+            Person neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
+            Person kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
+            Person korotishka = new Person("Коротышка", "Неназванный житель");
+            Person miga = new Person("Мига", "Житель лунного города");
+            Bank bank1 = new Bank("Банк1", 1000000, 10);
+            Person.BankAccount migaBankAccount1 = new Person.BankAccount(100, miga);
+            Storage unburnedCloset = new Storage("НезгораемыйШкаф");
+            Storage unburnedChest0 = new Storage("НезгораемыйСундук1");
+            Storage unburnedChest1 = new Storage("НезгораемыйСундук2");
+            unburnedChest0.StoreItems(new List<Item> { new Item("Акция1"), new Item("Акция2"), new Item("Акция3") });
+            unburnedChest1.StoreItems(new List<Item> { new Item("Акция4"), new Item("Акция5"), new Item("Акция6") });
 
-            Crowd ThoseWhoWishingToPurchaseShares = new Crowd("Те кто хочет купить акции компании больших растений", "Желающие Приобрести Акции");
-            Crowd Passersby = new Crowd("Коротышки на улице", "Прохожие");
-            Crowd Population = new Crowd("Население города", "Население города");
+            Crowd thoseWhoWishingToPurchaseShares = new Crowd("Те кто хочет купить акции компании больших растений", "Желающие Приобрести Акции");
+            Crowd passersby = new Crowd("Коротышки на улице", "Прохожие");
+            Crowd population = new Crowd("Население города", "Население города");
 
-            lines.AddRange(Korotishka.PerformAction(new List<Item> { new Item("Деньги") }, Actions.InvestMoney));
-            lines.AddRange(Korotishka.BuyShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
-            lines.Add(Korotishka.PerfomSimplyAction(Actions.Departure));
-            lines.Add(ThoseWhoWishingToPurchaseShares.GetState("Cтановилось всё больше и больше"));
-            lines.AddRange(Neshnaika.SellShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
-            lines.AddRange(Kozlik.SellShares(new List<Item> { new Item("Акция3"), new Item("Акция4") }));
-            lines.Add(Miga.PerfomSimplyAction(Actions.Move));
-            lines.Add(Bank1.MoneyExchange(Miga));
-            lines.Add(Miga.PerformActionToStoreItem(
+            lines.AddRange(korotishka.PerformAction(new List<Item> { new Item("Деньги") }, Actions.InvestMoney));
+            lines.AddRange(korotishka.BuyShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
+            lines.Add(korotishka.PerfomSimplyAction(Actions.Departure));
+            lines.Add(thoseWhoWishingToPurchaseShares.GetState("Cтановилось всё больше и больше"));
+            lines.AddRange(neshnaika.SellShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
+            lines.AddRange(kozlik.SellShares(new List<Item> { new Item("Акция3"), new Item("Акция4") }));
+            lines.Add(miga.PerfomSimplyAction(Actions.Move));
+            lines.Add(migaBankAccount1.DisplayBalance());
+            lines.Add(bank1.MoneyExchange(miga));
+            lines.Add(miga.PerformActionToStoreItem(
                 sourceItem: new Item("Деньги"),
                 action: Actions.InvestMoney,
-                storage: UnburnedCloset));
-            UnburnedCloset.StoreItems(itemsToStore: new List<Item> { new Item("Деньги"), new Item("Деньги") });
-            lines.Add(ThoseWhoWishingToPurchaseShares.GetState("Толклись на улице, дожидаясь открытия конторы"));
-            lines.Add(Passersby.GetState("Заинтересовались происходящим"));
-            lines.Add(Population.GetState("Узнало об акциях Общества Гигантских растений"));
-            lines.Add(Population.GetState("Спешило накупить акций Общества Гигантских растений для выгодной перепродажи"));
-            UnburnedChest0.RetrieveItems(UnburnedChest0.items.Count);
-            UnburnedChest1.RetrieveItems(UnburnedChest1.items.Count);
+                storage: unburnedCloset));
+            migaBankAccount1.RemoveMoney(migaBankAccount1.Balance);
+            lines.Add(migaBankAccount1.DisplayBalance());
+            unburnedCloset.StoreItems(itemsToStore: new List<Item> { new Item("Деньги"), new Item("Деньги") });
+            lines.Add(thoseWhoWishingToPurchaseShares.GetState("Толклись на улице, дожидаясь открытия конторы"));
+            lines.Add(passersby.GetState("Заинтересовались происходящим"));
+            lines.Add(population.GetState("Узнало об акциях Общества Гигантских растений"));
+            lines.Add(population.GetState("Спешило накупить акций Общества Гигантских растений для выгодной перепродажи"));
+            unburnedChest0.RetrieveItems(unburnedChest0.items.Count);
+            unburnedChest1.RetrieveItems(unburnedChest1.items.Count);
 
             try
             {

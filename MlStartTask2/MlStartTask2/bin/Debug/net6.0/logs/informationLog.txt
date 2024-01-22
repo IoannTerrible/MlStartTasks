@@ -1698,8 +1698,8 @@ Column: 13
 Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
 
 
-2024-01-21 16:15:56.201 +03:00 [INF] 
-Note: Application started File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\MlStartTask2\Logger.cs
+2024-01-22 18:24:55.546 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
 
 Line: 19
 
@@ -1708,8 +1708,8 @@ Column: 13
 Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
 
 
-2024-01-21 16:15:56.202 +03:00 [INF] 
-Note: Config file path: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\MlStartTask2\Logger.cs
+2024-01-22 18:24:55.547 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
 
 Line: 19
 
@@ -1718,8 +1718,278 @@ Column: 13
 Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
 
 
-2024-01-21 16:15:56.205 +03:00 [INF] 
-Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\MlStartTask2\Logger.cs
+2024-01-22 18:24:55.550 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:09.185 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:09.186 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:09.190 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:11.723 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:11.723 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:11.726 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:14.880 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:14.880 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:37:14.883 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:39:15.883 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:39:15.884 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 18:39:15.886 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:23.713 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:23.714 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:23.716 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:47.348 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:47.348 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:47.351 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:51.461 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:51.462 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:51.464 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:54.837 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:54.838 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:54.841 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:57.137 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:57.138 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\bin\Debug\net6.0\config.txtFile: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-01-22 19:58:57.141 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\source\repos\MlStartTask2\MlStartTask2\Logger.cs
 
 Line: 19
 

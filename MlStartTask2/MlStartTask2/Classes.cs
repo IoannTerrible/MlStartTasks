@@ -98,7 +98,8 @@ namespace MlStartTask2
         }
         public string PerformActionToStoreItem(Item sourceItem, Actions action, Storage storage)
         {
-            return $"{Name} {GetActionDescription(action)} {sourceItem.Name} в {storage.Name}";
+            string actionDescription = GetActionDescription(action);
+            return $"{Name} {actionDescription} {sourceItem.Name} в {storage.Name}";
         }
         public string PerfomSimplyAction(Actions action)
         {
@@ -116,19 +117,25 @@ namespace MlStartTask2
         public class BankAccount
         {
             public double Balance { get; set; }
-            public int InterestRate { get; set; }
             public Person Person { get; set; }
 
-            public BankAccount(double balance, int interestRate, Person person)
+            public BankAccount(double balance, Person person)
             {
                 Balance = balance;
-                InterestRate = interestRate;
                 Person = person;
             }
 
             public string DisplayBalance()
             {
                 return ($"{Person.Name}'s баланс: {Balance}");
+            }
+            public void AddMoney(double money)
+            {
+                Balance += money;
+            }
+            public void RemoveMoney(double money)
+            {
+                Balance -= money;
             }
         }
         public string DepositMoney(double money, BankAccount account)
