@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MlStartTask2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e67b9624fa29ee3fa6206f5ee78f87907f5613d3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6035294af5d0860b003295d85599931d088a2fbc")]
 [assembly: System.Reflection.AssemblyProductAttribute("MlStartTask2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MlStartTask2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
