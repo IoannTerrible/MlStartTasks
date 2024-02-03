@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "73+0FlA3lNJJCPouCeYS5ELkvsdFUi5EbFKGMQfjmdxEyniSAKYmPg2zS0W4EIR8mcEnJkyq22UW39giITdrFA==",
+  "dgSpecHash": "QwrUP8KSdRvUi5f6LbRg31hGMJXpUQDyhcK7G4enffI9OFxePRypYNO5XTwb6CkeW4NUEsjBwvbEcy88VL0qjw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yaroslav\\source\\repos\\MlStartTask2\\MlStartTask2\\MlStartTask2.csproj",
+  "projectFilePath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yaroslav\\.nuget\\packages\\serilog\\3.1.2-dev-02097\\serilog.3.1.2-dev-02097.nupkg.sha512",
     "C:\\Users\\Yaroslav\\.nuget\\packages\\serilog.sinks.file\\5.0.1-dev-00968\\serilog.sinks.file.5.0.1-dev-00968.nupkg.sha512"
