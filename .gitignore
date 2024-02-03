@@ -394,5 +394,22 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-# JetBrains Rider
-*.sln.iml
+/.vs/MlStartTask2/DesignTimeBuild/.dtbcache.v2
+/.vs/MlStartTask2/FileContentIndex/21324aa4-c0ec-4fa2-a644-c393316c80f6.vsidx
+/.vs/MlStartTask2/FileContentIndex/42ea0210-635f-4005-b4f7-222dca4334f9.vsidx
+/.vs/MlStartTask2/FileContentIndex/b77f38f3-16e8-4bb5-b990-e336a34b8771.vsidx
+/.vs/MlStartTask2/FileContentIndex/c18298c8-b48f-450d-88cc-f6930304e609.vsidx
+/.vs/MlStartTask2/FileContentIndex/f6ecafd3-34b1-4fea-94d0-9d5fd2a16b43.vsidx
+/.vs/MlStartTasks/FileContentIndex/30c47d77-9b97-456b-997f-cd836bf4e756.vsidx
+/.vs/MlStartTasks/FileContentIndex/661529b4-9904-457a-b98f-6fed5abf489a.vsidx
+/.vs/MlStartTasks/FileContentIndex/aa4697d8-1a28-4968-b4ab-684d851b94a3.vsidx
+/.vs/MlStartTasks/FileContentIndex/b37187c1-9503-4cac-97a6-603930a685c5.vsidx
+/.vs/MlStartTasks/FileContentIndex/e69928d0-1832-4557-8a63-1eb7b14d54c8.vsidx
+/.vs/MlStartTask2/v17/.futdcache.v2
+/.vs/MlStartTask2/v17/.suo
+/.vs/ProjectEvaluation/mlstarttask2.metadata.v7.bin
+/.vs/ProjectEvaluation/mlstarttask2.projects.v7.bin
+/.vs/slnx.sqlite
+/.vs/slnx.sqlite~Try again 0.89
+/.vs/slnx.sqlite~Try again 0.89_0
+/.vs/VSWorkspaceState.json
