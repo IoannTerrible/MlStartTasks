@@ -13,26 +13,26 @@ namespace WpfApp1
         public AuthorizationPage(MainWindow _mainWindow)
         {
             InitializeComponent();
-            mainWindow = _mainWindow;    
+            mainWindow = _mainWindow;
         }
         private void enter_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox_login.Text.Length > 0) // проверяем введён ли логин     
+            if (textBox_login.Text.Length > 0)    
             {
-                if (password.Password.Length > 0) // проверяем введён ли пароль         
-                {                      
-                    DataTable dt_user = mainWindow.Select("SELECT * FROM [dbo].[Userss] WHERE [Login] = 'User' AND [PassWord] = '2e1ef01b619313b6452c5c348f55cb26'");
-                    if (dt_user.Rows.Count > 0) // если такая запись существует       
+                if (password.Password.Length > 0)          
+                {
+                    DataTable dt_user = mainWindow.Select($"SELECT * FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = '{textBox_login.Text}' AND [PassWord] = '{password.Password}'");
+                    if (dt_user.Rows.Count > 0)       
                     {
-                        MessageBox.Show("Пользователь авторизовался"); // говорим, что авторизовался         
+                        MessageBox.Show("Пользователь авторизовался");          
                     }
-                    else MessageBox.Show("Пользователя не найден"); // выводим ошибку  
+                    else MessageBox.Show("Пользователя не найден"); 
                 }
-                else MessageBox.Show("Введите пароль"); // выводим ошибку    
+                else MessageBox.Show("Введите пароль"); 
             }
-            else MessageBox.Show("Введите логин"); // выводим ошибку 
+            else MessageBox.Show("Введите логин");
         }
-        private void Login_Click(object sender, RoutedEventArgs e)
+        private void cancer_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.OpenPage(MainWindow.Pages.regin);
         }

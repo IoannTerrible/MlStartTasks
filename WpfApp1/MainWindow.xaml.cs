@@ -2,6 +2,9 @@
 using System.Data.SqlClient;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
+using MlStartTask2;
+using Serilog.Core;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WpfApp1
 {
@@ -23,7 +26,6 @@ namespace WpfApp1
         }
         void button_Click(object sender, RoutedEventArgs e)
         {
-            // Show message box when button is clicked.
             MessageBox.Show("Hello, Windows Presentation Foundation!");
         }
         public void OpenPage(Pages pages)
@@ -32,25 +34,30 @@ namespace WpfApp1
             {
                 MainFrame.Navigate(new AuthorizationPage(this));
             }
+            if(pages == Pages.regin)
+            {
+                MainFrame.Navigate(new RegistrationPage(this));
+            }
         }
         public DataTable Select(string selectSQL)
         {
             try
             {
                 DataTable dataTable = new DataTable("dataBase");
-                using (SqlConnection sqlConnection = new SqlConnection("server=.;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
+                using (SqlConnection sqlConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
                 {
                     sqlConnection.Open();
                     SqlCommand sqlCommand = new SqlCommand(selectSQL, sqlConnection);
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                    sqlDataAdapter.Fill(dataTable); // Заполняем таблицу данными из запроса
+                    sqlDataAdapter.Fill(dataTable); 
                 }
-                return dataTable; // Возвращаем таблицу с результатом запроса
+                return dataTable; 
             }
             catch (Exception ex)
             {
+                MlStartTask2.Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: "Error while SelectTable");
                 Console.WriteLine("Error occurred: " + ex.Message);
-                return null; // Возвращаем null в случае ошибки
+                return null; 
             }
         }
     

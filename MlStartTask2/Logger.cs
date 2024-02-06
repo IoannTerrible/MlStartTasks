@@ -12,7 +12,7 @@ namespace MlStartTask2
             return random.Next(minValue, maxValue) + random.NextDouble();
         }
     }
-    internal class Logger
+    public class Logger
     {
         public static void LogByTemplate(LogEventLevel logEventLevel, Exception ex = null, string note = "")
         {

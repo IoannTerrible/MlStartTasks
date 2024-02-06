@@ -73,6 +73,35 @@
           }
         }
       },
+      "Serilog/3.1.2-dev-02097": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Serilog.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Serilog.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Serilog.Sinks.File/5.0.1-dev-00968": {
+        "type": "package",
+        "dependencies": {
+          "Serilog": "2.10.0"
+        },
+        "compile": {
+          "lib/net6.0/Serilog.Sinks.File.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Serilog.Sinks.File.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "System.Data.SqlClient/4.8.6": {
         "type": "package",
         "dependencies": {
@@ -145,6 +174,20 @@
             "assetType": "runtime",
             "rid": "win"
           }
+        }
+      },
+      "MlStartTask2/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Serilog": "3.1.2-dev-02097",
+          "Serilog.Sinks.File": "5.0.1-dev-00968"
+        },
+        "compile": {
+          "bin/placeholder/MlStartTask2.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MlStartTask2.dll": {}
         }
       }
     }
@@ -275,6 +318,63 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Serilog/3.1.2-dev-02097": {
+      "sha512": "1kANtrvBOCcB/+rUuwCEoeDOdNhwjE1Rtk2AS+MF34DRhxxOjm5tTUbudWTvlBcIChmbQxW3K4Yr0dOn3+hcGA==",
+      "type": "package",
+      "path": "serilog/3.1.2-dev-02097",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net462/Serilog.dll",
+        "lib/net462/Serilog.xml",
+        "lib/net471/Serilog.dll",
+        "lib/net471/Serilog.xml",
+        "lib/net5.0/Serilog.dll",
+        "lib/net5.0/Serilog.xml",
+        "lib/net6.0/Serilog.dll",
+        "lib/net6.0/Serilog.xml",
+        "lib/net7.0/Serilog.dll",
+        "lib/net7.0/Serilog.xml",
+        "lib/netstandard2.0/Serilog.dll",
+        "lib/netstandard2.0/Serilog.xml",
+        "lib/netstandard2.1/Serilog.dll",
+        "lib/netstandard2.1/Serilog.xml",
+        "serilog.3.1.2-dev-02097.nupkg.sha512",
+        "serilog.nuspec"
+      ]
+    },
+    "Serilog.Sinks.File/5.0.1-dev-00968": {
+      "sha512": "139kP+WeSXgyeQmudHu/vOCj1pWKlOLkHtdEfhisoPAGCNhIe8TAjweMpL9iuF+X40flA84w0Oaa4jhzXiM83w==",
+      "type": "package",
+      "path": "serilog.sinks.file/5.0.1-dev-00968",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/icon.png",
+        "lib/net45/Serilog.Sinks.File.dll",
+        "lib/net45/Serilog.Sinks.File.pdb",
+        "lib/net45/Serilog.Sinks.File.xml",
+        "lib/net5.0/Serilog.Sinks.File.dll",
+        "lib/net5.0/Serilog.Sinks.File.pdb",
+        "lib/net5.0/Serilog.Sinks.File.xml",
+        "lib/net6.0/Serilog.Sinks.File.dll",
+        "lib/net6.0/Serilog.Sinks.File.pdb",
+        "lib/net6.0/Serilog.Sinks.File.xml",
+        "lib/netstandard1.3/Serilog.Sinks.File.dll",
+        "lib/netstandard1.3/Serilog.Sinks.File.pdb",
+        "lib/netstandard1.3/Serilog.Sinks.File.xml",
+        "lib/netstandard2.0/Serilog.Sinks.File.dll",
+        "lib/netstandard2.0/Serilog.Sinks.File.pdb",
+        "lib/netstandard2.0/Serilog.Sinks.File.xml",
+        "lib/netstandard2.1/Serilog.Sinks.File.dll",
+        "lib/netstandard2.1/Serilog.Sinks.File.pdb",
+        "lib/netstandard2.1/Serilog.Sinks.File.xml",
+        "serilog.sinks.file.5.0.1-dev-00968.nupkg.sha512",
+        "serilog.sinks.file.nuspec"
       ]
     },
     "System.Data.SqlClient/4.8.6": {
@@ -462,10 +562,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "MlStartTask2/1.0.0": {
+      "type": "project",
+      "path": "../MlStartTask2/MlStartTask2.csproj",
+      "msbuildProject": "../MlStartTask2/MlStartTask2.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0-windows7.0": [
+      "MlStartTask2 >= 1.0.0",
       "System.Data.SqlClient >= 4.8.6"
     ]
   },
@@ -476,11 +582,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\WpfApp1.csproj",
+      "projectUniqueName": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\WpfApp1.csproj",
       "projectName": "WpfApp1",
-      "projectPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\WpfApp1.csproj",
+      "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\WpfApp1.csproj",
       "packagesPath": "C:\\Users\\Yaroslav\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\obj\\",
+      "outputPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -500,7 +606,11 @@
       "frameworks": {
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj": {
+              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
