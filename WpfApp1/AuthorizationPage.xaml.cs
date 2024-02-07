@@ -7,9 +7,10 @@ namespace WpfApp1
     /// <summary>
     /// Логика взаимодействия для AuthorizationPage.xaml
     /// </summary>
-    public partial class AuthorizationPage : Page
+    public partial class AuthorizationPage : Page   
     {
         public MainWindow mainWindow;
+
         public AuthorizationPage(MainWindow _mainWindow)
         {
             InitializeComponent();
@@ -17,20 +18,27 @@ namespace WpfApp1
         }
         private void enter_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox_login.Text.Length > 0)    
+            if (string.IsNullOrWhiteSpace(textBox_login.Text))
             {
-                if (password.Password.Length > 0)          
-                {
-                    DataTable dt_user = mainWindow.Select($"SELECT * FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = '{textBox_login.Text}' AND [PassWord] = '{password.Password}'");
-                    if (dt_user.Rows.Count > 0)       
-                    {
-                        MessageBox.Show("Пользователь авторизовался");          
-                    }
-                    else MessageBox.Show("Пользователя не найден"); 
-                }
-                else MessageBox.Show("Введите пароль"); 
+                MessageBox.Show("Введите логин");
+                return;
             }
-            else MessageBox.Show("Введите логин");
+
+            if (string.IsNullOrWhiteSpace(password.Password))
+            {
+                MessageBox.Show("Введите пароль");
+                return;
+            }
+            string hashPassword = MainWindow.GetHashString(password.Password);
+            DataTable dt_user = mainWindow.ExecuteSqlCommand(sqlString: $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = '{textBox_login.Text}' AND [PassWord] = '{hashPassword}'");
+            if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
+            {
+                MessageBox.Show("Пользователь авторизовался");
+            }
+            else
+            {
+                MessageBox.Show("Пользователя не найден");
+            }
         }
         private void cancer_Click(object sender, RoutedEventArgs e)
         {
