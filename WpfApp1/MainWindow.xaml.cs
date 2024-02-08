@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WpfApp1
@@ -26,6 +27,7 @@ namespace WpfApp1
             login,
             regin
         }
+
         public static string GetHashString(string input)
         {
             using (SHA256 sha256Hash = SHA256.Create())

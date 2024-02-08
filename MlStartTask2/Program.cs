@@ -1,7 +1,7 @@
 ﻿using Serilog;
+using System.Data;
 using System.Xml;
 using static Serilog.Events.LogEventLevel;
-
 namespace MlStartTask2
 {
     class Program
@@ -193,6 +193,7 @@ namespace MlStartTask2
             {
                 Log.CloseAndFlush();
             }
+            
 
             void AddNarrativeline(double number)
             {
@@ -202,6 +203,7 @@ namespace MlStartTask2
             {
                 foreach (var line in lines)
                 {
+                    //StoryListBox.Items.Add(line);
                     Console.WriteLine(line);
                     await Task.Delay(delayMilliseconds);
                 }

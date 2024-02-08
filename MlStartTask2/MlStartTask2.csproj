@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Serilog" Version="3.1.2-dev-02097" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00968" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
 </Project>

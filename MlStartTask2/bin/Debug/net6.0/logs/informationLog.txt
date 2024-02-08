@@ -2948,3 +2948,63 @@ Column: 13
 Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
 
 
+2024-02-08 17:39:56.058 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-02-08 17:39:56.059 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\bin\Debug\net6.0\config.xmlFile: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-02-08 17:39:56.119 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-02-08 17:41:45.398 +03:00 [INF] 
+Note: Application started File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-02-08 17:41:45.399 +03:00 [INF] 
+Note: Config file path: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\bin\Debug\net6.0\config.xmlFile: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-02-08 17:41:45.416 +03:00 [INF] 
+Note: Parsing successful. num1: 7, num2: 9File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+

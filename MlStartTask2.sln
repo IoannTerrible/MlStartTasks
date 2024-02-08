@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MlStartTask2", "MlStartTask2\MlStartTask2.csproj", "{57184A82-EAF8-4B94-BB12-75CD47A6DE1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{0AF3B7CC-8260-4823-B991-EAC436C94053}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{0AF3B7CC-8260-4823-B991-EAC436C94053}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

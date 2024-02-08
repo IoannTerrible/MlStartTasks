@@ -856,3 +856,49 @@ Column: 21
 Method: Void MoveNext()
 
 
+2024-02-08 17:39:56.124 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-02-08 17:39:56.158 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Program.cs
+
+Line: 182
+
+Column: 21
+
+Method: Void MoveNext()
+
+
+2024-02-08 17:41:45.419 +03:00 [ERR] 
+Note: Failed to generate number. try againFile: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-02-08 17:41:45.426 +03:00 [ERR] 
+Note: Parsing failed. Invalid format in config file.
+Failed to generate number. try again
+
+File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Program.cs
+
+Line: 182
+
+Column: 21
+
+Method: Void MoveNext()
+
+

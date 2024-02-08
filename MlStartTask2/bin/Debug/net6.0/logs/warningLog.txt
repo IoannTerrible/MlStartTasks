@@ -618,3 +618,23 @@ Column: 13
 Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
 
 
+2024-02-08 17:39:56.123 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
+2024-02-08 17:41:45.419 +03:00 [WRN] 
+Note: The calculated result is not a valid number. answer = не число Please check your input data.File: C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\MlStartTask2\Logger.cs
+
+Line: 19
+
+Column: 13
+
+Method: Void LogByTemplate(Serilog.Events.LogEventLevel, System.Exception, System.String)
+
+
