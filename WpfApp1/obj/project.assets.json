@@ -86,7 +86,7 @@
           }
         }
       },
-      "Serilog.Sinks.File/5.0.1-dev-00968": {
+      "Serilog.Sinks.File/5.0.1-dev-00972": {
         "type": "package",
         "dependencies": {
           "Serilog": "2.10.0"
@@ -176,19 +176,18 @@
           }
         }
       },
-      "MlStartTask2/1.0.0": {
+      "ClassLibraryOne/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Serilog": "3.1.2-dev-02097",
-          "Serilog.Sinks.File": "5.0.1-dev-00968",
-          "System.Data.SqlClient": "4.8.6"
+          "Serilog.Sinks.File": "5.0.1-dev-00972"
         },
         "compile": {
-          "bin/placeholder/MlStartTask2.dll": {}
+          "bin/placeholder/ClassLibraryOne.dll": {}
         },
         "runtime": {
-          "bin/placeholder/MlStartTask2.dll": {}
+          "bin/placeholder/ClassLibraryOne.dll": {}
         }
       }
     }
@@ -348,10 +347,10 @@
         "serilog.nuspec"
       ]
     },
-    "Serilog.Sinks.File/5.0.1-dev-00968": {
-      "sha512": "139kP+WeSXgyeQmudHu/vOCj1pWKlOLkHtdEfhisoPAGCNhIe8TAjweMpL9iuF+X40flA84w0Oaa4jhzXiM83w==",
+    "Serilog.Sinks.File/5.0.1-dev-00972": {
+      "sha512": "fIK2UIewc1meCDpL8pOJLy0QRe1IzqJ3cnSXjz7GpPVVCr715nFloa49QKeK4dFPDgQk9xU3zi3ioIVefSi0+Q==",
       "type": "package",
-      "path": "serilog.sinks.file/5.0.1-dev-00968",
+      "path": "serilog.sinks.file/5.0.1-dev-00972",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -374,7 +373,7 @@
         "lib/netstandard2.1/Serilog.Sinks.File.dll",
         "lib/netstandard2.1/Serilog.Sinks.File.pdb",
         "lib/netstandard2.1/Serilog.Sinks.File.xml",
-        "serilog.sinks.file.5.0.1-dev-00968.nupkg.sha512",
+        "serilog.sinks.file.5.0.1-dev-00972.nupkg.sha512",
         "serilog.sinks.file.nuspec"
       ]
     },
@@ -564,15 +563,15 @@
         "version.txt"
       ]
     },
-    "MlStartTask2/1.0.0": {
+    "ClassLibraryOne/1.0.0": {
       "type": "project",
-      "path": "../MlStartTask2/MlStartTask2.csproj",
-      "msbuildProject": "../MlStartTask2/MlStartTask2.csproj"
+      "path": "../ClassLibraryOne/ClassLibraryOne.csproj",
+      "msbuildProject": "../ClassLibraryOne/ClassLibraryOne.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0-windows7.0": [
-      "MlStartTask2 >= 1.0.0",
+      "ClassLibraryOne >= 1.0.0",
       "System.Data.SqlClient >= 4.8.6"
     ]
   },
@@ -608,8 +607,8 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj": {
-              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj"
+            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj": {
+              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj"
             }
           }
         }

@@ -2,19 +2,21 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="WpfApp1.MainWindow"
-        Title="MainWindow" Height="450" Width="930">
+        Title="MainWindow" Height="467" Width="930">
     <Window.Resources>
         <SolidColorBrush x:Key="BackgroundColor" Color="#FFFFEDED"/>
         <SolidColorBrush x:Key="ButtonColor" Color="Black"/>
     </Window.Resources>
-    <Grid Background="{StaticResource BackgroundColor}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="447*"/>
-            <ColumnDefinition Width="14*"/>
-        </Grid.ColumnDefinitions>
+    <Grid x:Name="GridContainer" Background="{StaticResource BackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
         <Button x:Name="button" Click="button_Click" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,28,0" Grid.ColumnSpan="2" Content="Click Me!"/>
-        <Frame x:Name="MainFrame"  Margin="14,10,105,44"/>
-        <ListBox x:Name="StoryListBox" HorizontalAlignment="Left" Height="34" Margin="14,390,0,0" VerticalAlignment="Top" Width="783" av:ItemsSource="{av:SampleData ItemCount=5}"/>
+        <Frame x:Name="MainFrame"  Margin="14,36,105,0" Grid.Row="1" Grid.RowSpan="2" Height="220" NavigationUIVisibility="Hidden" RenderTransformOrigin="0.5,1" VerticalAlignment="Top"/>
+        <ListBox x:Name="StoryListBox" Grid.Row="2" VerticalAlignment="Top" Margin="0,231,0,0"
+         av:ItemsSource="{av:SampleData ItemCount=5}" />
     </Grid>
 </Window>

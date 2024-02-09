@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net7.0": {
       "Microsoft.NETCore.Platforms/3.1.0": {
         "type": "package",
         "compile": {
@@ -76,17 +76,17 @@
       "Serilog/3.1.2-dev-02097": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Serilog.dll": {
+          "lib/net7.0/Serilog.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/Serilog.dll": {
+          "lib/net7.0/Serilog.dll": {
             "related": ".xml"
           }
         }
       },
-      "Serilog.Sinks.File/5.0.1-dev-00968": {
+      "Serilog.Sinks.File/5.0.1-dev-00972": {
         "type": "package",
         "dependencies": {
           "Serilog": "2.10.0"
@@ -174,6 +174,20 @@
             "assetType": "runtime",
             "rid": "win"
           }
+        }
+      },
+      "ClassLibraryOne/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Serilog": "3.1.2-dev-02097",
+          "Serilog.Sinks.File": "5.0.1-dev-00972"
+        },
+        "compile": {
+          "bin/placeholder/ClassLibraryOne.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClassLibraryOne.dll": {}
         }
       }
     }
@@ -333,10 +347,10 @@
         "serilog.nuspec"
       ]
     },
-    "Serilog.Sinks.File/5.0.1-dev-00968": {
-      "sha512": "139kP+WeSXgyeQmudHu/vOCj1pWKlOLkHtdEfhisoPAGCNhIe8TAjweMpL9iuF+X40flA84w0Oaa4jhzXiM83w==",
+    "Serilog.Sinks.File/5.0.1-dev-00972": {
+      "sha512": "fIK2UIewc1meCDpL8pOJLy0QRe1IzqJ3cnSXjz7GpPVVCr715nFloa49QKeK4dFPDgQk9xU3zi3ioIVefSi0+Q==",
       "type": "package",
-      "path": "serilog.sinks.file/5.0.1-dev-00968",
+      "path": "serilog.sinks.file/5.0.1-dev-00972",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -359,7 +373,7 @@
         "lib/netstandard2.1/Serilog.Sinks.File.dll",
         "lib/netstandard2.1/Serilog.Sinks.File.pdb",
         "lib/netstandard2.1/Serilog.Sinks.File.xml",
-        "serilog.sinks.file.5.0.1-dev-00968.nupkg.sha512",
+        "serilog.sinks.file.5.0.1-dev-00972.nupkg.sha512",
         "serilog.sinks.file.nuspec"
       ]
     },
@@ -548,12 +562,18 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ClassLibraryOne/1.0.0": {
+      "type": "project",
+      "path": "../ClassLibraryOne/ClassLibraryOne.csproj",
+      "msbuildProject": "../ClassLibraryOne/ClassLibraryOne.csproj"
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
+    "net7.0": [
+      "ClassLibraryOne >= 1.0.0",
       "Serilog >= 3.1.2-dev-02097",
-      "Serilog.Sinks.File >= 5.0.1-dev-00968",
+      "Serilog.Sinks.File >= 5.0.1-dev-00972",
       "System.Data.SqlClient >= 4.8.6"
     ]
   },
@@ -579,16 +599,20 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net7.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
-          "projectReferences": {}
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {
+            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj": {
+              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -598,8 +622,8 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "dependencies": {
           "Serilog": {
             "target": "Package",
@@ -607,7 +631,7 @@
           },
           "Serilog.Sinks.File": {
             "target": "Package",
-            "version": "[5.0.1-dev-00968, )"
+            "version": "[5.0.1-dev-00972, )"
           },
           "System.Data.SqlClient": {
             "target": "Package",

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ojd4HOzerZVC1wvSFpAw/E12o80M6oy9eY44CAvNIbzUwCge4YAliaNM2jh7dCxs/FTzDkTjwxHzzRs2GppB+g==",
+  "dgSpecHash": "J8/TiySKN+5HeEIFGMZpysQItplZZHOk9ULN27lPB2Xek/Xa8suDGoCKpz0uYC5KX3HoRj2Jt6doVW+RoPlXUw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj",
   "expectedPackageFiles": [
@@ -11,7 +11,7 @@
     "C:\\Users\\Yaroslav\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Yaroslav\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Yaroslav\\.nuget\\packages\\serilog\\3.1.2-dev-02097\\serilog.3.1.2-dev-02097.nupkg.sha512",
-    "C:\\Users\\Yaroslav\\.nuget\\packages\\serilog.sinks.file\\5.0.1-dev-00968\\serilog.sinks.file.5.0.1-dev-00968.nupkg.sha512",
+    "C:\\Users\\Yaroslav\\.nuget\\packages\\serilog.sinks.file\\5.0.1-dev-00972\\serilog.sinks.file.5.0.1-dev-00972.nupkg.sha512",
     "C:\\Users\\Yaroslav\\.nuget\\packages\\system.data.sqlclient\\4.8.6\\system.data.sqlclient.4.8.6.nupkg.sha512",
     "C:\\Users\\Yaroslav\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
     "C:\\Users\\Yaroslav\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"

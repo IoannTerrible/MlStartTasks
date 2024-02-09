@@ -1,11 +1,20 @@
 ﻿using Serilog;
 using System.Data;
 using System.Xml;
+using ClassLibraryOne;
 using static Serilog.Events.LogEventLevel;
 namespace MlStartTask2
 {
+    internal static class RandomExtension
+    {
+        public static double NextDouble(this Random random, int minValue, int maxValue)
+        {
+            return random.Next(minValue, maxValue) + random.NextDouble();
+        }
+    }
     class Program
     {
+
         static async Task Main()
         {
             Logger.CreateLogDirectory(
@@ -199,18 +208,20 @@ namespace MlStartTask2
             {
                 lines.Add($"Все акции общества были распроданы со средней стоимостью {Math.Abs(number)}");
             }
-            static async Task PrintLinesWithDelay(List<string> lines, int delayMilliseconds)
+            static async Task ProcessLinesWithDelay(List<string> lines, int delayMilliseconds)
             {
+                UiAndMainConnector connector = new UiAndMainConnector();
+                connector.GetLines(lines);
                 foreach (var line in lines)
                 {
-                    //StoryListBox.Items.Add(line);
+                    
                     Console.WriteLine(line);
                     await Task.Delay(delayMilliseconds);
                 }
             }
 
 
-            await PrintLinesWithDelay(lines, delayInSeconds * 1000);
+            await ProcessLinesWithDelay(lines, delayInSeconds * 1000);
 
         }
     }

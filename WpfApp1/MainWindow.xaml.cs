@@ -1,13 +1,10 @@
-﻿using MlStartTask2;
-using Serilog.Core;
+﻿using ClassLibraryOne;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WpfApp1
 {
@@ -16,16 +13,25 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        private readonly ClassLibraryOne.UiAndMainConnector _connector;
+
         public MainWindow()
         {
             InitializeComponent();           
             OpenPage(Pages.login);
+            _connector = new UiAndMainConnector();
+            _connector.LinesUpdated += Connector_LinesUpdated;
         }
         public enum Pages
         {
             login,
             regin
+        }
+        private void Connector_LinesUpdated(object sender, List<string> lines)
+        {
+            // Обновляем ListBox новыми строками
+            StoryListBox.ItemsSource = lines;
+            lines.Add("Hello, Windows Presentation Foundation!");
         }
 
         public static string GetHashString(string input)
@@ -73,7 +79,7 @@ namespace WpfApp1
             }
             catch (Exception ex)
             {
-                MlStartTask2.Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: "Error while SelectTable");
+                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: "Error while SelectTable");
                 Console.WriteLine("Error occurred: " + ex.Message);
                 return null; 
             }

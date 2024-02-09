@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MlStartTask2", "MlStartTask
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{0AF3B7CC-8260-4823-B991-EAC436C94053}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibraryOne", "ClassLibraryOne\ClassLibraryOne.csproj", "{D6A99AAE-CD57-41D1-B717-0FEF8C2EED9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0AF3B7CC-8260-4823-B991-EAC436C94053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AF3B7CC-8260-4823-B991-EAC436C94053}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AF3B7CC-8260-4823-B991-EAC436C94053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6A99AAE-CD57-41D1-B717-0FEF8C2EED9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6A99AAE-CD57-41D1-B717-0FEF8C2EED9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6A99AAE-CD57-41D1-B717-0FEF8C2EED9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6A99AAE-CD57-41D1-B717-0FEF8C2EED9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

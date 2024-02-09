@@ -4,14 +4,14 @@
     "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\WpfApp1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj": {
+    "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj",
-        "projectName": "MlStartTask2",
-        "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj",
+        "projectUniqueName": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj",
+        "projectName": "ClassLibraryOne",
+        "projectPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj",
         "packagesPath": "C:\\Users\\Yaroslav\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\obj\\",
+        "outputPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,15 +22,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -41,8 +41,8 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "Serilog": {
               "target": "Package",
@@ -50,11 +50,7 @@
             },
             "Serilog.Sinks.File": {
               "target": "Package",
-              "version": "[5.0.1-dev-00968, )"
-            },
-            "System.Data.SqlClient": {
-              "target": "Package",
-              "version": "[4.8.6, )"
+              "version": "[5.0.1-dev-00972, )"
             }
           },
           "imports": [
@@ -105,8 +101,8 @@
           "net7.0-windows7.0": {
             "targetAlias": "net7.0-windows",
             "projectReferences": {
-              "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj": {
-                "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj"
+              "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj": {
+                "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj"
               }
             }
           }

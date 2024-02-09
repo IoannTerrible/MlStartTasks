@@ -2,16 +2,8 @@
 using Serilog.Events;
 using System.Diagnostics;
 using System.Text;
-
-namespace MlStartTask2
+namespace ClassLibraryOne
 {
-    internal static class RandomExtension
-    {
-        public static double NextDouble(this Random random, int minValue, int maxValue)
-        {
-            return random.Next(minValue, maxValue) + random.NextDouble();
-        }
-    }
     public class Logger
     {
         public static void LogByTemplate(LogEventLevel logEventLevel, Exception ex = null, string note = "")
@@ -37,9 +29,9 @@ namespace MlStartTask2
             info.AppendLine($"Line: {frame.GetFileLineNumber()}\n");
             info.AppendLine($"Column: {frame.GetFileColumnNumber()}\n");
             info.AppendLine($"Method: {frame.GetMethod()}\n");
-            
+
             Log.Write(logEventLevel, info.ToString());
-            
+
         }
         public static void CreateLogDirectory(params LogEventLevel[] logEventLevels)
         {
@@ -57,7 +49,8 @@ namespace MlStartTask2
                 .Filter.ByIncludingOnly(evt => evt.Level == logEventLevel)
                 .WriteTo.File($@"logs\{logName}.txt"));
             };
-            Log.Logger = loggerConfig.CreateLogger();            
+            Log.Logger = loggerConfig.CreateLogger();
         }
+
     }
 }
