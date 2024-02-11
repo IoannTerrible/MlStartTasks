@@ -1,8 +1,10 @@
 ﻿using Serilog;
 using System.Data;
 using System.Xml;
+using System.Threading;
 using ClassLibraryOne;
 using static Serilog.Events.LogEventLevel;
+using System.Security.Cryptography.X509Certificates;
 namespace MlStartTask2
 {
     internal static class RandomExtension
@@ -12,11 +14,12 @@ namespace MlStartTask2
             return random.Next(minValue, maxValue) + random.NextDouble();
         }
     }
-    class Program
+    public class Program
     {
-
+        public List<string> lines { get; set; }
         static async Task Main()
         {
+            List<string> lines = new List<string>();
             Logger.CreateLogDirectory(
                 Debug,
                 Information,
@@ -30,7 +33,7 @@ namespace MlStartTask2
 
             for (int i = 0; i < x.Length; i++)
             {
-                x[i] = random.NextDouble(-12, 16);
+                x[i] = random.NextDouble(12, 16); //NUMBERS ARE MADE POSITIVE TEMPORARILY TO AVOID COMPUTATION ERRORS.
                 Logger.LogByTemplate(Debug, note: $"X array index {i} = {x[i]} ");
             }
 
@@ -121,8 +124,8 @@ namespace MlStartTask2
             {
                 Logger.LogByTemplate(Error, note: $"Error while Parsing third param from file");
             }
-
-            List<string> lines = new List<string>();
+            UiAndMainConnector connector = new UiAndMainConnector();
+            
             Person neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
             Person kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
             Person korotishka = new Person("Коротышка", "Неназванный житель");
@@ -161,6 +164,7 @@ namespace MlStartTask2
             lines.Add(population.GetState("Спешило накупить акций Общества Гигантских растений для выгодной перепродажи"));
             unburnedChest0.RetrieveItems(unburnedChest0.items.Count);
             unburnedChest1.RetrieveItems(unburnedChest1.items.Count);
+            connector.AddFreshLines(lines);
 
             try
             {
@@ -202,16 +206,16 @@ namespace MlStartTask2
             {
                 Log.CloseAndFlush();
             }
-            
+
 
             void AddNarrativeline(double number)
             {
                 lines.Add($"Все акции общества были распроданы со средней стоимостью {Math.Abs(number)}");
             }
-            static async Task ProcessLinesWithDelay(List<string> lines, int delayMilliseconds)
+            async Task ProcessLinesWithDelay(List<string> lines, int delayMilliseconds)
             {
-                UiAndMainConnector connector = new UiAndMainConnector();
                 connector.GetLines(lines);
+
                 foreach (var line in lines)
                 {
                     
@@ -220,9 +224,12 @@ namespace MlStartTask2
                 }
             }
 
+            await ProcessLinesWithDelay(lines, delayInSeconds);
 
-            await ProcessLinesWithDelay(lines, delayInSeconds * 1000);
-
+        }
+        public List<string> GetMlStartLines()
+        {
+            return lines;
         }
     }
 }

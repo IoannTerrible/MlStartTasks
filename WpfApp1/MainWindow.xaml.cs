@@ -1,10 +1,13 @@
-﻿using ClassLibraryOne;
+﻿//using ClassLibraryOne;
+using ClassLibraryOne;
+using MlStartTask2;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace WpfApp1
 {
@@ -13,26 +16,31 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ClassLibraryOne.UiAndMainConnector _connector;
+        private Program _main;
+
+        //private readonly ClassLibraryOne.UiAndMainConnector _connector;
 
         public MainWindow()
         {
             InitializeComponent();           
             OpenPage(Pages.login);
-            _connector = new UiAndMainConnector();
-            _connector.LinesUpdated += Connector_LinesUpdated;
+            //_connector = new UiAndMainConnector();
+            //_connector.LinesUpdated += Connector_LinesUpdated;
+            //List<String> storylinesfromui = _connector.freshLines;
+            _main = new MlStartTask2.Program();
+            StoryListBox.ItemsSource = _main.GetMlStartLines();
         }
         public enum Pages
         {
             login,
             regin
         }
-        private void Connector_LinesUpdated(object sender, List<string> lines)
-        {
-            // Обновляем ListBox новыми строками
-            StoryListBox.ItemsSource = lines;
-            lines.Add("Hello, Windows Presentation Foundation!");
-        }
+        //private void Connector_LinesUpdated(object sender, List<string> lines)
+        //{
+        //    // Обновляем ListBox новыми строками
+        //    StoryListBox.ItemsSource = lines;
+        //    lines.Add("Hello, Windows Presentation Foundation!");
+        //}
 
         public static string GetHashString(string input)
         {
@@ -50,7 +58,7 @@ namespace WpfApp1
         }
         void button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hello, Windows Presentation Foundation!");
+            MessageBox.Show($"{_main.GetMlStartLines()}");
         }
         public void OpenPage(Pages pages)
         {
@@ -79,7 +87,7 @@ namespace WpfApp1
             }
             catch (Exception ex)
             {
-                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: "Error while SelectTable");
+                ClassLibraryOne.Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: "Error while SelectTable");
                 Console.WriteLine("Error occurred: " + ex.Message);
                 return null; 
             }
