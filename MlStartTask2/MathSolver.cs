@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MlStartTask2
 {
-    internal class MathSolver
+    public class MathSolver
     {
         public static double[,] Solve(double[,] emptyDoubleArray, int[] arrayWithNumbersForСondition, int[] firstBaseArray, double[] secondBaseArray )
         {

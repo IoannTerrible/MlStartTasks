@@ -34,7 +34,7 @@ namespace MlStartTask2
         List<string> SellShares(List<Item> shares);
         string DepositMoney(double money, BankAccount account);
     }
-    abstract class IntelligenceСreature
+    public abstract class IntelligenceСreature
     {
         public string Description { get; set; }
 
@@ -53,7 +53,7 @@ namespace MlStartTask2
         }
     }
 
-    internal class Person : IntelligenceСreature, IFinancialOperations, IItemProcessor
+    public class Person : IntelligenceСreature, IFinancialOperations, IItemProcessor
     {
         public string Name { get; set; }
         public Person(string name, string des) : base(des)
@@ -144,7 +144,7 @@ namespace MlStartTask2
             return ($"{Name} вкладывает {money}, на {account}");
         }
     }
-    class Crowd : IntelligenceСreature
+    public class Crowd : IntelligenceСreature
     {
         public string DescriptionOfCrowd { get; set; }
         public string NameOfCrowd { get; set; }
@@ -158,9 +158,9 @@ namespace MlStartTask2
             return $"{NameOfCrowd} {state}";
         }
     }
-    internal record Item(string Name);
+    public record Item(string Name);
 
-    class Storage
+    public class Storage
     {
         public List<Item> items;
         public string Name { get; set; }
@@ -190,7 +190,7 @@ namespace MlStartTask2
         }
     }
 
-    class Bank
+    public class Bank
     {
         public string Name { get; set; }
         public double Money { get; set; }

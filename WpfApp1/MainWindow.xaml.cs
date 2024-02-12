@@ -14,9 +14,10 @@ namespace WpfApp1
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+
     public partial class MainWindow : Window
     {
-        private Program _main;
+        private App _app;
 
         //private readonly ClassLibraryOne.UiAndMainConnector _connector;
 
@@ -27,8 +28,7 @@ namespace WpfApp1
             //_connector = new UiAndMainConnector();
             //_connector.LinesUpdated += Connector_LinesUpdated;
             //List<String> storylinesfromui = _connector.freshLines;
-            _main = new MlStartTask2.Program();
-            StoryListBox.ItemsSource = _main.GetMlStartLines();
+            StoryListBox.ItemsSource = ((App)Application.Current).GetMlStartLines();
         }
         public enum Pages
         {
@@ -38,7 +38,7 @@ namespace WpfApp1
         //private void Connector_LinesUpdated(object sender, List<string> lines)
         //{
         //    // Обновляем ListBox новыми строками
-        //    StoryListBox.ItemsSource = lines;
+
         //    lines.Add("Hello, Windows Presentation Foundation!");
         //}
 
@@ -58,7 +58,7 @@ namespace WpfApp1
         }
         void button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"{_main.GetMlStartLines()}");
+            MessageBox.Show($"I am messageBOx");
         }
         public void OpenPage(Pages pages)
         {

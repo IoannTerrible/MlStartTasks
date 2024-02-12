@@ -58,3 +58,5 @@ C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\WpfApp1\bin\Debug\net7
 C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\WpfApp1\bin\Debug\net7.0-windows\MlStartTask2.exe
 C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\WpfApp1\bin\Debug\net7.0-windows\MlStartTask2.dll
 C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\WpfApp1\bin\Debug\net7.0-windows\MlStartTask2.pdb
+C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\WpfApp1\obj\Debug\net7.0-windows\WpfApp1_MarkupCompile.lref
+C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\WpfApp1\obj\Debug\net7.0-windows\App.baml
