@@ -4,14 +4,14 @@
     "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj": {
+    "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj",
+        "projectUniqueName": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj",
         "projectName": "ClassLibraryOne",
-        "projectPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj",
+        "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj",
         "packagesPath": "C:\\Users\\Yaroslav\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\obj\\",
+        "outputPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

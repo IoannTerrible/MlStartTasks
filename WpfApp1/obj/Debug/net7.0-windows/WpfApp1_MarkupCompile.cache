@@ -9,12 +9,12 @@ WpfApp1
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasks\WpfApp1\App.xaml
-31523990017
 
-6836905564
-202982597943
-AuthorizationPage.xaml;MainWindow.xaml;RegistrationPage.xaml;
+41147698312
+
+61666486087
+203-1483234019
+MainWindow.xaml;Pages\AuthorizationPage.xaml;Pages\RegistrationPage.xaml;App.xaml;
 
 False
 

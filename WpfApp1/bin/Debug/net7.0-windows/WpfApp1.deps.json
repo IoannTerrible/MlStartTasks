@@ -9,6 +9,7 @@
       "WpfApp1/1.0.0": {
         "dependencies": {
           "ClassLibraryOne": "1.0.0",
+          "MlStartTask2": "1.0.0",
           "System.Data.SqlClient": "4.8.6"
         },
         "runtime": {
@@ -117,6 +118,17 @@
         "runtime": {
           "ClassLibraryOne.dll": {}
         }
+      },
+      "MlStartTask2/1.0.0": {
+        "dependencies": {
+          "ClassLibraryOne": "1.0.0",
+          "Serilog": "3.1.2-dev-02097",
+          "Serilog.Sinks.File": "5.0.1-dev-00972",
+          "System.Data.SqlClient": "4.8.6"
+        },
+        "runtime": {
+          "MlStartTask2.dll": {}
+        }
       }
     }
   },
@@ -204,6 +216,11 @@
       "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
     },
     "ClassLibraryOne/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MlStartTask2/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

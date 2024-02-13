@@ -1,38 +1,69 @@
-﻿using ClassLibraryOne;
+﻿//using ClassLibraryOne;
+using ClassLibraryOne;
+using MlStartTask2;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WpfApp1
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+
     public partial class MainWindow : Window
     {
-        private readonly ClassLibraryOne.UiAndMainConnector _connector;
+        private App _app;
+
+        //private readonly ClassLibraryOne.UiAndMainConnector _connector;
 
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
             OpenPage(Pages.login);
-            _connector = new UiAndMainConnector();
-            _connector.LinesUpdated += Connector_LinesUpdated;
+            _app = (App)Application.Current;
+            //_connector = new UiAndMainConnector();
+            //_connector.LinesUpdated += Connector_LinesUpdated;
+            //List<String> storylinesfromui = _connector.freshLines;
+            //Thread secondThread = new Thread(StartProcessingLines);
+            //secondThread.Start();
+        }
+        public async void StartProcessingLines(List<string> storyLinesFromApp, int delayInSeconds)
+        {
+            await Task.Run(async () =>
+            {
+                foreach (var line in storyLinesFromApp)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        StoryListBox.Items.Add(line);
+                    }, DispatcherPriority.Background);
+                    await Task.Delay(delayInSeconds);
+                }
+            });
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            //StartProcessingLines();
         }
         public enum Pages
         {
             login,
             regin
         }
-        private void Connector_LinesUpdated(object sender, List<string> lines)
-        {
-            // Обновляем ListBox новыми строками
-            StoryListBox.ItemsSource = lines;
-            lines.Add("Hello, Windows Presentation Foundation!");
-        }
+        //private void Connector_LinesUpdated(object sender, List<string> lines)
+        //{
+        //    // Обновляем ListBox новыми строками
+
+        //    lines.Add("Hello, Windows Presentation Foundation!");
+        //}
 
         public static string GetHashString(string input)
         {
@@ -48,17 +79,13 @@ namespace WpfApp1
                 return builder.ToString();
             }
         }
-        void button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Hello, Windows Presentation Foundation!");
-        }
         public void OpenPage(Pages pages)
         {
             if (pages == Pages.login)
             {
                 MainFrame.Navigate(new AuthorizationPage(this));
             }
-            if(pages == Pages.regin)
+            if (pages == Pages.regin)
             {
                 MainFrame.Navigate(new RegistrationPage(this));
             }
@@ -73,17 +100,17 @@ namespace WpfApp1
                     sqlConnection.Open();
                     SqlCommand sqlCommand = new SqlCommand(sqlString, sqlConnection);
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                    sqlDataAdapter.Fill(dataTable); 
+                    sqlDataAdapter.Fill(dataTable);
                 }
-                return dataTable; 
+                return dataTable;
             }
             catch (Exception ex)
             {
-                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: "Error while SelectTable");
+                ClassLibraryOne.Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: "Error while SelectTable");
                 Console.WriteLine("Error occurred: " + ex.Message);
-                return null; 
+                return null;
             }
         }
-    
+
     }
 }

@@ -189,6 +189,22 @@
         "runtime": {
           "bin/placeholder/ClassLibraryOne.dll": {}
         }
+      },
+      "MlStartTask2/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "ClassLibraryOne": "1.0.0",
+          "Serilog": "3.1.2-dev-02097",
+          "Serilog.Sinks.File": "5.0.1-dev-00972",
+          "System.Data.SqlClient": "4.8.6"
+        },
+        "compile": {
+          "bin/placeholder/MlStartTask2.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MlStartTask2.dll": {}
+        }
       }
     }
   },
@@ -567,11 +583,17 @@
       "type": "project",
       "path": "../ClassLibraryOne/ClassLibraryOne.csproj",
       "msbuildProject": "../ClassLibraryOne/ClassLibraryOne.csproj"
+    },
+    "MlStartTask2/1.0.0": {
+      "type": "project",
+      "path": "../MlStartTask2/MlStartTask2.csproj",
+      "msbuildProject": "../MlStartTask2/MlStartTask2.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0-windows7.0": [
       "ClassLibraryOne >= 1.0.0",
+      "MlStartTask2 >= 1.0.0",
       "System.Data.SqlClient >= 4.8.6"
     ]
   },
@@ -609,6 +631,9 @@
           "projectReferences": {
             "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj": {
               "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj"
+            },
+            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj": {
+              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj"
             }
           }
         }
