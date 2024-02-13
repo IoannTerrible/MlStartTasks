@@ -5,9 +5,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WpfApp1
 {
@@ -23,12 +25,33 @@ namespace WpfApp1
 
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
             OpenPage(Pages.login);
+            _app = (App)Application.Current;
             //_connector = new UiAndMainConnector();
             //_connector.LinesUpdated += Connector_LinesUpdated;
             //List<String> storylinesfromui = _connector.freshLines;
-            StoryListBox.ItemsSource = ((App)Application.Current).GetMlStartLines();
+            //Thread secondThread = new Thread(StartProcessingLines);
+            //secondThread.Start();
+        }
+        public async void StartProcessingLines(List<string> storyLinesFromApp, int delayInSeconds)
+        {
+            await Task.Run(async () =>
+            {
+                foreach (var line in storyLinesFromApp)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        StoryListBox.Items.Add(line);
+                    }, DispatcherPriority.Background);
+                    await Task.Delay(delayInSeconds);
+                }
+            });
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            //StartProcessingLines();
         }
         public enum Pages
         {
@@ -56,17 +79,13 @@ namespace WpfApp1
                 return builder.ToString();
             }
         }
-        void button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show($"I am messageBOx");
-        }
         public void OpenPage(Pages pages)
         {
             if (pages == Pages.login)
             {
                 MainFrame.Navigate(new AuthorizationPage(this));
             }
-            if(pages == Pages.regin)
+            if (pages == Pages.regin)
             {
                 MainFrame.Navigate(new RegistrationPage(this));
             }
@@ -81,17 +100,17 @@ namespace WpfApp1
                     sqlConnection.Open();
                     SqlCommand sqlCommand = new SqlCommand(sqlString, sqlConnection);
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                    sqlDataAdapter.Fill(dataTable); 
+                    sqlDataAdapter.Fill(dataTable);
                 }
-                return dataTable; 
+                return dataTable;
             }
             catch (Exception ex)
             {
                 ClassLibraryOne.Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: "Error while SelectTable");
                 Console.WriteLine("Error occurred: " + ex.Message);
-                return null; 
+                return null;
             }
         }
-    
+
     }
 }

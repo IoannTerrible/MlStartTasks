@@ -25,6 +25,7 @@ namespace WpfApp1
         {
             WpfApp1.App app = new WpfApp1.App();
             app.InitializeComponent();
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
 
             LogEventLevel Information = LogEventLevel.Information;
             LogEventLevel Debug = LogEventLevel.Debug;
@@ -221,6 +222,7 @@ namespace WpfApp1
             {
                 app.lines.Add($"Все акции общества были распроданы со средней стоимостью {Math.Abs(number)}");
             }
+
             //async Task ProcessLinesWithDelay(List<string> lines, int delayMilliseconds)
             //{
             //    connector.GetLines(lines);
@@ -237,11 +239,28 @@ namespace WpfApp1
             //}
 
             //await ProcessLinesWithDelay(lines, delayInSeconds);
+            app.ProcessLinesInBackground();
+
             app.Run();
+        }
+
+        public async Task ProcessLinesInBackground()
+        {
+            await Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+                    if (mainWindow != null)
+                    {
+                        mainWindow.StartProcessingLines(lines, 1000); // Передаем список строк и задержку
+                    }
+                });
+            });
         }
         public List<string> GetMlStartLines()
         {
-                return lines;
+            return lines;
         }
     }
     internal static class RandomExtension

@@ -16,5 +16,5 @@ TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 203-1483234019
 MainWindow.xaml;Pages\AuthorizationPage.xaml;Pages\RegistrationPage.xaml;App.xaml;
 
-False
+True
 
