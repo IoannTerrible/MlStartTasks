@@ -604,11 +604,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\WpfApp1.csproj",
+      "projectUniqueName": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\WpfApp1.csproj",
       "projectName": "WpfApp1",
-      "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\WpfApp1.csproj",
+      "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\WpfApp1.csproj",
       "packagesPath": "C:\\Users\\Yaroslav\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\WpfApp1\\obj\\",
+      "outputPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -629,11 +629,11 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj": {
-              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\ClassLibraryOne\\ClassLibraryOne.csproj"
+            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj": {
+              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj"
             },
-            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj": {
-              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj"
+            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj": {
+              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj"
             }
           }
         }
@@ -642,6 +642,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -672,7 +677,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

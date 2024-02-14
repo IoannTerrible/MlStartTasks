@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Yaroslav\source\repos\IoannTerrible\MlStartTasks\WpfApp1\obj\Release\net7.0-windows\
+C:\Users\Yaroslav\source\repos\IoannTerrible\MlStartTasksNew\WpfApp1\obj\Release\net7.0-windows\
 WpfApp1
 none
 false
 TRACE;RELEASE;NET;NET7_0;NETCOREAPP
 
-41147698312
+52012795204
 
-6258219569
-2031034041873
-MainWindow.xaml;Pages\AuthorizationPage.xaml;Pages\RegistrationPage.xaml;App.xaml;
+7774661966
+203-624079149
+MainWindow.xaml;Pages\AuthorizationPage.xaml;Pages\RegistrationPage.xaml;Pages\StoryLinePage.xaml;App.xaml;
 
 True
 

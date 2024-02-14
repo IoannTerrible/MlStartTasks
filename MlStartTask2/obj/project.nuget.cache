@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TBHqzTqTtSyJeAwtFErCP5pcw4IFnxXZmTzQsc/69qpBHVpfk8MxLCWYPptddreHQeAXXw5d7+yY1yt4/AfUkA==",
+  "dgSpecHash": "CfaKBkyYwZ5sRJvF6jQnsN9ERJ8yiBiEMNbmf/B8xuSdG4vSF8Njk6cYRcBU5lo0kSlirHT3Xs50vWpxsRr5gg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasks\\MlStartTask2\\MlStartTask2.csproj",
+  "projectFilePath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yaroslav\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Yaroslav\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

@@ -43,7 +43,8 @@ namespace WpfApp1
             }
             else
             {
-                mainWindow.ExecuteSqlCommand("INSERT INTO Userss (Login, PassWord) VALUES ('" + textBoxReg.Text + "', '" + MainWindow.GetHashString(passwordForReg.Password) + "')");
+                mainWindow.ExecuteSqlCommand("INSERT INTO Userss (Login, PassWord) VALUES ('" + textBoxReg.Text + "', '" + ClassLibraryOne.Hasher.GetHashString(passwordForReg.Password) + "')") ;
+                mainWindow.OpenPage(MainWindow.Pages.storyline);
             }
 
         }

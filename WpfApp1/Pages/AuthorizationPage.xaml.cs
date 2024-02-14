@@ -29,11 +29,12 @@ namespace WpfApp1
                 MessageBox.Show("Введите пароль");
                 return;
             }
-            string hashPassword = MainWindow.GetHashString(password.Password);
+            string hashPassword = ClassLibraryOne.Hasher.GetHashString(password.Password);
             DataTable dt_user = mainWindow.ExecuteSqlCommand(sqlString: $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = '{textBox_login.Text}' AND [PassWord] = '{hashPassword}'");
             if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
             {
                 MessageBox.Show("Пользователь авторизовался");
+                mainWindow.OpenPage(MainWindow.Pages.storyline);
             }
             else
             {

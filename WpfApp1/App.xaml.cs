@@ -25,7 +25,6 @@ namespace WpfApp1
         {
             WpfApp1.App app = new WpfApp1.App();
             app.InitializeComponent();
-            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
 
             LogEventLevel Information = LogEventLevel.Information;
             LogEventLevel Debug = LogEventLevel.Debug;
@@ -136,8 +135,6 @@ namespace WpfApp1
             {
                 Logger.LogByTemplate(Error, note: $"Error while Parsing third param from file");
             }
-            UiAndMainConnector connector = new UiAndMainConnector();
-
             Person neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
             Person kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
             Person korotishka = new Person("Коротышка", "Неназванный житель");
@@ -176,8 +173,6 @@ namespace WpfApp1
             app.lines.Add(population.GetState("Спешило накупить акций Общества Гигантских растений для выгодной перепродажи"));
             unburnedChest0.RetrieveItems(unburnedChest0.items.Count);
             unburnedChest1.RetrieveItems(unburnedChest1.items.Count);
-            connector.AddFreshLines(app.lines);
-
             try
             {
 
@@ -222,38 +217,19 @@ namespace WpfApp1
             {
                 app.lines.Add($"Все акции общества были распроданы со средней стоимостью {Math.Abs(number)}");
             }
-
-            //async Task ProcessLinesWithDelay(List<string> lines, int delayMilliseconds)
-            //{
-            //    connector.GetLines(lines);
-
-            //    foreach (var line in lines)
-            //    {
-            //        await Application.Current.Dispatcher.InvokeAsync(() =>
-            //        {
-            //            MessageBox.Show(line);
-            //        });
-
-            //        await Task.Delay(delayMilliseconds);
-            //    }
-            //}
-
-            //await ProcessLinesWithDelay(lines, delayInSeconds);
-            app.ProcessLinesInBackground();
-
             app.Run();
         }
 
-        public async Task ProcessLinesInBackground()
+        public async Task ProcessLinesInBackground(StoryLinePage storyPage)
         {
             await Task.Run(() =>
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-                    if (mainWindow != null)
+                    //mainWindow = Application.Current.MainWindow as MainWindow;
+                    if (storyPage != null)
                     {
-                        mainWindow.StartProcessingLines(lines, 1000); // Передаем список строк и задержку
+                        storyPage.StartProcessingLines(lines, 1000); // Передаем список строк и задержку
                     }
                 });
             });
