@@ -1,4 +1,5 @@
 ﻿using ClassLibraryOne;
+using MlStartTask2;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
@@ -17,16 +18,17 @@ namespace WpfApp1
         private App _app;
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
             OpenPage(Pages.login);
             _app = (App)Application.Current;
+            
 
         }
 
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            
+            DebugTextBox.Text = $"{Program.lines}";
         }
         public enum Pages
         {
@@ -66,8 +68,8 @@ namespace WpfApp1
             }
             catch (Exception ex)
             {
-                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: "Error while SelectTable");
-                Console.WriteLine("Error occurred: " + ex.Message);
+                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: $"Error while SelectTable + {ex}");
+                //Console.WriteLine("Error occurred: " + ex.Message);
                 return null; 
             }
         }
