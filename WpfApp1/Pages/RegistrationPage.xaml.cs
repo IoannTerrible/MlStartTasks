@@ -41,12 +41,15 @@ namespace WpfApp1
                 MessageBox.Show("Повторите пароль");
                 return;
             }
-            else
+            else if (passwordForReg.Password == passwordCopy.Password)
             {
                 mainWindow.ExecuteSqlCommand("INSERT INTO Userss (Login, PassWord) VALUES ('" + textBoxReg.Text + "', '" + ClassLibraryOne.Hasher.GetHashString(passwordForReg.Password) + "')") ;
                 mainWindow.OpenPage(MainWindow.Pages.storyline);
             }
-
+            else
+            {
+                MessageBox.Show("Пароли не совпадают")
+            }
         }
     }
 }
