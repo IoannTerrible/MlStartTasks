@@ -1,4 +1,6 @@
 ﻿using System.Data;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -30,7 +32,12 @@ namespace WpfApp1
                 return;
             }
             string hashPassword = ClassLibraryOne.Hasher.GetHashString(password.Password);
-            DataTable dt_user = mainWindow.ExecuteSqlCommand(sqlString: $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = '{textBox_login.Text}' AND [PassWord] = '{hashPassword}'");
+            
+            SqlCommand command = new SqlCommand();
+            command.CommandText = $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = @Login AND [PassWord] = @Password";
+            command.Parameters.AddWithValue("@Login", textBox_login.Text);
+            command.Parameters.AddWithValue("@Password", hashPassword);
+            DataTable dt_user = mainWindow.ExecuteSqlCommand(command);
             if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
             {
                 MessageBox.Show("Пользователь авторизовался");

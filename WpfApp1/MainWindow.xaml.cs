@@ -21,7 +21,7 @@ namespace WpfApp1
             InitializeComponent();
             OpenPage(Pages.login);
             _app = (App)Application.Current;
-            
+
 
         }
 
@@ -43,7 +43,7 @@ namespace WpfApp1
             {
                 MainFrame.Navigate(new AuthorizationPage(this));
             }
-            if(pages == Pages.regin)
+            if (pages == Pages.regin)
             {
                 MainFrame.Navigate(new RegistrationPage(this));
             }
@@ -52,7 +52,7 @@ namespace WpfApp1
                 MainFrame.Navigate(new StoryLinePage(this));
             }
         }
-        public DataTable ExecuteSqlCommand(string sqlString)
+        public DataTable ExecuteSqlCommand(SqlCommand sqlcom)
         {
             try
             {
@@ -60,19 +60,19 @@ namespace WpfApp1
                 using (SqlConnection sqlConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
                 {
                     sqlConnection.Open();
-                    SqlCommand sqlCommand = new SqlCommand(sqlString, sqlConnection);
-                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                    sqlDataAdapter.Fill(dataTable); 
+                    sqlcom.Connection = sqlConnection;
+                    SqlDataAdapter adapter = new SqlDataAdapter(sqlcom); 
+                    adapter.Fill(dataTable);
                 }
-                return dataTable; 
+                return dataTable;
             }
             catch (Exception ex)
             {
-                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: $"Error while SelectTable + {ex}");
+                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: $"Error while work with table + {ex}");
                 //Console.WriteLine("Error occurred: " + ex.Message);
-                return null; 
+                return null;
             }
         }
-    
+
     }
 }

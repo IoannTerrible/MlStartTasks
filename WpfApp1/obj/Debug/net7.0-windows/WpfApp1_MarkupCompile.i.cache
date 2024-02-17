@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-C:\Users\Yaroslav\Source\Repos\IoannTerrible\MlStartTasksNew\WpfApp1\obj\Debug\net7.0-windows\
+C:\Users\Yaroslav\source\repos\IoannTerrible\MlStartTasksNew\WpfApp1\obj\Debug\net7.0-windows\
 WpfApp1
 none
 false
@@ -13,7 +13,7 @@ TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 52012795204
 
 9819277939
-203-1581955993
+203919141356
 MainWindow.xaml;Pages\AuthorizationPage.xaml;Pages\RegistrationPage.xaml;Pages\StoryLinePage.xaml;App.xaml;
 
 False

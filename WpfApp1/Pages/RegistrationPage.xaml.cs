@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -24,32 +25,25 @@ namespace WpfApp1
 
         private void enter_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textBoxReg.Text))
+            if (string.IsNullOrWhiteSpace(textBoxReg.Text) || string.IsNullOrWhiteSpace(passwordForReg.Password) || string.IsNullOrWhiteSpace(passwordCopy.Password))
             {
-                MessageBox.Show("Введите логин");
+                MessageBox.Show("Введите логин, пароль и повторите пароль");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(passwordForReg.Password))
+            if (passwordForReg.Password != passwordCopy.Password)
             {
-                MessageBox.Show("Введите пароль");
+                MessageBox.Show("Пароли не совпадают");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(passwordCopy.Password))
-            {
-                MessageBox.Show("Повторите пароль");
-                return;
-            }
-            else if (passwordForReg.Password == passwordCopy.Password)
-            {
-                mainWindow.ExecuteSqlCommand("INSERT INTO Userss (Login, PassWord) VALUES ('" + textBoxReg.Text + "', '" + ClassLibraryOne.Hasher.GetHashString(passwordForReg.Password) + "')") ;
-                mainWindow.OpenPage(MainWindow.Pages.storyline);
-            }
-            else
-            {
-                MessageBox.Show("Пароли не совпадают")
-            }
+            SqlCommand command = new SqlCommand();
+            command.CommandText = $"INSERT INTO [MLstartDataBase].[dbo].[Userss] (Login, PassWord) VALUES (@Login, @Password)";
+            command.Parameters.AddWithValue("@Login", textBoxReg.Text);
+            command.Parameters.AddWithValue("@Password", ClassLibraryOne.Hasher.GetHashString(passwordForReg.Password));
+            mainWindow.ExecuteSqlCommand(command);
+            MessageBox.Show("Регистрация прошла успешно");
+            mainWindow.OpenPage(MainWindow.Pages.login);
         }
     }
 }

@@ -604,9 +604,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\WpfApp1.csproj",
+      "projectUniqueName": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\WpfApp1.csproj",
       "projectName": "WpfApp1",
-      "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\WpfApp1.csproj",
+      "projectPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\WpfApp1.csproj",
       "packagesPath": "C:\\Users\\Yaroslav\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\obj\\",
       "projectStyle": "PackageReference",
@@ -629,11 +629,11 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj": {
-              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj"
+            "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj": {
+              "projectPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj"
             },
-            "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj": {
-              "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj"
+            "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj": {
+              "projectPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj"
             }
           }
         }
