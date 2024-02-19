@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj": {}
+    "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj": {
+    "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj",
+        "projectUniqueName": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj",
         "projectName": "ClassLibraryOne",
-        "projectPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj",
+        "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj",
         "packagesPath": "C:\\Users\\Yaroslav\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\obj\\",
+        "outputPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -78,14 +78,14 @@
         }
       }
     },
-    "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj": {
+    "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj",
+        "projectUniqueName": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj",
         "projectName": "MlStartTask2",
-        "projectPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj",
+        "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\MlStartTask2.csproj",
         "packagesPath": "C:\\Users\\Yaroslav\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\obj\\",
+        "outputPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\MlStartTask2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -106,8 +106,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj": {
-                "projectPath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj"
+              "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj": {
+                "projectPath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\ClassLibraryOne\\ClassLibraryOne.csproj"
               }
             }
           }

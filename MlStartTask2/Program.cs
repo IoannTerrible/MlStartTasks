@@ -205,7 +205,7 @@ namespace MlStartTask2
             }
             finally
             {
-                Log.CloseAndFlush();
+                //Log.CloseAndFlush();
             }
 
 
@@ -213,7 +213,7 @@ namespace MlStartTask2
             {
                 lines.Add($"Все акции общества были распроданы со средней стоимостью {Math.Abs(number)}");
             }
-            Console.ReadLine();
+
         }
 
         public static List<string> GetLines() => lines;

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+L72DoDYOPceMAhZ49vYy8+sORXWMUzMoyixbhRwjMZ5blcLKUdJkQnKRflkPAIDnONHylP/erCAP6XjWquq0Q==",
+  "dgSpecHash": "MmgqBJVmYMi1rJNJmGE8ukvA4klWZ0YMM3mO1FG7I9qRqcGTKriWI1R/tho7wnrYI0+C9DWcMOXeDgWT4jEPSQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yaroslav\\source\\repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\WpfApp1.csproj",
+  "projectFilePath": "C:\\Users\\Yaroslav\\Source\\Repos\\IoannTerrible\\MlStartTasksNew\\WpfApp1\\WpfApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yaroslav\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Yaroslav\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

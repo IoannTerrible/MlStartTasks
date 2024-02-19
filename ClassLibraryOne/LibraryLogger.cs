@@ -37,7 +37,7 @@ namespace ClassLibraryOne
         {
             if (!Directory.Exists("logs"))
             {
-                Directory.CreateDirectory("logs");
+                Directory.CreateDirectory("logs2");
                 Logger.LogByTemplate(LogEventLevel.Information, note: "Create logs directory");
             }
             var loggerConfig = new LoggerConfiguration().MinimumLevel.Verbose();

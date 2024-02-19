@@ -7,9 +7,9 @@ using System.Text;
 
 namespace ServerLibrary
 {
-    // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени класса "Service1" в коде и файле конфигурации.
+
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class Service1 : IServiseForServer
+    public class LoreServise : IServiseForServer
     {
         int nextId = 1;
         List<ServerUser> users = new List<ServerUser>();
@@ -42,10 +42,9 @@ namespace ServerLibrary
 
         public void SendStringMessage(string message)
         {
-            string responce = "";
             foreach (var user in users)
             {
-                user.OperContext.GetCallbackChannel<IServerCallback>().ReceiveLoreMessage(responce += message);
+                user.OperContext.GetCallbackChannel<IServiseForServerCallback>().ReceiveLoreMessage(message);
             }
         }
     }

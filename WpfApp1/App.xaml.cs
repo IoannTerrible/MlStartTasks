@@ -26,7 +26,6 @@ namespace WpfApp1
         {
             WpfApp1.App app = new WpfApp1.App();
             app.InitializeComponent();
-
             app.Run();
         }
 

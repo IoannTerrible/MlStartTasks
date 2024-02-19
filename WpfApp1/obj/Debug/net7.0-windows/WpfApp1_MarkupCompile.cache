@@ -13,8 +13,8 @@ TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 52012795204
 
 7-2112038812
-203919141356
+203133559890
 MainWindow.xaml;Pages\AuthorizationPage.xaml;Pages\RegistrationPage.xaml;Pages\StoryLinePage.xaml;App.xaml;
 
-False
+True
 

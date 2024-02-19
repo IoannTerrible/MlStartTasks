@@ -8,7 +8,7 @@ using System.Text;
 namespace ServerLibrary
 {
     // ПРИМЕЧАНИЕ. Можно использовать команду "Переименовать" в меню "Рефакторинг", чтобы изменить имя интерфейса "IService1" в коде и файле конфигурации.
-    [ServiceContract(CallbackContract = typeof(IServerCallback))]
+    [ServiceContract(CallbackContract = typeof(IServiseForServerCallback))]
     public interface IServiseForServer
     {
         [OperationContract]
@@ -19,8 +19,9 @@ namespace ServerLibrary
         [OperationContract]
         void SendStringMessage(string message);
     }
-    public interface IServerCallback
+    public interface IServiseForServerCallback
     {
+        [OperationContract(IsOneWay = true)]
         void ReceiveLoreMessage(string message);
     }
 }
