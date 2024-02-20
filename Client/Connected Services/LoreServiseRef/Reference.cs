@@ -32,6 +32,12 @@ namespace Client.LoreServiseRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/SendStringMessage", ReplyAction="http://tempuri.org/IServiseForServer/SendStringMessageResponse")]
         System.Threading.Tasks.Task SendStringMessageAsync(string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/CheckHash", ReplyAction="http://tempuri.org/IServiseForServer/CheckHashResponse")]
+        void CheckHash(string chekingString);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/CheckHash", ReplyAction="http://tempuri.org/IServiseForServer/CheckHashResponse")]
+        System.Threading.Tasks.Task CheckHashAsync(string chekingString);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -39,6 +45,9 @@ namespace Client.LoreServiseRef {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/ReceiveLoreMessage")]
         void ReceiveLoreMessage(string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/LogInServer")]
+        void LogInServer(bool result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -91,6 +100,14 @@ namespace Client.LoreServiseRef {
         
         public System.Threading.Tasks.Task SendStringMessageAsync(string message) {
             return base.Channel.SendStringMessageAsync(message);
+        }
+        
+        public void CheckHash(string chekingString) {
+            base.Channel.CheckHash(chekingString);
+        }
+        
+        public System.Threading.Tasks.Task CheckHashAsync(string chekingString) {
+            return base.Channel.CheckHashAsync(chekingString);
         }
     }
 }
