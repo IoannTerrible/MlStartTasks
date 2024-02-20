@@ -16,6 +16,7 @@
         <PasswordBox Grid.Row="1" Margin="100,10,10,10" x:Name="password"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="125,5,0,15">
+            <Button x:Name ="regin" Content="RegIn" Width="100" Margin="10" Click="cancer_Click"/>
             <Button x:Name ="enter" Content="Login" Width="100" Margin="10" Click="enter_Click"/>
         </StackPanel>
     </Grid>

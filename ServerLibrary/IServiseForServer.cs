@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -20,16 +18,10 @@ namespace ServerLibrary
         void Disconnect(int userId);
         [OperationContract]
         void SendStringMessage(string message);
-        [OperationContract]
-        void CheckHash(string chekingString);
-        //[OperationContract]
-        //DataTable ExecuteSqlCommand(SqlCommand sqlcom);
     }
     public interface IServiseForServerCallback
     {
         [OperationContract(IsOneWay = true)]
         void ReceiveLoreMessage(string message);
-        [OperationContract(IsOneWay = true)]
-        void LogInServer(bool result);
     }
 }

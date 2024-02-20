@@ -52,7 +52,27 @@ namespace WpfApp1
                 MainFrame.Navigate(new StoryLinePage(this));
             }
         }
-        
+        public DataTable ExecuteSqlCommand(SqlCommand sqlcom)
+        {
+            try
+            {
+                DataTable dataTable = new DataTable("dataBase");
+                using (SqlConnection sqlConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
+                {
+                    sqlConnection.Open();
+                    sqlcom.Connection = sqlConnection;
+                    SqlDataAdapter adapter = new SqlDataAdapter(sqlcom); 
+                    adapter.Fill(dataTable);
+                }
+                return dataTable;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: $"Error while work with table + {ex}");
+                //Console.WriteLine("Error occurred: " + ex.Message);
+                return null;
+            }
+        }
 
     }
 }

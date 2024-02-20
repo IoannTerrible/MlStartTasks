@@ -48,16 +48,16 @@ namespace Client
             //command.CommandText = $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = @Login AND [PassWord] = @Password";
             //command.Parameters.AddWithValue("@Login", textBox_login.Text);
             //command.Parameters.AddWithValue("@Password", hashPassword);
-            //DataTable dt_user = mainWindow.SendRquestToExecuteSql(command);
+            //DataTable dt_user = mainWindow.ExecuteSqlCommand(command);
             //if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
             //{
             //    MessageBox.Show("Пользователь авторизовался");
             //    //mainWindow.OpenPage(MainWindow.Pages.storyline);
             //}
-            else
-            {
-                MessageBox.Show("Пользователя не найден");
-            }
+            //else
+            //{
+            //    MessageBox.Show("Пользователя не найден");
+            //}
         }
         private void cancer_Click(object sender, RoutedEventArgs e)
         {

@@ -1,7 +1,4 @@
-﻿using System.Data.SqlClient;
-using System.Data;
-using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Client
 {
@@ -28,19 +25,11 @@ namespace Client
             if (!isConnected)
             {
                 client = new LoreServiseRef.ServiseForServerClient(new System.ServiceModel.InstanceContext(this));
-                //client.Connect(UserNameTextBox.Text, password.Password);
                 isConnected = true;
-            }
-            else
-            {
-                MessageBox.Show($"Seems you already connected to {client}");
             }
 
         }
-        //public DataTable SendRquestToExecuteSql(SqlCommand command)
-        //{
-        //    client
-        //}
+
         private void DisconnectClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("HelpMe");

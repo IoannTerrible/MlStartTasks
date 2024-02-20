@@ -37,29 +37,10 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="CheckHash">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="chekingString" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CheckHashResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="ReceiveLoreMessage">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="LogInServer">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="result" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
