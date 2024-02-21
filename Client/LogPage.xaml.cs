@@ -42,26 +42,7 @@ namespace Client
                 MessageBox.Show("Введите пароль");
                 return;
             }
-            //string hashPassword = ClassLibraryOne.Hasher.GetHashString(password.Password);
-
-            //SqlCommand command = new SqlCommand();
-            //command.CommandText = $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = @Login AND [PassWord] = @Password";
-            //command.Parameters.AddWithValue("@Login", textBox_login.Text);
-            //command.Parameters.AddWithValue("@Password", hashPassword);
-            //DataTable dt_user = mainWindow.SendRquestToExecuteSql(command);
-            //if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
-            //{
-            //    MessageBox.Show("Пользователь авторизовался");
-            //    //mainWindow.OpenPage(MainWindow.Pages.storyline);
-            //}
-            else
-            {
-                MessageBox.Show("Пользователя не найден");
-            }
-        }
-        private void cancer_Click(object sender, RoutedEventArgs e)
-        {
-            //mainWindow.OpenPage(MainWindow.Pages.regin);
+            mainWindow.TrueConnect(password.Password, textBox_login.Text);
         }
     }
 }

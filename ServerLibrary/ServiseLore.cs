@@ -23,61 +23,87 @@ namespace ServerLibrary
             {
                 Id = nextId,
                 Login = connectlogin,
-                Password = connectpassword
+                Password = connectpassword,
+                OperContext = OperationContext.Current
             };
             nextId++;
-            SendStringMessage(DateTime.Now.ToString() + " Hello " + user.Login);
             users.Add(user);
+            //SendStringMessage(DateTime.Now.ToString() + " Hello " + user.Login);
+
         }
-        public void Disconnect(int userId)
+        public void Disconnect(string connectlogin)
         {
-            var user = users.Find(x => x.Id == userId);
+            var user = users.Find(x => x.Login == connectlogin);
             if (user != null)
             {
                 users.Remove(user);
-                SendStringMessage(DateTime.Now.ToString() + " Bye " + user.Login);
+                //SendStringMessage(DateTime.Now.ToString() + " Bye " + user.Login);
+            }
+        }
+        public bool CheckHashAndLog(string chekingString, string login)
+        {
+            var user = users.Find(x => x.Login == login);
+            if (user != null)
+            {
+                string hashPassword = GetHashString(chekingString);
+
+                SqlCommand command = new SqlCommand();
+                command.CommandText = $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = @Login AND [PassWord] = @Password";
+                command.Parameters.AddWithValue("@Login", user.Login);
+                command.Parameters.AddWithValue("@Password", hashPassword);
+                DataTable dt_user = ExecuteSqlCommand(command);      
+                if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
+                {
+                    user.OperContext.GetCallbackChannel<IServiseForServerCallback>().DoYouLog(true);
+                    return true;
+                }
+                else
+                {
+                    user.OperContext.GetCallbackChannel<IServiseForServerCallback>().DoYouLog(false);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public void CheckHash(string chekingString)
+        public static string GetHashString(string input)
         {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
 
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
-        //public static string GetHashString(string input)
-        //{
-        //    using (SHA256 sha256Hash = SHA256.Create())
-        //    {
-        //        byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-        //        StringBuilder builder = new StringBuilder();
-        //        for (int i = 0; i < bytes.Length; i++)
-        //        {
-        //            builder.Append(bytes[i].ToString("x2"));
-        //        }
-        //        return builder.ToString();
-        //    }
-        //}
-        //public DataTable ExecuteSqlCommand(SqlCommand sqlcom)
-        //{
-        //    try
-        //    {
-        //        DataTable dataTable = new DataTable("dataBase");
-        //        using (SqlConnection sqlConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
-        //        {
-        //            sqlConnection.Open();
-        //            sqlcom.Connection = sqlConnection;
-        //            SqlDataAdapter adapter = new SqlDataAdapter(sqlcom);
-        //            adapter.Fill(dataTable);
-        //        }
-        //        return dataTable;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: $"Error while work with table + {ex}");
-        //        //Console.WriteLine("Error occurred: " + ex.Message);
-        //        return null;
-        //    }
-        //}
+        public DataTable ExecuteSqlCommand(SqlCommand sqlcom)
+        {
+            try
+            {
+                DataTable dataTable = new DataTable("dataBase");
+                using (SqlConnection sqlConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
+                {
+                    sqlConnection.Open();
+                    sqlcom.Connection = sqlConnection;
+                    SqlDataAdapter adapter = new SqlDataAdapter(sqlcom);
+                    adapter.Fill(dataTable);
+                }
+                return dataTable;
+            }
+            catch (Exception ex)
+            {
+                //Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: $"Error while work with table + {ex}");
+                //Console.WriteLine("Error occurred: " + ex.Message);
+                return null;
+            }
+        }
         public void SendStringMessage(string message)
         {
             foreach (var user in users)

@@ -22,22 +22,22 @@ namespace Client.LoreServiseRef {
         System.Threading.Tasks.Task ConnectAsync(string connectlogin, string connectpassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/Disconnect", ReplyAction="http://tempuri.org/IServiseForServer/DisconnectResponse")]
-        void Disconnect(int userId);
+        void Disconnect(string connectlogin);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/Disconnect", ReplyAction="http://tempuri.org/IServiseForServer/DisconnectResponse")]
-        System.Threading.Tasks.Task DisconnectAsync(int userId);
+        System.Threading.Tasks.Task DisconnectAsync(string connectlogin);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/SendStringMessage", ReplyAction="http://tempuri.org/IServiseForServer/SendStringMessageResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/SendStringMessage")]
         void SendStringMessage(string message);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/SendStringMessage", ReplyAction="http://tempuri.org/IServiseForServer/SendStringMessageResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/SendStringMessage")]
         System.Threading.Tasks.Task SendStringMessageAsync(string message);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/CheckHash", ReplyAction="http://tempuri.org/IServiseForServer/CheckHashResponse")]
-        void CheckHash(string chekingString);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/CheckHashAndLog", ReplyAction="http://tempuri.org/IServiseForServer/CheckHashAndLogResponse")]
+        bool CheckHashAndLog(string chekingString, string login);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/CheckHash", ReplyAction="http://tempuri.org/IServiseForServer/CheckHashResponse")]
-        System.Threading.Tasks.Task CheckHashAsync(string chekingString);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/CheckHashAndLog", ReplyAction="http://tempuri.org/IServiseForServer/CheckHashAndLogResponse")]
+        System.Threading.Tasks.Task<bool> CheckHashAndLogAsync(string chekingString, string login);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -46,8 +46,8 @@ namespace Client.LoreServiseRef {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/ReceiveLoreMessage")]
         void ReceiveLoreMessage(string message);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/LogInServer")]
-        void LogInServer(bool result);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/DoYouLog", ReplyAction="http://tempuri.org/IServiseForServer/DoYouLogResponse")]
+        bool DoYouLog(bool IsLoggin);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -86,12 +86,12 @@ namespace Client.LoreServiseRef {
             return base.Channel.ConnectAsync(connectlogin, connectpassword);
         }
         
-        public void Disconnect(int userId) {
-            base.Channel.Disconnect(userId);
+        public void Disconnect(string connectlogin) {
+            base.Channel.Disconnect(connectlogin);
         }
         
-        public System.Threading.Tasks.Task DisconnectAsync(int userId) {
-            return base.Channel.DisconnectAsync(userId);
+        public System.Threading.Tasks.Task DisconnectAsync(string connectlogin) {
+            return base.Channel.DisconnectAsync(connectlogin);
         }
         
         public void SendStringMessage(string message) {
@@ -102,12 +102,12 @@ namespace Client.LoreServiseRef {
             return base.Channel.SendStringMessageAsync(message);
         }
         
-        public void CheckHash(string chekingString) {
-            base.Channel.CheckHash(chekingString);
+        public bool CheckHashAndLog(string chekingString, string login) {
+            return base.Channel.CheckHashAndLog(chekingString, login);
         }
         
-        public System.Threading.Tasks.Task CheckHashAsync(string chekingString) {
-            return base.Channel.CheckHashAsync(chekingString);
+        public System.Threading.Tasks.Task<bool> CheckHashAndLogAsync(string chekingString, string login) {
+            return base.Channel.CheckHashAndLogAsync(chekingString, login);
         }
     }
 }

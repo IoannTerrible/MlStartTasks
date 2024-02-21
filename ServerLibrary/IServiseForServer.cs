@@ -17,11 +17,11 @@ namespace ServerLibrary
         void Connect(string connectlogin, string connectpassword);
 
         [OperationContract]
-        void Disconnect(int userId);
-        [OperationContract]
+        void Disconnect(string connectlogin);
+        [OperationContract(IsOneWay = true)]
         void SendStringMessage(string message);
         [OperationContract]
-        void CheckHash(string chekingString);
+        bool CheckHashAndLog(string chekingString, string login);
         //[OperationContract]
         //DataTable ExecuteSqlCommand(SqlCommand sqlcom);
     }
@@ -29,7 +29,7 @@ namespace ServerLibrary
     {
         [OperationContract(IsOneWay = true)]
         void ReceiveLoreMessage(string message);
-        [OperationContract(IsOneWay = true)]
-        void LogInServer(bool result);
+        [OperationContract]
+        bool DoYouLog(bool IsLoggin);
     }
 }

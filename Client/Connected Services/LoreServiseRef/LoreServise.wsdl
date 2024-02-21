@@ -50,20 +50,20 @@
   <wsdl:message name="IServiseForServer_SendStringMessage_InputMessage">
     <wsdl:part name="parameters" element="tns:SendStringMessage" />
   </wsdl:message>
-  <wsdl:message name="IServiseForServer_SendStringMessage_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SendStringMessageResponse" />
+  <wsdl:message name="IServiseForServer_CheckHashAndLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckHashAndLog" />
   </wsdl:message>
-  <wsdl:message name="IServiseForServer_CheckHash_InputMessage">
-    <wsdl:part name="parameters" element="tns:CheckHash" />
-  </wsdl:message>
-  <wsdl:message name="IServiseForServer_CheckHash_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CheckHashResponse" />
+  <wsdl:message name="IServiseForServer_CheckHashAndLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckHashAndLogResponse" />
   </wsdl:message>
   <wsdl:message name="IServiseForServer_ReceiveLoreMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ReceiveLoreMessage" />
   </wsdl:message>
-  <wsdl:message name="IServiseForServer_LogInServer_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:LogInServer" />
+  <wsdl:message name="IServiseForServer_DoYouLog_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:DoYouLog" />
+  </wsdl:message>
+  <wsdl:message name="IServiseForServer_DoYouLog_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:DoYouLogResponse" />
   </wsdl:message>
   <wsdl:portType name="IServiseForServer">
     <wsdl:operation name="Connect">
@@ -76,17 +76,17 @@
     </wsdl:operation>
     <wsdl:operation name="SendStringMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/SendStringMessage" message="tns:IServiseForServer_SendStringMessage_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/SendStringMessageResponse" message="tns:IServiseForServer_SendStringMessage_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="CheckHash">
-      <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/CheckHash" message="tns:IServiseForServer_CheckHash_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/CheckHashResponse" message="tns:IServiseForServer_CheckHash_OutputMessage" />
+    <wsdl:operation name="CheckHashAndLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/CheckHashAndLog" message="tns:IServiseForServer_CheckHashAndLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/CheckHashAndLogResponse" message="tns:IServiseForServer_CheckHashAndLog_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReceiveLoreMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/ReceiveLoreMessage" message="tns:IServiseForServer_ReceiveLoreMessage_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="LogInServer">
-      <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/LogInServer" message="tns:IServiseForServer_LogInServer_OutputCallbackMessage" />
+    <wsdl:operation name="DoYouLog">
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/DoYouLog" message="tns:IServiseForServer_DoYouLog_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/DoYouLogResponse" message="tns:IServiseForServer_DoYouLog_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServiseForServer" type="tns:IServiseForServer">
@@ -115,12 +115,9 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CheckHash">
-      <soap12:operation soapAction="http://tempuri.org/IServiseForServer/CheckHash" style="document" />
+    <wsdl:operation name="CheckHashAndLog">
+      <soap12:operation soapAction="http://tempuri.org/IServiseForServer/CheckHashAndLog" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -134,8 +131,11 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="LogInServer">
-      <soap12:operation soapAction="http://tempuri.org/IServiseForServer/LogInServer" style="document" />
+    <wsdl:operation name="DoYouLog">
+      <soap12:operation soapAction="http://tempuri.org/IServiseForServer/DoYouLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

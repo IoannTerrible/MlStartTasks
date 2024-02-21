@@ -16,7 +16,7 @@
   <xs:element name="Disconnect">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="userId" type="xs:int" />
+        <xs:element minOccurs="0" name="connectlogin" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -32,21 +32,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SendStringMessageResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CheckHash">
+  <xs:element name="CheckHashAndLog">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="chekingString" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="CheckHashResponse">
+  <xs:element name="CheckHashAndLogResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CheckHashAndLogResult" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ReceiveLoreMessage">
@@ -56,10 +54,17 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="LogInServer">
+  <xs:element name="DoYouLog">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="result" type="xs:boolean" />
+        <xs:element minOccurs="0" name="IsLoggin" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DoYouLogResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DoYouLogResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
