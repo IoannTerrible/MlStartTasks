@@ -11,7 +11,7 @@
 
 # MlStartTasks
 14.01.2024  
-🖥️ WPFapp Net 7.0 + net7.0-windows  
+🖥️ WPFapp Net 7.0 + net7.0-windows + Net Framework 4.7.2 and WCF.  
 🚀 Project entry point: App.Xaml.cs.Main  
 📜 LogsDirectory:\MlStartTasks\WpfApp1\bin\Debug\net7.0-windows\logs  
 ⚙️ Config:\MlStartTasks\WpfApp1\bin\Debug\net7.0-windows\config.xml  
