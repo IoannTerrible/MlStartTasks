@@ -38,7 +38,7 @@
         <Button x:Name="disconButton" Content="Disconnect" HorizontalAlignment="Left" Margin="626,10,0,0" VerticalAlignment="Top" Height="32" Width="120" Click="DisconnectClick" />
         <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You:" VerticalAlignment="Top" Width="224" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
         <TextBox x:Name="UserStatus" HorizontalAlignment="Left" Margin="10,26,0,0" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" Width="224" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
-        <Frame x:Name="MainFrame" Content="Frame" Margin="0,52,0,0" Grid.ColumnSpan="3"/>
+        <Frame x:Name="MainFrame" Content="Frame" Margin="0,52,0,0" Grid.ColumnSpan="3" Source="/LogPage.xaml"/>
     </Grid>
 
 </Window>

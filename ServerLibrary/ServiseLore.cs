@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
+using System.ServiceModel.Channels;
 
 namespace ServerLibrary
 {
@@ -36,8 +37,19 @@ namespace ServerLibrary
             var user = users.Find(x => x.Login == connectlogin);
             if (user != null)
             {
-                users.Remove(user);
-                //SendStringMessage(DateTime.Now.ToString() + " Bye " + user.Login);
+                try
+                {
+                    string tempString = $"{DateTime.Now} Bye {user.Login}";
+                    SendStringMessage(tempString);
+                }
+                catch(Exception ex)
+                {
+                    SendStringMessage($"{ex}");
+                }
+                finally
+                {
+                    users.Remove(user);
+                }
             }
         }
         public bool CheckHashAndLog(string chekingString, string login)
@@ -51,7 +63,7 @@ namespace ServerLibrary
                 command.CommandText = $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = @Login AND [PassWord] = @Password";
                 command.Parameters.AddWithValue("@Login", user.Login);
                 command.Parameters.AddWithValue("@Password", hashPassword);
-                DataTable dt_user = ExecuteSqlCommand(command);      
+                DataTable dt_user = ExecuteSqlCommand(command);
                 if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
                 {
                     user.OperContext.GetCallbackChannel<IServiseForServerCallback>().DoYouLog(true);
@@ -108,7 +120,10 @@ namespace ServerLibrary
         {
             foreach (var user in users)
             {
-                user.OperContext.GetCallbackChannel<IServiseForServerCallback>().ReceiveLoreMessage(message);
+                if (user != null)
+                {
+                    user.OperContext.GetCallbackChannel<IServiseForServerCallback>().ReceiveLoreMessage(message);
+                }
             }
         }
     }

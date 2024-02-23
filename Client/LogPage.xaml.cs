@@ -24,9 +24,13 @@ namespace Client
     {
         public MainWindow mainWindow;
 
-        public LogPage(MainWindow _mainWindow)
+        public LogPage()
         {
             InitializeComponent();
+        }
+
+        public LogPage(MainWindow _mainWindow) : this() 
+        {
             mainWindow = _mainWindow;
         }
         private void enter_Click(object sender, RoutedEventArgs e)
