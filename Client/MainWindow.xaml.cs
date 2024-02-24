@@ -2,6 +2,7 @@
 using System.Data;
 using System;
 using System.Windows;
+using System.Threading.Tasks;
 
 namespace Client
 {
@@ -13,6 +14,7 @@ namespace Client
     {
         bool isConnected = false;
         bool isLoginServer = false;
+        string YouLogin;
         LoreServiseRef.ServiseForServerClient client;
         public MainWindow()
         {
@@ -22,6 +24,8 @@ namespace Client
         {
             if (isConnected)
             {
+                UserNameTextBox.Text = login;
+                YouLogin = login;
                 client.Connect(login, password);
             }
             else
@@ -72,7 +76,6 @@ namespace Client
             if (!isConnected)
             {
                 client = new LoreServiseRef.ServiseForServerClient(new System.ServiceModel.InstanceContext(this));
-                client.Connect("weeww", "wedse");
                 isConnected = true;
             }
             else
@@ -89,7 +92,7 @@ namespace Client
         {
             if (isConnected)
             {
-                client.Disconnect("weeww");
+                client.DisconnectAsync(YouLogin);
                 client = null;
                 isConnected = false;
             }
@@ -105,7 +108,15 @@ namespace Client
 
         private void LogClick(object sender, RoutedEventArgs e)
         {
-            client.SendStringMessage("Text");
+            if (isConnected)
+            {
+                client.SendStringMessageAsync("Text");
+            }
+            else 
+            {
+                MessageBox.Show($"Please Don't Click if NotConnected");
+            }
+
         }
 
         private void RegClick(object sender, RoutedEventArgs e)

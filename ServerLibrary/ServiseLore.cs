@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
 using System.ServiceModel.Channels;
+using System.IO;
 
 namespace ServerLibrary
 {
@@ -29,7 +30,11 @@ namespace ServerLibrary
             };
             nextId++;
             users.Add(user);
-            //SendStringMessage(DateTime.Now.ToString() + " Hello " + user.Login);
+            string filePath = "errorlog.txt";
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                writer.WriteLine($"{user.Login} {user.Id} {user.OperContext}, {user.Password}");
+            }
 
         }
         public void Disconnect(string connectlogin)
@@ -37,20 +42,17 @@ namespace ServerLibrary
             var user = users.Find(x => x.Login == connectlogin);
             if (user != null)
             {
-                try
-                {
-                    string tempString = $"{DateTime.Now} Bye {user.Login}";
-                    SendStringMessage(tempString);
-                }
-                catch(Exception ex)
-                {
-                    SendStringMessage($"{ex}");
-                }
-                finally
+                string tempString = $"{DateTime.Now} Bye {user.Login}";
+                if (TestVoid(tempString))
                 {
                     users.Remove(user);
                 }
             }
+        }
+        bool TestVoid(string message)
+        {
+            SendStringMessage(message);
+            return true;
         }
         public bool CheckHashAndLog(string chekingString, string login)
         {

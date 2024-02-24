@@ -16,7 +16,7 @@ namespace ServerLibrary
         [OperationContract]
         void Connect(string connectlogin, string connectpassword);
 
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void Disconnect(string connectlogin);
         [OperationContract(IsOneWay = true)]
         void SendStringMessage(string message);
