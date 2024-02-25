@@ -30,31 +30,17 @@ namespace ServerLibrary
             };
             nextId++;
             users.Add(user);
-            string filePath = "errorlog.txt";
-            using (StreamWriter writer = new StreamWriter(filePath, true))
-            {
-                writer.WriteLine($"{user.Login} {user.Id} {user.OperContext}, {user.Password}");
-            }
-
         }
         public void Disconnect(string connectlogin)
         {
             var user = users.Find(x => x.Login == connectlogin);
             if (user != null)
             {
-                string tempString = $"{DateTime.Now} Bye {user.Login}";
-                if (TestVoid(tempString))
-                {
-                    users.Remove(user);
-                }
+                SendStringMessage($"Bye {user.Login}");
+                users.Remove(user);
             }
         }
-        bool TestVoid(string message)
-        {
-            SendStringMessage(message);
-            return true;
-        }
-        public bool CheckHashAndLog(string chekingString, string login)
+        public void CheckHashAndLog(string chekingString, string login)
         {
             var user = users.Find(x => x.Login == login);
             if (user != null)
@@ -69,17 +55,12 @@ namespace ServerLibrary
                 if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
                 {
                     user.OperContext.GetCallbackChannel<IServiseForServerCallback>().DoYouLog(true);
-                    return true;
+                    SendStringMessage("Cool You log");
                 }
                 else
                 {
                     user.OperContext.GetCallbackChannel<IServiseForServerCallback>().DoYouLog(false);
-                    return false;
                 }
-            }
-            else
-            {
-                return false;
             }
         }
 

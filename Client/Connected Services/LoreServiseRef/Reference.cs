@@ -21,10 +21,10 @@ namespace Client.LoreServiseRef {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/Connect", ReplyAction="http://tempuri.org/IServiseForServer/ConnectResponse")]
         System.Threading.Tasks.Task ConnectAsync(string connectlogin, string connectpassword);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/Disconnect", ReplyAction="http://tempuri.org/IServiseForServer/DisconnectResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/Disconnect")]
         void Disconnect(string connectlogin);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/Disconnect", ReplyAction="http://tempuri.org/IServiseForServer/DisconnectResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/Disconnect")]
         System.Threading.Tasks.Task DisconnectAsync(string connectlogin);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/SendStringMessage")]
@@ -33,11 +33,11 @@ namespace Client.LoreServiseRef {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/SendStringMessage")]
         System.Threading.Tasks.Task SendStringMessageAsync(string message);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/CheckHashAndLog", ReplyAction="http://tempuri.org/IServiseForServer/CheckHashAndLogResponse")]
-        bool CheckHashAndLog(string chekingString, string login);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/CheckHashAndLog")]
+        void CheckHashAndLog(string chekingString, string login);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/CheckHashAndLog", ReplyAction="http://tempuri.org/IServiseForServer/CheckHashAndLogResponse")]
-        System.Threading.Tasks.Task<bool> CheckHashAndLogAsync(string chekingString, string login);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/CheckHashAndLog")]
+        System.Threading.Tasks.Task CheckHashAndLogAsync(string chekingString, string login);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -46,8 +46,8 @@ namespace Client.LoreServiseRef {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/ReceiveLoreMessage")]
         void ReceiveLoreMessage(string message);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/DoYouLog", ReplyAction="http://tempuri.org/IServiseForServer/DoYouLogResponse")]
-        bool DoYouLog(bool IsLoggin);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/DoYouLog")]
+        void DoYouLog(bool IsLoggin);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -102,11 +102,11 @@ namespace Client.LoreServiseRef {
             return base.Channel.SendStringMessageAsync(message);
         }
         
-        public bool CheckHashAndLog(string chekingString, string login) {
-            return base.Channel.CheckHashAndLog(chekingString, login);
+        public void CheckHashAndLog(string chekingString, string login) {
+            base.Channel.CheckHashAndLog(chekingString, login);
         }
         
-        public System.Threading.Tasks.Task<bool> CheckHashAndLogAsync(string chekingString, string login) {
+        public System.Threading.Tasks.Task CheckHashAndLogAsync(string chekingString, string login) {
             return base.Channel.CheckHashAndLogAsync(chekingString, login);
         }
     }

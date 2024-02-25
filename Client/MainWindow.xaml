@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#F0F0F0" ResizeMode="NoResize">
+        Title="MainWindow" Height="450" Width="1130" Background="#F0F0F0" ResizeMode="NoResize">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Template">
@@ -25,19 +25,24 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
+    <Grid Margin="0,0,10,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="777*"/>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="23*"/>
         </Grid.ColumnDefinitions>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="510" Margin="538,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="136*"/>
+                <ColumnDefinition Width="371*"/>
+            </Grid.ColumnDefinitions>
 
-        <Button x:Name="regButton" Content="Reg" HorizontalAlignment="Left" Margin="239,10,0,0" VerticalAlignment="Top" Height="32" Width="120" Click="RegClick" />
-        <Button x:Name="logButton" Content="Log" HorizontalAlignment="Left" Margin="371,10,0,0" VerticalAlignment="Top" Height="32" Width="120" Click="LogClick" />
-        <Button x:Name="conButton" Content="Connet" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="120" Margin="501,10,0,0" Click="ConnectClick" />
-        <Button x:Name="disconButton" Content="Disconnect" HorizontalAlignment="Left" Margin="626,10,0,0" VerticalAlignment="Top" Height="32" Width="120" Click="DisconnectClick" />
-        <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You:" VerticalAlignment="Top" Width="224" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
-        <TextBox x:Name="UserStatus" HorizontalAlignment="Left" Margin="10,26,0,0" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" Width="224" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
+            <Button x:Name="regButton" Content="Reg" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="120" Click="RegClick" />
+            <Button x:Name="logButton" Content="Log" HorizontalAlignment="Left" Margin="132,0,0,0" VerticalAlignment="Center" Height="32" Width="120" Click="LogClick" Grid.ColumnSpan="2" />
+            <Button x:Name="disconButton" Content="Disconnect" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="120" Click="DisconnectClick" Grid.Column="1" />
+        </Grid>
+        <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You:" VerticalAlignment="Top" Width="260" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
+        <TextBox x:Name="UserStatus" TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="10,26,0,0" Text="Status:" VerticalAlignment="Top" Width="519" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
         <Frame x:Name="MainFrame" Content="Frame" Margin="0,52,0,0" Grid.ColumnSpan="3"/>
     </Grid>
 

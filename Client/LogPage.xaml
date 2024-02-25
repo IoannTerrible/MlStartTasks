@@ -17,6 +17,7 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="125,5,0,15">
             <Button x:Name ="enter" Content="Login" Width="100" Margin="10" Click="enter_Click"/>
+            <Button x:Name ="connectButton" Content="ConnectAsUser" Width="100" Click="con_Click" Height="22"/>
         </StackPanel>
     </Grid>
 </Page>

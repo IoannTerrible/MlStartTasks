@@ -20,8 +20,8 @@ namespace ServerLibrary
         void Disconnect(string connectlogin);
         [OperationContract(IsOneWay = true)]
         void SendStringMessage(string message);
-        [OperationContract]
-        bool CheckHashAndLog(string chekingString, string login);
+        [OperationContract(IsOneWay = true)]
+        void CheckHashAndLog(string chekingString, string login);
         //[OperationContract]
         //DataTable ExecuteSqlCommand(SqlCommand sqlcom);
     }
@@ -29,7 +29,7 @@ namespace ServerLibrary
     {
         [OperationContract(IsOneWay = true)]
         void ReceiveLoreMessage(string message);
-        [OperationContract]
-        bool DoYouLog(bool IsLoggin);
+        [OperationContract(IsOneWay = true)]
+        void DoYouLog(bool IsLoggin);
     }
 }

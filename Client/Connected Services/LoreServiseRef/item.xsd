@@ -20,11 +20,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="DisconnectResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="SendStringMessage">
     <xs:complexType>
       <xs:sequence>
@@ -40,13 +35,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="CheckHashAndLogResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CheckHashAndLogResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="ReceiveLoreMessage">
     <xs:complexType>
       <xs:sequence>
@@ -58,13 +46,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="IsLoggin" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="DoYouLogResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="DoYouLogResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

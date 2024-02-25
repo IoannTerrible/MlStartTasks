@@ -23,6 +23,8 @@ namespace Client
     public partial class LogPage : Page
     {
         public MainWindow mainWindow;
+        public static bool isWeAreConnect = false;
+        public static bool isWeAreLogIn = false;
 
         public LogPage()
         {
@@ -35,6 +37,16 @@ namespace Client
         }
         private void enter_Click(object sender, RoutedEventArgs e)
         {
+            if (!isWeAreConnect)
+            {
+                MessageBox.Show("NeedPressConnectButton");
+                return;
+            }
+            if (isWeAreLogIn)
+            {
+                MessageBox.Show("Well you already logIn");
+                return;
+            }
             if (string.IsNullOrWhiteSpace(textBox_login.Text))
             {
                 MessageBox.Show("Введите логин");
@@ -46,6 +58,29 @@ namespace Client
                 MessageBox.Show("Введите пароль");
                 return;
             }
+            mainWindow.LogInServer(password.Password,textBox_login.Text);
+            isWeAreLogIn = true;
+        }
+
+        private void con_Click(object sender, RoutedEventArgs e)
+        {
+            if (isWeAreConnect)
+            {
+                MessageBox.Show("Better don't do this while you already connect (Disconnect)");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(textBox_login.Text))
+            {
+                MessageBox.Show("Введите логин");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(password.Password))
+            {
+                MessageBox.Show("Введите пароль");
+                return;
+            }
+            isWeAreConnect = true;
             mainWindow.TrueConnect(password.Password, textBox_login.Text);
         }
     }

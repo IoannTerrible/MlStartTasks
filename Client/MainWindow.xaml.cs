@@ -22,6 +22,12 @@ namespace Client
         }
         public void TrueConnect(string password, string login)
         {
+            if (!isConnected)
+            {
+                client = new LoreServiseRef.ServiseForServerClient(new System.ServiceModel.InstanceContext(this));
+                isConnected = true;
+                UserStatus.Text = $"You are connected to {client}";
+            }
             if (isConnected)
             {
                 UserNameTextBox.Text = login;
@@ -37,23 +43,14 @@ namespace Client
         {
             if (isConnected)
             {
-                
-                isLoginServer = client.CheckHashAndLog(password, login);
-                if (isLoginServer)
-                {
-                    MessageBox.Show("You are loged in server");
-                }
-                if (!isLoginServer)
-                {
-                    MessageBox.Show("You are not loged in server");
-                }
+                client.CheckHashAndLog(password, login);
             }
             else
             {
                 MessageBox.Show("You need to connect");
             }
         }
-        public bool DoYouLog(bool IsLogin)
+        public void DoYouLog(bool IsLogin)
         {
             isLoginServer = IsLogin;
             if (isLoginServer)
@@ -64,25 +61,10 @@ namespace Client
             {
                 MessageBox.Show("You are not loged in server");
             }
-            return true;
         }
         public void ReceiveLoreMessage(string message)
         {
             UserStatus.Text = message;
-        }
-
-        private void ConnectClick(object sender, RoutedEventArgs e)
-        {
-            if (!isConnected)
-            {
-                client = new LoreServiseRef.ServiseForServerClient(new System.ServiceModel.InstanceContext(this));
-                isConnected = true;
-            }
-            else
-            {
-                MessageBox.Show($"Seems you already connected to {client}");
-            }
-
         }
         private void DisconnectClick(object sender, RoutedEventArgs e)
         {
@@ -95,6 +77,8 @@ namespace Client
                 client.DisconnectAsync(YouLogin);
                 client = null;
                 isConnected = false;
+                LogPage.isWeAreConnect = false;
+                LogPage.isWeAreLogIn = false;
             }
             else
             {
@@ -108,20 +92,12 @@ namespace Client
 
         private void LogClick(object sender, RoutedEventArgs e)
         {
-            if (isConnected)
-            {
-                client.SendStringMessageAsync("Text");
-            }
-            else 
-            {
-                MessageBox.Show($"Please Don't Click if NotConnected");
-            }
-
+            MainFrame.Navigate(new LogPage(this));
         }
 
         private void RegClick(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new LogPage(this));
+
         }
 
     }
