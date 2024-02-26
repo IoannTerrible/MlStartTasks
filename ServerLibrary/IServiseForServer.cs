@@ -22,8 +22,10 @@ namespace ServerLibrary
         void SendStringMessage(string message);
         [OperationContract(IsOneWay = true)]
         void CheckHashAndLog(string chekingString, string login);
-        //[OperationContract]
-        //DataTable ExecuteSqlCommand(SqlCommand sqlcom);
+        [OperationContract(IsOneWay = true)]
+        void RegIn(string username, string password);
+        [OperationContract()]
+        string ResiveIp(string login);
     }
     public interface IServiseForServerCallback
     {
@@ -31,5 +33,7 @@ namespace ServerLibrary
         void ReceiveLoreMessage(string message);
         [OperationContract(IsOneWay = true)]
         void DoYouLog(bool IsLoggin);
+        [OperationContract(IsOneWay = true)]
+        void SetIpInTextbox(string ip);
     }
 }

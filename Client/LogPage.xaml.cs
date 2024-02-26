@@ -81,7 +81,7 @@ namespace Client
                 return;
             }
             isWeAreConnect = true;
-            mainWindow.TrueConnect(password.Password, textBox_login.Text);
+            mainWindow.LogAndConnect(password.Password, textBox_login.Text);
         }
     }
 }

@@ -38,6 +38,18 @@ namespace Client.LoreServiseRef {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/CheckHashAndLog")]
         System.Threading.Tasks.Task CheckHashAndLogAsync(string chekingString, string login);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/RegIn")]
+        void RegIn(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/RegIn")]
+        System.Threading.Tasks.Task RegInAsync(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/ResiveIp", ReplyAction="http://tempuri.org/IServiseForServer/ResiveIpResponse")]
+        string ResiveIp(string login);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/ResiveIp", ReplyAction="http://tempuri.org/IServiseForServer/ResiveIpResponse")]
+        System.Threading.Tasks.Task<string> ResiveIpAsync(string login);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -48,6 +60,9 @@ namespace Client.LoreServiseRef {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/DoYouLog")]
         void DoYouLog(bool IsLoggin);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/SetIpInTextbox")]
+        void SetIpInTextbox(string ip);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -108,6 +123,22 @@ namespace Client.LoreServiseRef {
         
         public System.Threading.Tasks.Task CheckHashAndLogAsync(string chekingString, string login) {
             return base.Channel.CheckHashAndLogAsync(chekingString, login);
+        }
+        
+        public void RegIn(string username, string password) {
+            base.Channel.RegIn(username, password);
+        }
+        
+        public System.Threading.Tasks.Task RegInAsync(string username, string password) {
+            return base.Channel.RegInAsync(username, password);
+        }
+        
+        public string ResiveIp(string login) {
+            return base.Channel.ResiveIp(login);
+        }
+        
+        public System.Threading.Tasks.Task<string> ResiveIpAsync(string login) {
+            return base.Channel.ResiveIpAsync(login);
         }
     }
 }

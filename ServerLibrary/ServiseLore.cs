@@ -26,7 +26,8 @@ namespace ServerLibrary
                 Id = nextId,
                 Login = connectlogin,
                 Password = connectpassword,
-                OperContext = OperationContext.Current
+                OperContext = OperationContext.Current,
+                realIp = (OperationContext.Current.IncomingMessageProperties[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty).Address
             };
             nextId++;
             users.Add(user);
@@ -55,7 +56,6 @@ namespace ServerLibrary
                 if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
                 {
                     user.OperContext.GetCallbackChannel<IServiseForServerCallback>().DoYouLog(true);
-                    SendStringMessage("Cool You log");
                 }
                 else
                 {
@@ -77,6 +77,43 @@ namespace ServerLibrary
                 }
                 return builder.ToString();
             }
+        }
+        public void RegIn(string username, string password)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                command.CommandText = $"INSERT INTO [MLstartDataBase].[dbo].[Userss] (Login, PassWord) VALUES (@Login, @Password)";
+                command.Parameters.AddWithValue("@Login", username);
+                command.Parameters.AddWithValue("@Password", GetHashString(password));
+                ExecuteSqlCommand(command);
+            }
+            catch(Exception ex)
+            {
+                SendStringMessage("Sorry" + ex.Message);
+            }
+        }
+
+        public string ResiveIp(string login)
+        {
+            var user = users.Find(x => x.Login == login);
+            if (user != null)
+            {
+                try
+                {
+                    RemoteEndpointMessageProperty clientEndpoint = user.OperContext.IncomingMessageProperties[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
+                    string clientIpAddress = clientEndpoint.Address;
+                    string clientPort = clientEndpoint.Port.ToString();
+                    //user.OperContext.GetCallbackChannel<IServiseForServerCallback>().SetIpInTextbox(clientPort);
+                    return clientIpAddress;
+                }
+                catch (Exception ex)
+                {
+                    //user.OperContext.GetCallbackChannel<IServiseForServerCallback>().SetIpInTextbox("Error " + ex.Message);
+                    return ("Error " + ex.Message + user.realIp.ToString()); 
+                }
+            }
+            return "User is null";
         }
         public DataTable ExecuteSqlCommand(SqlCommand sqlcom)
         {

@@ -44,6 +44,8 @@
         <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You:" VerticalAlignment="Top" Width="260" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
         <TextBox x:Name="UserStatus" TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="10,26,0,0" Text="Status:" VerticalAlignment="Top" Width="519" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
         <Frame x:Name="MainFrame" Content="Frame" Margin="0,52,0,0" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="UserIpBox" HorizontalAlignment="Left" Margin="270,10,0,0" TextWrapping="NoWrap" Text="Ip:" VerticalAlignment="Top" Width="259" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="950,0,0,0" VerticalAlignment="Top" Height="42" Width="80" Click="Button_Click"/>
     </Grid>
 
 </Window>

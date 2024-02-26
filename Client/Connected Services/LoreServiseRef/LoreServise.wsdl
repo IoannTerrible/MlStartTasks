@@ -50,11 +50,23 @@
   <wsdl:message name="IServiseForServer_CheckHashAndLog_InputMessage">
     <wsdl:part name="parameters" element="tns:CheckHashAndLog" />
   </wsdl:message>
+  <wsdl:message name="IServiseForServer_RegIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegIn" />
+  </wsdl:message>
+  <wsdl:message name="IServiseForServer_ResiveIp_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResiveIp" />
+  </wsdl:message>
+  <wsdl:message name="IServiseForServer_ResiveIp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResiveIpResponse" />
+  </wsdl:message>
   <wsdl:message name="IServiseForServer_ReceiveLoreMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ReceiveLoreMessage" />
   </wsdl:message>
   <wsdl:message name="IServiseForServer_DoYouLog_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:DoYouLog" />
+  </wsdl:message>
+  <wsdl:message name="IServiseForServer_SetIpInTextbox_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SetIpInTextbox" />
   </wsdl:message>
   <wsdl:portType name="IServiseForServer">
     <wsdl:operation name="Connect">
@@ -70,11 +82,21 @@
     <wsdl:operation name="CheckHashAndLog">
       <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/CheckHashAndLog" message="tns:IServiseForServer_CheckHashAndLog_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RegIn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/RegIn" message="tns:IServiseForServer_RegIn_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResiveIp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/ResiveIp" message="tns:IServiseForServer_ResiveIp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/ResiveIpResponse" message="tns:IServiseForServer_ResiveIp_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ReceiveLoreMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/ReceiveLoreMessage" message="tns:IServiseForServer_ReceiveLoreMessage_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="DoYouLog">
       <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/DoYouLog" message="tns:IServiseForServer_DoYouLog_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetIpInTextbox">
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/SetIpInTextbox" message="tns:IServiseForServer_SetIpInTextbox_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServiseForServer" type="tns:IServiseForServer">
@@ -107,6 +129,21 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="RegIn">
+      <soap12:operation soapAction="http://tempuri.org/IServiseForServer/RegIn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ResiveIp">
+      <soap12:operation soapAction="http://tempuri.org/IServiseForServer/ResiveIp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ReceiveLoreMessage">
       <soap12:operation soapAction="http://tempuri.org/IServiseForServer/ReceiveLoreMessage" style="document" />
       <wsdl:output>
@@ -115,6 +152,12 @@
     </wsdl:operation>
     <wsdl:operation name="DoYouLog">
       <soap12:operation soapAction="http://tempuri.org/IServiseForServer/DoYouLog" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetIpInTextbox">
+      <soap12:operation soapAction="http://tempuri.org/IServiseForServer/SetIpInTextbox" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

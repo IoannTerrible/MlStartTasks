@@ -20,24 +20,45 @@ namespace Client
         {
             InitializeComponent();
         }
-        public void TrueConnect(string password, string login)
+        public void RegAndConnectAndDisconnect(string username, string password)
+        {
+            client = new LoreServiseRef.ServiseForServerClient(new System.ServiceModel.InstanceContext(this));
+            client.RegInAsync(username, password);
+            client = null;
+        }
+        public void LogAndConnect(string password, string login)
         {
             if (!isConnected)
             {
                 client = new LoreServiseRef.ServiseForServerClient(new System.ServiceModel.InstanceContext(this));
                 isConnected = true;
                 UserStatus.Text = $"You are connected to {client}";
+          
             }
             if (isConnected)
             {
                 UserNameTextBox.Text = login;
                 YouLogin = login;
-                client.Connect(login, password);
+                client.ConnectAsync(login, password);
+                //ResIp(login);
             }
             else
             {
                 MessageBox.Show("YouNeedToConnect");
             }
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ResIp(YouLogin);
+        }
+        void ResIp(string log)
+        {
+            UserIpBox.Text = client.ResiveIp(log);
+
+        }
+        public void SetIpInTextbox(string ip)
+        {
+            UserIpBox.Text = ip;
         }
         public void LogInServer(string password, string login)
         {
@@ -75,6 +96,7 @@ namespace Client
             if (isConnected)
             {
                 client.DisconnectAsync(YouLogin);
+                UserNameTextBox.Text = "";
                 client = null;
                 isConnected = false;
                 LogPage.isWeAreConnect = false;
@@ -97,8 +119,9 @@ namespace Client
 
         private void RegClick(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Navigate(new RegPage(this));
         }
+
 
     }
 }
