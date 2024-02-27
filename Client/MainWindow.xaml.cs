@@ -47,13 +47,20 @@ namespace Client
                 MessageBox.Show("YouNeedToConnect");
             }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void GetIpButton_click(object sender, RoutedEventArgs e)
         {
             ResIp(YouLogin);
         }
         void ResIp(string log)
         {
-            UserIpBox.Text = client.ResiveIp(log);
+            if(isConnected)
+            {
+                UserIpBox.Text = client.ResiveIp(log);
+            }
+            else
+            {
+                MessageBox.Show("You need to log and connect");
+            }
 
         }
         public void SetIpInTextbox(string ip)
@@ -122,6 +129,9 @@ namespace Client
             MainFrame.Navigate(new RegPage(this));
         }
 
+        private void StoryClick(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

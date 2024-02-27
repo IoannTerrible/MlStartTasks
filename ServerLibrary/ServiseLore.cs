@@ -101,16 +101,12 @@ namespace ServerLibrary
             {
                 try
                 {
-                    RemoteEndpointMessageProperty clientEndpoint = user.OperContext.IncomingMessageProperties[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
-                    string clientIpAddress = clientEndpoint.Address;
-                    string clientPort = clientEndpoint.Port.ToString();
-                    //user.OperContext.GetCallbackChannel<IServiseForServerCallback>().SetIpInTextbox(clientPort);
-                    return clientIpAddress;
+                    return user.realIp.ToString();
                 }
                 catch (Exception ex)
                 {
                     //user.OperContext.GetCallbackChannel<IServiseForServerCallback>().SetIpInTextbox("Error " + ex.Message);
-                    return ("Error " + ex.Message + user.realIp.ToString()); 
+                    return ("Error " + ex.Message); 
                 }
             }
             return "User is null";

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MlStartTask2
+namespace ServerLibrary
 {
-    public class MathSolver
+    internal class MathClass
     {
-        public static double[,] Solve(double[,] emptyDoubleArray, int[] arrayWithNumbersForСondition, int[] firstBaseArray, double[] secondBaseArray )
+        public static double[,] Solve(double[,] emptyDoubleArray, int[] arrayWithNumbersForСondition, int[] firstBaseArray, double[] secondBaseArray)
         {
             for (int i = 0; i < firstBaseArray.Length; i++)
             {

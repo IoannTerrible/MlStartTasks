@@ -35,8 +35,6 @@ namespace WpfApp1
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    //mainWindow = Application.Current.MainWindow as MainWindow;
-
                     if (storyPage != null)
                     {
                         storyPage.StartProcessingLines(MlStartTask2.Program.lines, Program.GetDelayInSeconds()); 

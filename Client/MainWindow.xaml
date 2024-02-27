@@ -31,21 +31,23 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="23*"/>
         </Grid.ColumnDefinitions>
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="510" Margin="538,10,0,0">
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="576" Margin="534,10,0,0" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="136*"/>
-                <ColumnDefinition Width="371*"/>
+                <ColumnDefinition Width="119*"/>
+                <ColumnDefinition Width="34*"/>
+                <ColumnDefinition Width="419*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="regButton" Content="Reg" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="120" Click="RegClick" />
-            <Button x:Name="logButton" Content="Log" HorizontalAlignment="Left" Margin="132,0,0,0" VerticalAlignment="Center" Height="32" Width="120" Click="LogClick" Grid.ColumnSpan="2" />
-            <Button x:Name="disconButton" Content="Disconnect" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="120" Click="DisconnectClick" Grid.Column="1" />
+            <Button x:Name="regButton" Content="Reg" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="120" Click="RegClick" />
+            <Button x:Name="logButton" Content="Log" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Center" Height="32" Width="120" Click="LogClick" Grid.ColumnSpan="2" Grid.Column="1" />
+            <Button x:Name="disconButton" Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="70" Click="DisconnectClick" Grid.Column="2" Margin="227,0,0,0" />
+            <Button Content="Get you Ip" HorizontalAlignment="Left" Margin="302,0,0,0" VerticalAlignment="Center" Height="32" Width="70" Click="GetIpButton_click" Grid.Column="2"/>
+            <Button x:Name="StoryButton" Content="Story" HorizontalAlignment="Left" Margin="97,0,0,0" VerticalAlignment="Center" Height="32" Width="120" Click="StoryClick" Grid.Column="2" />
         </Grid>
         <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You:" VerticalAlignment="Top" Width="260" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
         <TextBox x:Name="UserStatus" TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="10,26,0,0" Text="Status:" VerticalAlignment="Top" Width="519" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
         <Frame x:Name="MainFrame" Content="Frame" Margin="0,52,0,0" Grid.ColumnSpan="3"/>
         <TextBox x:Name="UserIpBox" HorizontalAlignment="Left" Margin="270,10,0,0" TextWrapping="NoWrap" Text="Ip:" VerticalAlignment="Top" Width="259" Height="16" TextAlignment="Center" FontFamily="Skranji"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="950,0,0,0" VerticalAlignment="Top" Height="42" Width="80" Click="Button_Click"/>
     </Grid>
 
 </Window>
