@@ -22,8 +22,10 @@ namespace ServerLibrary
     {
         public static List<string> lines { get; set; }
         public static int delayInSeconds { get; set; }
+        public static int num1 { get; set; }
+        public static int num2 { get; set; }
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             lines = new List<string>();
             Logger.CreateLogDirectory(
@@ -33,11 +35,12 @@ namespace ServerLibrary
                 Error
             );
             Random random = new Random();
-            int[] k = Enumerable.Range(5, 15).Where(x => x % 2 != 0).ToArray();
+            int[] k = Enumerable.Range(5, 15).Where(x2 => x2 % 2 != 0).ToArray();
             double[] x = new double[13];
 
             for (int i = 0; i < x.Length; i++)
             {
+                //Or forever
                 x[i] = random.NextDouble(12, 16); //NUMBERS ARE MADE POSITIVE TEMPORARILY TO AVOID COMPUTATION ERRORS.
                 Logger.LogByTemplate(Debug, note: $"X array index {i} = {x[i]} ");
             }
@@ -52,87 +55,7 @@ namespace ServerLibrary
                 secondBaseArray: x);
 
 
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = System.IO.Path.Combine(currentDirectory, "config.xml");
 
-            Logger.LogByTemplate(Debug, note: "Checking and configuring file ");
-            Logger.LogByTemplate(Information, note: $"Config file path: {filePath}");
-
-            if (!File.Exists(filePath))
-            {
-                Logger.LogByTemplate(Debug, note: "Config file not found, creating with default content ");
-                CreateDefaultConfigFile(filePath);
-            }
-
-            string[] realContent = ReadConfigFromFile(filePath);
-
-
-            void CreateDefaultConfigFile(string Path)
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                XmlElement root = xmlDoc.CreateElement("Config");
-                xmlDoc.AppendChild(root);
-                Dictionary<string, string> numbersDictionary = new Dictionary<string, string>
-                {
-                { "Number1", "7" },
-                { "Number2", "9" },
-                { "Delay", "5" }
-                };
-                foreach (var pair in numbersDictionary)
-                {
-                    XmlElement numberElement = xmlDoc.CreateElement(pair.Key);
-                    numberElement.InnerText = pair.Value;
-                    root.AppendChild(numberElement);
-                }
-
-                xmlDoc.Save(Path);
-            }
-
-            string[] ReadConfigFromFile(string Path2)
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(Path2);
-
-                XmlNodeList elements = xmlDoc.SelectNodes("//text()");
-
-                if (elements != null)
-                {
-                    List<string> values = new List<string>();
-
-                    foreach (XmlNode element in elements)
-                    {
-                        if (element.ParentNode != null && element.ParentNode.NodeType == XmlNodeType.Element)
-                        {
-                            values.Add(element.InnerText);
-                        }
-                    }
-
-                    return values.ToArray();
-                }
-                else
-                {
-                    Logger.LogByTemplate(logEventLevel: LogEventLevel.Error, note: "Content node not found in the config file.");
-                    throw new InvalidOperationException("Content node not found in the config file.");
-                }
-            }
-
-            int num1, num2;
-            if (!int.TryParse(realContent[0], out num1))
-            {
-                Logger.LogByTemplate(Error, note: $"Error while Parsing first param from file");
-            }
-            if (!int.TryParse(realContent[1], out num2))
-            {
-                Logger.LogByTemplate(Error, note: $"Error while Parsing second param from file");
-            }
-            if (int.TryParse(realContent[2], out int parsedDelayInSeconds))
-            {
-                delayInSeconds = parsedDelayInSeconds;
-            }
-            else
-            {
-                Logger.LogByTemplate(Error, note: $"Error while Parsing third param from file");
-            }
             Person neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
             Person kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
             Person korotishka = new Person("Коротышка", "Неназванный житель");
@@ -173,8 +96,6 @@ namespace ServerLibrary
             unburnedChest1.RetrieveItems(unburnedChest1.items.Count);
             try
             {
-
-
                 Logger.LogByTemplate(Information,
                     note: $"Parsing successful. num1: {num1}, num2: {num2}");
 
@@ -207,7 +128,7 @@ namespace ServerLibrary
             }
             finally
             {
-                Log.CloseAndFlush();
+                //Log.CloseAndFlush();
             }
 
 
@@ -217,8 +138,45 @@ namespace ServerLibrary
             }
 
         }
+        //Very bad code 
+        public static void GetNumbersFromSendedArrayOfStrings(string[] arrrayOfStrings)
+        {
+            if (arrrayOfStrings.Length < 3)
+            {
+                Logger.LogByTemplate(Error, note: "Insufficient number of parameters in the array");
+                return;
+            }
 
-        public static List<string> GetLines() => lines;
-        public static int GetDelayInSeconds() => delayInSeconds;
+            int.TryParse(arrrayOfStrings[0], out int tempNum1);
+            int.TryParse(arrrayOfStrings[1], out int tempNum2);
+            int.TryParse(arrrayOfStrings[2], out int tempDelayInSeconds);
+
+            if (tempNum1 == 0)
+            {
+                Logger.LogByTemplate(Error, note: $"Error while Parsing first param from file");
+            }
+            else
+            {
+                num1 = tempNum1;
+            }
+
+            if (tempNum2 == 0)
+            {
+                Logger.LogByTemplate(Error, note: $"Error while Parsing second param from file");
+            }
+            else
+            {
+                num2 = tempNum2;
+            }
+
+            if (tempDelayInSeconds == 0)
+            {
+                Logger.LogByTemplate(Error, note: $"Error while Parsing third param from file");
+            }
+            else
+            {
+                delayInSeconds = tempDelayInSeconds;
+            }
+        }
     }
 }

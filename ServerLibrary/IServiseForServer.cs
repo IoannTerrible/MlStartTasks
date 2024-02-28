@@ -26,6 +26,8 @@ namespace ServerLibrary
         void RegIn(string username, string password);
         [OperationContract()]
         string ResiveIp(string login);
+        [OperationContract(IsOneWay = true)]
+        void ReciveConfigData(string[] dataFromConfig);
     }
     public interface IServiseForServerCallback
     {

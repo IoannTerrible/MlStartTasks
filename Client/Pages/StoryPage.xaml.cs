@@ -1,22 +1,33 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace WpfApp1
+namespace Client
 {
     /// <summary>
-    /// Логика взаимодействия для Storyline.xaml
+    /// Логика взаимодействия для StoryPage.xaml
     /// </summary>
-    public partial class StoryLinePage : Page
+    public partial class StoryPage : Page
     {
         private App _app;
-
-        public StoryLinePage(MainWindow _mainWindow)
+        public StoryPage(MainWindow _mainWindow)
         {
             InitializeComponent();
             _app = (App)Application.Current;
             //_app.ProcessLinesInBackground(this);
-            
+
         }
         public async void StartProcessingLines(List<string> storyLinesFromApp, int delayInSeconds)
         {

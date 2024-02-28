@@ -1,13 +1,16 @@
 ﻿using Serilog;
 using Serilog.Events;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ServerLibrary
+namespace Client
 {
-    public class Logger
+    internal class ClientLogger
     {
         public static void LogByTemplate(LogEventLevel logEventLevel, Exception ex = null, string note = "")
         {
@@ -39,7 +42,7 @@ namespace ServerLibrary
             if (!Directory.Exists(logDirectory))
             {
                 Directory.CreateDirectory(logDirectory);
-                Logger.LogByTemplate(LogEventLevel.Information, note: "Create logs directory");
+                ClientLogger.LogByTemplate(LogEventLevel.Information, note: "Create logs directory");
             }
 
             var loggerConfig = new LoggerConfiguration().MinimumLevel.Verbose();

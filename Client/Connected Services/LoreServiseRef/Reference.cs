@@ -50,6 +50,12 @@ namespace Client.LoreServiseRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/ResiveIp", ReplyAction="http://tempuri.org/IServiseForServer/ResiveIpResponse")]
         System.Threading.Tasks.Task<string> ResiveIpAsync(string login);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/ReciveConfigData")]
+        void ReciveConfigData(string[] dataFromConfig);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/ReciveConfigData")]
+        System.Threading.Tasks.Task ReciveConfigDataAsync(string[] dataFromConfig);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -139,6 +145,14 @@ namespace Client.LoreServiseRef {
         
         public System.Threading.Tasks.Task<string> ResiveIpAsync(string login) {
             return base.Channel.ResiveIpAsync(login);
+        }
+        
+        public void ReciveConfigData(string[] dataFromConfig) {
+            base.Channel.ReciveConfigData(dataFromConfig);
+        }
+        
+        public System.Threading.Tasks.Task ReciveConfigDataAsync(string[] dataFromConfig) {
+            return base.Channel.ReciveConfigDataAsync(dataFromConfig);
         }
     }
 }

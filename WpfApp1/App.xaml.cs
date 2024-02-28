@@ -37,7 +37,7 @@ namespace WpfApp1
                 {
                     if (storyPage != null)
                     {
-                        storyPage.StartProcessingLines(MlStartTask2.Program.lines, Program.GetDelayInSeconds()); 
+                        //storyPage.StartProcessingLines(MlStartTask2.Program.lines, Program.GetDelayInSeconds()); 
                     }
                 });
             });

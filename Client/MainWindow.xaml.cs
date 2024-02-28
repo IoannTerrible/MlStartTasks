@@ -66,6 +66,7 @@ namespace Client
         public void SetIpInTextbox(string ip)
         {
             UserIpBox.Text = ip;
+            //MageVoid();
         }
         public void LogInServer(string password, string login)
         {
@@ -78,12 +79,16 @@ namespace Client
                 MessageBox.Show("You need to connect");
             }
         }
+        void MageVoid()
+        {
+            client.ReciveConfigDataAsync(App.realContent);
+        }
         public void DoYouLog(bool IsLogin)
         {
             isLoginServer = IsLogin;
             if (isLoginServer)
             {
-                MessageBox.Show("You are loged in server");
+                MessageBox.Show("You are loged in server" + App.realContent[0]);
             }
             else
             {
@@ -131,7 +136,7 @@ namespace Client
 
         private void StoryClick(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Navigate(new StoryPage(this));
         }
     }
 }

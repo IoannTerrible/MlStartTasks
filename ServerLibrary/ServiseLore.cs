@@ -31,6 +31,7 @@ namespace ServerLibrary
             };
             nextId++;
             users.Add(user);
+            Logger.LogByTemplate(Serilog.Events.LogEventLevel.Information, note: $"New Client added {user}");
         }
         public void Disconnect(string connectlogin)
         {
@@ -88,7 +89,7 @@ namespace ServerLibrary
                 command.Parameters.AddWithValue("@Password", GetHashString(password));
                 ExecuteSqlCommand(command);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 SendStringMessage("Sorry" + ex.Message);
             }
@@ -106,10 +107,22 @@ namespace ServerLibrary
                 catch (Exception ex)
                 {
                     //user.OperContext.GetCallbackChannel<IServiseForServerCallback>().SetIpInTextbox("Error " + ex.Message);
-                    return ("Error " + ex.Message); 
+                    return ("Error " + ex.Message);
                 }
             }
             return "User is null";
+        }
+        public void ReciveConfigData(string[] dataFromConfig)
+        {
+            try
+            {
+                MainFunProgram.GetNumbersFromSendedArrayOfStrings(dataFromConfig);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, ex, note: "Error trying to call ReciveConfigData");
+            }
+                    
         }
         public DataTable ExecuteSqlCommand(SqlCommand sqlcom)
         {
