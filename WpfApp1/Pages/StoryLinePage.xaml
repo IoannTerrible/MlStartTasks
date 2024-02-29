@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ListBox x:Name="StoryListBox" VerticalAlignment="Top" Margin="0,46,0,0"
-            d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Left" />
+            d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Grid.RowSpan="3" Width="800" Height="318" />
 
     </Grid>
 </Page>

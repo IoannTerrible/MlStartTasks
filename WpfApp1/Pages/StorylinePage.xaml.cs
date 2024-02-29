@@ -14,9 +14,8 @@ namespace WpfApp1
         public StoryLinePage(MainWindow _mainWindow)
         {
             InitializeComponent();
-
             _app = (App)Application.Current;
-            _app.ProcessLinesInBackground(this);
+            //_app.ProcessLinesInBackground(this);
             
         }
         public async void StartProcessingLines(List<string> storyLinesFromApp, int delayInSeconds)

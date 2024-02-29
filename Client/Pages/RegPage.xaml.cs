@@ -1,28 +1,24 @@
-﻿using System.Data;
+﻿using Client;
+using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WpfApp1
+namespace Client
 {
     /// <summary>
     /// Логика взаимодействия для RegistrationPage.xaml
     /// </summary>
-    public partial class RegistrationPage : Page
+    public partial class RegPage : Page
     {
         public MainWindow mainWindow;
-        public RegistrationPage(MainWindow _mainWindow)
+        public RegPage(MainWindow _mainWindow)
         {
             InitializeComponent();
             mainWindow = _mainWindow;
         }
-        private void cancer_Click(object sender, RoutedEventArgs e)
-        {
-            mainWindow.OpenPage(MainWindow.Pages.login);
-        }
-
         private void enter_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBoxReg.Text) || string.IsNullOrWhiteSpace(passwordForReg.Password) || string.IsNullOrWhiteSpace(passwordCopy.Password))
@@ -36,14 +32,8 @@ namespace WpfApp1
                 MessageBox.Show("Пароли не совпадают");
                 return;
             }
-
-            SqlCommand command = new SqlCommand();
-            command.CommandText = $"INSERT INTO [MLstartDataBase].[dbo].[Userss] (Login, PassWord) VALUES (@Login, @Password)";
-            command.Parameters.AddWithValue("@Login", textBoxReg.Text);
-            command.Parameters.AddWithValue("@Password", ClassLibraryOne.Hasher.GetHashString(passwordForReg.Password));
-            mainWindow.ExecuteSqlCommand(command);
+            mainWindow.RegAndConnectAndDisconnect(textBoxReg.Text, passwordForReg.Password);
             MessageBox.Show("Регистрация прошла успешно");
-            mainWindow.OpenPage(MainWindow.Pages.login);
         }
     }
 }
