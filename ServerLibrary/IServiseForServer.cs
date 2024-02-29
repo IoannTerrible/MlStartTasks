@@ -28,6 +28,10 @@ namespace ServerLibrary
         string ResiveIp(string login);
         [OperationContract(IsOneWay = true)]
         void ReciveConfigData(string[] dataFromConfig);
+        [OperationContract()]
+        List<string> ReciveLoreString();
+        [OperationContract()]
+        float ReciveDelay();
     }
     public interface IServiseForServerCallback
     {

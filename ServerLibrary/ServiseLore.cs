@@ -155,5 +155,14 @@ namespace ServerLibrary
                 }
             }
         }
+
+        public List<string> ReciveLoreString()
+        {
+            return MainFunProgram.lines;
+        }
+        public float ReciveDelay()
+        {
+            return MainFunProgram.delayInSeconds;
+        }
     }
 }

@@ -63,6 +63,18 @@
   <wsdl:message name="IServiseForServer_ReciveConfigData_InputMessage">
     <wsdl:part name="parameters" element="tns:ReciveConfigData" />
   </wsdl:message>
+  <wsdl:message name="IServiseForServer_ReciveLoreString_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReciveLoreString" />
+  </wsdl:message>
+  <wsdl:message name="IServiseForServer_ReciveLoreString_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReciveLoreStringResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiseForServer_ReciveDelay_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReciveDelay" />
+  </wsdl:message>
+  <wsdl:message name="IServiseForServer_ReciveDelay_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReciveDelayResponse" />
+  </wsdl:message>
   <wsdl:message name="IServiseForServer_ReceiveLoreMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ReceiveLoreMessage" />
   </wsdl:message>
@@ -95,6 +107,14 @@
     </wsdl:operation>
     <wsdl:operation name="ReciveConfigData">
       <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/ReciveConfigData" message="tns:IServiseForServer_ReciveConfigData_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReciveLoreString">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/ReciveLoreString" message="tns:IServiseForServer_ReciveLoreString_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/ReciveLoreStringResponse" message="tns:IServiseForServer_ReciveLoreString_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReciveDelay">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiseForServer/ReciveDelay" message="tns:IServiseForServer_ReciveDelay_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/ReciveDelayResponse" message="tns:IServiseForServer_ReciveDelay_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReceiveLoreMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IServiseForServer/ReceiveLoreMessage" message="tns:IServiseForServer_ReceiveLoreMessage_OutputCallbackMessage" />
@@ -156,6 +176,24 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ReciveLoreString">
+      <soap12:operation soapAction="http://tempuri.org/IServiseForServer/ReciveLoreString" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReciveDelay">
+      <soap12:operation soapAction="http://tempuri.org/IServiseForServer/ReciveDelay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ReceiveLoreMessage">
       <soap12:operation soapAction="http://tempuri.org/IServiseForServer/ReceiveLoreMessage" style="document" />

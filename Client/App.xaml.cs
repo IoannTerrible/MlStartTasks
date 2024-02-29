@@ -22,22 +22,6 @@ namespace Client
         public static void Main(string[] args)
         {
             Client.App app = new Client.App();
-
-
-            //public async Task ProcessLinesInBackground(StoryLinePage storyPage)
-            //{
-            //    await Task.Run(() =>
-            //    {
-            //        Application.Current.Dispatcher.Invoke(() =>
-            //        {
-            //            if (storyPage != null)
-            //            {
-            //                storyPage.StartProcessingLines(MlStartTask2.Program.lines, Program.GetDelayInSeconds());
-            //            }
-            //        });
-            //    });
-            //}
-
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = System.IO.Path.Combine(currentDirectory, "config.xml");
 
@@ -103,6 +87,19 @@ namespace Client
             }
             app.InitializeComponent();
             app.Run();
+        }
+        public async Task ProcessLinesInBackground(StoryPage storyPage)
+        {
+            await Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    if (storyPage != null)
+                    {
+                        storyPage.StartProcessingLines(storyPage.lines, storyPage.delays);
+                    }
+                });
+            });
         }
     }
 }

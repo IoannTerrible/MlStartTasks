@@ -21,7 +21,7 @@ namespace ServerLibrary
     public class MainFunProgram
     {
         public static List<string> lines { get; set; }
-        public static int delayInSeconds { get; set; }
+        public static float delayInSeconds { get; set; }
         public static int num1 { get; set; }
         public static int num2 { get; set; }
 
@@ -149,7 +149,7 @@ namespace ServerLibrary
 
             int.TryParse(arrrayOfStrings[0], out int tempNum1);
             int.TryParse(arrrayOfStrings[1], out int tempNum2);
-            int.TryParse(arrrayOfStrings[2], out int tempDelayInSeconds);
+            float.TryParse(arrrayOfStrings[2], out float tempDelayInSeconds);
 
             if (tempNum1 == 0)
             {

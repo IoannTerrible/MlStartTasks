@@ -56,6 +56,18 @@ namespace Client.LoreServiseRef {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiseForServer/ReciveConfigData")]
         System.Threading.Tasks.Task ReciveConfigDataAsync(string[] dataFromConfig);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/ReciveLoreString", ReplyAction="http://tempuri.org/IServiseForServer/ReciveLoreStringResponse")]
+        string[] ReciveLoreString();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/ReciveLoreString", ReplyAction="http://tempuri.org/IServiseForServer/ReciveLoreStringResponse")]
+        System.Threading.Tasks.Task<string[]> ReciveLoreStringAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/ReciveDelay", ReplyAction="http://tempuri.org/IServiseForServer/ReciveDelayResponse")]
+        float ReciveDelay();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiseForServer/ReciveDelay", ReplyAction="http://tempuri.org/IServiseForServer/ReciveDelayResponse")]
+        System.Threading.Tasks.Task<float> ReciveDelayAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -153,6 +165,22 @@ namespace Client.LoreServiseRef {
         
         public System.Threading.Tasks.Task ReciveConfigDataAsync(string[] dataFromConfig) {
             return base.Channel.ReciveConfigDataAsync(dataFromConfig);
+        }
+        
+        public string[] ReciveLoreString() {
+            return base.Channel.ReciveLoreString();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> ReciveLoreStringAsync() {
+            return base.Channel.ReciveLoreStringAsync();
+        }
+        
+        public float ReciveDelay() {
+            return base.Channel.ReciveDelay();
+        }
+        
+        public System.Threading.Tasks.Task<float> ReciveDelayAsync() {
+            return base.Channel.ReciveDelayAsync();
         }
     }
 }

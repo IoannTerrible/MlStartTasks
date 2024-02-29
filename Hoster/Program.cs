@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -14,7 +15,8 @@ namespace Hoster
             using (var host = new ServiceHost(typeof(ServerLibrary.LoreServise)))
             {
                 host.Open();
-                Console.WriteLine("StartHost");
+                ServerLibrary.MainFunProgram.Main(args);
+                Console.WriteLine($"Start Host");
                 Console.ReadLine();
             }
         }

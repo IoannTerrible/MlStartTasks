@@ -3,6 +3,7 @@ using System.Data;
 using System;
 using System.Windows;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Client
 {
@@ -108,7 +109,8 @@ namespace Client
             if (isConnected)
             {
                 client.DisconnectAsync(YouLogin);
-                UserNameTextBox.Text = "";
+                UserNameTextBox.Text += " (Disconneted)";
+                UserIpBox.Text = " You Ip was here:";
                 client = null;
                 isConnected = false;
                 LogPage.isWeAreConnect = false;
@@ -116,7 +118,7 @@ namespace Client
             }
             else
             {
-                MessageBox.Show("You are not coonnndecer");
+                MessageBox.Show("You are not Connected");
             }
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -136,7 +138,14 @@ namespace Client
 
         private void StoryClick(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new StoryPage(this));
+            if (isConnected)
+            {
+            MainFrame.Navigate(new StoryPage(this,new List<string>(client.ReciveLoreString()), client.ReciveDelay()));
+            }
+            else
+            {
+                MessageBox.Show("Sorry.Need to connect");
+            }
         }
     }
 }

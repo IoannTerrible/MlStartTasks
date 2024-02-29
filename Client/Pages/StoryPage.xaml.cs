@@ -21,25 +21,32 @@ namespace Client
     /// </summary>
     public partial class StoryPage : Page
     {
+        internal List<string> lines;
+        internal float delays;
         private App _app;
-        public StoryPage(MainWindow _mainWindow)
+        public StoryPage(MainWindow _mainWindow, List<string> stringsForLines, float delayForDelay)
         {
             InitializeComponent();
             _app = (App)Application.Current;
-            //_app.ProcessLinesInBackground(this);
+            lines = stringsForLines;
+            delays = delayForDelay;
+            _app.ProcessLinesInBackground(this);
 
         }
-        public async void StartProcessingLines(List<string> storyLinesFromApp, int delayInSeconds)
+        public async void StartProcessingLines(List<string> storyLinesFromApp, float delayInSeconds)
         {
             await Task.Run(async () =>
             {
-                foreach (var line in storyLinesFromApp)
+                while (true)
                 {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    foreach (var line in storyLinesFromApp)
                     {
-                        this.StoryListBox.Items.Add(line);
-                    }, DispatcherPriority.Background);
-                    await Task.Delay(delayInSeconds);
+                        await Application.Current.Dispatcher.InvokeAsync(() =>
+                        {
+                            this.StoryListBox.Items.Add(line);
+                        }, DispatcherPriority.Background);
+                        await Task.Delay((int)delayInSeconds / 1000);
+                    }
                 }
             });
         }
