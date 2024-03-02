@@ -50,7 +50,7 @@ namespace ServerLibrary
                 logName = logEventLevel.ToString().ToLower() + "Log";
                 loggerConfig.WriteTo.Logger(lc => lc
                     .Filter.ByIncludingOnly(evt => evt.Level == logEventLevel)
-                    .WriteTo.File($@"{logDirectory}\{logName}.txt", rollingInterval: RollingInterval.Day, outputTemplate: "{Message}{NewLine}"));
+                    .WriteTo.File($@"{logDirectory}\{logName}.txt", rollingInterval: RollingInterval.Day, outputTemplate: "{Level}{Message}{NewLine}"));
             }
 
             Log.Logger = loggerConfig.CreateLogger();

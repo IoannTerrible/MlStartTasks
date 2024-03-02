@@ -1,9 +1,10 @@
-﻿using System.Data.SqlClient;
-using System.Data;
-using System;
-using System.Windows;
-using System.Threading.Tasks;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
+using System.Windows;
+using Serilog.Events;
 
 namespace Client
 {
@@ -21,12 +22,7 @@ namespace Client
         {
             InitializeComponent();
         }
-        public void RegAndConnectAndDisconnect(string username, string password)
-        {
-            client = new LoreServiseRef.ServiseForServerClient(new System.ServiceModel.InstanceContext(this));
-            client.RegInAsync(username, password);
-            client = null;
-        }
+
         public void LogAndConnect(string password, string login)
         {
             if (!isConnected)
@@ -34,7 +30,6 @@ namespace Client
                 client = new LoreServiseRef.ServiseForServerClient(new System.ServiceModel.InstanceContext(this));
                 isConnected = true;
                 UserStatus.Text = $"You are connected to {client}";
-          
             }
             if (isConnected)
             {
@@ -48,13 +43,24 @@ namespace Client
                 MessageBox.Show("YouNeedToConnect");
             }
         }
+
+        public void RegAndConnectAndDisconnect(string username, string password)
+        {
+            client = new LoreServiseRef.ServiseForServerClient(new System.ServiceModel.InstanceContext(this));
+            ClientLogger.LogByTemplate(LogEventLevel.Information, note: "Registration and connection process started.");
+            client.RegInAsync(username, password);
+            ClientLogger.LogByTemplate(LogEventLevel.Information, note: "Registration and connection process finish.");
+            client = null;
+        }
+
         private void GetIpButton_click(object sender, RoutedEventArgs e)
         {
             ResIp(YouLogin);
         }
+
         void ResIp(string log)
         {
-            if(isConnected)
+            if (isConnected)
             {
                 UserIpBox.Text = client.ResiveIp(log);
             }
@@ -62,13 +68,13 @@ namespace Client
             {
                 MessageBox.Show("You need to log and connect");
             }
-
         }
+
         public void SetIpInTextbox(string ip)
         {
             UserIpBox.Text = ip;
-            //MageVoid();
         }
+
         public void LogInServer(string password, string login)
         {
             if (isConnected)
@@ -80,10 +86,7 @@ namespace Client
                 MessageBox.Show("You need to connect");
             }
         }
-        void MageVoid()
-        {
-            client.ReciveConfigDataAsync(App.realContent);
-        }
+
         public void DoYouLog(bool IsLogin)
         {
             isLoginServer = IsLogin;
@@ -96,31 +99,51 @@ namespace Client
                 MessageBox.Show("You are not loged in server");
             }
         }
+
         public void ReceiveLoreMessage(string message)
         {
             UserStatus.Text = message;
         }
+
         private void DisconnectClick(object sender, RoutedEventArgs e)
         {
             Disconnect();
         }
+
         void Disconnect()
         {
             if (isConnected)
             {
-                client.DisconnectAsync(YouLogin);
-                UserNameTextBox.Text += " (Disconneted)";
-                UserIpBox.Text = " You Ip was here:";
-                client = null;
-                isConnected = false;
-                LogPage.isWeAreConnect = false;
-                LogPage.isWeAreLogIn = false;
+                try
+                {
+                    client.DisconnectAsync(YouLogin);
+                    UpdateUIOnDisconnect();
+                    ClientLogger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
+                    throw new Exception("TestError");
+                }
+                catch (Exception ex)
+                {
+                    ClientLogger.LogByTemplate(LogEventLevel.Error, ex, "Failed to disconnect from server.");
+                    MessageBox.Show("Failed to disconnect from server.");
+                }
             }
             else
             {
-                MessageBox.Show("You are not Connected");
+                ClientLogger.LogByTemplate(LogEventLevel.Warning, note: "Failed to disconnect. Not connected to server.");
+                MessageBox.Show("You are not connected.");
             }
         }
+
+        private void UpdateUIOnDisconnect()
+        {
+            UserNameTextBox.Text += " (Disconnected)";
+            UserIpBox.Text = " Your IP was here:";
+            client = null;
+            isConnected = false;
+            LogPage.isWeAreConnect = false;
+            LogPage.isWeAreLogIn = false;
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Disconnect();
@@ -140,7 +163,7 @@ namespace Client
         {
             if (isConnected)
             {
-            MainFrame.Navigate(new StoryPage(this,new List<string>(client.ReciveLoreString()), client.ReciveDelay()));
+                MainFrame.Navigate(new StoryPage(this, new List<string>(client.ReciveLoreString()), client.ReciveDelay()));
             }
             else
             {

@@ -94,6 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientLogger.cs" />
+    <Compile Include="ConfigCreator.cs" />
+    <Compile Include="ConfigReader.cs" />
     <Compile Include="Connected Services\LoreServiseRef\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

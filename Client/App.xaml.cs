@@ -21,6 +21,12 @@ namespace Client
         [STAThread]
         public static void Main(string[] args)
         {
+            ClientLogger.CreateLogDirectory(
+                Debug,
+                Information,
+                Warning,
+                Error
+            );
             Client.App app = new Client.App();
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = System.IO.Path.Combine(currentDirectory, "config.xml");
@@ -31,60 +37,11 @@ namespace Client
             if (!File.Exists(filePath))
             {
                 ClientLogger.LogByTemplate(Debug, note: "Config file not found, creating with default content ");
-                CreateDefaultConfigFile(filePath);
+                ConfigCreator.CreateDefaultConfigFile(filePath);
             }
 
-            realContent = ReadConfigFromFile(filePath);
+            realContent = ConfigReader.ReadConfigFromFile(filePath);
 
-
-            void CreateDefaultConfigFile(string Path)
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                XmlElement root = xmlDoc.CreateElement("Config");
-                xmlDoc.AppendChild(root);
-                Dictionary<string, string> numbersDictionary = new Dictionary<string, string>
-                {
-                { "Number1", "7" },
-                { "Number2", "9" },
-                { "Delay", "5" }
-                };
-                foreach (var pair in numbersDictionary)
-                {
-                    XmlElement numberElement = xmlDoc.CreateElement(pair.Key);
-                    numberElement.InnerText = pair.Value;
-                    root.AppendChild(numberElement);
-                }
-
-                xmlDoc.Save(Path);
-            }
-
-            string[] ReadConfigFromFile(string Path2)
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(Path2);
-
-                XmlNodeList elements = xmlDoc.SelectNodes("//text()");
-
-                if (elements != null)
-                {
-                    List<string> values = new List<string>();
-
-                    foreach (XmlNode element in elements)
-                    {
-                        if (element.ParentNode != null && element.ParentNode.NodeType == XmlNodeType.Element)
-                        {
-                            values.Add(element.InnerText);
-                        }
-                    }
-
-                    return values.ToArray();
-                }
-                else
-                {
-                    ClientLogger.LogByTemplate(logEventLevel: LogEventLevel.Error, note: "Content node not found in the config file.");
-                    throw new InvalidOperationException("Content node not found in the config file.");
-                }
-            }
             app.InitializeComponent();
             app.Run();
         }
