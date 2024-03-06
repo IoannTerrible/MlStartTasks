@@ -23,17 +23,17 @@ namespace Client
         {
             if (string.IsNullOrWhiteSpace(textBoxReg.Text) || string.IsNullOrWhiteSpace(passwordForReg.Password) || string.IsNullOrWhiteSpace(passwordCopy.Password))
             {
-                MessageBox.Show("Введите логин, пароль и повторите пароль");
+                MessageBox.Show("Enter a login, password, and repeat the password");
                 return;
             }
 
             if (passwordForReg.Password != passwordCopy.Password)
             {
-                MessageBox.Show("Пароли не совпадают");
+                MessageBox.Show("Passwords do not match");
                 return;
             }
             mainWindow.RegAndConnectAndDisconnect(textBoxReg.Text, passwordForReg.Password);
-            MessageBox.Show("Регистрация прошла успешно");
+            MessageBox.Show("Registration was successful");
         }
     }
 }

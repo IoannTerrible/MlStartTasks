@@ -1,15 +1,4 @@
-﻿using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace SocketClient
 {
@@ -19,19 +8,12 @@ namespace SocketClient
     public partial class MainWindow : Window
     {
         public readonly Connector _socketClient;
+        public bool isConnected;
 
         public MainWindow()
         {
             InitializeComponent();
             _socketClient = new Connector("localhost", 11000);
-            //try
-            //{
-            //    _socketClient.Connect();
-            //}
-            //catch (Exception ex)
-            //{
-            //    //MessageBox.Show(ex.ToString() + "Connection Failed");
-            //}
         }
         public async void SendMessageAndReceive(string message)
         {
@@ -52,7 +34,7 @@ namespace SocketClient
 
         private void StoryClick(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Navigate(new StoryPage(this));
         }
 
         private void DisconnectClick(object sender, RoutedEventArgs e)
