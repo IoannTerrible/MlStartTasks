@@ -18,38 +18,36 @@ namespace SocketClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Connector _socketClient;
+        public readonly Connector _socketClient;
 
         public MainWindow()
         {
             InitializeComponent();
             _socketClient = new Connector("localhost", 11000);
-            try
-            {
-                SendMessageAndReceive("MessageForYou");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            //try
+            //{
+            //    _socketClient.Connect();
+            //}
+            //catch (Exception ex)
+            //{
+            //    //MessageBox.Show(ex.ToString() + "Connection Failed");
+            //}
         }
-        private async void SendMessageAndReceive(string message)
+        public async void SendMessageAndReceive(string message)
         {
             await _socketClient.SendMessage(message);
             string response = await _socketClient.ReceiveMessage();
             MessageBox.Show(response);
 
-            if (!message.Contains("<TheEnd>"))
-                SendMessageAndReceive(message);
         }
         private void RegClick(object sender, RoutedEventArgs e)
         {
-            SendMessageAndReceive("fff");
+            MainFrame.Navigate(new RegInPage(this));
         }
 
         private void LogClick(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Navigate(new LogInPage(this));
         }
 
         private void StoryClick(object sender, RoutedEventArgs e)
@@ -59,7 +57,7 @@ namespace SocketClient
 
         private void DisconnectClick(object sender, RoutedEventArgs e)
         {
-
+            _socketClient.Disconnect();
         }
 
         private void GetIpButton_click(object sender, RoutedEventArgs e)

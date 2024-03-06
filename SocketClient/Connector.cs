@@ -13,30 +13,54 @@ namespace SocketClient
     {
         private readonly string _host;
         private readonly int _port;
-
+        private Socket sender;
+        public bool IsConnected = false;
         public Connector(string host, int port)
         {
             _host = host;
             _port = port;
         }
-        Socket sender = new Socket(Dns.GetHostEntry("localhost").AddressList[0].AddressFamily, SocketType.Stream, ProtocolType.Tcp))
+        public async void Connect()
+        {
+            IPAddress ipAddress = (await Dns.GetHostEntryAsync(_host)).AddressList[0];
+            sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            IsConnected = true;
+            await sender.ConnectAsync(ipAddress, _port);
+        }
+        
         public async Task SendMessage(string message)
         {
-
+            if (IsConnected)
             {
-                await sender.ConnectAsync(_host, _port);
-                byte[] msg = Encoding.UTF8.GetBytes(message);
-                await sender.SendAsync(msg);
+                {
+                    byte[] msg = Encoding.UTF8.GetBytes(message);
+                    await sender.SendAsync(msg);
+                }
             }
         }
 
         public async Task<string> ReceiveMessage()
         {
-            byte[] bytes = new byte[1024];
+            if (IsConnected)
             {
-                await sender.ConnectAsync(_host, _port);
-                int bytesRec = await sender.ReceiveAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
-                return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                byte[] bytes = new byte[1024];
+                {
+                    int bytesRec = await sender.ReceiveAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
+                    return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public void Disconnect()
+        {
+            if (IsConnected && sender != null)
+            {
+                sender.Shutdown(SocketShutdown.Both);
+                sender.Close();
+                IsConnected = false;
             }
         }
     }

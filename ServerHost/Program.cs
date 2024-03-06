@@ -7,63 +7,26 @@ namespace ServerHost
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            // Устанавливаем для сокета локальную конечную точку
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
-
-            // Создаем сокет Tcp /Ip
             Socket sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            // Назначаем сокет локальной конечной точке и слушаем входящие сокеты
             try
             {
                 sListener.Bind(ipEndPoint);
                 sListener.Listen(10);
 
-                // Начинаем слушать соединения
+                Console.WriteLine("Сервер запущен. Ожидаем соединения...");
+
                 while (true)
                 {
-                    Console.WriteLine("Ожидаем соединение через порт {0}", ipEndPoint);
-
-                    // Программа приостанавливается, ожидая входящее соединение
-                    Socket handler = sListener.Accept();
-                    string ?data = null;
-                    try
+                    Socket handler = await sListener.AcceptAsync();
+                    _ = Task.Run(async () =>
                     {
-                        // Мы дождались клиента, пытающегося с нами соединиться
-
-                        byte[] bytes = new byte[1024];
-                        int bytesRec = handler.Receive(bytes);
-
-                        data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-                        // Показываем данные на консоли
-                        Console.Write(data + "\n\n");
-
-                        // Отправляем ответ клиенту
-                        string reply = "Спасибо за запрос в " + data.Length.ToString()
-                                + " символов";
-                        byte[] msg = Encoding.UTF8.GetBytes(reply);
-                        handler.Send(msg);
-
-                        //if (data.IndexOf("<TheEnd>") > -1)
-                        //{
-                        //    Console.WriteLine("Сервер завершил соединение с клиентом.");
-                        //    break;
-                        //}
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                    }
-                    finally
-                    {
-                        //handler.Shutdown(SocketShutdown.Both);
-                        //handler.Close();
-                    }
+                        await HandleClient(handler, ipEndPoint);
+                    });
                 }
             }
             catch (Exception ex)
@@ -74,6 +37,85 @@ namespace ServerHost
             {
                 Console.ReadLine();
             }
+        }
+
+        static async Task HandleClient(Socket handler, IPEndPoint ipEndPoint)
+        {
+            try
+            {
+                while (true)
+                {
+                    // Мы дождались клиента, пытающегося с нами соединиться
+                    byte[] bytes = new byte[1024];
+                    int bytesRec = await handler.ReceiveAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
+
+                    string data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+
+                    // Показываем данные на консоли
+                    Console.WriteLine($"Получено от клиента: {data}");
+
+                    
+                    string reply = await ProcessData(data, ipEndPoint);
+                    byte[] msg = Encoding.UTF8.GetBytes(reply);
+                    await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
+
+                    if (data.Contains("<TheEnd>"))
+                    {
+                        Console.WriteLine("Клиент завершил соединение.");
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                handler.Shutdown(SocketShutdown.Both);
+                handler.Close();
+            }
+        }
+        static async Task<string> ProcessData(string data, IPEndPoint ipEndPoint)
+        {
+            string[] parts = data.Split(' ');
+            string command = parts[0];
+            Console.WriteLine("Command: "+ command.Trim().ToUpper());
+            switch (command.Trim().ToUpper())
+            {
+                case "LOG":
+                    string login = parts[1];
+                    string password = parts[2];
+                    Console.WriteLine($"ConvertedData{parts[0]} {parts[1]} {parts[2]}");
+                    if (!ClassForAuth.CheckHashAndLog(login, password))
+                    {
+                        return "Invalid credentials";
+                    }
+                    else
+                    {
+                        return "You have successfully logged in";
+                    }
+                case "REG":
+                    string loginForReg = parts[1];
+                    string passwordForReg = parts[2];
+                    return ClassForAuth.RegIn(loginForReg, passwordForReg);
+                case "CON":
+                    return $"You are connected to IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}";
+                default:
+                    return "Неизвестная команда";
+            }
+        }
+
+        static void VoidOne()
+        {
+            // Реализация метода VoidOne
+            Console.WriteLine("Метод VoidOne вызван");
+        }
+
+        static void VoidTwo()
+        {
+            // Реализация метода VoidTwo
+            Console.WriteLine("Метод VoidTwo вызван");
         }
     }
 }
