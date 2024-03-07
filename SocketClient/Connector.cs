@@ -86,9 +86,16 @@ namespace SocketClient
         {
             if (IsConnected && sender != null)
             {
-                sender.Shutdown(SocketShutdown.Both);
-                sender.Close();
-                IsConnected = false;
+                try
+                {
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
+                    IsConnected = false;
+                }
+                catch(SocketException ex)
+                {
+                    ClientLogger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while clicking to disconnet");
+                }
             }
         }
     }
