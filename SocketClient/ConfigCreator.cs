@@ -19,7 +19,7 @@ namespace SocketClient
             {
                 { "Number1", "7" },
                 { "Number2", "9" },
-                { "Delay", "500" }
+                { "Delay", "1" }
             };
 
             foreach (var pair in numbersDictionary)

@@ -41,7 +41,7 @@
             <Button x:Name="regButton" Content="Reg" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="120" Click="RegClick" />
             <Button x:Name="logButton" Content="Log" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Center" Height="32" Width="120" Click="LogClick" Grid.ColumnSpan="2" Grid.Column="1" />
             <Button x:Name="disconButton" Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="70" Click="DisconnectClick" Grid.Column="2" Margin="227,0,0,0" />
-            <Button Content="Get you Ip" HorizontalAlignment="Left" Margin="302,0,0,0" VerticalAlignment="Center" Height="32" Width="70" Click="GetIpButton_click" Grid.Column="2"/>
+            <Button Content="Connect" HorizontalAlignment="Left" Margin="302,0,0,0" VerticalAlignment="Center" Height="32" Width="70" Click="GetIpButton_click" Grid.Column="2"/>
             <Button x:Name="StoryButton" Content="Story" HorizontalAlignment="Left" Margin="97,0,0,0" VerticalAlignment="Center" Height="32" Width="120" Click="StoryClick" Grid.Column="2" />
         </Grid>
         <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You:" VerticalAlignment="Top" Width="260" Height="16" TextAlignment="Center" FontFamily="Skranji"/>

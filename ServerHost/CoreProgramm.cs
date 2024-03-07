@@ -1,12 +1,5 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Serilog.Events.LogEventLevel;
-;
+﻿using static Serilog.Events.LogEventLevel;
+
 namespace ServerHost
 {
     internal static class RandomExtension
@@ -23,10 +16,10 @@ namespace ServerHost
         public static int num1 { get; set; }
         public static int num2 { get; set; }
 
-        public static void Main(string[] args)
+        public static void CoreMain()
         {
             lines = new List<string>();
-            Logger.CreateLogDirectory(
+            ServerLogger.CreateLogDirectory(
                 Debug,
                 Information,
                 Warning,
@@ -38,11 +31,11 @@ namespace ServerHost
 
             for (int i = 0; i < x.Length; i++)
             {
-                x[i] = random.NextDouble(-12, 16); 
-                Logger.LogByTemplate(Debug, note: $"X array index {i} = {x[i]} ");
+                x[i] = random.NextDouble(-12, 16);
+                ServerLogger.LogByTemplate(Debug, note: $"X array index {i} = {x[i]} ");
             }
 
-            Logger.LogByTemplate(Information, note: "Application started ");
+            ServerLogger.LogByTemplate(Information, note: "Application started ");
             double[,] arr2 = new double[8, 13];
             int[] numbers = { 5, 7, 11, 15 };
             arr2 = MathClass.Solve(
@@ -53,28 +46,29 @@ namespace ServerHost
 
 
 
-            Person neshnaika = new Person("Незнайка", "Житель солнечного города, Главный герой");
-            Person kozlik = new Person("Козлик", "Досыта хлебнувший жизни лунатик");
-            Person korotishka = new Person("Коротышка", "Неназванный житель");
-            Person miga = new Person("Мига", "Житель лунного города");
-            Bank bank1 = new Bank("Банк1", 1000000, 10);
-            Person.BankAccount migaBankAccount1 = new Person.BankAccount(100, miga);
-            Storage unburnedCloset = new Storage("НезгораемыйШкаф");
-            Storage unburnedChest0 = new Storage("НезгораемыйСундук1");
-            Storage unburnedChest1 = new Storage("НезгораемыйСундук2");
-            unburnedChest0.StoreItems(new List<Item> { new Item("Акция1"), new Item("Акция2"), new Item("Акция3") });
-            unburnedChest1.StoreItems(new List<Item> { new Item("Акция4"), new Item("Акция5"), new Item("Акция6") });
+            Person neshnaika = new("Незнайка", "Житель солнечного города, Главный герой");
+            Person kozlik = new("Козлик", "Досыта хлебнувший жизни лунатик");
+            Person korotishka = new("Коротышка", "Неназванный житель");
+            Person miga = new("Мига", "Житель лунного города");
+            Bank bank1 = new("Банк1", 1000000, 10);
+            Person.BankAccount migaBankAccount1 = new(100, miga);
+            Storage unburnedCloset = new("НезгораемыйШкаф");
+            Storage unburnedChest0 = new("НезгораемыйСундук1");
+            Storage unburnedChest1 = new("НезгораемыйСундук2");
 
-            Crowd thoseWhoWishingToPurchaseShares = new Crowd("Те кто хочет купить акции компании больших растений", "Желающие Приобрести Акции");
-            Crowd passersby = new Crowd("Коротышки на улице", "Прохожие");
-            Crowd population = new Crowd("Население города", "Население города");
+            unburnedChest0.StoreItems(new List<Item> { new("Акция1"), new("Акция2"), new("Акция3") });
+            unburnedChest1.StoreItems(new List<Item> { new("Акция4"), new("Акция5"), new("Акция6") });
 
-            lines.AddRange(korotishka.PerformAction(new List<Item> { new Item("Деньги") }, Actions.InvestMoney));
-            lines.AddRange(korotishka.BuyShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
+            Crowd thoseWhoWishingToPurchaseShares = new("Те кто хочет купить акции компании больших растений", "Желающие Приобрести Акции");
+            Crowd passersby = new("Коротышки на улице", "Прохожие");
+            Crowd population = new("Население города", "Население города");
+
+            lines.AddRange(korotishka.PerformAction(new List<Item> { new("Деньги") }, Actions.InvestMoney));
+            lines.AddRange(korotishka.BuyShares(new List<Item> { new("Акция1"), new("Акция2") }));
             lines.Add(korotishka.PerfomSimplyAction(Actions.Departure));
             lines.Add(thoseWhoWishingToPurchaseShares.GetState("Cтановилось всё больше и больше"));
-            lines.AddRange(neshnaika.SellShares(new List<Item> { new Item("Акция1"), new Item("Акция2") }));
-            lines.AddRange(kozlik.SellShares(new List<Item> { new Item("Акция3"), new Item("Акция4") }));
+            lines.AddRange(neshnaika.SellShares(new List<Item> { new("Акция1"), new("Акция2") }));
+            lines.AddRange(kozlik.SellShares(new List<Item> { new("Акция3"), new("Акция4") }));
             lines.Add(miga.PerfomSimplyAction(Actions.Move));
             lines.Add(migaBankAccount1.DisplayBalance());
             lines.Add(bank1.MoneyExchange(miga));
@@ -84,7 +78,7 @@ namespace ServerHost
                 storage: unburnedCloset));
             migaBankAccount1.RemoveMoney(migaBankAccount1.Balance);
             lines.Add(migaBankAccount1.DisplayBalance());
-            unburnedCloset.StoreItems(itemsToStore: new List<Item> { new Item("Деньги"), new Item("Деньги") });
+            unburnedCloset.StoreItems(itemsToStore: new List<Item> { new("Деньги"), new("Деньги") });
             lines.Add(thoseWhoWishingToPurchaseShares.GetState("Толклись на улице, дожидаясь открытия конторы"));
             lines.Add(passersby.GetState("Заинтересовались происходящим"));
             lines.Add(population.GetState("Узнало об акциях Общества Гигантских растений"));
@@ -93,7 +87,7 @@ namespace ServerHost
             unburnedChest1.RetrieveItems(unburnedChest1.items.Count);
             try
             {
-                Logger.LogByTemplate(Information,
+                ServerLogger.LogByTemplate(Information,
                     note: $"Parsing successful. num1: {num1}, num2: {num2}");
 
                 double[] FirstElement = Enumerable.Range(0, arr2.GetLength(1))
@@ -105,21 +99,21 @@ namespace ServerHost
                                         .ToArray();
 
                 var answer = (Math.Round((FirstElement.Min() + SecondElemet.Average()), 4));
-                Logger.LogByTemplate(Debug,
+                ServerLogger.LogByTemplate(Debug,
                     note: $"answer = {answer}");
 
                 if (double.IsNaN(answer))
                 {
-                    Logger.LogByTemplate(Warning,
+                    ServerLogger.LogByTemplate(Warning,
                         note: $"The calculated result is not a valid number. answer = {answer} Please check your input data.");
-                    Logger.LogByTemplate(Error, note: "Failed to generate number. try again");
+                    ServerLogger.LogByTemplate(Error, note: "Failed to generate number. try again");
                     throw new Exception("Failed to generate number. try again");
                 }
                 AddNarrativeline(answer);
             }
             catch (Exception ex)
             {
-                Logger.LogByTemplate(Error,
+                ServerLogger.LogByTemplate(Error,
                     ex
                     , $"Parsing failed. Invalid format in config file.");
             }
@@ -139,7 +133,7 @@ namespace ServerHost
         {
             if (arrayOfStrings.Length < 3)
             {
-                Logger.LogByTemplate(LogLevel.Error, note: "Insufficient number of parameters in the array");
+                ServerLogger.LogByTemplate(Error, note: "Insufficient number of parameters in the array");
                 return;
             }
 
@@ -147,7 +141,7 @@ namespace ServerHost
                 !int.TryParse(arrayOfStrings.ElementAtOrDefault(1), out int num2) ||
                 !float.TryParse(arrayOfStrings.ElementAtOrDefault(2), out float delayInSeconds) || delayInSeconds == 0)
             {
-                Logger.LogByTemplate(LogLevel.Error, note: "Error while parsing parameters from file");
+                ServerLogger.LogByTemplate(Error, note: "Error while parsing parameters from file");
                 return;
             }
         }

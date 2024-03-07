@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,12 +12,14 @@ namespace SocketClient
 {
     public class Connector
     {
-        private readonly string _host;
+        public readonly string _host;
         private readonly int _port;
-        private Socket sender;
+        public Socket sender;
+        private MainWindow _mainwindow;
         public bool IsConnected = false;
-        public Connector(string host, int port)
+        public Connector(string host, int port, MainWindow mainWin)
         {
+            _mainwindow = mainWin;
             _host = host;
             _port = port;
         }
@@ -38,7 +41,32 @@ namespace SocketClient
                 }
             }
         }
+        public async Task ReceiveLoreMessages()
+        {
+            byte[] buffer = new byte[1024];
+            while (true)
+            {
+                try
+                {
+                    int bytesRead = await sender.ReceiveAsync(new ArraySegment<byte>(buffer), SocketFlags.None);
+                    string receivedData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
 
+                    if (receivedData == "<EndOfTransmission>")
+                    {
+                        break;
+                    }
+                    await _mainwindow.activeStoryPage.AddLineToListBoxWithDelay(receivedData);
+                }
+                catch (SocketException ex)
+                {
+                    ClientLogger.LogByTemplate(LogEventLevel.Error, ex, "Socket Exception while receiving lore messages");
+                }
+                catch (Exception ex)
+                {
+                    ClientLogger.LogByTemplate(LogEventLevel.Error, ex, "An error occurred while receiving lore messages.");
+                }
+            }
+        }
         public async Task<string> ReceiveMessage()
         {
             if (IsConnected)

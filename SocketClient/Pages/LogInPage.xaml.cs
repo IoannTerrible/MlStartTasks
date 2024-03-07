@@ -21,7 +21,6 @@ namespace SocketClient
     public partial class LogInPage : Page
     {
         public MainWindow mainWindow;
-        public static bool isWeAreConnect = false;
         public static bool isWeAreLogIn = false;
         public LogInPage(MainWindow _mainWindow)
         {
@@ -30,7 +29,7 @@ namespace SocketClient
         }
         private void enter_Click(object sender, RoutedEventArgs e)
         {
-            if (!isWeAreConnect)
+            if (!mainWindow.isConnected)
             {
                 MessageBox.Show("NeedPressConnectButton");
                 return;
@@ -42,26 +41,19 @@ namespace SocketClient
             }
             if (string.IsNullOrWhiteSpace(textBox_login.Text))
             {
-                MessageBox.Show("Введите логин");
+                MessageBox.Show("Enter login");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(password.Password))
             {
-                MessageBox.Show("Введите пароль");
+                MessageBox.Show("Enter password");
                 return;
             }
             string tempString = $"LOG {textBox_login.Text} {password.Password}";
             mainWindow.SendMessageAndReceive(tempString);
         }
 
-        private void con_Click(object sender, RoutedEventArgs e)
-        {
-            mainWindow._socketClient.Connect();
-            mainWindow.SendMessageAndReceive("CON");
-            isWeAreConnect = true; 
-
-        }
     }
 }
 

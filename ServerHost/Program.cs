@@ -2,6 +2,7 @@
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Text.Json;
 
 namespace ServerHost
 {
@@ -9,6 +10,7 @@ namespace ServerHost
     {
         static async Task Main(string[] args)
         {
+            
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
@@ -55,7 +57,7 @@ namespace ServerHost
                     Console.WriteLine($"Получено от клиента: {data}");
 
                     
-                    string reply = await ProcessData(data, ipEndPoint);
+                    string reply = await ProcessData(data, ipEndPoint, handler);
                     byte[] msg = Encoding.UTF8.GetBytes(reply);
                     await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
 
@@ -76,7 +78,7 @@ namespace ServerHost
                 handler.Close();
             }
         }
-        static async Task<string> ProcessData(string data, IPEndPoint ipEndPoint)
+        static async Task<string> ProcessData(string data, IPEndPoint ipEndPoint,Socket handler)
         {
             string[] parts = data.Split(' ');
             string command = parts[0];
@@ -86,7 +88,7 @@ namespace ServerHost
                 case "LOG":
                     string login = parts[1];
                     string password = parts[2];
-                    Console.WriteLine($"ConvertedData{parts[0]} {parts[1]} {parts[2]}");
+                    Console.WriteLine($"ConvertedData {parts[0]} {parts[1]} {parts[2]}");
                     if (!ClassForAuth.CheckHashAndLog(login, password))
                     {
                         return "Invalid credentials";
@@ -101,21 +103,46 @@ namespace ServerHost
                     return ClassForAuth.RegIn(loginForReg, passwordForReg);
                 case "CON":
                     return $"You are connected to IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}";
+                case "LOR":
+                    _ = SendLinesWithDelay(handler);
+                    return "";
+                case "CNF": //num1 + num2 + delay
+                    try
+                    {
+                        MainFunProgram.num1 = int.Parse(parts[1]);
+                        MainFunProgram.num2 = int.Parse(parts[2]);
+                        MainFunProgram.delayInSeconds = int.Parse(parts[3]);
+                        MainFunProgram.CoreMain();
+                    }
+                    catch(Exception ex)
+                    {
+                        return ex.Message.ToString();
+                    }
+                    //return $"Configuration Succsess {parts[1]}, {parts[2]}, {parts[3]}";
+                    return "";
+
                 default:
-                    return "Неизвестная команда";
+                    return "Incorrect Command";
             }
         }
-
-        static void VoidOne()
+        static async Task SendLinesWithDelay(Socket handler)
         {
-            // Реализация метода VoidOne
-            Console.WriteLine("Метод VoidOne вызван");
-        }
+            try
+            {
+                foreach (string line in MainFunProgram.lines)
+                {
+                    byte[] msg = Encoding.UTF8.GetBytes(line);
+                    await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
+                    await Task.Delay(TimeSpan.FromSeconds(MainFunProgram.delayInSeconds)); // Задержка перед отправкой следующего элемента
+                }
 
-        static void VoidTwo()
-        {
-            // Реализация метода VoidTwo
-            Console.WriteLine("Метод VoidTwo вызван");
+                byte[] endMsg = Encoding.UTF8.GetBytes("<EndOfTransmission>");
+                await handler.SendAsync(new ArraySegment<byte>(endMsg), SocketFlags.None);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
