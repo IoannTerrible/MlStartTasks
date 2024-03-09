@@ -1,4 +1,5 @@
 ﻿using static Serilog.Events.LogEventLevel;
+using ClassLibrary;
 
 namespace ServerHost
 {
@@ -19,7 +20,7 @@ namespace ServerHost
         public static void CoreMain()
         {
             lines = new List<string>();
-            ServerLogger.CreateLogDirectory(
+            Logger.CreateLogDirectory(
                 Debug,
                 Information,
                 Warning,
@@ -32,10 +33,10 @@ namespace ServerHost
             for (int i = 0; i < x.Length; i++)
             {
                 x[i] = random.NextDouble(-12, 16);
-                ServerLogger.LogByTemplate(Debug, note: $"X array index {i} = {x[i]} ");
+                Logger.LogByTemplate(Debug, note: $"X array index {i} = {x[i]} ");
             }
 
-            ServerLogger.LogByTemplate(Information, note: "Application started ");
+            Logger.LogByTemplate(Information, note: "Application started ");
             double[,] arr2 = new double[8, 13];
             int[] numbers = { 5, 7, 11, 15 };
             arr2 = MathClass.Solve(
@@ -87,7 +88,7 @@ namespace ServerHost
             unburnedChest1.RetrieveItems(unburnedChest1.items.Count);
             try
             {
-                ServerLogger.LogByTemplate(Information,
+                Logger.LogByTemplate(Information,
                     note: $"Parsing successful. num1: {num1}, num2: {num2}");
 
                 double[] FirstElement = Enumerable.Range(0, arr2.GetLength(1))
@@ -99,27 +100,23 @@ namespace ServerHost
                                         .ToArray();
 
                 var answer = (Math.Round((FirstElement.Min() + SecondElemet.Average()), 4));
-                ServerLogger.LogByTemplate(Debug,
+                Logger.LogByTemplate(Debug,
                     note: $"answer = {answer}");
 
                 if (double.IsNaN(answer))
                 {
-                    ServerLogger.LogByTemplate(Warning,
+                    Logger.LogByTemplate(Warning,
                         note: $"The calculated result is not a valid number. answer = {answer} Please check your input data.");
-                    ServerLogger.LogByTemplate(Error, note: "Failed to generate number. try again");
+                    Logger.LogByTemplate(Error, note: "Failed to generate number. try again");
                     throw new Exception("Failed to generate number. try again");
                 }
                 AddNarrativeline(answer);
             }
             catch (Exception ex)
             {
-                ServerLogger.LogByTemplate(Error,
+                Logger.LogByTemplate(Error,
                     ex
                     , $"Parsing failed. Invalid format in config file.");
-            }
-            finally
-            {
-                //Log.CloseAndFlush();
             }
 
 
@@ -133,7 +130,7 @@ namespace ServerHost
         {
             if (arrayOfStrings.Length < 3)
             {
-                ServerLogger.LogByTemplate(Error, note: "Insufficient number of parameters in the array");
+                Logger.LogByTemplate(Error, note: "Insufficient number of parameters in the array");
                 return;
             }
 
@@ -141,7 +138,7 @@ namespace ServerHost
                 !int.TryParse(arrayOfStrings.ElementAtOrDefault(1), out int num2) ||
                 !float.TryParse(arrayOfStrings.ElementAtOrDefault(2), out float delayInSeconds) || delayInSeconds == 0)
             {
-                ServerLogger.LogByTemplate(Error, note: "Error while parsing parameters from file");
+                Logger.LogByTemplate(Error, note: "Error while parsing parameters from file");
                 return;
             }
         }

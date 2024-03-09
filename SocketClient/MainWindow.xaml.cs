@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Windows;
+using ClassLibrary;
 
 namespace SocketClient
 {
@@ -43,7 +44,7 @@ namespace SocketClient
                 }
             }
 
-            ClientLogger.LogByTemplate(LogEventLevel.Debug, note: $"Message sent and response received: {message}"); ;
+            Logger.LogByTemplate(LogEventLevel.Debug, note: $"Message sent and response received: {message}"); ;
         }
 
         private void RegClick(object sender, RoutedEventArgs e)
@@ -54,14 +55,14 @@ namespace SocketClient
             }
             else
             {
-                ClientLogger.LogByTemplate(LogEventLevel.Information, note: "Registration page opened.");
+                Logger.LogByTemplate(LogEventLevel.Information, note: "Registration page opened.");
                 MainFrame.Navigate(new RegInPage(this));
             }
         }
 
         private void LogClick(object sender, RoutedEventArgs e)
         {
-            ClientLogger.LogByTemplate(LogEventLevel.Information, note: "Login page opened.");
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Login page opened.");
             MainFrame.Navigate(new LogInPage(this));
         }
 
@@ -70,12 +71,12 @@ namespace SocketClient
             if (!isConnected)
             {
                 MessageBox.Show("Need Connect to Server");
-                ClientLogger.LogByTemplate(LogEventLevel.Warning, note: "Attempt to access story page without connection.");
+                Logger.LogByTemplate(LogEventLevel.Warning, note: "Attempt to access story page without connection.");
             }
             if (!isLogin)
             {
                 MessageBox.Show("Need Login to Server");
-                ClientLogger.LogByTemplate(LogEventLevel.Warning, note: "Attempt to access story page without connection.");
+                Logger.LogByTemplate(LogEventLevel.Warning, note: "Attempt to access story page without connection.");
             }
             else
             {
@@ -86,11 +87,11 @@ namespace SocketClient
                     response = string.Empty;
                     activeStoryPage = new StoryPage(this);
                     MainFrame.Navigate(activeStoryPage);
-                    ClientLogger.LogByTemplate(LogEventLevel.Information, note: "Story page opened.");
+                    Logger.LogByTemplate(LogEventLevel.Information, note: "Story page opened.");
                 }
                 catch (Exception ex)
                 {
-                    ClientLogger.LogByTemplate(LogEventLevel.Error, ex, "Error occurred while processing StoryClick event.");
+                    Logger.LogByTemplate(LogEventLevel.Error, ex, "Error occurred while processing StoryClick event.");
                 }
             }
         }
@@ -99,7 +100,7 @@ namespace SocketClient
         {
             _socketClient.Disconnect();
             isConnected = false;
-            ClientLogger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
         }
 
         private void GetIpButton_click(object sender, RoutedEventArgs e)
@@ -108,7 +109,7 @@ namespace SocketClient
             UserIpBox.Text = _socketClient._host;
             SendMessageAndReceive("CON");
             isConnected = true;
-            ClientLogger.LogByTemplate(LogEventLevel.Information, note: "Connected to server.");
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Connected to server.");
         }
     }
 }

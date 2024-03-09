@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using ClassLibrary;
 using System.Net.Sockets;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text;
@@ -59,11 +60,11 @@ namespace SocketClient
                 }
                 catch (SocketException ex)
                 {
-                    ClientLogger.LogByTemplate(LogEventLevel.Error, ex, "Socket Exception while receiving lore messages");
+                    ClassLibrary.Logger.LogByTemplate(LogEventLevel.Error, ex, "Socket Exception while receiving lore messages");
                 }
                 catch (Exception ex)
                 {
-                    ClientLogger.LogByTemplate(LogEventLevel.Error, ex, "An error occurred while receiving lore messages.");
+                    ClassLibrary.Logger.LogByTemplate(LogEventLevel.Error, ex, "An error occurred while receiving lore messages.");
                 }
             }
         }
@@ -94,7 +95,7 @@ namespace SocketClient
                 }
                 catch(SocketException ex)
                 {
-                    ClientLogger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while clicking to disconnet");
+                    Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while clicking to disconnet");
                 }
             }
         }

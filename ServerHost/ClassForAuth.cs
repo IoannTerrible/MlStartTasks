@@ -6,6 +6,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibrary;
+using Serilog.Events;
 
 namespace ServerHost
 {
@@ -66,6 +68,11 @@ namespace ServerHost
         {
             try
             {
+                if (!DatabaseExists("MLstartDataBase"))
+                {
+                    Logger.LogByTemplate(LogEventLevel.Error, note:"DataBase not exists");
+                    return null;
+                }
                 DataTable dataTable = new DataTable("dataBase");
                 using (SqlConnection sqlConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
                 {
@@ -78,9 +85,30 @@ namespace ServerHost
             }
             catch (Exception ex)
             {
-                //Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, note: $"Error while work with table + {ex}");
-                //Console.WriteLine("Error occurred: " + ex.Message);
+                Logger.LogByTemplate(LogEventLevel.Error, ex, note: $"Error while work with table");
                 return null;
+            }
+        }
+        private static bool DatabaseExists(string databaseName)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                command.CommandText = "SELECT COUNT(*) FROM master.dbo.sysdatabases WHERE name = @DatabaseName";
+                command.Parameters.AddWithValue("@DatabaseName", databaseName);
+
+                using (SqlConnection connection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=True;"))
+                {
+                    connection.Open();
+                    command.Connection = connection;
+                    int databaseCount = Convert.ToInt32(command.ExecuteScalar());
+                    return databaseCount > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка при проверке существования базы данных: " + ex.Message);
+                return false;
             }
         }
     }
