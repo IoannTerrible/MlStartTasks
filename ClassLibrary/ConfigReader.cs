@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Serilog.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace SocketClient
+namespace ClassLibrary
 {
     public static class ConfigReader
     {
@@ -32,7 +33,7 @@ namespace SocketClient
             }
             else
             {
-                //ClientLogger.LogByTemplate(logEventLevel: LogEventLevel.Error, note: "Content node not found in the config file.");
+                Logger.LogByTemplate(logEventLevel: LogEventLevel.Error, note: "Content node not found in the config file.");
                 throw new InvalidOperationException("Content node not found in the config file.");
             }
         }

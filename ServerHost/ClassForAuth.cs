@@ -13,7 +13,7 @@ namespace ServerHost
 {
     internal class ClassForAuth
     {
-        public ClassForAuth() { }
+        readonly static string connectionStringFromConfig = Program.ContentFromServerConfig[3];
         public static bool CheckHashAndLog(string login, string chekingString)
         {
             {
@@ -39,7 +39,6 @@ namespace ServerHost
             using (SHA256 sha256Hash = SHA256.Create())
             {
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
@@ -79,7 +78,7 @@ namespace ServerHost
                     CreateTableUserss();
                 }
                 DataTable dataTable = new DataTable("dataBase");
-                using (SqlConnection sqlConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
+                using (SqlConnection sqlConnection = new SqlConnection(connectionStringFromConfig))
                 {
                     sqlConnection.Open();
                     sqlcom.Connection = sqlConnection;
@@ -131,7 +130,7 @@ namespace ServerHost
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка при проверке существования базы данных: " + ex.Message);
+                Console.WriteLine("DataBase Chek error" + ex.Message);
                 return false;
             }
         }
@@ -159,7 +158,7 @@ namespace ServerHost
             try
             {
                 Logger.LogByTemplate(LogEventLevel.Information, null, "Creating Userss table...");
-                using (SqlConnection databaseConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
+                using (SqlConnection databaseConnection = new SqlConnection(connectionStringFromConfig))
                 {
                     databaseConnection.Open();
                     SqlCommand createTableCommand = new SqlCommand(@"

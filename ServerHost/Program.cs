@@ -10,8 +10,10 @@ using Serilog;
 
 namespace ServerHost
 {
+
     internal class Program
     {
+        public static string[] ContentFromServerConfig { get; set; }
         static async Task Main(string[] args)
         {
             Logger.CreateLogDirectory(
@@ -20,8 +22,24 @@ namespace ServerHost
                 LogEventLevel.Warning,
                 LogEventLevel.Error
             );
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = System.IO.Path.Combine(currentDirectory, "config.xml");
+
+            Logger.LogByTemplate(LogEventLevel.Debug, note: "Checking and configuring file for server");
+            Logger.LogByTemplate(LogEventLevel.Information, note: $"Config file path: {filePath}");
+
+            if (!File.Exists(filePath))
+            {
+                Logger.LogByTemplate(LogEventLevel.Debug, note: "Config file not found, creating with default content ");
+                ConfigCreator.CreateDefaultConfigFileForServer(filePath);
+            }
+
+            ContentFromServerConfig = ConfigReader.ReadConfigFromFile(filePath);
+            string[] tempString = { ContentFromServerConfig[0], ContentFromServerConfig[1], ContentFromServerConfig[2] };
+            MainFunProgram.GetNumbersFromSendedArrayOfStrings(tempString);
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
+            MainFunProgram.CoreMain();
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
@@ -65,7 +83,7 @@ namespace ServerHost
                     // Показываем данные на консоли
                     Console.WriteLine($"Получено от клиента: {data}");
 
-                    
+
                     string reply = await ProcessData(data, ipEndPoint, handler);
                     byte[] msg = Encoding.UTF8.GetBytes(reply);
                     await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
@@ -87,17 +105,17 @@ namespace ServerHost
                 handler.Close();
             }
         }
-        static async Task<string> ProcessData(string data, IPEndPoint ipEndPoint,Socket handler)
+        static async Task<string> ProcessData(string data, IPEndPoint ipEndPoint, Socket handler)
         {
             string[] parts = data.Split(' ');
             string command = parts[0];
-            Console.WriteLine("Command: "+ command.Trim().ToUpper());
+            Console.WriteLine("Command: " + command.Trim().ToUpper());
             switch (command.Trim().ToUpper())
             {
                 case "LOG":
                     string login = parts[1];
                     string password = parts[2];
-                    Console.WriteLine($"ConvertedData {parts[0]} {parts[1]} {parts[2]}");
+                    //Console.WriteLine($"ConvertedData {parts[0]} {parts[1]} {parts[2]}");
                     if (!ClassForAuth.CheckHashAndLog(login, password))
                     {
                         return "Invalid credentials";
@@ -122,13 +140,12 @@ namespace ServerHost
                         MainFunProgram.num1 = int.Parse(parts[1]);
                         MainFunProgram.num2 = int.Parse(parts[2]);
                         MainFunProgram.delayInSeconds = int.Parse(parts[3]);
-                        MainFunProgram.CoreMain();
+                        ;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         return ex.Message.ToString();
                     }
-                    //return $"Configuration Succsess {parts[1]}, {parts[2]}, {parts[3]}";
                     return "";
 
                 default:
@@ -149,7 +166,7 @@ namespace ServerHost
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                
+
             }
             finally
             {

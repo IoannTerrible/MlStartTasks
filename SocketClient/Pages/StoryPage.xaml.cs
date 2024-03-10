@@ -23,7 +23,7 @@ namespace SocketClient
     public partial class StoryPage : Page
     {
         internal List<string> lines;
-        internal float delays;
+        internal float delay;
         private App _app;
         private MainWindow _mainWindow;
         private bool receivingLines = false;
@@ -32,7 +32,7 @@ namespace SocketClient
             _mainWindow = mainWindow;
             InitializeComponent();
             _app = (App)Application.Current;
-            delays = float.Parse(App.contentFromConfig[2]);
+            delay = float.Parse(App.ContentFromConfig[2]);
 
         }
         public async Task AddLineToListBoxWithDelay(string line)
@@ -41,7 +41,7 @@ namespace SocketClient
             {
                 this.StoryListBox.Items.Add(line);
             }, DispatcherPriority.Background);
-            await Task.Delay(TimeSpan.FromSeconds(delays));
+            await Task.Delay(TimeSpan.FromSeconds(delay));
         }
 
         private async void Go_Click(object sender, RoutedEventArgs e)

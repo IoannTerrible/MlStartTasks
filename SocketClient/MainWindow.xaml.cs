@@ -120,7 +120,7 @@ namespace SocketClient
             isConnected = true;
 
             //Logger.LogByTemplate(LogEventLevel.Information, note: "Connected to server.");
-            //string configString = "CNF" + " " + string.Join(" ", App.contentFromConfig);
+            //string configString = "CNF" + " " + string.Join(" ", App.ContentFromConfig);
             //SendMessageAndReceive(configString);
             //Logger.LogByTemplate(LogEventLevel.Information, note: "Send Config to server");
 

@@ -121,21 +121,24 @@ namespace ServerHost
             }
 
         }
-        //public static void GetNumbersFromSendedArrayOfStrings(string[] arrayOfStrings)
-        //{
-        //    if (arrayOfStrings.Length < 3)
-        //    {
-        //        Logger.LogByTemplate(Error, note: "Insufficient number of parameters in the array");
-        //        return;
-        //    }
+        public static void GetNumbersFromSendedArrayOfStrings(string[] arrayOfStrings)
+        {
+            if (arrayOfStrings.Length < 3)
+            {
+                Logger.LogByTemplate(Error, note: "Insufficient number of parameters in the array");
+                return;
+            }
 
-        //    if (!int.TryParse(arrayOfStrings.ElementAtOrDefault(0), out int num1) ||
-        //        !int.TryParse(arrayOfStrings.ElementAtOrDefault(1), out int num2) ||
-        //        !float.TryParse(arrayOfStrings.ElementAtOrDefault(2), out float delayInSeconds) || delayInSeconds == 0)
-        //    {
-        //        Logger.LogByTemplate(Error, note: "Error while parsing parameters from file");
-        //        return;
-        //    }
-        //}
+            if (!int.TryParse(arrayOfStrings.ElementAtOrDefault(0), out int num1) ||
+                !int.TryParse(arrayOfStrings.ElementAtOrDefault(1), out int num2) ||
+                !float.TryParse(arrayOfStrings.ElementAtOrDefault(2), out float delayInSeconds))
+            {
+                Logger.LogByTemplate(Error, note: "Error while parsing parameters from config file");
+                return;
+            }
+            MainFunProgram.num1 = num1;
+            MainFunProgram.num2 = num2;
+            MainFunProgram.delayInSeconds = delayInSeconds;
+        }
     }
 }
