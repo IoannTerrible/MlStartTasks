@@ -70,8 +70,13 @@ namespace ServerHost
             {
                 if (!DatabaseExists("MLstartDataBase"))
                 {
-                    Logger.LogByTemplate(LogEventLevel.Error, note:"DataBase not exists");
-                    return null;
+                    Logger.LogByTemplate(LogEventLevel.Error, note: "DataBase not exists");
+                    CreateDatabase();
+                }
+                if (!TableExists("MLstartDataBase", "Userss"))
+                {
+                    Logger.LogByTemplate(LogEventLevel.Error, note: "Table Userss does not exist");
+                    CreateTableUserss();
                 }
                 DataTable dataTable = new DataTable("dataBase");
                 using (SqlConnection sqlConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
@@ -87,6 +92,25 @@ namespace ServerHost
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: $"Error while work with table");
                 return null;
+            }
+        }
+        private static bool TableExists(string databaseName, string tableName)
+        {
+            using (SqlConnection databaseConnection = new SqlConnection($"server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase={databaseName};"))
+            {
+                databaseConnection.Open();
+                SqlCommand command = new SqlCommand($"SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = '{tableName}'", databaseConnection);
+                int result = (int)command.ExecuteScalar();
+                if (result > 0)
+                {
+                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Table {tableName} exists in database {databaseName}");
+                    return true;
+                }
+                else
+                {
+                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Table {tableName} does not exist in database {databaseName}");
+                    return false;
+                }
             }
         }
         private static bool DatabaseExists(string databaseName)
@@ -109,6 +133,48 @@ namespace ServerHost
             {
                 Console.WriteLine("Ошибка при проверке существования базы данных: " + ex.Message);
                 return false;
+            }
+        }
+        private static void CreateDatabase()
+        {
+            try
+            {
+                Logger.LogByTemplate(LogEventLevel.Information, null, "Creating database...");
+                using (SqlConnection masterConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;"))
+                {
+                    masterConnection.Open();
+                    SqlCommand createDbCommand = new SqlCommand("CREATE DATABASE MLstartDataBase", masterConnection);
+                    createDbCommand.ExecuteNonQuery();
+                    Logger.LogByTemplate(LogEventLevel.Information, null, "Database created successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, "Error creating database.");
+            }
+        }
+
+        private static void CreateTableUserss()
+        {
+            try
+            {
+                Logger.LogByTemplate(LogEventLevel.Information, null, "Creating Userss table...");
+                using (SqlConnection databaseConnection = new SqlConnection("server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase=MLstartDataBase;"))
+                {
+                    databaseConnection.Open();
+                    SqlCommand createTableCommand = new SqlCommand(@"
+                    CREATE TABLE Userss (
+                    Personid INT PRIMARY KEY IDENTITY,
+                    Login VARCHAR(255) NOT NULL,
+                    PassWord VARCHAR(255) NOT NULL
+                    )", databaseConnection);
+                    createTableCommand.ExecuteNonQuery();
+                    Logger.LogByTemplate(LogEventLevel.Information, null, "Userss table created successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, "Error creating Userss table.");
             }
         }
     }

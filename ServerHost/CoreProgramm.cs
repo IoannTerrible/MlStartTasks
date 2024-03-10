@@ -20,12 +20,7 @@ namespace ServerHost
         public static void CoreMain()
         {
             lines = new List<string>();
-            Logger.CreateLogDirectory(
-                Debug,
-                Information,
-                Warning,
-                Error
-            );
+
             Random random = new Random();
             int[] k = Enumerable.Range(5, 15).Where(x2 => x2 % 2 != 0).ToArray();
             double[] x = new double[13];
@@ -126,21 +121,21 @@ namespace ServerHost
             }
 
         }
-        public static void GetNumbersFromSendedArrayOfStrings(string[] arrayOfStrings)
-        {
-            if (arrayOfStrings.Length < 3)
-            {
-                Logger.LogByTemplate(Error, note: "Insufficient number of parameters in the array");
-                return;
-            }
+        //public static void GetNumbersFromSendedArrayOfStrings(string[] arrayOfStrings)
+        //{
+        //    if (arrayOfStrings.Length < 3)
+        //    {
+        //        Logger.LogByTemplate(Error, note: "Insufficient number of parameters in the array");
+        //        return;
+        //    }
 
-            if (!int.TryParse(arrayOfStrings.ElementAtOrDefault(0), out int num1) ||
-                !int.TryParse(arrayOfStrings.ElementAtOrDefault(1), out int num2) ||
-                !float.TryParse(arrayOfStrings.ElementAtOrDefault(2), out float delayInSeconds) || delayInSeconds == 0)
-            {
-                Logger.LogByTemplate(Error, note: "Error while parsing parameters from file");
-                return;
-            }
-        }
+        //    if (!int.TryParse(arrayOfStrings.ElementAtOrDefault(0), out int num1) ||
+        //        !int.TryParse(arrayOfStrings.ElementAtOrDefault(1), out int num2) ||
+        //        !float.TryParse(arrayOfStrings.ElementAtOrDefault(2), out float delayInSeconds) || delayInSeconds == 0)
+        //    {
+        //        Logger.LogByTemplate(Error, note: "Error while parsing parameters from file");
+        //        return;
+        //    }
+        //}
     }
 }

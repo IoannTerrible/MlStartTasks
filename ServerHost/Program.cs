@@ -3,6 +3,10 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Text.Json;
+using Microsoft.VisualBasic;
+using ClassLibrary;
+using Serilog.Events;
+using Serilog;
 
 namespace ServerHost
 {
@@ -10,7 +14,12 @@ namespace ServerHost
     {
         static async Task Main(string[] args)
         {
-            
+            Logger.CreateLogDirectory(
+                LogEventLevel.Debug,
+                LogEventLevel.Information,
+                LogEventLevel.Warning,
+                LogEventLevel.Error
+            );
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
@@ -102,6 +111,7 @@ namespace ServerHost
                     string passwordForReg = parts[2];
                     return ClassForAuth.RegIn(loginForReg, passwordForReg);
                 case "CON":
+                    Console.WriteLine($"Client IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}");
                     return $"You are connected to IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}";
                 case "LOR":
                     _ = SendLinesWithDelay(handler);
@@ -135,13 +145,16 @@ namespace ServerHost
                     await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
                     await Task.Delay(TimeSpan.FromSeconds(MainFunProgram.delayInSeconds)); // Задержка перед отправкой следующего элемента
                 }
-
-                byte[] endMsg = Encoding.UTF8.GetBytes("<EndOfTransmission>");
-                await handler.SendAsync(new ArraySegment<byte>(endMsg), SocketFlags.None);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                
+            }
+            finally
+            {
+                byte[] endMsg = Encoding.UTF8.GetBytes("<EndOfTransmission>");
+                await handler.SendAsync(new ArraySegment<byte>(endMsg), SocketFlags.None);
             }
         }
     }

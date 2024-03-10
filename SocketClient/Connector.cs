@@ -24,14 +24,17 @@ namespace SocketClient
             _host = host;
             _port = port;
         }
-        public async void Connect()
+        public async Task Connect()
         {
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Start connect in connector");
             IPAddress ipAddress = (await Dns.GetHostEntryAsync(_host)).AddressList[0];
             sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             IsConnected = true;
             await sender.ConnectAsync(ipAddress, _port);
+            Logger.LogByTemplate(LogEventLevel.Information, note: "End Connect in connector");
+
         }
-        
+
         public async Task SendMessage(string message)
         {
             if (IsConnected)
@@ -61,10 +64,12 @@ namespace SocketClient
                 catch (SocketException ex)
                 {
                     ClassLibrary.Logger.LogByTemplate(LogEventLevel.Error, ex, "Socket Exception while receiving lore messages");
+                    break;
                 }
                 catch (Exception ex)
                 {
                     ClassLibrary.Logger.LogByTemplate(LogEventLevel.Error, ex, "An error occurred while receiving lore messages.");
+                    break;
                 }
             }
         }

@@ -12,7 +12,7 @@ namespace SocketClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        public readonly Connector _socketClient;
+        public Connector _socketClient;
         public bool isConnected;
         public bool isLogin;
         public string response;
@@ -22,20 +22,26 @@ namespace SocketClient
         {
             InitializeComponent();
             _app = (App)Application.Current;
-            _socketClient = new Connector("localhost", 11000, this);
         }
         public async Task SendMessageAndReceive(string message)
         {
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Start Send message");
             await _socketClient.SendMessage(message);
-            if (message.Contains("LOR") || message.Contains("CNF"))
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Message was sent");
+            if (message.Contains("LOR"))
             {
+                Logger.LogByTemplate(LogEventLevel.Information, note: "Message contains LOR, start reciving");
                 await _socketClient.ReceiveLoreMessages();
+                Logger.LogByTemplate(LogEventLevel.Information, note: "Recive Complete");
             }
             else
             {
+                Logger.LogByTemplate(LogEventLevel.Information, note: "Message don't contains LOR start reciving");
                 response = await _socketClient.ReceiveMessage();
+                Logger.LogByTemplate(LogEventLevel.Information, note: "Base recive complete");
+                Logger.LogByTemplate(LogEventLevel.Information, note: $"Response from server {response}");
                 if (response != null)
-                {
+                {                  
                     if (response == "You have successfully logged in")
                     {
                         isLogin = true;
@@ -82,9 +88,7 @@ namespace SocketClient
             {
                 try
                 {
-                    string configString = "CNF" + " " + string.Join(" ", App.contentFromConfig);
-                    SendMessageAndReceive(configString);
-                    response = string.Empty;
+
                     activeStoryPage = new StoryPage(this);
                     MainFrame.Navigate(activeStoryPage);
                     Logger.LogByTemplate(LogEventLevel.Information, note: "Story page opened.");
@@ -103,13 +107,25 @@ namespace SocketClient
             Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
         }
 
-        private void GetIpButton_click(object sender, RoutedEventArgs e)
+        private async void GetIpButton_click(object sender, RoutedEventArgs e)
         {
-            _socketClient.Connect();
+            if (isConnected == false)
+            {
+                _socketClient = new Connector("localhost", 11000, this);
+            }
+            await _socketClient.Connect();
+
             UserIpBox.Text = _socketClient._host;
-            SendMessageAndReceive("CON");
+            await SendMessageAndReceive("CON");
             isConnected = true;
-            Logger.LogByTemplate(LogEventLevel.Information, note: "Connected to server.");
+
+            //Logger.LogByTemplate(LogEventLevel.Information, note: "Connected to server.");
+            //string configString = "CNF" + " " + string.Join(" ", App.contentFromConfig);
+            //SendMessageAndReceive(configString);
+            //Logger.LogByTemplate(LogEventLevel.Information, note: "Send Config to server");
+
+
+            //response = string.Empty;
         }
     }
 }
