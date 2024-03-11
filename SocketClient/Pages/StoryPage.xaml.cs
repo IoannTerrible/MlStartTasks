@@ -34,6 +34,8 @@ namespace SocketClient
             _app = (App)Application.Current;
             delay = float.Parse(App.ContentFromConfig[2]);
 
+            this.Unloaded += StoryPage_Unloaded;
+
         }
         public async Task AddLineToListBoxWithDelay(string line)
         {
@@ -41,20 +43,23 @@ namespace SocketClient
             {
                 this.StoryListBox.Items.Add(line);
             }, DispatcherPriority.Background);
-            await Task.Delay(TimeSpan.FromSeconds(delay));
+            //await Task.Delay(TimeSpan.FromSeconds(delay));
         }
-
+        private async void StoryPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            receivingLines = false;
+        }
         private async void Go_Click(object sender, RoutedEventArgs e)
         {
-            if (!receivingLines) // Если прием строк с сервера не идет в данный момент
+            if (!receivingLines) 
             {
-                receivingLines = true; // Устанавливаем флаг, что начат прием строк с сервера
+                receivingLines = true; 
                 await _mainWindow.SendMessageAndReceive("LOR");
-                receivingLines = false; // Сбрасываем флаг приема строк с сервера
+                receivingLines = false; 
             }
             else
             {
-                // Если прием строк с сервера уже идет, показываем сообщение об этом
+                
                 MessageBox.Show("Получение строк с сервера уже запущено.");
             }
         }

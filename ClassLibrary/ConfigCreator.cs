@@ -39,7 +39,10 @@ namespace ClassLibrary
         {
             { "Number1", "7" },
             { "Number2", "5" },
-            {"DelayInSeconds", "2" }
+            {"DelayInSeconds", "2" },
+            {"Port", "11000" },
+            {"Ip", "localhost" },
+            {"ConnectionString",@"server=(localdb)\MSSqlLocalDb; Trusted_Connection = Yes; DataBase = MLstartDataBase"}
         };
 
             foreach (var pair in numbersDictionary)

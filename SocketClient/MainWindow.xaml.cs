@@ -13,7 +13,7 @@ namespace SocketClient
     public partial class MainWindow : Window
     {
         public Connector _socketClient;
-        public bool isConnected;
+        public bool isConnected = false;
         public bool isLogin;
         public string response;
         public StoryPage activeStoryPage;
@@ -41,7 +41,7 @@ namespace SocketClient
                 Logger.LogByTemplate(LogEventLevel.Information, note: "Base recive complete");
                 Logger.LogByTemplate(LogEventLevel.Information, note: $"Response from server {response}");
                 if (response != null)
-                {                  
+                {
                     if (response == "You have successfully logged in")
                     {
                         isLogin = true;
@@ -102,30 +102,54 @@ namespace SocketClient
 
         private void DisconnectClick(object sender, RoutedEventArgs e)
         {
-            _socketClient.Disconnect();
-            isConnected = false;
-            Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
+            try
+            {
+                _socketClient.Disconnect();
+                isConnected = false;
+                Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
+            }
+            catch(Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while trying to disconnect"); 
+            }
         }
 
         private async void GetIpButton_click(object sender, RoutedEventArgs e)
         {
-            if (isConnected == false)
+            if (isConnected)
             {
-                _socketClient = new Connector("localhost", 11000, this);
+                MessageBox.Show("Already connected to a server.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
-            await _socketClient.Connect();
-
-            UserIpBox.Text = _socketClient._host;
-            await SendMessageAndReceive("CON");
-            isConnected = true;
-
-            //Logger.LogByTemplate(LogEventLevel.Information, note: "Connected to server.");
-            //string configString = "CNF" + " " + string.Join(" ", App.ContentFromConfig);
-            //SendMessageAndReceive(configString);
-            //Logger.LogByTemplate(LogEventLevel.Information, note: "Send Config to server");
-
-
-            //response = string.Empty;
+            try
+            {
+                if (!int.TryParse(UserPortBox.Text, out int tempIntPort))
+                {
+                    MessageBox.Show("Invalid port number. Please enter a valid integer value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                var result = MessageBox.Show($"Are you sure? You try to connect to " +
+                        $"port: {tempIntPort} " +
+                        $"ip:{UserIpBox.Text}",
+                        "Confirm Connection", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _socketClient = new Connector(UserIpBox.Text, tempIntPort, this);
+                    await _socketClient.Connect();
+                    UserIpBox.Text = _socketClient._host;
+                    await SendMessageAndReceive("CON");
+                    isConnected = true;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, "Error while trying to connect");
+                MessageBox.Show("An error occurred while trying to connect. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

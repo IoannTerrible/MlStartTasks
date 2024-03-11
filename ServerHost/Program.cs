@@ -16,12 +16,18 @@ namespace ServerHost
         public static string[] ContentFromServerConfig { get; set; }
         static async Task Main(string[] args)
         {
+            IPEndPoint ipEndPoint = null;
+            Socket sListener = null;
+
             Logger.CreateLogDirectory(
                 LogEventLevel.Debug,
                 LogEventLevel.Information,
                 LogEventLevel.Warning,
                 LogEventLevel.Error
             );
+
+            
+            
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = System.IO.Path.Combine(currentDirectory, "config.xml");
 
@@ -37,17 +43,27 @@ namespace ServerHost
             ContentFromServerConfig = ConfigReader.ReadConfigFromFile(filePath);
             string[] tempString = { ContentFromServerConfig[0], ContentFromServerConfig[1], ContentFromServerConfig[2] };
             MainFunProgram.GetNumbersFromSendedArrayOfStrings(tempString);
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPHostEntry ipHost = Dns.GetHostEntry(ContentFromServerConfig[4]);
             IPAddress ipAddr = ipHost.AddressList[0];
+
+            
+            if (int.TryParse(ContentFromServerConfig[3], out int port))
+            {
+                ipEndPoint = new IPEndPoint(ipAddr, port);
+                sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                
+                Console.WriteLine($"Server was started. ip:{ContentFromServerConfig[4]} port:{port} Check config for edit");
+            }
+            else
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, note: "Unable to parse port number from configuration");
+                Console.WriteLine("Error: Unable to parse port number from configuration.");
+            }
             MainFunProgram.CoreMain();
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
-            Socket sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             try
             {
                 sListener.Bind(ipEndPoint);
                 sListener.Listen(10);
-
-                Console.WriteLine("Сервер запущен. Ожидаем соединения...");
 
                 while (true)
                 {
@@ -133,19 +149,6 @@ namespace ServerHost
                     return $"You are connected to IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}";
                 case "LOR":
                     _ = SendLinesWithDelay(handler);
-                    return "";
-                case "CNF": //num1 + num2 + delay
-                    try
-                    {
-                        MainFunProgram.num1 = int.Parse(parts[1]);
-                        MainFunProgram.num2 = int.Parse(parts[2]);
-                        MainFunProgram.delayInSeconds = int.Parse(parts[3]);
-                        ;
-                    }
-                    catch (Exception ex)
-                    {
-                        return ex.Message.ToString();
-                    }
                     return "";
 
                 default:

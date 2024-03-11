@@ -13,7 +13,7 @@ namespace ServerHost
 {
     internal class ClassForAuth
     {
-        readonly static string connectionStringFromConfig = Program.ContentFromServerConfig[3];
+        readonly static string connectionStringFromConfig = Program.ContentFromServerConfig[5];
         public static bool CheckHashAndLog(string login, string chekingString)
         {
             {
@@ -77,7 +77,7 @@ namespace ServerHost
                     Logger.LogByTemplate(LogEventLevel.Error, note: "Table Userss does not exist");
                     CreateTableUserss();
                 }
-                DataTable dataTable = new DataTable("dataBase");
+                DataTable dataTable = new DataTable();
                 using (SqlConnection sqlConnection = new SqlConnection(connectionStringFromConfig))
                 {
                     sqlConnection.Open();

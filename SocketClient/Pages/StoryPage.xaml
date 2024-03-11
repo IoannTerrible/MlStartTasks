@@ -1,7 +1,7 @@
 ﻿<Page x:Class="SocketClient.StoryPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="StoryPage" Height="300" Width="555">
+      Title="StoryPage" Height="300" Width="555" Unloaded="StoryPage_Unloaded">
 
     <Grid Margin="-142,0,0,0">
         <Grid.RowDefinitions>
