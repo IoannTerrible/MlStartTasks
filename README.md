@@ -12,7 +12,7 @@
 # MlStartTasks
 StartDate:14.01.2024  
 🛢️  DBMS Microsoft SQL Server  
-🖥️ WPFapp Net 8.0 + net8.0-windows + and WCF.  
+🖥️ WPFapp Net 8.0 + net8.0-windows + and WPF.  
 🚀 Project entry point: For client: SocketClient\App.Xaml.cs.Main  For Host ServerHost\Programm.cs  
 📜 LogsDirectory:(SocketClient\ServerHost)\bin\Debug\logs\   
 ⚙️ Config:SocketClient\bin\Debug\config.xml   
