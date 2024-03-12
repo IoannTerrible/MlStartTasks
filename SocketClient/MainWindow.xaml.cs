@@ -53,7 +53,7 @@ namespace SocketClient
             Logger.LogByTemplate(LogEventLevel.Debug, note: $"Message sent and response received: {message}"); ;
         }
 
-        private void RegClick(object sender, RoutedEventArgs e)
+        private void RegistrationClick(object sender, RoutedEventArgs e)
         {
             if (!isConnected)
             {

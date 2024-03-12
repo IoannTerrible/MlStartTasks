@@ -26,13 +26,28 @@ namespace SocketClient
         }
         public async Task Connect()
         {
-            Logger.LogByTemplate(LogEventLevel.Information, note: "Start connect in connector");
-            IPAddress ipAddress = (await Dns.GetHostEntryAsync(_host)).AddressList[0];
-            sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            IsConnected = true;
-            await sender.ConnectAsync(ipAddress, _port);
-            Logger.LogByTemplate(LogEventLevel.Information, note: "End Connect in connector");
+            try
+            {
+                Logger.LogByTemplate(LogEventLevel.Information, note: "Start connect in connector");
+                IPAddress ipAddress = (await Dns.GetHostEntryAsync(_host)).AddressList[0];
+                sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                IsConnected = true;
+                await sender.ConnectAsync(ipAddress, _port);
+                Logger.LogByTemplate(LogEventLevel.Information, note: "End Connect in connector");
+            }
+            catch (SocketException ex) when (ex.Message.Contains("Этот хост неизвестен"))
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, note: $"Error: Host unknown {_host} {_port}");
+            }
+            catch (SocketException ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, note: $"Error while connect to {_host} {_port}");
+            }
 
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, note: $"Error while connect to {_host} {_port}");
+            }
         }
 
         public async Task SendMessage(string message)

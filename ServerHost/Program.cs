@@ -145,7 +145,7 @@ namespace ServerHost
                     string passwordForReg = parts[2];
                     return ClassForAuth.RegIn(loginForReg, passwordForReg);
                 case "CON":
-                    Console.WriteLine($"Client IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}");
+                    Console.WriteLine($"Client IP: {handler.RemoteEndPoint}, Port: {ipEndPoint.Port}");
                     return $"You are connected to IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}";
                 case "LOR":
                     _ = SendLinesWithDelay(handler);
