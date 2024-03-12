@@ -32,7 +32,7 @@ namespace SocketClient
             _mainWindow = mainWindow;
             InitializeComponent();
             _app = (App)Application.Current;
-            delay = float.Parse(App.ContentFromConfig[2]);
+            //delay = float.Parse(App.ContentFromConfig[2]);
 
             this.Unloaded += StoryPage_Unloaded;
 

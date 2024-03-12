@@ -12,30 +12,37 @@ namespace ClassLibrary
     {
         public static string[] ReadConfigFromFile(string path)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(path);
-
-            XmlNodeList elements = xmlDoc.SelectNodes("//text()");
-
-            if (elements != null)
+            try
             {
-                List<string> values = new List<string>();
+                var xmlDoc = new XmlDocument();
+                xmlDoc.Load(path);
 
-                foreach (XmlNode element in elements)
+                var values = new List<string>
                 {
-                    if (element.ParentNode != null && element.ParentNode.NodeType == XmlNodeType.Element)
-                    {
-                        values.Add(element.InnerText);
-                    }
-                }
+                    ReadNodeValue(xmlDoc, "//Config/Numbers/Number1"),
+                    ReadNodeValue(xmlDoc, "//Config/Numbers/Number2"),
+                    ReadNodeValue(xmlDoc, "//Config/DelayInSeconds"),
+                    ReadNodeValue(xmlDoc, "//Config/Network/Port"),
+                    ReadNodeValue(xmlDoc, "//Config/Network/Ip"),
+                    ReadNodeValue(xmlDoc, "//Config/Database/ConnectionString")
+                };
 
                 return values.ToArray();
             }
-            else
+            catch (Exception ex)
             {
-                Logger.LogByTemplate(logEventLevel: LogEventLevel.Error, note: "Content node not found in the config file.");
-                throw new InvalidOperationException("Content node not found in the config file.");
+                Logger.LogByTemplate(LogEventLevel.Error,ex,"Error while read configfile");
+                return new string[0]; 
             }
+        }
+
+        private static string ReadNodeValue(XmlDocument xmlDoc, string xpath)
+        {
+            var node = xmlDoc.SelectSingleNode(xpath);
+            if (node != null)
+                return node.InnerText;
+
+            throw new Exception($"Node with XPath '{xpath}' not found.");
         }
     }
 }
