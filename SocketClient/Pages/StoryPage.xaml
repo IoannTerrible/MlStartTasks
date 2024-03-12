@@ -1,0 +1,16 @@
+﻿<Page x:Class="SocketClient.StoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="StoryPage" Height="300" Width="555" Unloaded="StoryPage_Unloaded">
+
+    <Grid Margin="-142,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="StoryListBox" VerticalAlignment="Center" HorizontalAlignment="Left" Height="318" FontSize="16" Margin="10,0,0,0" Width="657" />
+        <Button Content="Go" HorizontalAlignment="Left" Height="23" Margin="667,0,0,0" VerticalAlignment="Top" Width="30" Click="Go_Click"/>
+    </Grid>
+</Page>
