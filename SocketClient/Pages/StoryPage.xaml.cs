@@ -1,4 +1,5 @@
 ﻿using Accessibility;
+using ClassLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,9 @@ namespace SocketClient
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 this.StoryListBox.Items.Add(line);
+                var border = (Border)VisualTreeHelper.GetChild(StoryListBox, 0);
+                var scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
+                scrollViewer.ScrollToEnd();
             }, DispatcherPriority.Background);
             //await Task.Delay(TimeSpan.FromSeconds(delay));
         }
@@ -49,17 +53,25 @@ namespace SocketClient
         {
             receivingLines = false;
         }
+
         private async void Go_Click(object sender, RoutedEventArgs e)
         {
-            if (!receivingLines) 
+            if (!receivingLines)
             {
-                receivingLines = true; 
-                await _mainWindow.SendMessageAndReceive("LOR");
-                receivingLines = false; 
+                try
+                {
+                    receivingLines = true;
+                    await _mainWindow.SendMessageAndReceive("LOR");
+                    receivingLines = false;
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, ex);
+                }
             }
             else
             {
-                
+
                 MessageBox.Show("Получение строк с сервера уже запущено.");
             }
         }

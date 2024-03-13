@@ -66,7 +66,7 @@ namespace SocketClient
             }
         }
 
-        private void LogClick(object sender, RoutedEventArgs e)
+        private void LoginClick(object sender, RoutedEventArgs e)
         {
             Logger.LogByTemplate(LogEventLevel.Information, note: "Login page opened.");
             MainFrame.Navigate(new LogInPage(this));
@@ -107,6 +107,7 @@ namespace SocketClient
                 _socketClient.Disconnect();
                 isConnected = false;
                 Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
+                MessageBox.Show("You was disconnected");
             }
             catch(Exception ex)
             {
@@ -114,7 +115,7 @@ namespace SocketClient
             }
         }
 
-        private async void GetIpButton_click(object sender, RoutedEventArgs e)
+        private async void ConnectionClick(object sender, RoutedEventArgs e)
         {
             if (isConnected)
             {

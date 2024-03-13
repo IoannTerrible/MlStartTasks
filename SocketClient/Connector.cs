@@ -32,7 +32,7 @@ namespace SocketClient
                 IPAddress ipAddress = (await Dns.GetHostEntryAsync(_host)).AddressList[0];
                 sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 IsConnected = true;
-                await sender.ConnectAsync(ipAddress, _port);
+                sender.Connect(ipAddress, _port);
                 Logger.LogByTemplate(LogEventLevel.Information, note: "End Connect in connector");
             }
             catch (SocketException ex) when (ex.Message.Contains("Этот хост неизвестен"))

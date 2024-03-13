@@ -159,11 +159,11 @@ namespace ServerHost
         {
             try
             {
-                foreach (string line in MainFunProgram.lines)
+                foreach (string line in MainFunProgram.Lines)
                 {
                     byte[] msg = Encoding.UTF8.GetBytes(line);
                     await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
-                    await Task.Delay(TimeSpan.FromSeconds(MainFunProgram.delayInSeconds)); // Задержка перед отправкой следующего элемента
+                    await Task.Delay(TimeSpan.FromSeconds(MainFunProgram.DelayInSeconds)); // Задержка перед отправкой следующего элемента
                 }
             }
             catch (Exception ex)
@@ -175,6 +175,10 @@ namespace ServerHost
             {
                 byte[] endMsg = Encoding.UTF8.GetBytes("<EndOfTransmission>");
                 await handler.SendAsync(new ArraySegment<byte>(endMsg), SocketFlags.None);
+#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
+                MainFunProgram.Lines.Clear();
+#pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
+                MainFunProgram.ProcessActions();
             }
         }
     }
