@@ -45,6 +45,7 @@ namespace SocketClient
                     if (response == "You have successfully logged in")
                     {
                         isLogin = true;
+                        UserNameTextBox.Text = LogInPage.login;
                     }
                     MessageBox.Show(response);
                 }
@@ -108,6 +109,7 @@ namespace SocketClient
                 isConnected = false;
                 Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
                 MessageBox.Show("You was disconnected");
+                UserStatus.Text = "Disconnected";
             }
             catch(Exception ex)
             {
@@ -140,6 +142,7 @@ namespace SocketClient
                     UserIpBox.Text = _socketClient._host;
                     await SendMessageAndReceive("CON");
                     isConnected = true;
+                    UserStatus.Text = ("Connected");
                 }
                 else
                 {

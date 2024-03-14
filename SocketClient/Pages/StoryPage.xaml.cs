@@ -58,9 +58,11 @@ namespace SocketClient
         {
             if (!receivingLines)
             {
+                GoButton.Content = "Stop";
                 try
                 {
                     receivingLines = true;
+                    ; 
                     await _mainWindow.SendMessageAndReceive("LOR");
                     receivingLines = false;
                 }
@@ -71,8 +73,10 @@ namespace SocketClient
             }
             else
             {
-
-                MessageBox.Show("Получение строк с сервера уже запущено.");
+                GoButton.Content = "Go";
+                _mainWindow.SendMessageAndReceive("LOR");
+                receivingLines = false;
+                MessageBox.Show("Retrieving storyLines has stopped");
             }
         }
     }

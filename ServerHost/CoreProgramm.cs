@@ -13,13 +13,15 @@ namespace ServerHost
     }
     public class MainFunProgram
     {
+        #region Properties and Fields
         private static double[,]? arr2;
 
         public static List<string>? Lines { get; set; }
         public static float DelayInSeconds { get; set; }
         public static int Num1 { get; set; }
         public static int Num2 { get; set; }
-
+        #endregion
+        #region CoreMethods
         public static void CoreMain()
         {
             Lines = new List<string>();
@@ -50,8 +52,10 @@ namespace ServerHost
             Person kozlik = new("Козлик", "Досыта хлебнувший жизни лунатик");
             Person korotishka = new("Коротышка", "Неназванный житель");
             Person miga = new("Мига", "Житель лунного города");
+
             Bank bank1 = new("Банк1", 1000000, 10);
             Person.BankAccount migaBankAccount1 = new(100, miga);
+
             Storage unburnedCloset = new("НезгораемыйШкаф");
             Storage unburnedChest0 = new("НезгораемыйСундук1");
             Storage unburnedChest1 = new("НезгораемыйСундук2");
@@ -69,6 +73,7 @@ namespace ServerHost
             Lines.Add(thoseWhoWishingToPurchaseShares.GetState("Cтановилось всё больше и больше"));
             Lines.AddRange(neshnaika.SellShares(new List<Item> { new("Акция1"), new("Акция2") }));
             Lines.AddRange(kozlik.SellShares(new List<Item> { new("Акция3"), new("Акция4") }));
+
             Lines.Add(miga.PerfomSimplyAction(Actions.Move));
             Lines.Add(migaBankAccount1.DisplayBalance());
             Lines.Add(bank1.MoneyExchange(miga));
@@ -78,6 +83,7 @@ namespace ServerHost
                 storage: unburnedCloset));
             migaBankAccount1.RemoveMoney(migaBankAccount1.Balance);
             Lines.Add(migaBankAccount1.DisplayBalance());
+
             unburnedCloset.StoreItems(itemsToStore: new List<Item> { new("Деньги"), new("Деньги") });
             Lines.Add(thoseWhoWishingToPurchaseShares.GetState("Толклись на улице, дожидаясь открытия конторы"));
             Lines.Add(passersby.GetState("Заинтересовались происходящим"));
@@ -135,6 +141,7 @@ namespace ServerHost
         public static void AddNarrativeline(double number)
         {
             Lines.Add($"Все акции общества были распроданы со средней стоимостью {Math.Abs(number)}");
-        }  
+        }
+        #endregion
     }
 }

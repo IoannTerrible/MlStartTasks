@@ -22,6 +22,7 @@ namespace SocketClient
     {
         public MainWindow mainWindow;
         public static bool isWeAreLogIn = false;
+        public static string login;
         public LogInPage(MainWindow _mainWindow)
         {
             mainWindow = _mainWindow;
@@ -50,6 +51,7 @@ namespace SocketClient
                 MessageBox.Show("Enter password");
                 return;
             }
+            login = textBox_login.Text;
             string tempString = $"LOG {textBox_login.Text} {password.Password}";
             mainWindow.SendMessageAndReceive(tempString);
         }

@@ -14,10 +14,10 @@ namespace ClassLibrary
         {
             try
             {
-                var xmlDoc = new XmlDocument();
+                XmlDocument xmlDoc = new();
                 xmlDoc.Load(path);
 
-                var values = new List<string>
+                List<string> values = new List<string>
                 {
                     ReadNodeValue(xmlDoc, "//Config/Numbers/Number1"),
                     ReadNodeValue(xmlDoc, "//Config/Numbers/Number2"),
@@ -37,8 +37,8 @@ namespace ClassLibrary
         }
 
         private static string ReadNodeValue(XmlDocument xmlDoc, string xpath)
-        {
-            var node = xmlDoc.SelectSingleNode(xpath);
+        { 
+            XmlNode? node = xmlDoc.SelectSingleNode(xpath);
             if (node != null)
                 return node.InnerText;
 

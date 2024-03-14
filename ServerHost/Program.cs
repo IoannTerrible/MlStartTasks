@@ -7,12 +7,16 @@ using Microsoft.VisualBasic;
 using ClassLibrary;
 using Serilog.Events;
 using Serilog;
+using System.Threading;
 
 namespace ServerHost
 {
 
     internal class Program
     {
+        private static CancellationTokenSource loreCancelToken = new CancellationTokenSource();
+        private static Task sendLinesTask;
+
         public static string[] ContentFromServerConfig { get; set; }
         static async Task Main(string[] args)
         {
@@ -143,24 +147,41 @@ namespace ServerHost
                 case "REG":
                     string loginForReg = parts[1];
                     string passwordForReg = parts[2];
-                    return ClassForAuth.RegIn(loginForReg, passwordForReg);
+                    return ClassForAuth.RegistrationIn(loginForReg, passwordForReg);
                 case "CON":
                     Console.WriteLine($"Client IP: {handler.RemoteEndPoint}, Port: {ipEndPoint.Port}");
                     return $"You are connected to IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}";
                 case "LOR":
-                    _ = SendLinesWithDelay(handler);
-                    return "";
+                    if (sendLinesTask != null && !sendLinesTask.IsCompleted)
+                    {
+                        CancelOperation();
+                        return "Sending operation cancelled";
+                    }
+                    else
+                    {
+                        loreCancelToken = new CancellationTokenSource(); 
+                        sendLinesTask = SendLinesWithDelay(handler, loreCancelToken.Token);
+                        return "";
+                    }
 
                 default:
                     return "Incorrect Command";
             }
         }
-        static async Task SendLinesWithDelay(Socket handler)
+        public static void CancelOperation()
+        {
+            loreCancelToken.Cancel();
+        }
+        static async Task SendLinesWithDelay(Socket handler, CancellationToken cancelToken)
         {
             try
             {
                 foreach (string line in MainFunProgram.Lines)
                 {
+                    if (cancelToken.IsCancellationRequested)
+                    {
+                        return;
+                    }
                     byte[] msg = Encoding.UTF8.GetBytes(line);
                     await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
                     await Task.Delay(TimeSpan.FromSeconds(MainFunProgram.DelayInSeconds)); // Задержка перед отправкой следующего элемента

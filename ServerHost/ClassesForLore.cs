@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace ServerHost
 {
+    #region Enums and Interfaces
+
     public enum Actions
     {
         BuyShares,
@@ -15,24 +17,32 @@ namespace ServerHost
         Departure,
         Move
     }
+
     interface IItemProcessor
     {
         List<string> ProcessItems(string Name, List<Item> items, Actions action);
     }
+
     interface IFinancialOperations
     {
         List<string> BuyShares(List<Item> shares);
         List<string> SellShares(List<Item> shares);
         string DepositMoney(double money, Person.BankAccount account);
     }
-    public abstract class IntelligenceСreature
+
+    #endregion
+
+    #region Main  Classes
+
+    public abstract class IntelligenceCreature
     {
         public string Description { get; set; }
 
-        public IntelligenceСreature(string des)
+        public IntelligenceCreature(string des)
         {
             Description = des;
         }
+
         public virtual List<string> PerformAction(List<Item> items, Actions action)
         {
             return new List<string>();
@@ -44,13 +54,15 @@ namespace ServerHost
         }
     }
 
-    public class Person : IntelligenceСreature, IFinancialOperations, IItemProcessor
+    public class Person : IntelligenceCreature, IFinancialOperations, IItemProcessor
     {
         public string Name { get; set; }
+
         public Person(string name, string des) : base(des)
         {
             Name = name;
         }
+
         public List<string> ProcessItems(string Name, List<Item> items, Actions action)
         {
             List<string> result = new List<string>();
@@ -63,6 +75,7 @@ namespace ServerHost
 
             return result;
         }
+
         private string GetActionDescription(Actions action)
         {
             switch (action)
@@ -83,19 +96,23 @@ namespace ServerHost
                     throw new ArgumentOutOfRangeException(nameof(action), action, null);
             }
         }
+
         public override List<string> PerformAction(List<Item> items, Actions action)
         {
             return ProcessItems(Name, items, action);
         }
+
         public string PerformActionToStoreItem(Item sourceItem, Actions action, Storage storage)
         {
             string actionDescription = GetActionDescription(action);
             return $"{Name} {actionDescription} {sourceItem.Name} в {storage.Name}";
         }
+
         public string PerfomSimplyAction(Actions action)
         {
             return $"{Name} {GetActionDescription(action)}";
         }
+
         public List<string> BuyShares(List<Item> shares)
         {
             return ProcessItems(Name, shares, Actions.BuyShares);
@@ -105,11 +122,13 @@ namespace ServerHost
         {
             return ProcessItems(Name, shares, Actions.SellShares);
         }
+
         public string DepositMoney(double money, BankAccount account)
         {
             account.Balance += money;
             return ($"{Name} вкладывает {money}, на {account}");
         }
+
         public class BankAccount
         {
             public double Balance { get; set; }
@@ -125,30 +144,40 @@ namespace ServerHost
             {
                 return ($"{Person.Name}'s баланс: {Balance}");
             }
+
             public void AddMoney(double money)
             {
                 Balance += money;
             }
+
             public void RemoveMoney(double money)
             {
                 Balance -= money;
             }
         }
     }
-    public class Crowd : IntelligenceСreature
+
+    public class Crowd : IntelligenceCreature
     {
         public string DescriptionOfCrowd { get; set; }
         public string NameOfCrowd { get; set; }
+
         public Crowd(string des, string name) : base(des)
         {
             DescriptionOfCrowd = des;
             NameOfCrowd = name;
         }
+
         public override string GetState(string state)
         {
             return $"{NameOfCrowd} {state}";
         }
     }
+
+    #endregion
+
+    #region Records and Additional Classes
+
     public record Item(string Name);
 
     public class Storage
@@ -193,10 +222,12 @@ namespace ServerHost
             Money = money;
             PercentageRate = pros;
         }
+
         public string MoneyExchange(Person person)
         {
             return $"{person.Name} обменивал купюры";
-
         }
     }
+
+    #endregion
 }

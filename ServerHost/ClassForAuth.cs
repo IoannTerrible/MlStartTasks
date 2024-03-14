@@ -13,7 +13,10 @@ namespace ServerHost
 {
     internal class ClassForAuth
     {
+        #region Fields
         readonly static string connectionStringFromConfig = Program.ContentFromServerConfig[5];
+        #endregion
+        #region Public Methods
         public static bool CheckHashAndLog(string login, string chekingString)
         {
             {
@@ -34,20 +37,7 @@ namespace ServerHost
                 }
             }
         }
-        private static string GetHashString(string input)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
-        public static string RegIn(string username, string password)
+        public static string RegistrationIn(string username, string password)
         {
             try
             {
@@ -61,6 +51,21 @@ namespace ServerHost
             catch (Exception ex)
             {
                 return ("Sorry" + ex.Message);
+            }
+        }
+        #endregion
+        #region Private Methods
+        private static string GetHashString(string input)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
             }
         }
         private static DataTable ExecuteSqlCommand(SqlCommand sqlcom)
@@ -176,5 +181,6 @@ namespace ServerHost
                 Logger.LogByTemplate(LogEventLevel.Error, ex, "Error creating Userss table.");
             }
         }
+        #endregion
     }
 }

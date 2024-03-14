@@ -11,6 +11,6 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <ListBox x:Name="StoryListBox" VerticalAlignment="Center" HorizontalAlignment="Left" Height="318" Margin="10,0,0,0" Width="657" />
-        <Button Content="Go" HorizontalAlignment="Left" Height="23" Margin="667,0,0,0" VerticalAlignment="Top" Width="30" Click="Go_Click"/>
+        <Button x:Name="GoButton" Content="Go" HorizontalAlignment="Left" Height="23" Margin="667,0,0,0" VerticalAlignment="Top" Width="30" Click="Go_Click"/>
     </Grid>
 </Page>
