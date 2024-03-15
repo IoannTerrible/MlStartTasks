@@ -11,11 +11,23 @@
 
 # MlStartTasks
 StartDate:14.01.2024  
-🛢️  DBMS Microsoft SQL Server  
-🖥️ WPFapp Net 8.0 + net8.0-windows + and WPF.  
-🚀 Project entry point: For client: SocketClient\App.Xaml.cs.Main  For Host ServerHost\Programm.cs  
-📜 LogsDirectory:(SocketClient\ServerHost)\bin\Debug\logs\   
-⚙️ Config:SocketClient\bin\Debug\config.xml   
+## Technologies Used
 
-DataBase structure:  
-![image](https://github.com/IoannTerrible/MlStartTasks/assets/116111680/221d56a0-6ebd-4665-8427-6a5b06977e92)
+- 🛢️ **DBMS**: Microsoft SQL Server
+- 🖥️ **Framework**: WPF app targeting .NET 8.0, including net8.0-windows, and utilizing WPF components.
+- 🚀 **Project Entry Points**:
+  - For the client: `SocketClient\App.Xaml.cs.Main`
+  - For the Host Server: `ServerHost\Programm.cs`
+- 📜 **Logs Directory**: `(SocketClient\ServerHost)\bin\Debug\logs\`
+- ⚙️ **Configuration File**: `SocketClient\bin\Debug\config.xml` 
+
+## Database Structure
+DataBase name: MLstartDataBase
+
+### Table `Userss`
+```sql
+CREATE TABLE IF NOT EXISTS Userss (
+    Personid INT PRIMARY KEY IDENTITY,
+    Login VARCHAR(255) NOT NULL,
+    PassWord VARCHAR(255) NOT NULL
+);
