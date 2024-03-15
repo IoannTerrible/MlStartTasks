@@ -94,16 +94,10 @@ namespace ServerHost
             {
                 while (true)
                 {
-                    // Мы дождались клиента, пытающегося с нами соединиться
                     byte[] bytes = new byte[1024];
                     int bytesRec = await handler.ReceiveAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
 
                     string data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-                    // Показываем данные на консоли
-                    Console.WriteLine($"Получено от клиента: {data}");
-
-
                     string reply = await ProcessData(data, ipEndPoint, handler);
                     byte[] msg = Encoding.UTF8.GetBytes(reply);
                     await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
@@ -127,45 +121,54 @@ namespace ServerHost
         }
         static async Task<string> ProcessData(string data, IPEndPoint ipEndPoint, Socket handler)
         {
-            string[] parts = data.Split(' ');
-            string command = parts[0];
-            Console.WriteLine("Command: " + command.Trim().ToUpper());
-            switch (command.Trim().ToUpper())
+            try
             {
-                case "LOG":
-                    string login = parts[1];
-                    string password = parts[2];
-                    //Console.WriteLine($"ConvertedData {parts[0]} {parts[1]} {parts[2]}");
-                    if (!ClassForAuth.CheckHashAndLog(login, password))
-                    {
-                        return "Invalid credentials";
-                    }
-                    else
-                    {
-                        return "You have successfully logged in";
-                    }
-                case "REG":
-                    string loginForReg = parts[1];
-                    string passwordForReg = parts[2];
-                    return ClassForAuth.RegistrationIn(loginForReg, passwordForReg);
-                case "CON":
-                    Console.WriteLine($"Client IP: {handler.RemoteEndPoint}, Port: {ipEndPoint.Port}");
-                    return $"You are connected to IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}";
-                case "LOR":
-                    if (sendLinesTask != null && !sendLinesTask.IsCompleted)
-                    {
-                        CancelOperation();
-                        return "Sending operation cancelled";
-                    }
-                    else
-                    {
-                        loreCancelToken = new CancellationTokenSource(); 
-                        sendLinesTask = SendLinesWithDelay(handler, loreCancelToken.Token);
-                        return "";
-                    }
+                string[] parts = data.Split(' ');
+                string command = parts[0];
+                Console.WriteLine("Command: " + command.Trim().ToUpper());
+                switch (command.Trim().ToUpper())
+                {
+                    case "LOG":
+                        string login = parts[1];
+                        string password = parts[2];
+                        //Console.WriteLine($"ConvertedData {parts[0]} {parts[1]} {parts[2]}");
+                        if (!ClassForAuth.CheckHashAndLog(login, password))
+                        {
+                            return "Invalid credentials";
+                        }
+                        else
+                        {
+                            return "You have successfully logged in";
+                        }
+                    case "REG":
+                        string loginForReg = parts[1];
+                        string passwordForReg = parts[2];
+                        return ClassForAuth.RegistrationIn(loginForReg, passwordForReg);
+                    case "CON":
+                        Console.WriteLine($"Client IP: {handler.RemoteEndPoint}, Port: {ipEndPoint.Port}");
+                        return $"You are connected to IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}";
+                    case "LOR":
+                        if (sendLinesTask != null && !sendLinesTask.IsCompleted)
+                        {
+                            CancelOperation();
+                            return "Sending operation cancelled";
+                        }
+                        else
+                        {
+                            loreCancelToken = new CancellationTokenSource();
+                            sendLinesTask = SendLinesWithDelay(handler, loreCancelToken.Token);
+                            return "";
+                        }
 
-                default:
-                    return "Incorrect Command";
+                    default:
+                        return "Incorrect Command";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, "Error while processing data");
+                return "Error";
             }
         }
         public static void CancelOperation()
