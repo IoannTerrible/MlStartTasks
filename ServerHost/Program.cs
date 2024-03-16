@@ -14,10 +14,10 @@ namespace ServerHost
 
     internal class Program
     {
-        private static CancellationTokenSource loreCancelToken = new CancellationTokenSource();
-        private static Task sendLinesTask;
-
-        public static string[] ContentFromServerConfig { get; set; }
+        private static Task? sendLinesTask;
+        private static IPEndPoint? ipEndPoint;
+        private static List<User> connectedUsers = new List<User>();
+        public static string[]? ContentFromServerConfig { get; set; }
         static async Task Main(string[] args)
         {
             IPEndPoint ipEndPoint = null;
@@ -92,13 +92,15 @@ namespace ServerHost
         {
             try
             {
+                User user = new User(handler.RemoteEndPoint.ToString(), port: ipEndPoint.Port);
+                connectedUsers.Add(user);
                 while (true)
                 {
                     byte[] bytes = new byte[1024];
                     int bytesRec = await handler.ReceiveAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
 
                     string data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-                    string reply = await ProcessData(data, ipEndPoint, handler);
+                    string reply = await ProcessData(user, data, ipEndPoint, handler);
                     byte[] msg = Encoding.UTF8.GetBytes(reply);
                     await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
 
@@ -119,7 +121,7 @@ namespace ServerHost
                 handler.Close();
             }
         }
-        static async Task<string> ProcessData(string data, IPEndPoint ipEndPoint, Socket handler)
+        static async Task<string> ProcessData(User user,string data, IPEndPoint ipEndPoint, Socket handler)
         {
             try
             {
@@ -148,18 +150,24 @@ namespace ServerHost
                         Console.WriteLine($"Client IP: {handler.RemoteEndPoint}, Port: {ipEndPoint.Port}");
                         return $"You are connected to IP: {ipEndPoint.Address}, Port: {ipEndPoint.Port}";
                     case "LOR":
-                        if (sendLinesTask != null && !sendLinesTask.IsCompleted)
+                        if (user != null)
                         {
-                            CancelOperation();
-                            return "Sending operation cancelled";
+                            if (sendLinesTask != null && !sendLinesTask.IsCompleted) 
+                            {
+                                user.CancelLOR();
+                                return "Sending operation stop";
+                            }
+                            else
+                            {
+                                user.ContinueLOR();
+                                sendLinesTask = Task.Run(() => SendLinesWithDelay(handler, user.TokenSource.Token));
+                                return "Sending operation start";
+                            }
                         }
                         else
                         {
-                            loreCancelToken = new CancellationTokenSource();
-                            sendLinesTask = SendLinesWithDelay(handler, loreCancelToken.Token);
-                            return "";
+                            return "User not found";
                         }
-
                     default:
                         return "Incorrect Command";
                 }
@@ -171,14 +179,12 @@ namespace ServerHost
                 return "Error";
             }
         }
-        public static void CancelOperation()
-        {
-            loreCancelToken.Cancel();
-        }
+
         static async Task SendLinesWithDelay(Socket handler, CancellationToken cancelToken)
         {
             try
             {
+
                 foreach (string line in MainFunProgram.Lines)
                 {
                     if (cancelToken.IsCancellationRequested)

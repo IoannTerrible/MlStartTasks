@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ClassLibrary;
+using Serilog.Events;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using ClassLibrary;
-using Serilog.Events;
 
 namespace ServerHost
 {
