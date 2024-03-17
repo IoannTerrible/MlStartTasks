@@ -1,6 +1,5 @@
-﻿using static Serilog.Events.LogEventLevel;
-using ClassLibrary;
-using System;
+﻿using ClassLibrary;
+using static Serilog.Events.LogEventLevel;
 
 namespace ServerHost
 {
@@ -120,14 +119,13 @@ namespace ServerHost
                     .Select(row => arr2[row, Num2 % 13])
                     .ToArray();
 
-                var answer = Math.Round((FirstElement.Min() + SecondElemet.Average()), 4);
+                double answer = Math.Round((FirstElement.Min() + SecondElemet.Average()), 4);
 
                 Logger.LogByTemplate(Debug, note: $"answer = {answer}");
 
                 if (double.IsNaN(answer))
                 {
                     Logger.LogByTemplate(Warning, note: $"The calculated result is not a valid number. answer = {answer}. Please check your input data.");
-                    Logger.LogByTemplate(Error, note: "Failed to generate number. try again");
                     throw new Exception("Failed to generate number. try again");
                 }
 

@@ -22,7 +22,7 @@ namespace SocketClient
     {
         public MainWindow mainWindow;
         public static bool isWeAreLogIn = false;
-        public static string login;
+        public static string? login;
         public LogInPage(MainWindow _mainWindow)
         {
             mainWindow = _mainWindow;

@@ -1,13 +1,8 @@
-﻿using Serilog.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ClassLibrary;
+using Serilog.Events;
 using System.Net;
-using ClassLibrary;
 using System.Net.Sockets;
-using System.Runtime.InteropServices.JavaScript;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SocketClient
 {

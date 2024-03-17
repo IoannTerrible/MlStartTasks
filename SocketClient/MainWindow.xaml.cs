@@ -1,9 +1,8 @@
-﻿using Serilog.Events;
+﻿using ClassLibrary;
+using Serilog.Events;
 using System.Net.Sockets;
-using System.Text;
-using System.Text.Json;
 using System.Windows;
-using ClassLibrary;
+using System.Windows.Input;
 
 namespace SocketClient
 {
@@ -33,6 +32,10 @@ namespace SocketClient
                 Logger.LogByTemplate(LogEventLevel.Information, note: "Message contains LOR, start reciving");
                 await _socketClient.ReceiveLoreMessages();
                 Logger.LogByTemplate(LogEventLevel.Information, note: "Recive Complete");
+            }
+            if (message.Contains("DIS"))
+            {
+                Logger.LogByTemplate(LogEventLevel.Information, note: "Message contains DIS, Don't reciving");
             }
             else
             {
@@ -101,11 +104,15 @@ namespace SocketClient
             }
         }
 
-        private void DisconnectClick(object sender, RoutedEventArgs e)
+        private async void DisconnectClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                _socketClient.Disconnect();
+                if (Keyboard.IsKeyDown(Key.F))
+                {
+                    _socketClient.Disconnect();
+                }
+                await SendMessageAndReceive("DIS");
                 isConnected = false;
                 Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
                 MessageBox.Show("You was disconnected");
@@ -154,6 +161,13 @@ namespace SocketClient
                 Logger.LogByTemplate(LogEventLevel.Error, ex, "Error while trying to connect");
                 MessageBox.Show("An error occurred while trying to connect. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private async void Window_Closed(object sender, EventArgs e)
+        {
+            await SendMessageAndReceive("DIS");
+            _socketClient.sender.Shutdown(SocketShutdown.Both);
+            _socketClient.sender.Close();
         }
     }
 }

@@ -27,8 +27,9 @@ namespace ClassLibrary
                     break;
                 }
             }
+            string fileName = Path.GetFileName(frame.GetFileName());
             info.AppendLine(
-                $" File: {frame.GetFileName()}," +
+                $" File: {fileName}," +
                 $" Line: {frame.GetFileLineNumber()}," +
                 $" Column: {frame.GetFileColumnNumber()}," +
                 $" Method: {frame.GetMethod()}");

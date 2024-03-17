@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Xml;
 
 namespace ClassLibrary
 {
     public class ConfigCreator
     {
+        #region Public Methods
+
         public static void CreateDefaultConfigFileForClient(string path)
         {
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new();
             XmlElement root = xmlDoc.CreateElement("Config");
             xmlDoc.AppendChild(root);
 
-            var numbersDictionary = new Dictionary<string, string>
+            Dictionary<string, string> numbersDictionary = new()
             {
                 { "DelayInSeconds", "2" }
             };
@@ -29,64 +26,19 @@ namespace ClassLibrary
 
             xmlDoc.Save(path);
         }
+
         public static void CreateDefaultConfigFileForServer(string path)
         {
             try
             {
-                var xmlDoc = new XmlDocument();
-                var root = xmlDoc.CreateElement("Config");
+                XmlDocument xmlDoc = new();
+                XmlElement root = xmlDoc.CreateElement("Config");
                 xmlDoc.AppendChild(root);
 
-                var numbersNode = xmlDoc.CreateElement("Numbers");
-                root.AppendChild(numbersNode);
-
-                var numbersDictionary = new Dictionary<string, string>
-                {
-                    { "Number1", "7" },
-                    { "Number2", "5" }
-                };
-
-                foreach (var pair in numbersDictionary)
-                {
-                    var numberElement = xmlDoc.CreateElement(pair.Key);
-                    numberElement.InnerText = pair.Value;
-                    numbersNode.AppendChild(numberElement);
-                }
-
-                var networkElement = xmlDoc.CreateElement("Network");
-                root.AppendChild(networkElement);
-
-                var networkElementsDictionary = new Dictionary<string, string>
-                {
-                    { "Port", "11000" },
-                    { "Ip", "localhost" }
-                };
-
-                foreach (var pair in networkElementsDictionary)
-                {
-                    var element = xmlDoc.CreateElement(pair.Key);
-                    element.InnerText = pair.Value;
-                    networkElement.AppendChild(element);
-                }
-
-                var databaseElement = xmlDoc.CreateElement("Database");
-                root.AppendChild(databaseElement);
-
-                var connectionStringElement = xmlDoc.CreateElement("ConnectionString");
-                connectionStringElement.InnerText = @"server=(localdb)\MSSqlLocalDb; Trusted_Connection = Yes; DataBase = MLstartDataBase";
-                databaseElement.AppendChild(connectionStringElement);
-
-                var otherElementsDictionary = new Dictionary<string, string>
-                {
-                    { "DelayInSeconds", "2" }
-                };
-
-                foreach (var pair in otherElementsDictionary)
-                {
-                    var element = xmlDoc.CreateElement(pair.Key);
-                    element.InnerText = pair.Value;
-                    root.AppendChild(element);
-                }
+                AddNumbers(xmlDoc, root);
+                AddNetwork(xmlDoc, root);
+                AddDatabase(xmlDoc, root);
+                AddOtherElements(xmlDoc, root);
 
                 xmlDoc.Save(path);
                 Logger.LogByTemplate(Serilog.Events.LogEventLevel.Information, note: "Default configuration file created successfully.");
@@ -97,7 +49,73 @@ namespace ClassLibrary
             }
         }
 
+        #endregion
+
+        #region Private Methods
+
+        private static void AddNumbers(XmlDocument xmlDoc, XmlElement root)
+        {
+            XmlElement numbersNode = xmlDoc.CreateElement("Numbers");
+            root.AppendChild(numbersNode);
+
+            Dictionary<string, string> numbersDictionary = new()
+            {
+                { "Number1", "7" },
+                { "Number2", "5" }
+            };
+
+            foreach (var pair in numbersDictionary)
+            {
+                XmlElement numberElement = xmlDoc.CreateElement(pair.Key);
+                numberElement.InnerText = pair.Value;
+                numbersNode.AppendChild(numberElement);
+            }
+        }
+
+        private static void AddNetwork(XmlDocument xmlDoc, XmlElement root)
+        {
+            XmlElement networkElement = xmlDoc.CreateElement("Network");
+            root.AppendChild(networkElement);
+
+            Dictionary<string, string> networkElementsDictionary = new()
+            {
+                { "Port", "11000" },
+                { "Ip", "localhost" }
+            };
+
+            foreach (var pair in networkElementsDictionary)
+            {
+                XmlElement element = xmlDoc.CreateElement(pair.Key);
+                element.InnerText = pair.Value;
+                networkElement.AppendChild(element);
+            }
+        }
+
+        private static void AddDatabase(XmlDocument xmlDoc, XmlElement root)
+        {
+            XmlElement databaseElement = xmlDoc.CreateElement("Database");
+            root.AppendChild(databaseElement);
+
+            XmlElement connectionStringElement = xmlDoc.CreateElement("ConnectionString");
+            connectionStringElement.InnerText = @"server=(localdb)\MSSqlLocalDb; Trusted_Connection = Yes; DataBase = MLstartDataBase";
+            databaseElement.AppendChild(connectionStringElement);
+        }
+
+        private static void AddOtherElements(XmlDocument xmlDoc, XmlElement root)
+        {
+            Dictionary<string, string> otherElementsDictionary = new()
+            {
+                { "DelayInSeconds", "2" }
+            };
+
+            foreach (KeyValuePair<string, string> pair in otherElementsDictionary)
+            {
+                XmlElement element = xmlDoc.CreateElement(pair.Key);
+                element.InnerText = pair.Value;
+                root.AppendChild(element);
+            }
+        }
+
+        #endregion
     }
 }
-
-

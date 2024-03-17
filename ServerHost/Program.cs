@@ -15,7 +15,6 @@ namespace ServerHost
     internal class Program
     {
         private static Task? sendLinesTask;
-        private static IPEndPoint? ipEndPoint;
         private static List<User> connectedUsers = new List<User>();
         public static string[]? ContentFromServerConfig { get; set; }
         static async Task Main(string[] args)
@@ -94,19 +93,22 @@ namespace ServerHost
             {
                 User user = new User(handler.RemoteEndPoint.ToString(), port: ipEndPoint.Port);
                 connectedUsers.Add(user);
-                while (true)
+                while (handler.Connected)
                 {
                     byte[] bytes = new byte[1024];
                     int bytesRec = await handler.ReceiveAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
 
                     string data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
                     string reply = await ProcessData(user, data, ipEndPoint, handler);
-                    byte[] msg = Encoding.UTF8.GetBytes(reply);
-                    await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
-
-                    if (data.Contains("<TheEnd>"))
+                    if (reply != "")
                     {
-                        Console.WriteLine("Клиент завершил соединение.");
+                        byte[] msg = Encoding.UTF8.GetBytes(reply);
+                        await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
+
+                    }
+                    if (data.Contains("<TheEnd>") )
+                    {
+                        Console.WriteLine($"Клиент {user} завершил соединение.");
                         break;
                     }
                 }
@@ -127,19 +129,30 @@ namespace ServerHost
             {
                 string[] parts = data.Split(' ');
                 string command = parts[0];
-                Console.WriteLine("Command: " + command.Trim().ToUpper());
+                Console.WriteLine(DateAndTime.Now.ToString() + " Command: " + command.Trim().ToUpper());
                 switch (command.Trim().ToUpper())
                 {
                     case "LOG":
                         string login = parts[1];
                         string password = parts[2];
-                        //Console.WriteLine($"ConvertedData {parts[0]} {parts[1]} {parts[2]}");
+                        if (connectedUsers.Any(u => u.GetLogin() == login))
+                        {
+                            return "User with this login is already logged in";
+                        }
+
+                        if (user.IsLoggedIn)
+                        {
+                            return "Already logged in";
+                        }
+
                         if (!ClassForAuth.CheckHashAndLog(login, password))
                         {
                             return "Invalid credentials";
                         }
                         else
                         {
+                            user.IsLoggedIn = true;
+                            user.SetLogin(login);
                             return "You have successfully logged in";
                         }
                     case "REG":
@@ -155,19 +168,25 @@ namespace ServerHost
                             if (sendLinesTask != null && !sendLinesTask.IsCompleted) 
                             {
                                 user.CancelLOR();
-                                return "Sending operation stop";
+                                return "";
                             }
                             else
                             {
                                 user.ContinueLOR();
                                 sendLinesTask = Task.Run(() => SendLinesWithDelay(handler, user.TokenSource.Token));
-                                return "Sending operation start";
+                                return "";
                             }
                         }
                         else
                         {
                             return "User not found";
                         }
+                    case "DIS":
+                        Console.WriteLine($"Клиент {user.Login} отключился.");
+                        connectedUsers.Remove(user);
+                        handler.Close();
+                        return "";
+                        
                     default:
                         return "Incorrect Command";
                 }

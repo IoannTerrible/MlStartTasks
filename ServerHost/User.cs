@@ -10,6 +10,7 @@ namespace ServerHost
     {
         #region Properties
         public string? Login { get; set; }
+        public bool IsLoggedIn { get; set; }
         public string IPAddress { get; private set; }
         public int Port { get; private set; }
         public CancellationTokenSource TokenSource { get; set; }
@@ -38,6 +39,8 @@ namespace ServerHost
         {
             TokenSource = new CancellationTokenSource();
         }
+
+        public string GetLogin() => Login;
         #endregion
     }
 }

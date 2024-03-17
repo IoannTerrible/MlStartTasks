@@ -18,7 +18,7 @@ namespace ServerHost
             {
                 string hashPassword = GetHashString(chekingString);
 
-                SqlCommand command = new SqlCommand();
+                SqlCommand command = new();
                 command.CommandText = $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = @Login AND [PassWord] = @Password";
                 command.Parameters.AddWithValue("@Login", login);
                 command.Parameters.AddWithValue("@Password", hashPassword);
@@ -37,12 +37,12 @@ namespace ServerHost
         {
             try
             {
-                SqlCommand command = new SqlCommand();
+                SqlCommand command = new();
                 command.CommandText = $"INSERT INTO [MLstartDataBase].[dbo].[Userss] (Login, PassWord) VALUES (@Login, @Password)";
                 command.Parameters.AddWithValue("@Login", username);
                 command.Parameters.AddWithValue("@Password", GetHashString(password));
                 ExecuteSqlCommand(command);
-                return "You Successfully Reg";
+                return "You Successfully RegistrationIn";
             }
             catch (Exception ex)
             {
