@@ -27,31 +27,31 @@ namespace SocketClient
             Logger.LogByTemplate(LogEventLevel.Information, note: "Start Send message");
             await _socketClient.SendMessage(message);
             Logger.LogByTemplate(LogEventLevel.Information, note: "Message was sent");
-            if (message.Contains("LOR"))
+            switch (message)
             {
-                Logger.LogByTemplate(LogEventLevel.Information, note: "Message contains LOR, start reciving");
-                await _socketClient.ReceiveLoreMessages();
-                Logger.LogByTemplate(LogEventLevel.Information, note: "Recive Complete");
-            }
-            if (message.Contains("DIS"))
-            {
-                Logger.LogByTemplate(LogEventLevel.Information, note: "Message contains DIS, Don't reciving");
-            }
-            else
-            {
-                Logger.LogByTemplate(LogEventLevel.Information, note: "Message don't contains LOR start reciving");
-                response = await _socketClient.ReceiveMessage();
-                Logger.LogByTemplate(LogEventLevel.Information, note: "Base recive complete");
-                Logger.LogByTemplate(LogEventLevel.Information, note: $"Response from server {response}");
-                if (response != null)
-                {
-                    if (response == "You have successfully logged in")
+                case string msg when msg.Contains("LOR"):
+                    Logger.LogByTemplate(LogEventLevel.Information, note: "Message contains LOR, start receiving");
+                    await _socketClient.ReceiveLoreMessages();
+                    Logger.LogByTemplate(LogEventLevel.Information, note: "Receive Complete");
+                    break;
+                case string msg when msg.Contains("DIS"):
+                    Logger.LogByTemplate(LogEventLevel.Information, note: "Message contains DIS, Don't receiving");
+                    break;
+                default:
+                    Logger.LogByTemplate(LogEventLevel.Information, note: "Message doesn't contain LOR, start receiving");
+                    response = await _socketClient.ReceiveMessage();
+                    Logger.LogByTemplate(LogEventLevel.Information, note: "Base receive complete");
+                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Response from server: {response}");
+                    if (response != null)
                     {
-                        isLogin = true;
-                        UserNameTextBox.Text = LogInPage.login;
+                        if (response == "You have successfully logged in")
+                        {
+                            isLogin = true;
+                            UserNameTextBox.Text = LogInPage.login;
+                        }
+                        MessageBox.Show(response);
                     }
-                    MessageBox.Show(response);
-                }
+                    break;
             }
 
             Logger.LogByTemplate(LogEventLevel.Debug, note: $"Message sent and response received: {message}"); ;
@@ -101,6 +101,28 @@ namespace SocketClient
                 {
                     Logger.LogByTemplate(LogEventLevel.Error, ex, "Error occurred while processing StoryClick event.");
                 }
+            }
+        }
+        public void SetButtonToGo(bool goState)
+        {
+            if(activeStoryPage != null)
+            {
+                activeStoryPage.MakeGoToStop(goState);
+            }
+            else
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, note: "ActiveStoryPage is null");
+            }
+        }
+        public void SetStopRecivingLines()
+        {
+            if(activeStoryPage != null)
+            {
+                activeStoryPage.receivingLines = false;
+            }
+            else
+            {
+                Logger.LogByTemplate(LogEventLevel.Error,note:"ActiveStoryPage is null");
             }
         }
 

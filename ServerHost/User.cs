@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ServerHost
+﻿namespace ServerHost
 {
     public class User
     {
@@ -13,6 +7,7 @@ namespace ServerHost
         public bool IsLoggedIn { get; set; }
         public string IPAddress { get; private set; }
         public int Port { get; private set; }
+        public Task LoreTask { get; set; }
         public CancellationTokenSource TokenSource { get; set; }
         #endregion
 

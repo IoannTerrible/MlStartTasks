@@ -14,7 +14,7 @@ namespace ClassLibrary
 
             Dictionary<string, string> numbersDictionary = new()
             {
-                { "DelayInSeconds", "2" }
+                { "DelayInMilliseconds", "2000" }
             };
 
             foreach (var pair in numbersDictionary)
@@ -105,7 +105,7 @@ namespace ClassLibrary
         {
             Dictionary<string, string> otherElementsDictionary = new()
             {
-                { "DelayInSeconds", "2" }
+                { "DelayInMilliseconds", "2000" }
             };
 
             foreach (KeyValuePair<string, string> pair in otherElementsDictionary)

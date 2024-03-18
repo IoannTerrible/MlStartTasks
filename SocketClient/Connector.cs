@@ -65,8 +65,11 @@ namespace SocketClient
                     int bytesRead = await sender.ReceiveAsync(new ArraySegment<byte>(buffer), SocketFlags.None);
                     string receivedData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
 
-                    if (receivedData == "<EndOfTransmission>")
+                    if (receivedData == "S")
                     {
+                        _mainwindow.SetButtonToGo(true);
+                        _mainwindow.SetStopRecivingLines();
+                        Logger.LogByTemplate(LogEventLevel.Debug, note: "Help me");
                         break;
                     }
                     await _mainwindow.activeStoryPage.AddLineToListBoxWithDelay(receivedData);
@@ -87,10 +90,18 @@ namespace SocketClient
         {
             if (IsConnected)
             {
-                byte[] bytes = new byte[1024];
+                try
                 {
-                    int bytesRec = await sender.ReceiveAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
-                    return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                    byte[] bytes = new byte[1024];
+                    {
+                        int bytesRec = await sender.ReceiveAsync(new ArraySegment<byte>(bytes), SocketFlags.None);
+                        return Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                    }
+                }
+                catch (SocketException ex)
+                {
+                    Logger.LogByTemplate(LogEventLevel.Error, ex, "Error While ReceiveMessage");
+                    return null;
                 }
             }
             else
@@ -108,7 +119,7 @@ namespace SocketClient
                     sender.Close();
                     IsConnected = false;
                 }
-                catch(SocketException ex)
+                catch (SocketException ex)
                 {
                     Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while clicking to disconnet");
                 }

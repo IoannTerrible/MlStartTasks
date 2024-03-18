@@ -15,7 +15,7 @@ namespace SocketClient
         internal float delay;
         private App _app;
         private MainWindow _mainWindow;
-        private bool receivingLines = false;
+        public bool receivingLines = false;
         public StoryPage(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
@@ -46,13 +46,13 @@ namespace SocketClient
         {
             if (!receivingLines)
             {
-                GoButton.Content = "Stop";
+                MakeGoToStop(false);
                 try
                 {
-                    receivingLines = true;
-                    ; 
+                    receivingLines = true; 
                     await _mainWindow.SendMessageAndReceive("LOR");
                     receivingLines = false;
+                    MakeGoToStop(true);
                 }
                 catch (Exception ex)
                 {
@@ -61,11 +61,16 @@ namespace SocketClient
             }
             else
             {
-                GoButton.Content = "Go";
+                MakeGoToStop(true);
                 _mainWindow.SendMessageAndReceive("LOR");
                 receivingLines = false;
                 MessageBox.Show("Retrieving storyLines has stopped");
             }
+        }
+
+        public void MakeGoToStop(bool isGo)
+        {
+            GoButton.Content = isGo ? "Go" : "Stop";
         }
     }
 }

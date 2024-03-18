@@ -1,13 +1,9 @@
-﻿using System;
-using System.Text;
+﻿using ClassLibrary;
+using Microsoft.VisualBasic;
+using Serilog.Events;
 using System.Net;
 using System.Net.Sockets;
-using System.Text.Json;
-using Microsoft.VisualBasic;
-using ClassLibrary;
-using Serilog.Events;
-using Serilog;
-using System.Threading;
+using System.Text;
 
 namespace ServerHost
 {
@@ -129,7 +125,7 @@ namespace ServerHost
             {
                 string[] parts = data.Split(' ');
                 string command = parts[0];
-                Console.WriteLine(DateAndTime.Now.ToString() + " Command: " + command.Trim().ToUpper());
+                Console.WriteLine(DateAndTime.Now.ToString() + $" Command: {command.Trim().ToUpper()} {user.Login}");
                 switch (command.Trim().ToUpper())
                 {
                     case "LOG":
@@ -165,7 +161,7 @@ namespace ServerHost
                     case "LOR":
                         if (user != null)
                         {
-                            if (sendLinesTask != null && !sendLinesTask.IsCompleted) 
+                            if (user.LoreTask != null && !user.LoreTask.IsCompleted) 
                             {
                                 user.CancelLOR();
                                 return "";
@@ -173,7 +169,7 @@ namespace ServerHost
                             else
                             {
                                 user.ContinueLOR();
-                                sendLinesTask = Task.Run(() => SendLinesWithDelay(handler, user.TokenSource.Token));
+                                user.LoreTask = Task.Run(() => SendLinesWithDelay(handler, user.TokenSource.Token));
                                 return "";
                             }
                         }
@@ -182,7 +178,7 @@ namespace ServerHost
                             return "User not found";
                         }
                     case "DIS":
-                        Console.WriteLine($"Клиент {user.Login} отключился.");
+                        Console.WriteLine($"Client with next login: {user.Login} leave us.");
                         connectedUsers.Remove(user);
                         handler.Close();
                         return "";
@@ -212,7 +208,7 @@ namespace ServerHost
                     }
                     byte[] msg = Encoding.UTF8.GetBytes(line);
                     await handler.SendAsync(new ArraySegment<byte>(msg), SocketFlags.None);
-                    await Task.Delay(TimeSpan.FromSeconds(MainFunProgram.DelayInSeconds)); // Задержка перед отправкой следующего элемента
+                    await Task.Delay(TimeSpan.FromSeconds(MainFunProgram.DelayInMilliseconds/1000)); // Задержка перед отправкой следующего элемента
                 }
             }
             catch (Exception ex)
@@ -222,11 +218,11 @@ namespace ServerHost
             }
             finally
             {
-                byte[] endMsg = Encoding.UTF8.GetBytes("<EndOfTransmission>");
+                byte[] endMsg = Encoding.UTF8.GetBytes("S");
                 await handler.SendAsync(new ArraySegment<byte>(endMsg), SocketFlags.None);
-#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
+                #pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
                 MainFunProgram.Lines.Clear();
-#pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
+                #pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
                 MainFunProgram.ProcessActions();
             }
         }

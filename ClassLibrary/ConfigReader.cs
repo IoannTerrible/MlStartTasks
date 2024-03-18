@@ -1,9 +1,4 @@
 ﻿using Serilog.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace ClassLibrary
@@ -21,7 +16,7 @@ namespace ClassLibrary
                 {
                     ReadNodeValue(xmlDoc, "//Config/Numbers/Number1"),
                     ReadNodeValue(xmlDoc, "//Config/Numbers/Number2"),
-                    ReadNodeValue(xmlDoc, "//Config/DelayInSeconds"),
+                    ReadNodeValue(xmlDoc, "//Config/DelayInMilliseconds"),
                     ReadNodeValue(xmlDoc, "//Config/Network/Port"),
                     ReadNodeValue(xmlDoc, "//Config/Network/Ip"),
                     ReadNodeValue(xmlDoc, "//Config/Database/ConnectionString")
@@ -40,7 +35,10 @@ namespace ClassLibrary
         { 
             XmlNode? node = xmlDoc.SelectSingleNode(xpath);
             if (node != null)
+            {
+                Logger.LogByTemplate(LogEventLevel.Debug, note: $"Read from congif {node.InnerText}");
                 return node.InnerText;
+            }
 
             throw new Exception($"Node with XPath '{xpath}' not found.");
         }

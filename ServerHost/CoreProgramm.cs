@@ -16,7 +16,7 @@ namespace ServerHost
         private static double[,]? arr2;
 
         public static List<string>? Lines { get; set; }
-        public static float DelayInSeconds { get; set; }
+        public static double DelayInMilliseconds { get; set; }
         public static int Num1 { get; set; }
         public static int Num2 { get; set; }
         #endregion
@@ -36,14 +36,14 @@ namespace ServerHost
 
             if (!int.TryParse(arrayOfStrings.ElementAtOrDefault(0), out int num1) ||
                 !int.TryParse(arrayOfStrings.ElementAtOrDefault(1), out int num2) ||
-                !float.TryParse(arrayOfStrings.ElementAtOrDefault(2), out float delayInSeconds))
+                !double.TryParse(arrayOfStrings.ElementAtOrDefault(2), out double delayInMilliseconds))
             {
                 Logger.LogByTemplate(Error, note: "Error while parsing parameters from config file");
                 return;
             }
             MainFunProgram.Num1 = num1;
             MainFunProgram.Num2 = num2;
-            MainFunProgram.DelayInSeconds = delayInSeconds;
+            MainFunProgram.DelayInMilliseconds = delayInMilliseconds;
         }
         public static void ProcessActions()
         {
@@ -91,50 +91,7 @@ namespace ServerHost
             unburnedChest0.RetrieveItems(unburnedChest0.items.Count);
             unburnedChest1.RetrieveItems(unburnedChest1.items.Count);
 
-            int[] k = Enumerable.Range(5, 15).Where(x2 => x2 % 2 != 0).ToArray();
-            double[] x = new double[13];
-            Random random = new Random();
-            for (int i = 0; i < x.Length; i++)
-            {
-                x[i] = random.NextDouble(-12, 16);
-                Logger.LogByTemplate(Debug, note: $"X array index {i} = {x[i]} ");
-            }
-
-            arr2 = new double[8, 13];
-            int[] numbers = { 5, 7, 11, 15 };
-            arr2 = MathClass.Solve(
-                emptyDoubleArray: arr2,
-                arrayWithNumbersForСondition: numbers,
-                firstBaseArray: k,
-                secondBaseArray: x);
-
-            try
-            {
-                Logger.LogByTemplate(Information, note: "Parsing successful.");
-                double[] FirstElement = Enumerable.Range(0, arr2.GetLength(1))
-                    .Select(col => arr2[Num1 % 8, col])
-                    .ToArray();
-
-                double[] SecondElemet = Enumerable.Range(0, arr2.GetLength(0))
-                    .Select(row => arr2[row, Num2 % 13])
-                    .ToArray();
-
-                double answer = Math.Round((FirstElement.Min() + SecondElemet.Average()), 4);
-
-                Logger.LogByTemplate(Debug, note: $"answer = {answer}");
-
-                if (double.IsNaN(answer))
-                {
-                    Logger.LogByTemplate(Warning, note: $"The calculated result is not a valid number. answer = {answer}. Please check your input data.");
-                    throw new Exception("Failed to generate number. try again");
-                }
-
-                AddNarrativeline(answer);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogByTemplate(Error, ex, $"Parsing failed. Invalid format in config file.");
-            }
+            AddNarrativeline(MathClass.GetAnswer());
         }
         public static void AddNarrativeline(double number)
         {
