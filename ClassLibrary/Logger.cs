@@ -27,7 +27,7 @@ namespace ClassLibrary
                     break;
                 }
             }
-            string fileName = Path.GetFileName(frame.GetFileName());
+            string fileName = GetLastFile(frame.GetFileName());
             info.AppendLine(
                 $" File: {fileName}," +
                 $" Line: {frame.GetFileLineNumber()}," +
@@ -59,6 +59,22 @@ namespace ClassLibrary
             }
 
             Log.Logger = loggerConfig.CreateLogger();
+        }
+        public static string GetLastFile(string filePath)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(filePath))
+                {
+                    throw new ArgumentException("File path cannot be null or empty.");
+                }
+                string[] pathParts = filePath.Split('\\');
+                return pathParts[pathParts.Length - 1];
+            }
+            catch
+            {
+                return null;
+            }   
         }
     }
 }

@@ -125,6 +125,8 @@ namespace ServerHost
                 {
                     connection.Open();
                     command.Connection = connection;
+                    string databaseFilePath = GetDatabaseFilePath(connection, databaseName);
+                    LogDatabaseFilePath(databaseFilePath);
                     int databaseCount = Convert.ToInt32(command.ExecuteScalar());
                     return databaseCount > 0;
                 }
@@ -134,6 +136,25 @@ namespace ServerHost
                 Console.WriteLine("DataBase Chek error" + ex.Message);
                 return false;
             }
+        }
+        private static string GetDatabaseFilePath(SqlConnection connection, string databaseName)
+        {
+            string query = $"SELECT physical_name FROM sys.master_files WHERE database_id = DB_ID('{databaseName}')";
+            SqlCommand command = new SqlCommand(query, connection);
+            return command.ExecuteScalar()?.ToString();
+        }
+
+        private static void LogDatabaseFilePath(string databaseFilePath)
+        {
+            if (string.IsNullOrEmpty(databaseFilePath))
+            {
+                Console.WriteLine("Error: Database file path is empty or null.");
+                return;
+            }
+
+            string drive = Path.GetPathRoot(databaseFilePath);
+            string folder = Path.GetDirectoryName(databaseFilePath)?.Replace(drive, "").Trim('\\');
+            Logger.LogByTemplate(LogEventLevel.Information, note: $"Database file path: {drive} {folder}");
         }
         private static void CreateDatabase()
         {

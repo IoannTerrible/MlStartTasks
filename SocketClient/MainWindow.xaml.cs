@@ -130,10 +130,6 @@ namespace SocketClient
         {
             try
             {
-                if (Keyboard.IsKeyDown(Key.F))
-                {
-                    _socketClient.Disconnect();
-                }
                 await SendMessageAndReceive("DIS");
                 isConnected = false;
                 Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from server.");
@@ -143,6 +139,10 @@ namespace SocketClient
             catch(Exception ex)
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while trying to disconnect"); 
+            }
+            finally
+            {
+                _socketClient.Disconnect();
             }
         }
 
