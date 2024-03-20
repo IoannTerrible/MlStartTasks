@@ -13,45 +13,28 @@ namespace ServerHost
         private static Task? sendLinesTask;
         private static List<User> connectedUsers = new List<User>();
         public static string[]? ContentFromServerConfig { get; set; }
+        #region MainMethods
         static async Task Main(string[] args)
         {
             IPEndPoint ipEndPoint = null;
             Socket sListener = null;
 
-            Logger.CreateLogDirectory(
-                LogEventLevel.Debug,
-                LogEventLevel.Information,
-                LogEventLevel.Warning,
-                LogEventLevel.Error
-            );
+            InitializeLogging();
+            string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
+            ConfigureServerConfig(filePath);
 
-            
-            
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = System.IO.Path.Combine(currentDirectory, "config.xml");
-
-            Logger.LogByTemplate(LogEventLevel.Debug, note: "Checking and configuring file for server");
-            Logger.LogByTemplate(LogEventLevel.Information, note: $"Config file path: {filePath}");
-
-            if (!File.Exists(filePath))
-            {
-                Logger.LogByTemplate(LogEventLevel.Debug, note: "Config file not found, creating with default content ");
-                ConfigCreator.CreateDefaultConfigFileForServer(filePath);
-            }
-
-            ContentFromServerConfig = ConfigReader.ReadConfigFromFile(filePath);
             string[] tempString = { ContentFromServerConfig[0], ContentFromServerConfig[1], ContentFromServerConfig[2] };
             MainFunProgram.GetNumbersFromSendedArrayOfStrings(tempString);
+
             IPHostEntry ipHost = Dns.GetHostEntry(ContentFromServerConfig[4]);
             IPAddress ipAddr = ipHost.AddressList[0];
 
-            
             if (int.TryParse(ContentFromServerConfig[3], out int port))
             {
                 ipEndPoint = new IPEndPoint(ipAddr, port);
                 sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                
-                Console.WriteLine($"Server was started. ip:{ContentFromServerConfig[4]} port:{port} Check config for edit");
+
+                Console.WriteLine($"Server was started. IP: {ContentFromServerConfig[4]} Port: {port}. Check config for edits.");
             }
             else
             {
@@ -104,7 +87,7 @@ namespace ServerHost
                     }
                     if (data.Contains("<TheEnd>") )
                     {
-                        Console.WriteLine($"Клиент {user} завершил соединение.");
+                        Console.WriteLine($"Client with next login: {user.Login} leave us.");
                         break;
                     }
                 }
@@ -191,7 +174,7 @@ namespace ServerHost
             catch (Exception ex)
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, "Error while processing data");
-                return "Error";
+                return $"Error {ex.Message}";
             }
         }
 
@@ -199,8 +182,9 @@ namespace ServerHost
         {
             try
             {
+                string[] linesCopy = MainFunProgram.Lines.ToArray();
 
-                foreach (string line in MainFunProgram.Lines)
+                foreach (string line in linesCopy)
                 {
                     if (cancelToken.IsCancellationRequested)
                     {
@@ -226,5 +210,30 @@ namespace ServerHost
                 MainFunProgram.ProcessActions();
             }
         }
+        #endregion
+        #region HelpersMethods
+        static void InitializeLogging()
+        {
+            Logger.CreateLogDirectory(
+                LogEventLevel.Debug,
+                LogEventLevel.Information,
+                LogEventLevel.Warning,
+                LogEventLevel.Error
+            );
+        }
+        static void ConfigureServerConfig(string filePath)
+        {
+            Logger.LogByTemplate(LogEventLevel.Debug, note: "Checking and configuring file for server");
+            Logger.LogByTemplate(LogEventLevel.Information, note: $"Config file path: {filePath}");
+
+            if (!File.Exists(filePath))
+            {
+                Logger.LogByTemplate(LogEventLevel.Debug, note: "Config file not found, creating with default content");
+                ConfigCreator.CreateDefaultConfigFileForServer(filePath);
+            }
+
+            ContentFromServerConfig = ConfigReader.ReadConfigFromFile(filePath);
+        }
+        #endregion
     }
 }

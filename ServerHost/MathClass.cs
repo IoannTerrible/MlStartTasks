@@ -38,7 +38,7 @@ namespace ServerHost
         {
             int[] k = Enumerable.Range(5, 15).Where(x2 => x2 % 2 != 0).ToArray();
             double[] x = new double[13];
-            Random random = new Random();
+            Random random = new();
             for (int i = 0; i < x.Length; i++)
             {
                 x[i] = random.NextDouble(-12, 16);
@@ -47,7 +47,7 @@ namespace ServerHost
 
             double[,] tempArr2 = new double[8, 13];
             int[] numbers = { 5, 7, 11, 15 };
-            tempArr2 = MathClass.Solve(
+            tempArr2 = Solve(
                 emptyDoubleArray: tempArr2,
                 arrayWithNumbersForСondition: numbers,
                 firstBaseArray: k,
@@ -65,18 +65,15 @@ namespace ServerHost
 
             if (double.IsNaN(answer))
             {
-                GetAnswer();
+                answer = GetAnswer();
                 Logger.LogByTemplate(Error, note: "Answer is NaN, recursively calling GetAnswer.");
             }
-            else
-            {
                 Logger.LogByTemplate(Information, note: "Answer is valid, returning.");
                 return answer;
-            }
 
-            Logger.LogByTemplate(Warning, note: "Unexpected flow, should not reach here.");
-            Logger.LogByTemplate(Debug, note: "Returning default value due to unexpected flow.");
-            return 0;
+            //Logger.LogByTemplate(Warning, note: "Unexpected flow, should not reach here.");
+            //Logger.LogByTemplate(Debug, note: "Returning default value due to unexpected flow.");
+            //return 0;
         }
     }
 }
