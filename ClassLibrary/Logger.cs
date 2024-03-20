@@ -11,10 +11,18 @@ namespace ClassLibrary
         {
             StackTrace stackTrace = new StackTrace(true);
             StringBuilder info = new StringBuilder($"Note: {note}");
-
+            if (logEventLevel == LogEventLevel.Debug)
+            {
+                var (shortCommitId, commitVersion) = GetCommitInfo();
+                if (!string.IsNullOrEmpty(shortCommitId) && !string.IsNullOrEmpty(commitVersion))
+                {
+                    info.Append($" CommitID: {shortCommitId}");
+                    info.Append($" AppVersion: {commitVersion}");
+                }
+            }
             if (ex != null)
             {
-                info.AppendLine($"{ex.Message}");
+                info.Append($"{ex.Message} ");
                 stackTrace = new StackTrace(ex, true);
             }
 
@@ -75,6 +83,39 @@ namespace ClassLibrary
             {
                 return null;
             }   
+        }
+        private static (string shortCommitId, string commitVersion) GetCommitInfo()
+        {
+            try
+            {
+                Process process = new Process();
+                process.StartInfo.FileName = "git";
+                process.StartInfo.Arguments = "log --format=\"%h|%s\" -n 1 HEAD"; // Формат вывода короткого ID и сообщения коммита
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.UseShellExecute = false;
+                process.Start();
+
+                string output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+
+                // Разделяем строку вывода на короткий ID и сообщение коммита
+                string[] parts = output.Trim().Split('|');
+                if (parts.Length == 2)
+                {
+                    string commitVersion = parts[1].Split(' ')[0];
+                    return (parts[0], commitVersion);
+                }
+                else
+                {
+                    Log.Write(LogEventLevel.Error, "Unexpected output format from git log.");
+                    return (null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Write(LogEventLevel.Error, ex.ToString());
+                return (null, null);
+            }
         }
     }
 }
