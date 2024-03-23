@@ -44,28 +44,28 @@ namespace SocketClient
 
         private async void Go_Click(object sender, RoutedEventArgs e)
         {
-            if (!receivingLines)
-            {
-                MakeGoToStop(false);
-                try
-                {
-                    receivingLines = true; 
-                    await _mainWindow.SendMessageAndReceive("LOR");
-                    receivingLines = false;
-                    MakeGoToStop(true);
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, ex);
-                }
-            }
-            else
-            {
-                MakeGoToStop(true);
-                _mainWindow.SendMessageAndReceive("LOR");
-                receivingLines = false;
-                MessageBox.Show("Retrieving storyLines has stopped");
-            }
+            //if (!receivingLines)
+            //{
+            //    MakeGoToStop(false);
+            //    try
+            //    {
+            //        receivingLines = true; 
+            //        await _mainWindow.SendMessageAndReceive("LOR");
+            //        receivingLines = false;
+            //        MakeGoToStop(true);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, ex);
+            //    }
+            //}
+            //else
+            //{
+            //    MakeGoToStop(true);
+            //    _mainWindow.SendMessageAndReceive("LOR");
+            //    receivingLines = false;
+            //    MessageBox.Show("Retrieving storyLines has stopped");
+            //}
         }
 
         public void MakeGoToStop(bool isGo)

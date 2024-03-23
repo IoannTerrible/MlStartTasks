@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SocketClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1130" Background="#FFE4C9E3" ResizeMode="NoResize" Closed="Window_Closed">
+        Title="MainWindow" Height="650" Width="1130" Background="#FFE4C9E3" >
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Template">
@@ -27,12 +27,12 @@
 
     <Grid Margin="0,0,10,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="58*"/>
-            <ColumnDefinition Width="1029*"/>
+            <ColumnDefinition Width="29*"/>
+            <ColumnDefinition Width="518*"/>
+            <ColumnDefinition Width="13*"/>
             <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="32*"/>
         </Grid.ColumnDefinitions>
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="576" Margin="476,10,0,0" Grid.ColumnSpan="3" Grid.Column="1">
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="576" Margin="476,10,0,0" Grid.ColumnSpan="2" Grid.Column="1" Height="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="119*"/>
                 <ColumnDefinition Width="34*"/>
@@ -43,11 +43,11 @@
             <Button x:Name="logButton" Content="LogPage" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Center" Height="32" Width="120" Click="LoginClick" Grid.ColumnSpan="2" Grid.Column="1" />
             <Button x:Name="disconButton" Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="70" Click="DisconnectClick" Grid.Column="2" Margin="227,0,0,0" />
             <Button Content="Connect" HorizontalAlignment="Left" Margin="302,0,0,0" VerticalAlignment="Center" Height="32" Width="70" Click="ConnectionClick" Grid.Column="2"/>
-            <Button x:Name="StoryButton" Content="Story" HorizontalAlignment="Left" Margin="97,0,0,0" VerticalAlignment="Center" Height="32" Width="120" Click="StoryClick" Grid.Column="2" />
+            <Button x:Name="StoryButton" Content="ImagePage" HorizontalAlignment="Left" Margin="97,0,0,0" VerticalAlignment="Center" Height="32" Width="120" Click="StoryClick" Grid.Column="2" />
         </Grid>
         <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="You:" VerticalAlignment="Top" Width="260" Height="16" TextAlignment="Center" FontFamily="Skranji" Grid.ColumnSpan="2"/>
         <TextBox x:Name="UserStatus" TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="10,26,0,0" Text="Status:" VerticalAlignment="Top" Width="519" Height="16" TextAlignment="Center" FontFamily="Skranji" Grid.ColumnSpan="2"/>
-        <Frame x:Name="MainFrame" Content="Frame" Margin="0,52,0,0" Grid.ColumnSpan="4" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" Content="Frame" Margin="0,52,10,0" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"/>
         <TextBox x:Name="UserIpBox" HorizontalAlignment="Left" Margin="212,10,0,0" TextWrapping="NoWrap" Text="localhost" VerticalAlignment="Top" Width="130" Height="16" TextAlignment="Center" FontFamily="Skranji" Grid.Column="1"/>
         <TextBox x:Name="UserPortBox" HorizontalAlignment="Left" Margin="342,10,0,0" TextWrapping="NoWrap" Text="11000" VerticalAlignment="Top" Width="129" Height="16" TextAlignment="Center" FontFamily="Skranji" Grid.Column="1"/>
     </Grid>

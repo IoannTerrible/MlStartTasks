@@ -16,19 +16,19 @@ namespace SocketClient
         }
         private void enter_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textBoxReg.Text) || string.IsNullOrWhiteSpace(passwordForReg.Password) || string.IsNullOrWhiteSpace(passwordCopy.Password))
-            {
-                MessageBox.Show("Введите логин, пароль и повторите пароль");
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(textBoxReg.Text) || string.IsNullOrWhiteSpace(passwordForReg.Password) || string.IsNullOrWhiteSpace(passwordCopy.Password))
+            //{
+            //    MessageBox.Show("Введите логин, пароль и повторите пароль");
+            //    return;
+            //}
 
-            if (passwordForReg.Password != passwordCopy.Password)
-            {
-                MessageBox.Show("Пароли не совпадают");
-                return;
-            }
-            string tempString = $"REG {textBoxReg.Text} {passwordForReg.Password}";
-            mainWindow.SendMessageAndReceive(tempString);
+            //if (passwordForReg.Password != passwordCopy.Password)
+            //{
+            //    MessageBox.Show("Пароли не совпадают");
+            //    return;
+            //}
+            //string tempString = $"REG {textBoxReg.Text} {passwordForReg.Password}";
+            //mainWindow.SendMessageAndReceive(tempString);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace ClassLibrary
             StackFrame? frame = new StackFrame();
             for (int i = 0; i < stackTrace.FrameCount; i++)
             {
-                if (stackTrace.GetFrame(i).GetFileLineNumber() != 0) // Поиск нужного фрейма
+                if (stackTrace.GetFrame(i).GetFileLineNumber() != 0) 
                 {
                     frame = stackTrace.GetFrame(i);
                     break;
@@ -90,7 +90,7 @@ namespace ClassLibrary
             {
                 Process process = new Process();
                 process.StartInfo.FileName = "git";
-                process.StartInfo.Arguments = "log --format=\"%h|%s\" -n 1 HEAD"; // Формат вывода короткого ID и сообщения коммита
+                process.StartInfo.Arguments = "log --format=\"%h|%s\" -n 1 HEAD"; 
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.UseShellExecute = false;
                 process.Start();
@@ -98,7 +98,6 @@ namespace ClassLibrary
                 string output = process.StandardOutput.ReadToEnd();
                 process.WaitForExit();
 
-                // Разделяем строку вывода на короткий ID и сообщение коммита
                 string[] parts = output.Trim().Split('|');
                 if (parts.Length == 2)
                 {
