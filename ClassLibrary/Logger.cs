@@ -24,23 +24,25 @@ namespace ClassLibrary
             {
                 info.Append($"{ex.Message} ");
                 stackTrace = new StackTrace(ex, true);
-            }
 
-            StackFrame? frame = new StackFrame();
-            for (int i = 0; i < stackTrace.FrameCount; i++)
-            {
-                if (stackTrace.GetFrame(i).GetFileLineNumber() != 0) 
+
+                StackFrame? frame = new StackFrame();
+                for (int i = 0; i < stackTrace.FrameCount; i++)
                 {
-                    frame = stackTrace.GetFrame(i);
-                    break;
+                    if (stackTrace.GetFrame(i).GetFileLineNumber() != 0)
+                    {
+                        frame = stackTrace.GetFrame(i);
+                        break;
+                    }
                 }
+                string fileName = GetLastFile(frame.GetFileName());
+                info.AppendLine(
+                    $" File: {fileName}," +
+                    $" Line: {frame.GetFileLineNumber()}," +
+                    $" Column: {frame.GetFileColumnNumber()}," +
+                    $" Method: {frame.GetMethod()}");
             }
-            string fileName = GetLastFile(frame.GetFileName());
-            info.AppendLine(
-                $" File: {fileName}," +
-                $" Line: {frame.GetFileLineNumber()}," +
-                $" Column: {frame.GetFileColumnNumber()}," +
-                $" Method: {frame.GetMethod()}");
+            else info.AppendLine("");
             Log.Write(logEventLevel, info.ToString());
         }
 
@@ -88,7 +90,7 @@ namespace ClassLibrary
         {
             try
             {
-                Process process = new Process();
+                Process process = new();
                 process.StartInfo.FileName = "git";
                 process.StartInfo.Arguments = "log --format=\"%h|%s\" -n 1 HEAD"; 
                 process.StartInfo.RedirectStandardOutput = true;

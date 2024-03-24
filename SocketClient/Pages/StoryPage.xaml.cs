@@ -21,8 +21,6 @@ namespace SocketClient
             _mainWindow = mainWindow;
             InitializeComponent();
             _app = (App)Application.Current;
-            //delay = float.Parse(App.ContentFromConfig[2]);
-
             this.Unloaded += StoryPage_Unloaded;
 
         }
@@ -35,7 +33,6 @@ namespace SocketClient
                 var scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
                 scrollViewer.ScrollToEnd();
             }, DispatcherPriority.Background);
-            //await Task.Delay(TimeSpan.FromSeconds(delay));
         }
         private async void StoryPage_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -44,28 +41,6 @@ namespace SocketClient
 
         private async void Go_Click(object sender, RoutedEventArgs e)
         {
-            //if (!receivingLines)
-            //{
-            //    MakeGoToStop(false);
-            //    try
-            //    {
-            //        receivingLines = true; 
-            //        await _mainWindow.SendMessageAndReceive("LOR");
-            //        receivingLines = false;
-            //        MakeGoToStop(true);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, ex);
-            //    }
-            //}
-            //else
-            //{
-            //    MakeGoToStop(true);
-            //    _mainWindow.SendMessageAndReceive("LOR");
-            //    receivingLines = false;
-            //    MessageBox.Show("Retrieving storyLines has stopped");
-            //}
         }
 
         public void MakeGoToStop(bool isGo)
