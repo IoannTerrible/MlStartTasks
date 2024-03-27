@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using static System.Net.WebRequestMethods;
 
 namespace SocketClient
 {
@@ -61,15 +62,15 @@ namespace SocketClient
                 Uri trueImageUrl = new Uri(imageUrl);
                 window.activyImagePage.ImageBoxThree.Source = new BitmapImage(trueImageUrl);
 
-                byte[] imageBytes = File.ReadAllBytes(imageUrl);
+                byte[] imageBytes = System.IO.File.ReadAllBytes(imageUrl);
                 MultipartFormDataContent form = new()
                 {
                     { new ByteArrayContent(imageBytes), "image", "image.jpg" }
                 };
 
-                if (await CheckHealthAsync("http://localhost:8000/health"))
+                if (await CheckHealthAsync($"{apiUrl}health"))
                 {
-                    HttpResponseMessage response = await client.PostAsync(apiUrl, form);
+                    HttpResponseMessage response = await client.PostAsync($"{apiUrl}file", form);
                     if (response.IsSuccessStatusCode)
                     {
                         string responseContent = await response.Content.ReadAsStringAsync();
@@ -94,6 +95,8 @@ namespace SocketClient
                 }
                 else
                 {
+                    MessageBox.Show("Health check failed before sending image");
+
                     Logger.LogByTemplate(LogEventLevel.Warning, note: "Health check failed before sending image.");
                 }
             }

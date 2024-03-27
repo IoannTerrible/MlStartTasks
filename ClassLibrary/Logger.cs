@@ -108,8 +108,7 @@ namespace ClassLibrary
                 }
                 else
                 {
-                    Log.Write(LogEventLevel.Error, "Unexpected output format from git log.");
-                    return (null, null);
+                    throw new Exception("Unexpected output format from git log.");
                 }
             }
             catch (Exception ex)

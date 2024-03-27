@@ -3,11 +3,12 @@ using System.Windows.Controls;
 
 public class ConnectionWindow
 {
+    public static string ConnectionUri { get; set; }
     public static async void ShowConnectionDialog()
     {
-        Window dialog = new Window
+        Window dialog = new()
         {
-            Title = "Введите HTTP адрес",
+            Title = "http://localhost:8000",
             Width = 300,
             Height = 150,
             WindowStartupLocation = WindowStartupLocation.CenterScreen,
@@ -16,27 +17,38 @@ public class ConnectionWindow
 
         StackPanel stackPanel = new StackPanel();
 
-        TextBox textBox = new TextBox
+        TextBox textBox = new()
         {
             Width = 200,
             Margin = new Thickness(10),
             HorizontalAlignment = HorizontalAlignment.Center
         };
 
-        Button connectButton = new Button
+        Button connectButton = new()
         {
-            Content = "Подключиться",
+            Content = "Сonnect to",
             Width = 100,
             Margin = new Thickness(10),
             HorizontalAlignment = HorizontalAlignment.Center
         };
         connectButton.Click += (s, args) =>
         {
-            // Обработка нажатия кнопки подключения
-            string url = textBox.Text;
-            // Выполните здесь код для подключения по HTTP адресу
-            MessageBox.Show($"Вы подключились по адресу: {url}");
-            dialog.Close(); // Закрыть окно после подключения
+            string rawUrl = textBox.Text;
+            ConnectionUri = Uri.EscapeUriString(rawUrl);
+
+            if (string.IsNullOrWhiteSpace(rawUrl))
+            {
+                MessageBox.Show(@"Input Url (like 'http://example.com/')");
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show($"Are you sure you want to connect to {rawUrl}?", "Confirmation", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    MessageBox.Show($"You have connected to: {ConnectionUri}");
+                    dialog.Close(); // Close the window after connecting
+                }
+            }
         };
 
         stackPanel.Children.Add(textBox);
