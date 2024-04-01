@@ -12,7 +12,7 @@ namespace SocketClient
     /// </summary>
     public partial class App : Application
     {
-        public static string[] ContentFromConfig { get; set; }
+        public static Dictionary<string, string> ContentFromConfig { get; set; }
 
         [STAThread]
         public static void Main(string[] args)
@@ -33,7 +33,7 @@ namespace SocketClient
             if (!File.Exists(filePath))
             {
                 Logger.LogByTemplate(Debug, note: "Config file not found, creating with default content ");
-                ConfigCreator.CreateDefaultConfigFileForClient(filePath);
+                ConfigCreator.CreateDefaultConfigFile(filePath);
             }
 
             ContentFromConfig = ConfigReader.ReadConfigFromFile(filePath);

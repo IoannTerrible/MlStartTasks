@@ -24,23 +24,25 @@ namespace ClassLibrary
             {
                 info.Append($"{ex.Message} ");
                 stackTrace = new StackTrace(ex, true);
-            }
 
-            StackFrame? frame = new StackFrame();
-            for (int i = 0; i < stackTrace.FrameCount; i++)
-            {
-                if (stackTrace.GetFrame(i).GetFileLineNumber() != 0) // Поиск нужного фрейма
+
+                StackFrame? frame = new StackFrame();
+                for (int i = 0; i < stackTrace.FrameCount; i++)
                 {
-                    frame = stackTrace.GetFrame(i);
-                    break;
+                    if (stackTrace.GetFrame(i).GetFileLineNumber() != 0)
+                    {
+                        frame = stackTrace.GetFrame(i);
+                        break;
+                    }
                 }
+                string fileName = GetLastFile(frame.GetFileName());
+                info.AppendLine(
+                    $" File: {fileName}," +
+                    $" Line: {frame.GetFileLineNumber()}," +
+                    $" Column: {frame.GetFileColumnNumber()}," +
+                    $" Method: {frame.GetMethod()}");
             }
-            string fileName = GetLastFile(frame.GetFileName());
-            info.AppendLine(
-                $" File: {fileName}," +
-                $" Line: {frame.GetFileLineNumber()}," +
-                $" Column: {frame.GetFileColumnNumber()}," +
-                $" Method: {frame.GetMethod()}");
+            else info.AppendLine("");
             Log.Write(logEventLevel, info.ToString());
         }
 
@@ -88,9 +90,9 @@ namespace ClassLibrary
         {
             try
             {
-                Process process = new Process();
+                Process process = new();
                 process.StartInfo.FileName = "git";
-                process.StartInfo.Arguments = "log --format=\"%h|%s\" -n 1 HEAD"; // Формат вывода короткого ID и сообщения коммита
+                process.StartInfo.Arguments = "log --format=\"%h|%s\" -n 1 HEAD"; 
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.UseShellExecute = false;
                 process.Start();
@@ -98,7 +100,6 @@ namespace ClassLibrary
                 string output = process.StandardOutput.ReadToEnd();
                 process.WaitForExit();
 
-                // Разделяем строку вывода на короткий ID и сообщение коммита
                 string[] parts = output.Trim().Split('|');
                 if (parts.Length == 2)
                 {
@@ -107,8 +108,7 @@ namespace ClassLibrary
                 }
                 else
                 {
-                    Log.Write(LogEventLevel.Error, "Unexpected output format from git log.");
-                    return (null, null);
+                    throw new Exception("Unexpected output format from git log.");
                 }
             }
             catch (Exception ex)

@@ -36,7 +36,7 @@ namespace SocketClient
             }
             catch (SocketException ex)
             {
-                Logger.LogByTemplate(LogEventLevel.Error, ex, note: $"Error while connect to {_host} {_port}");
+                Logger.LogByTemplate(LogEventLevel.Error, ex, note: $"SocketError while connect to {_host} {_port}");
             }
 
             catch (Exception ex)

@@ -12,6 +12,8 @@ namespace ClassLibrary
             XmlElement root = xmlDoc.CreateElement("Config");
             xmlDoc.AppendChild(root);
 
+            AddDatabase(xmlDoc, root);
+
             Dictionary<string, string> numbersDictionary = new()
             {
                 { "DelayInMilliseconds", "2000" }
@@ -27,7 +29,7 @@ namespace ClassLibrary
             xmlDoc.Save(path);
         }
 
-        public static void CreateDefaultConfigFileForServer(string path)
+        public static void CreateDefaultConfigFile(string path)
         {
             try
             {
