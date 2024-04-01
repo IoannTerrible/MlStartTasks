@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Serilog.Events;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using static System.Net.WebRequestMethods;
@@ -79,13 +80,16 @@ namespace SocketClient
                         parts[0] = parts[0].Substring(1);
                         int lastIndex = parts.Length - 1;
                         parts[lastIndex] = parts[lastIndex].Substring(0, parts[lastIndex].Length - 1);
-
+                        StringBuilder tempStringBuilder = new StringBuilder();
                         foreach (string par in parts)
                         {
+                            tempStringBuilder.Append(par);
+                            tempStringBuilder.Append(" "); // Добавляем пробел между элементами
                             window.activyImagePage.ListBoxForResponce.Items.Add(par);
                         }
 
-                        MainWindow.ReciveResponce(responseContent);
+                        string tempString = tempStringBuilder.ToString();
+                        Logger.LogByTemplate(LogEventLevel.Information, note: $"Response for server {tempString}");
                     }
                     else
                     {
