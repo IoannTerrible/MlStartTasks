@@ -74,7 +74,11 @@ namespace SocketClient
                     HttpResponseMessage response = await client.PostAsync($"{apiUrl}file", form);
                     if (response.IsSuccessStatusCode)
                     {
-                        string responseContent = await response.Content.ReadAsStringAsync();
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        ResponseObject responseObject = JsonConvert.DeserializeObject<ResponseObject>(responseContent);
+
+                        List<ObjectOnPhoto> objectsOnPhoto = new List<ObjectOnPhoto>(responseObject.Objects);
+                        window.activyImagePage.DrawBoundingBoxes(objectsOnPhoto);
                         string[] parts = responseContent.Split(",");
 
                         parts[0] = parts[0].Substring(1);
@@ -84,7 +88,7 @@ namespace SocketClient
                         foreach (string par in parts)
                         {
                             tempStringBuilder.Append(par);
-                            tempStringBuilder.Append(" "); // Добавляем пробел между элементами
+                            tempStringBuilder.Append(" "); 
                             window.activyImagePage.ListBoxForResponce.Items.Add(par);
                         }
 
