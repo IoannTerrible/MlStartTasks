@@ -65,8 +65,7 @@ namespace SocketClient
         //}
         private void RegistrationClick(object sender, RoutedEventArgs e)
         {
-                //Logger.LogByTemplate(LogEventLevel.Information, note: "Registration page opened.");
-                //MainFrame.Navigate(new RegInPage(this));
+            ConnectionWindow.ConnectionUri = @"http://localhost:8000/";
         }
         private void LoginClick(object sender, RoutedEventArgs e)
         {
@@ -132,7 +131,10 @@ namespace SocketClient
         private async void ConnectionClick(object sender, RoutedEventArgs e)
         {
             ConnectionWindow.ShowConnectionDialog();
-            UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+            if (ConnectionWindow.ConnectionUri != null)
+            {
+                UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+            }
         }
         public static void ReciveResponce(string responce)
         {

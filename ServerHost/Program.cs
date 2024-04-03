@@ -229,7 +229,7 @@ namespace ServerHost
             if (!File.Exists(filePath))
             {
                 Logger.LogByTemplate(LogEventLevel.Debug, note: "Config file not found, creating with default content");
-                ConfigCreator.CreateDefaultConfigFileForServer(filePath);
+                //ConfigCreator.CreateDefaultConfigFileForServer(filePath);
             }
 
             ContentFromServerConfig = ConfigReader.ReadConfigFromFile(filePath);
