@@ -232,7 +232,7 @@ namespace ServerHost
                 //ConfigCreator.CreateDefaultConfigFileForServer(filePath);
             }
 
-            ContentFromServerConfig = ConfigReader.ReadConfigFromFile(filePath);
+            //ContentFromServerConfig = ConfigReader.ReadConfigFromFile(filePath);
         }
         #endregion
     }
