@@ -84,8 +84,12 @@ namespace SocketClient
             CalculateScale();
             ClearRectangles();
             Logger.LogByTemplate(LogEventLevel.Information, note: $"Image uploaded.");
+        }
+        private void ClearRectangles()
+        {
+            rectangleContainer.Children.Clear();
+        }
         private void CalculateScale()
-
         {
             if (ImageBoxThree.Source is BitmapSource)
             {

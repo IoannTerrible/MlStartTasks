@@ -53,11 +53,6 @@ namespace SocketClient
         private async void ConfigClick(object sender, RoutedEventArgs e)
         {
             // open configuration
-            ConnectionWindow.ShowConnectionDialog();
-            if (ConnectionWindow.ConnectionUri != null)
-            {
-                UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
-            }
         }
         public static void ReciveResponce(string responce)
         {
