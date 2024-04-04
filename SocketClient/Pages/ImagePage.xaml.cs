@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ClassLibrary;
+using Serilog.Events;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SocketClient
 {
@@ -21,30 +13,24 @@ namespace SocketClient
     /// </summary>
     public partial class ImagePage : Page
     {
-        private MainWindow _window;
-        private Canvas rectangleContainer = new();
-
-        private double originalWidth;
-        private double originalHeight;
-        private double scaleX;
-        private double scaleY;
+        #region Constructor
         public ImagePage(MainWindow window)
         {
             _window = window;
             InitializeComponent();
             canvas.Children.Add(rectangleContainer);
         }
+        #endregion
+        #region Attributes
+        private readonly MainWindow _window;
+        private readonly Canvas rectangleContainer = new();
 
-        private void SendAndReciveButton_Click(object sender, RoutedEventArgs e)
-        {
-            ListBoxForResponce.Items.Clear();
-            MainWindow.SendImage();
-            ClearRectangles();
-        }
-        private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)
-        {
-            await MainWindow.PerfomHealthChekAsync();
-        }
+        private double originalWidth;
+        private double originalHeight;
+        private double scaleX;
+        private double scaleY;
+        #endregion
+        #region Public Methods
         public void DrawBoundingBoxes(List<ObjectOnPhoto> aircraftObjects)
         {
             foreach (var obj in aircraftObjects)
@@ -56,6 +42,19 @@ namespace SocketClient
 
                 DrawBoundingBox(xtl, ytl, xbr, ybr);
             }
+            Logger.LogByTemplate(LogEventLevel.Information, note: $"{aircraftObjects.Count} borders of objects have been drawn.");
+        }
+        #endregion
+        #region Private Methods
+        private void SendAndReciveButton_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxForResponce.Items.Clear();
+            MainWindow.SendImage();
+            ClearRectangles();
+        }
+        private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)
+        {
+            await MainWindow.PerfomHealthChekAsync();
         }
 
         private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight)
@@ -83,12 +82,13 @@ namespace SocketClient
         {
             CalculateScale();
             ClearRectangles();
+            Logger.LogByTemplate(LogEventLevel.Information, note: $"Image uploaded.");
         }
         private void ClearRectangles()
         {
             rectangleContainer.Children.Clear();
         }
-        public void CalculateScale()
+        private void CalculateScale()
         {
             if (ImageBoxThree.Source is BitmapSource)
             {
@@ -102,7 +102,8 @@ namespace SocketClient
                 scaleX = currentWidth / originalWidth;
                 scaleY = currentHeight / originalHeight;
             }
+            Logger.LogByTemplate(LogEventLevel.Debug, note: "The image scale is calculated");
         }
-
+        #endregion
     }
 }
