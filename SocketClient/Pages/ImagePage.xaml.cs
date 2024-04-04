@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SocketClient
 {
@@ -83,12 +84,8 @@ namespace SocketClient
             CalculateScale();
             ClearRectangles();
             Logger.LogByTemplate(LogEventLevel.Information, note: $"Image uploaded.");
-        }
-        private void ClearRectangles()
-        {
-            rectangleContainer.Children.Clear();
-        }
         private void CalculateScale()
+
         {
             if (ImageBoxThree.Source is BitmapSource)
             {

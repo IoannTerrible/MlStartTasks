@@ -1,0 +1,14 @@
+<Config>
+  <Numbers>
+    <Number1>7</Number1>
+    <Number2>5</Number2>
+  </Numbers>
+  <Network>
+    <Port>11000</Port>
+    <Ip>localhost</Ip>
+  </Network>
+  <Database>
+    <ConnectionString>server=(localdb)\MSSqlLocalDb; Trusted_Connection = Yes; DataBase = MLstartDataBase</ConnectionString>
+  </Database>
+  <DelayInMilliseconds>2000</DelayInMilliseconds>
+</Config>

@@ -24,7 +24,9 @@ namespace SocketClient
             _app = (App)Application.Current;
             _apiClient = new ApiClient(this);
         }
+
         private async void FastConnectClick(object sender, RoutedEventArgs e)
+
         {
             ConnectionWindow.ConnectionUri = @"http://localhost:8000/";
             Logger.LogByTemplate(LogEventLevel.Information, note: "Used fast connection to localhost:8000.");
@@ -51,6 +53,11 @@ namespace SocketClient
         private async void ConfigClick(object sender, RoutedEventArgs e)
         {
             // open configuration
+            ConnectionWindow.ShowConnectionDialog();
+            if (ConnectionWindow.ConnectionUri != null)
+            {
+                UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+            }
         }
         public static void ReciveResponce(string responce)
         {

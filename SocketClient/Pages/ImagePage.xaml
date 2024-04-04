@@ -43,6 +43,7 @@
                 <ColumnDefinition Width="Auto" MinWidth="270"/>
                 <ColumnDefinition Width="Auto" MinWidth="0"/>
             </Grid.ColumnDefinitions>
+
             <Viewbox Grid.Column="0" Margin="0,0,0,0" Stretch="Uniform">
                 <Canvas x:Name="canvas" Width="577" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image x:Name="ImageBoxThree" Source="{Binding ImageSource}" Stretch="Uniform" Width="556" Height="489" Canvas.Left="-1" Loaded="ImageBoxThree_SourceUpdated" HorizontalAlignment="Left" VerticalAlignment="Top"/>
