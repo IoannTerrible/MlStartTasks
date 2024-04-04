@@ -13,10 +13,6 @@ namespace SocketClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        //public Connector _socketClient;
-        //public bool isLogin;
-        //public string response;
-        //public StoryPage activeStoryPage;
         public ImagePage activyImagePage;
         public static HttpClient client = new();
         private App _app;
@@ -28,108 +24,35 @@ namespace SocketClient
             _app = (App)Application.Current;
             _apiClient = new ApiClient(this);
         }
-        #region OldSocketClient
-        //public async Task SendMessageAndReceive(string message)
-        //{
-        //    Logger.LogByTemplate(LogEventLevel.Information, note: "Start Send message");
-        //    await _socketClient.SendMessage(message);
-        //    Logger.LogByTemplate(LogEventLevel.Information, note: "Message was sent");
-        //    switch (message)
-        //    {
-        //        case string msg when msg.Contains("LOR"):
-        //            Logger.LogByTemplate(LogEventLevel.Information, note: "Message contains LOR, start receiving");
-        //            await _socketClient.ReceiveLoreMessages();
-        //            Logger.LogByTemplate(LogEventLevel.Information, note: "Receive Complete");
-        //            break;
-        //        case string msg when msg.Contains("DIS"):
-        //            Logger.LogByTemplate(LogEventLevel.Information, note: "Message contains DIS, Don't receiving");
-        //            break;
-        //        default:
-        //            Logger.LogByTemplate(LogEventLevel.Information, note: "Message doesn't contain LOR, start receiving");
-        //            response = await _socketClient.ReceiveMessage();
-        //            Logger.LogByTemplate(LogEventLevel.Information, note: "Base receive complete");
-        //            Logger.LogByTemplate(LogEventLevel.Information, note: $"Response from server: {response}");
-        //            if (response != null)
-        //            {
-        //                if (response == "You have successfully logged in")
-        //                {
-        //                    isLogin = true;
-        //                    UserNameTextBox.Text = LogInPage.login;
-        //                }
-        //                MessageBox.Show(response);
-        //            }
-        //            break;
-        //    }
 
-        //    Logger.LogByTemplate(LogEventLevel.Debug, note: $"Message sent and response received: {message}"); ;
-        //}
-        private void RegistrationClick(object sender, RoutedEventArgs e)
+        private async void FastConnectClick(object sender, RoutedEventArgs e)
+
         {
             ConnectionWindow.ConnectionUri = @"http://localhost:8000/";
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Used fast connection to localhost:8000.");
         }
-        private void LoginClick(object sender, RoutedEventArgs e)
+        private async void ConnectionClick(object sender, RoutedEventArgs e)
         {
-            //Logger.LogByTemplate(LogEventLevel.Information, note: "Login page opened.");
-            //MainFrame.Navigate(new LogInPage(this));
-        }
-        //private void StoryClick(object sender, RoutedEventArgs e)
-        //{
-        //    if (!isLogin)
-        //    {
-        //        MessageBox.Show("Need Login to Server");
-        //        Logger.LogByTemplate(LogEventLevel.Warning, note: "Attempt to access story page without connection.");
-        //    }
-        //    else
-        //    {
-        //        try
-        //        {
-
-        //            activeStoryPage = new StoryPage(this);
-        //            MainFrame.Navigate(activeStoryPage);
-        //            Logger.LogByTemplate(LogEventLevel.Information, note: "Story page opened.");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Logger.LogByTemplate(LogEventLevel.Error, ex, "Error occurred while processing StoryClick event.");
-        //        }
-        //    }
-        //}
-        //public void SetButtonToGo(bool goState)
-        //{
-        //    if(activeStoryPage != null)
-        //    {
-        //        activeStoryPage.MakeGoToStop(goState);
-        //    }
-        //    else
-        //    {
-        //        Logger.LogByTemplate(LogEventLevel.Error, note: "ActiveStoryPage is null");
-        //    }
-        //}
-        //public void SetStopRecivingLines()
-        //{
-        //    if(activeStoryPage != null)
-        //    {
-        //        activeStoryPage.receivingLines = false;
-        //    }
-        //    else
-        //    {
-        //        Logger.LogByTemplate(LogEventLevel.Error,note:"ActiveStoryPage is null");
-        //    }
-        //}
-        #endregion
-        private async void ImagePageClick(object sender, RoutedEventArgs e)
-        {
-            activyImagePage = new ImagePage(this);
-            MainFrame.Navigate(activyImagePage);
+            ConnectionWindow.ShowConnectionDialog();
+            if (ConnectionWindow.ConnectionUri != null)
+            {
+                UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+            }
         }
         private async void DisconnectClick(object sender, RoutedEventArgs e)
         {
             ConnectionWindow.ConnectionUri = null;
             UserStatus.Text = "YouAreDisconnect";
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from the server.");
         }
-
-        private async void ConnectionClick(object sender, RoutedEventArgs e)
+        private async void ImagePageClick(object sender, RoutedEventArgs e)
         {
+            activyImagePage = new ImagePage(this);
+            MainFrame.Navigate(activyImagePage);
+        }
+        private async void ConfigClick(object sender, RoutedEventArgs e)
+        {
+            // open configuration
             ConnectionWindow.ShowConnectionDialog();
             if (ConnectionWindow.ConnectionUri != null)
             {
