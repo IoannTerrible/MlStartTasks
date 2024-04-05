@@ -14,6 +14,7 @@ namespace SocketClient
     public partial class MainWindow : Window
     {
         public ImagePage activyImagePage;
+        public VideoPage activyVideoPage;
         public static HttpClient client = new();
         private App _app;
         private static ApiClient _apiClient;
@@ -33,6 +34,26 @@ namespace SocketClient
         }
         private async void ConnectionClick(object sender, RoutedEventArgs e)
         {
+            ConnectionWindow.ShowConnectionDialog();
+            if (ConnectionWindow.ConnectionUri != null)
+            {
+                UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+            }
+        }
+        private async void DisconnectClick(object sender, RoutedEventArgs e)
+        {
+            ConnectionWindow.ConnectionUri = null;
+            UserStatus.Text = "YouAreDisconnect";
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from the server.");
+        }
+        private async void ImagePageClick(object sender, RoutedEventArgs e)
+        {
+            activyVideoPage = new VideoPage();
+            MainFrame.Navigate(activyVideoPage);
+        }
+        private async void ConfigClick(object sender, RoutedEventArgs e)
+        {
+            // open configuration
             ConnectionWindow.ShowConnectionDialog();
             if (ConnectionWindow.ConnectionUri != null)
             {
