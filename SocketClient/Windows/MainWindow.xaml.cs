@@ -14,6 +14,7 @@ namespace SocketClient
     public partial class MainWindow : Window
     {
         public ImagePage activyImagePage;
+        public VideoPage activyVideoPage;
         public static HttpClient client = new();
         private App _app;
         private static ApiClient _apiClient;
@@ -47,8 +48,8 @@ namespace SocketClient
         }
         private async void ImagePageClick(object sender, RoutedEventArgs e)
         {
-            activyImagePage = new ImagePage(this);
-            MainFrame.Navigate(activyImagePage);
+            activyVideoPage = new VideoPage();
+            MainFrame.Navigate(activyVideoPage);
         }
         private async void ConfigClick(object sender, RoutedEventArgs e)
         {
