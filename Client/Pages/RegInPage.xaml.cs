@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ClassLibrary;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SocketClient
@@ -16,19 +17,26 @@ namespace SocketClient
         }
         private void enter_Click(object sender, RoutedEventArgs e)
         {
-            //if (string.IsNullOrWhiteSpace(textBoxReg.Text) || string.IsNullOrWhiteSpace(passwordForReg.Password) || string.IsNullOrWhiteSpace(passwordCopy.Password))
-            //{
-            //    MessageBox.Show("Введите логин, пароль и повторите пароль");
-            //    return;
-            //}
-
-            //if (passwordForReg.Password != passwordCopy.Password)
-            //{
-            //    MessageBox.Show("Пароли не совпадают");
-            //    return;
-            //}
-            //string tempString = $"REG {textBoxReg.Text} {passwordForReg.Password}";
-            //mainWindow.SendMessageAndReceive(tempString);
+            if (string.IsNullOrWhiteSpace(textBoxReg.Text) ||
+                string.IsNullOrWhiteSpace(passwordForReg.Password) ||
+                string.IsNullOrWhiteSpace(passwordCopy.Password))
+            {
+                MessageBox.Show("Enter Login, password and repeat password");
+                return;
+            }
+            if (passwordForReg.Password != passwordCopy.Password)
+            {
+                MessageBox.Show("Password didn't match");
+                return;
+            }
+            if(SqlCore.RegistrationIn(textBoxReg.Text, passwordForReg.Password, MainWindow.connectionString))
+            {
+                MessageBox.Show("You Reg successfully, Now you can login");
+            }
+            else
+            {
+                MessageBox.Show("Eroor while registration, chek logs");
+            }
         }
     }
 }

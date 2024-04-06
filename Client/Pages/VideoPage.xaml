@@ -64,7 +64,7 @@
 
                 <Button x:Name ="HealthCheckButton" Content="Health Check" Style="{StaticResource CustomButtonStyle}" RenderTransformOrigin="0.498,0.559" Margin="146,0,0,0" HorizontalAlignment="Left" Width="114" Height="50" VerticalAlignment="Top" Grid.Column="1"/>
 
-                <Button x:Name ="SendButton" Content="Send Service" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CustomButtonStyle}" Height="50" Width="114" Margin="10,0,0,0"/>
+                <Button x:Name ="SendButton" Content="Send Service" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CustomButtonStyle}" Height="50" Width="114" Margin="10,0,0,0" Click="SendButton_Click"/>
             </Grid>
             <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="5,65,0,8" Grid.RowSpan="2" Grid.ColumnSpan="2">
                 <ListBox x:Name ="ListBoxForResponce" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Width="256" Height="307" VerticalAlignment="Top"/>

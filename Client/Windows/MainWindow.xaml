@@ -34,8 +34,8 @@
         </Grid.ColumnDefinitions>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="209" Margin="-3,0,0,0" Height="614">
             <Grid.RowDefinitions>
-                <RowDefinition Height="33*"/>
-                <RowDefinition Height="64*"/>
+                <RowDefinition Height="139*"/>
+                <RowDefinition Height="168*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -45,12 +45,14 @@
                 <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="fastConnectButton" Content="FastConnect" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="203" Click="FastConnectClick" Grid.ColumnSpan="2" Margin="1,39,0,0" Grid.Column="2" />
-            <Button x:Name="connectButton" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="203" Click="ConnectionClick" Height="32" Grid.ColumnSpan="2" Grid.Column="2" Margin="0,71,0,0" />
-            <Button x:Name="imagePageButton" Content="ImagePage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="203" Click="ImagePageClick" Margin="1,135,0,0" Grid.ColumnSpan="2" Grid.Column="2" />
-            <Button Content="Config" HorizontalAlignment="Left" Margin="1,167,0,0" VerticalAlignment="Top" Height="32" Width="203" Click="ConfigClick" Grid.ColumnSpan="2" Grid.Column="2"/>
-            <Button x:Name="disconButton" Content="Disconnect" HorizontalAlignment="Left" Margin="1,103,0,0" VerticalAlignment="Top" Height="32" Width="203" Click="DisconnectClick" Grid.ColumnSpan="2" Grid.Column="2" />
+            <Button x:Name="fastConnectButton" Visibility="Collapsed" Content="FastConnect" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="203" Click="FastConnectClick" Grid.ColumnSpan="2" Margin="1,39,0,0" Grid.Column="2" />
+            <Button x:Name="connectButton" Visibility="Collapsed" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="203" Click="ConnectionClick" Height="32" Grid.ColumnSpan="2" Grid.Column="2" Margin="0,71,0,0" />
+            <Button x:Name="imagePageButton" Visibility="Collapsed" Content="ImagePage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="203" Click="ImagePageClick" Margin="0,167,0,0" Grid.ColumnSpan="2" Grid.Column="2" />
+            <Button x:Name="configButton" Content="ConfigPage" Visibility="Collapsed" HorizontalAlignment="Left" Margin="1,135,0,0" VerticalAlignment="Top" Height="32" Width="203" Click="ConfigClick" Grid.ColumnSpan="2" Grid.Column="2"/>
+            <Button x:Name="disconButton" Visibility="Collapsed" Content="Disconnect" HorizontalAlignment="Left" Margin="1,103,0,0" VerticalAlignment="Top" Height="32" Width="203" Click="DisconnectClick" Grid.ColumnSpan="2" Grid.Column="2" />
             <TextBox x:Name="UserStatus" TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="0,7,0,0" Text="(http://localhost:8000/) Status:" VerticalAlignment="Top" Width="206" Height="32" TextAlignment="Center" FontFamily="Skranji" FontSize="11" Grid.ColumnSpan="4"/>
+            <Button x:Name="registrationButton" Content="RegistrationPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="203" Click="RegistrPageClick" Margin="1,199,0,0" Grid.ColumnSpan="2" Grid.Column="2" />
+            <Button x:Name="loginButton" Content="LoginPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="203" Click="LoginPageClick" Margin="1,231,0,0" Grid.ColumnSpan="2" Grid.Column="2" />
         </Grid>
         <Frame x:Name="MainFrame" Content="Frame" Margin="206,10,0,5" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden"/>
         <!--<TextBox x:Name="UserIpBox" HorizontalAlignment="Left" Margin="212,10,0,0" TextWrapping="NoWrap" Text="localhost" VerticalAlignment="Top" Width="130" Height="16" TextAlignment="Center" FontFamily="Skranji" Grid.Column="1"/>

@@ -11,9 +11,14 @@ namespace SocketClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static string connectionString = App.ContentFromConfig["ConnectionString"];
+        public bool areWeLogin = false;
+
         public ImagePage activyImagePage;
         public VideoPage activyVideoPage;
+
         public static HttpClient client = new();
+
         private App _app;
         private static ApiClient _apiClient;
 
@@ -51,11 +56,40 @@ namespace SocketClient
         }
         private async void ConfigClick(object sender, RoutedEventArgs e)
         {
-            // open configuration
-            ConnectionWindow.ShowConnectionDialog();
-            if (ConnectionWindow.ConnectionUri != null)
+            MainFrame.Navigate(new ConfigPage(this));
+        }
+        private void RegistrPageClick(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new RegInPage(this));
+        }
+
+        private void LoginPageClick(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new LogInPage(this));
+        }
+        public void UpdateButtonVisibility(bool areWeLoggedIn)
+        {
+            if (areWeLoggedIn)
             {
-                UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+                fastConnectButton.Visibility = Visibility.Visible;
+                disconButton.Visibility = Visibility.Visible;
+                imagePageButton.Visibility = Visibility.Visible;
+                configButton.Visibility = Visibility.Visible;
+                connectButton.Visibility = Visibility.Visible;
+
+                loginButton.Visibility = Visibility.Collapsed;
+                registrationButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                fastConnectButton.Visibility = Visibility.Collapsed;
+                disconButton.Visibility = Visibility.Collapsed;
+                imagePageButton.Visibility = Visibility.Collapsed;
+                configButton.Visibility = Visibility.Collapsed;
+                connectButton.Visibility = Visibility.Collapsed;
+
+                loginButton.Visibility = Visibility.Visible;
+                registrationButton.Visibility = Visibility.Visible;
             }
         }
         public static void ReciveResponce(string responce)
@@ -126,6 +160,7 @@ namespace SocketClient
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}");
             }
         }
+
 
     }
 }
