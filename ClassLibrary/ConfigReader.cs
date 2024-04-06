@@ -30,6 +30,47 @@ namespace ClassLibrary
                 return new Dictionary<string, string>();
             }
         }
+        public static void UpdateConfigValues(string path, Dictionary<string, string> updatedValues)
+        {
+            try
+            {
+                XmlDocument xmlDoc = new();
+                xmlDoc.Load(path);
+
+                UpdateNodeValues(xmlDoc, updatedValues);
+
+                xmlDoc.Save(path);
+                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Information, note: "Config file updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, ex, $"An error occurred while updating the config file: {ex.Message}");
+            }
+        }
+
+        private static void UpdateNodeValues(XmlDocument xmlDoc, Dictionary<string, string> updatedValues)
+        {
+            foreach (var kvp in updatedValues)
+            {
+                string xpath = GetXPathForNode(kvp.Key);
+                XmlNode? node = xmlDoc.SelectSingleNode(xpath);
+                if (node != null)
+                {
+                    node.InnerText = kvp.Value;
+                    Logger.LogByTemplate(Serilog.Events.LogEventLevel.Debug, note: $"Updated config value for {kvp.Key}");
+                }
+                else
+                {
+                    throw new Exception($"Node with XPath '{xpath}' not found.");
+                }
+            }
+        }
+
+        private static string GetXPathForNode(string nodeName)
+        {
+            return $"//Config/*[local-name()='{nodeName}']";
+        }
+
 
         private static string ReadNodeValue(XmlDocument xmlDoc, string xpath)
         {

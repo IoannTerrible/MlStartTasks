@@ -56,12 +56,7 @@ namespace SocketClient
         }
         private async void ConfigClick(object sender, RoutedEventArgs e)
         {
-            // open configuration
-            ConnectionWindow.ShowConnectionDialog();
-            if (ConnectionWindow.ConnectionUri != null)
-            {
-                UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
-            }
+            MainFrame.Navigate(new ConfigPage(this));
         }
         private void RegistrPageClick(object sender, RoutedEventArgs e)
         {
@@ -81,6 +76,9 @@ namespace SocketClient
                 imagePageButton.Visibility = Visibility.Visible;
                 configButton.Visibility = Visibility.Visible;
                 connectButton.Visibility = Visibility.Visible;
+
+                loginButton.Visibility = Visibility.Collapsed;
+                registrationButton.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -89,6 +87,9 @@ namespace SocketClient
                 imagePageButton.Visibility = Visibility.Collapsed;
                 configButton.Visibility = Visibility.Collapsed;
                 connectButton.Visibility = Visibility.Collapsed;
+
+                loginButton.Visibility = Visibility.Visible;
+                registrationButton.Visibility = Visibility.Visible;
             }
         }
         public static void ReciveResponce(string responce)
