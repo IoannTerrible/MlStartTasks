@@ -125,6 +125,55 @@ namespace ClassLibrary
             string folder = Path.GetDirectoryName(databaseFilePath)?.Replace(drive, "").Trim('\\');
             Logger.LogByTemplate(LogEventLevel.Information, note: $"Database file path: {drive} {folder}");
         }
+        public static bool CheckHashAndLog(string login, string chekingString, string connectionString)
+        {
+            {
+                string hashPassword = GetHashString(chekingString);
 
+                SqlCommand command = new();
+                command.CommandText = $"SELECT COUNT(*) FROM [MLstartDataBase].[dbo].[Userss] WHERE [Login] = @Login AND [PassWord] = @Password";
+                command.Parameters.AddWithValue("@Login", login);
+                command.Parameters.AddWithValue("@Password", hashPassword);
+                DataTable dt_user = ExecuteSQL(command, connectionString);
+                if (Convert.ToInt32(dt_user.Rows[0][0]) > 0)
+                {
+                    return (true);
+                }
+                else
+                {
+                    return (false);
+                }
+            }
+        }
+        public static bool RegistrationIn(string username, string password, string connectionString)
+        {
+            try
+            {
+                SqlCommand command = new();
+                command.CommandText = $"INSERT INTO [MLstartDataBase].[dbo].[Userss] (Login, PassWord) VALUES (@Login, @Password)";
+                command.Parameters.AddWithValue("@Login", username);
+                command.Parameters.AddWithValue("@Password", GetHashString(password));
+                ExecuteSQL(command, connectionString);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex,$"Error while registration user: {username}");
+                return false;
+            }
+        }
+        private static string GetHashString(string input)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
     }
 }

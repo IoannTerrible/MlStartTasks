@@ -11,9 +11,14 @@ namespace SocketClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static string connectionString = App.ContentFromConfig["ConnectionString"];
+        public bool areWeLogin = false;
+
         public ImagePage activyImagePage;
         public VideoPage activyVideoPage;
+
         public static HttpClient client = new();
+
         private App _app;
         private static ApiClient _apiClient;
 
@@ -57,6 +62,15 @@ namespace SocketClient
             {
                 UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
             }
+        }
+        private void RegistrPageClick(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new RegInPage(this));
+        }
+
+        private void LoginPageClick(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new LogInPage(this));
         }
         public static void ReciveResponce(string responce)
         {
@@ -126,6 +140,7 @@ namespace SocketClient
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}");
             }
         }
+
 
     }
 }
