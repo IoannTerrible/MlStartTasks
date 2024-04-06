@@ -46,6 +46,10 @@ namespace SocketClient
                 }
                 mediaElement1.Source = new Uri(filename);
                 Logger.LogByTemplate(LogEventLevel.Information, note: $"media file opened from {filename}");
+                if(mediaElement1.Source != null)
+                {
+                    mediaElement1.Play();
+                }
             }
             else
             {
