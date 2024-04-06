@@ -52,7 +52,6 @@ namespace ClassLibrary
         }
 
         #endregion
-
         #region Private Methods
 
         private static void AddNumbers(XmlDocument xmlDoc, XmlElement root)

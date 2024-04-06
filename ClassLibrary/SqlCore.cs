@@ -175,5 +175,18 @@ namespace ClassLibrary
                 return builder.ToString();
             }
         }
+        public static string ReturnLogEventAsString(string con)
+        {
+            DataTable dataTable = ExecuteSQL(new SqlCommand($"SELECT TOP(1000) [UserName],[FileName],[FramePath],[MetaDate] FROM[MLstartDataBase].[dbo].[EventLog]"), con);
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                foreach (DataColumn column in dataTable.Columns)
+                {
+                    stringBuilder.Append($"{row[column]}\t ");
+                }
+            }
+            return stringBuilder.ToString();
+        }
     }
 }

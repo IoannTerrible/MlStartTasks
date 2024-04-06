@@ -39,6 +39,8 @@ namespace SocketClient
                 if (SqlCore.CheckHashAndLog(textBox_login.Text, password.Password, MainWindow.connectionString))
                 {
                     MessageBox.Show("You Log successfully");
+                    mainWindow.areWeLogin = true;
+                    mainWindow.UpdateButtonVisibility(mainWindow.areWeLogin);
                 }
                 else
                 {

@@ -81,5 +81,10 @@ namespace SocketClient
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}");
             }
         }
+
+        private void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxForResponce.Items.Add(SqlCore.ReturnLogEventAsString(MainWindow.connectionString));
+        }
     }
 }

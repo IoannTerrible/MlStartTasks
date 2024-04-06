@@ -72,6 +72,25 @@ namespace SocketClient
         {
             MainFrame.Navigate(new LogInPage(this));
         }
+        public void UpdateButtonVisibility(bool areWeLoggedIn)
+        {
+            if (areWeLoggedIn)
+            {
+                fastConnectButton.Visibility = Visibility.Visible;
+                disconButton.Visibility = Visibility.Visible;
+                imagePageButton.Visibility = Visibility.Visible;
+                configButton.Visibility = Visibility.Visible;
+                connectButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                fastConnectButton.Visibility = Visibility.Collapsed;
+                disconButton.Visibility = Visibility.Collapsed;
+                imagePageButton.Visibility = Visibility.Collapsed;
+                configButton.Visibility = Visibility.Collapsed;
+                connectButton.Visibility = Visibility.Collapsed;
+            }
+        }
         public static void ReciveResponce(string responce)
         {
             MessageBox.Show(responce);
