@@ -1,12 +1,10 @@
 ﻿using ClassLibrary;
 using Newtonsoft.Json;
 using Serilog.Events;
-using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using static System.Net.WebRequestMethods;
 
 namespace SocketClient
 {

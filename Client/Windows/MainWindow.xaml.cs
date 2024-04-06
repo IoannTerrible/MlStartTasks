@@ -1,10 +1,8 @@
 ﻿using ClassLibrary;
-using Microsoft.Win32;
+using Client;
 using Serilog.Events;
-using System.IO;
 using System.Net.Http;
 using System.Windows;
-using static System.Net.WebRequestMethods;
 
 namespace SocketClient
 {
@@ -106,27 +104,15 @@ namespace SocketClient
                     MessageBox.Show("Need press Connect button");
                     return;
                 }
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Multiselect = false;
-                openFileDialog.Filter = "Image files (*.png;*.jpg;*.jpeg;*.gif;*.bmp)|*.png;*.jpg;*.jpeg;*.gif;*.bmp|All files (*.*)|*.*";
 
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    string filename = openFileDialog.FileName;
-                    string shortFileName = Logger.GetLastFile(filename);
-                    if (!System.IO.File.Exists(filename))
-                    {
-                        Logger.LogByTemplate(LogEventLevel.Error, note: "Selected file does not exist: " + shortFileName);
-                        return;
-                    }
+                string? openedFile = FileHandler.OpenFile("Image");
 
-                    Logger.LogByTemplate(LogEventLevel.Information, note: "Sending image: " + shortFileName);
-                    await _apiClient.SendImageAndReceiveJSONAsync(filename, ConnectionWindow.ConnectionUri);
-                    Logger.LogByTemplate(LogEventLevel.Information, note: "Image sent successfully: " + shortFileName);
-                }
-                else
+                if(openedFile != null)
                 {
-                    Logger.LogByTemplate(LogEventLevel.Warning, note: "No file selected.");
+                    Uri uriFile = new(openedFile);
+                    Logger.LogByTemplate(LogEventLevel.Information, note: "Sending image: " + openedFile);
+                    await _apiClient.SendImageAndReceiveJSONAsync(openedFile, ConnectionWindow.ConnectionUri);
+                    Logger.LogByTemplate(LogEventLevel.Information, note: "Image sent successfully: " + openedFile);
                 }
             }
             catch (HttpRequestException httpEx)
