@@ -51,8 +51,8 @@
                 <MediaElement x:Name="mediaElement1" LoadedBehavior="Manual" UnloadedBehavior="Stop" Source="{Binding SelectedItem.SourceUri}" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Viewbox>
             <Grid Grid.Row="1" VerticalAlignment="Bottom">
-                <Button x:Name="MediaPlayButton" Content="Start" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,5" Width="50" Grid.Column="1" Click="MediaPlayButton_Click"/>
-                <Button x:Name="MediaStopButton" Content="Stop" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="60,0,0,5" Width="50" Grid.Column="2" Click="MediaStopButton_Click"/>
+                <Button x:Name="MediaPlayButton" Content="Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,5" Width="50" Grid.Column="1" Click="MediaPlayButton_Click"/>
+                <Button x:Name="MediaStopButton" Content="Stop" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="60,0,0,5" Width="50" Grid.Column="2" Click="MediaStopButton_Click"/>
             </Grid>
 
 
@@ -62,8 +62,10 @@
 
                 <Button x:Name ="SendButton" Content="Send Service" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CustomButtonStyle}" Height="50" Width="114" Margin="10,0,0,0"/>
             </Grid>
-            <ListBox x:Name ="ListBoxForResponce" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,65,0,0" HorizontalAlignment="Center" Width="256" Height="307" VerticalAlignment="Top" Grid.RowSpan="2"/>
-            <Button x:Name="UploadMediaButton" Content="Upload Media" Grid.Column="1" Grid.Row="1" Width="256" Height="25" Margin="7,186,7,8" Click="UploadMediaButton_Click"></Button>
+            <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="5,65,0,8" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <ListBox x:Name ="ListBoxForResponce" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Width="256" Height="307" VerticalAlignment="Top"/>
+                <Button x:Name="UploadMediaButton" Style="{StaticResource CustomButtonStyle}" Content="Upload Media" Width="256" Height="25" Margin="0,312,0,0" Click="UploadMediaButton_Click" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

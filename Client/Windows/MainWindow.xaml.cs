@@ -60,21 +60,6 @@ namespace SocketClient
                 UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
             }
         }
-        private async void DisconnectClick(object sender, RoutedEventArgs e)
-        {
-            ConnectionWindow.ConnectionUri = null;
-            UserStatus.Text = "YouAreDisconnect";
-            Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from the server.");
-        }
-        private async void ImagePageClick(object sender, RoutedEventArgs e)
-        {
-            activyImagePage = new ImagePage(this);
-            MainFrame.Navigate(activyImagePage);
-        }
-        private async void ConfigClick(object sender, RoutedEventArgs e)
-        {
-            // open configuration
-        }
         public static void ReciveResponce(string responce)
         {
             MessageBox.Show(responce);

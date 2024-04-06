@@ -57,7 +57,10 @@ namespace SocketClient
         {
             await MainWindow.PerfomHealthChekAsync();
         }
-
+        private void ClearRectangles()
+        {
+            rectangleContainer.Children.Clear();
+        }
         private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight)
         {
             CalculateScale();
@@ -84,6 +87,7 @@ namespace SocketClient
             CalculateScale();
             ClearRectangles();
             Logger.LogByTemplate(LogEventLevel.Information, note: $"Image uploaded.");
+        }
         private void CalculateScale()
 
         {
