@@ -68,6 +68,12 @@ namespace SocketClient
                     Logger.LogByTemplate(LogEventLevel.Information, note: $"Media file opened from {filename}");
                     MediaPlayButton_Click(sender, e);
                 }
+                mediaElement1.Source = new Uri(filename);
+                Logger.LogByTemplate(LogEventLevel.Information, note: $"media file opened from {filename}");
+                if(mediaElement1.Source != null)
+                {
+                    mediaElement1.Play();
+                }
             }
             catch (Exception ex)
             {
