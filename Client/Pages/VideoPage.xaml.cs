@@ -12,7 +12,7 @@ namespace SocketClient
     /// </summary>
     public partial class VideoPage : Page
     {
-        private DispatcherTimer timer = new ();
+        private DispatcherTimer timer = new();
         public VideoPage()
         {
             InitializeComponent();
@@ -23,7 +23,6 @@ namespace SocketClient
         private void timer_tick(object sender, EventArgs e)
         {
             time.Text = mediaElement1.Position.ToString(@"mm\:ss");
-            sliderback2.Value = mediaElement1.Position.TotalSeconds;
         }
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
@@ -46,14 +45,12 @@ namespace SocketClient
         private void slider2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             mediaElement1.Pause();
-            mediaElement1.Position = TimeSpan.FromSeconds(slider2.Value);
             mediaElement1.Play();
             timer.Start();
         }
         private void mediaElement1_MediaOpened(object sender, RoutedEventArgs e)
         {
-            slider2.Maximum = mediaElement1.NaturalDuration.TimeSpan.TotalSeconds;
-            sliderback2.Maximum = mediaElement1.NaturalDuration.TimeSpan.TotalSeconds;
+
         }
 
         private void UploadMediaButton_Click(object sender, RoutedEventArgs e)
@@ -70,7 +67,7 @@ namespace SocketClient
                 }
                 mediaElement1.Source = new Uri(filename);
                 Logger.LogByTemplate(LogEventLevel.Information, note: $"media file opened from {filename}");
-                if(mediaElement1.Source != null)
+                if (mediaElement1.Source != null)
                 {
                     mediaElement1.Play();
                 }
@@ -86,5 +83,31 @@ namespace SocketClient
         {
             ListBoxForResponce.Items.Add(SqlCore.ReturnLogEventAsString(MainWindow.connectionString));
         }
+
+        private void PrevFrameButton_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSpan currentPosition = mediaElement1.Position;
+            double framesPerSecond = 1;
+            TimeSpan prevFramePosition = currentPosition.Subtract(TimeSpan.FromSeconds(1 / framesPerSecond));
+
+            mediaElement1.Pause();
+            mediaElement1.Position = prevFramePosition;
+            mediaElement1.Play();
+        }
+        private void NextFrameButton_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSpan currentPosition = mediaElement1.Position;
+            double framesPerSecond = 1;
+            TimeSpan nextFramePosition = currentPosition.Add(TimeSpan.FromSeconds(1 / framesPerSecond));
+
+            mediaElement1.Pause(); 
+            mediaElement1.Position = nextFramePosition;
+            mediaElement1.Play();
+        }
+
+        //public double GetFrameRate(string filePath)
+        //{
+
+        //}
     }
 }

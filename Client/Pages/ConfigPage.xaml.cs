@@ -20,7 +20,7 @@ namespace SocketClient
             InitializeComponent();
 
             _configData = App.ContentFromConfig;
-            _gridData = new ObservableCollection<string>(_configData);
+            _gridData = new ObservableCollection<KeyValuePair<string, string>>(_configData);
 
             dictionaryDataGrid.ItemsSource = _gridData; 
         }

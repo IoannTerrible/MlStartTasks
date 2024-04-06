@@ -51,11 +51,17 @@
                 <MediaElement x:Name="mediaElement1" LoadedBehavior="Manual" UnloadedBehavior="Stop" Source="{Binding SelectedItem.SourceUri}" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Top" MediaOpened="mediaElement1_MediaOpened"/>
             </Viewbox>
             <Grid Grid.Row="1" VerticalAlignment="Bottom">
-                <Button x:Name="MediaPlayButton" Content="Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,5" Width="50" Grid.Column="1" Click="MediaPlayButton_Click"/>
-                <Button x:Name="MediaStopButton" Content="Stop" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="60,0,0,5" Width="50" Grid.Column="2" Click="MediaStopButton_Click"/>
-                <Button x:Name="MediaPauseButton" Content="Pause" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="115,14,0,0" Width="50" Click="MediaPauseButton_Click"/>
-                <Slider x:Name="slider2" Height="20" VerticalAlignment="Bottom" Margin="0 0 0 30"  ValueChanged="slider2_ValueChanged"  Opacity="0.5" />
-                <Slider x:Name="sliderback2" Height="20" VerticalAlignment="Bottom" Margin="0 0 0 30"  IsHitTestVisible="False" />
+                <Grid HorizontalAlignment="Left" Height="20" Margin="5,0,0,0" VerticalAlignment="Center" Width="249">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="63*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="MediaPlayButton" Content="Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Click="MediaPlayButton_Click" Height="18"/>
+                    <Button x:Name="MediaStopButton" Content="Stop" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Click="MediaStopButton_Click" Margin="139,0,0,0" Height="18" Grid.Column="1"/>
+                    <Button x:Name="MediaPauseButton" Content="Pause" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Click="MediaPauseButton_Click" Grid.Column="1" Height="18" Margin="84,0,0,0"/>
+                    <Button x:Name="PrevFrameButton" Content="&lt;" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="18" Grid.ColumnSpan="2" Margin="55,0,0,0" Click="PrevFrameButton_Click"/>
+                    <Button x:Name="NextFrameButton" Content="&gt;" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30"  Height="18" Grid.Column="1" Margin="49,0,0,0" Click="NextFrameButton_Click"/>
+                </Grid>
                 <TextBlock x:Name="time" Text="00:00" VerticalAlignment="Top" Margin="0,31,0,0"  />
             </Grid>
 
