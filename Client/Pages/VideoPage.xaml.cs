@@ -22,7 +22,7 @@ namespace SocketClient
         {
             InitializeComponent();
         }
-
+        
         private VideoCapture _videoCapture;
 
         private Mat _frame;
@@ -33,6 +33,7 @@ namespace SocketClient
 
         private bool _IsPaused = false;
         private bool _IsStopped = true;
+
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
         {
@@ -77,6 +78,7 @@ namespace SocketClient
             try
             {
                 filepath = FileHandler.OpenFile("Media");
+
 
                 _videoCapture = new VideoCapture(filepath);
                 _frame = new Mat();
@@ -139,5 +141,6 @@ namespace SocketClient
                 }
             }
         }
+
     }
 }
