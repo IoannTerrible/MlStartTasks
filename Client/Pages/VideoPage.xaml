@@ -48,7 +48,7 @@
                 <ColumnDefinition Width="Auto" MinWidth="0"/>
             </Grid.ColumnDefinitions>
             <Viewbox Grid.Column="0" Stretch="Uniform" Grid.RowSpan="2" Margin="0,0,0,38">
-                <Image x:Name="VideoImage" Source="{Binding ImageSource}" Stretch="Fill" Canvas.Left="-1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Image x:Name="VideoImage" Source="{Binding ImageSource}" Stretch="Fill" Canvas.Left="-1" HorizontalAlignment="Left" Loaded="VideoBox_SourceUpdated" VerticalAlignment="Top"/>
             </Viewbox>
             <Grid Grid.Row="1" VerticalAlignment="Bottom">
                 <Button x:Name="MediaPlayButton" Content="Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,196,0,0" Width="50" Click="MediaPlayButton_Click"/>

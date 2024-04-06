@@ -3,14 +3,12 @@ using Client;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using Serilog.Events;
-using System;
-using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
-
+using System.Windows.Shapes;
 namespace SocketClient
 {
     /// <summary>
@@ -18,11 +16,13 @@ namespace SocketClient
     /// </summary>
     public partial class VideoPage : Page
     {
-        public VideoPage()
+        MainWindow _window;
+        public VideoPage(MainWindow window)
         {
             InitializeComponent();
+            _window = window;
         }
-        
+
         private VideoCapture _videoCapture;
 
         private Mat _frame;
@@ -34,6 +34,12 @@ namespace SocketClient
         private bool _IsPaused = false;
         private bool _IsStopped = true;
 
+        private readonly Canvas rectangleContainer = new();
+
+        private double originalWidth;
+        private double originalHeight;
+        private double scaleX;
+        private double scaleY;
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
         {
@@ -124,7 +130,7 @@ namespace SocketClient
             }
         }
 
-        private BitmapImage imageSourceForImageControl(Bitmap bitmap)
+        private BitmapImage imageSourceForImageControl(System.Drawing.Bitmap bitmap)
         {
             {
                 using (MemoryStream memory = new())
@@ -136,11 +142,71 @@ namespace SocketClient
                     bitmapimage.StreamSource = memory;
                     bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
                     bitmapimage.EndInit();
-
+                    MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapimage, ConnectionWindow.ConnectionUri);
                     return bitmapimage;
                 }
             }
         }
+        public void DrawBoundingBoxes(List<ObjectOnPhoto> aircraftObjects)
+        {
+            foreach (var obj in aircraftObjects)
+            {
+                double xtl = obj.XTopLeftCorner;
+                double ytl = obj.YTopLeftCorner;
+                double xbr = obj.XBottonRigtCorner;
+                double ybr = obj.YBottonRigtCorner;
 
+                DrawBoundingBox(xtl, ytl, xbr, ybr);
+            }
+            Logger.LogByTemplate(LogEventLevel.Information, note: $"{aircraftObjects.Count} borders of objects have been drawn.");
+        }
+        private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight)
+        {
+            CalculateScale();
+            Rectangle boundingBox = new Rectangle();
+
+            double scaledXTopLeft = xTopLeft * scaleX;
+            double scaledYTopLeft = yTopLeft * scaleY;
+            double scaledWidth = (xBottomRight - xTopLeft) * scaleX;
+            double scaledHeight = (yBottomRight - yTopLeft) * scaleY;
+
+            boundingBox.Width = scaledWidth;
+            boundingBox.Height = scaledHeight;
+            Canvas.SetLeft(boundingBox, scaledXTopLeft);
+            Canvas.SetTop(boundingBox, scaledYTopLeft);
+
+            boundingBox.Stroke = Brushes.Red;
+            boundingBox.StrokeThickness = 2;
+            boundingBox.Fill = Brushes.Transparent;
+
+            rectangleContainer.Children.Add(boundingBox);
+        }
+        private void ClearRectangles()
+        {
+            rectangleContainer.Children.Clear();
+        }
+        private void VideoBox_SourceUpdated(object sender, RoutedEventArgs e)
+        {
+            CalculateScale();
+            ClearRectangles();
+            Logger.LogByTemplate(LogEventLevel.Information, note: $"Image uploaded.");
+        }
+        private void CalculateScale()
+
+        {
+            if (VideoImage.Source is BitmapSource)
+            {
+                BitmapSource bitmapSource = (BitmapSource)VideoImage.Source;
+                double currentWidth = VideoImage.ActualWidth;
+                double currentHeight = VideoImage.ActualHeight;
+
+                originalWidth = bitmapSource.Width;
+                originalHeight = bitmapSource.Height;
+
+                scaleX = currentWidth / originalWidth;
+                scaleY = currentHeight / originalHeight;
+            }
+            Logger.LogByTemplate(LogEventLevel.Debug, note: "The image scale is calculated");
+        }
     }
 }

@@ -16,17 +16,18 @@ namespace SocketClient
 
         public ImagePage activyImagePage;
         public VideoPage activyVideoPage;
+        public static ApiClient apiClient;
 
         public static HttpClient client = new();
 
         private App _app;
-        private static ApiClient _apiClient;
+        
 
         public MainWindow()
         {
             InitializeComponent();
             _app = (App)Application.Current;
-            _apiClient = new ApiClient(this);
+            apiClient = new ApiClient(this);
         }
 
         private async void FastConnectClick(object sender, RoutedEventArgs e)
@@ -51,7 +52,7 @@ namespace SocketClient
         }
         private async void ImagePageClick(object sender, RoutedEventArgs e)
         {
-            activyVideoPage = new VideoPage();
+            activyVideoPage = new VideoPage(this);
             MainFrame.Navigate(activyVideoPage);
         }
         private async void ConfigClick(object sender, RoutedEventArgs e)
@@ -106,7 +107,7 @@ namespace SocketClient
                     MessageBox.Show("Need to press the Connect button.");
                     return;
                 }
-                if (await _apiClient.CheckHealthAsync($"{ConnectionWindow.ConnectionUri}health"))
+                if (await apiClient.CheckHealthAsync($"{ConnectionWindow.ConnectionUri}health"))
                 {
                     MessageBox.Show("All good! The health check succeeded.");
                     Logger.LogByTemplate(LogEventLevel.Information, note: "Health check succeeded.");
@@ -145,7 +146,7 @@ namespace SocketClient
                 {
                     Uri uriFile = new(openedFile);
                     Logger.LogByTemplate(LogEventLevel.Information, note: "Sending image: " + openedFile);
-                    await _apiClient.SendImageAndReceiveJSONAsync(openedFile, ConnectionWindow.ConnectionUri);
+                    await apiClient.SendImageAndReceiveJSONAsync(openedFile, ConnectionWindow.ConnectionUri);
                     Logger.LogByTemplate(LogEventLevel.Information, note: "Image sent successfully: " + openedFile);
                 }
             }
