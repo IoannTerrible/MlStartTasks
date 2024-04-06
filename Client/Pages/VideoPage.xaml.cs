@@ -1,8 +1,14 @@
 ﻿using ClassLibrary;
 using Client;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
 using Serilog.Events;
+using System;
+using System.Drawing;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace SocketClient
@@ -12,65 +18,83 @@ namespace SocketClient
     /// </summary>
     public partial class VideoPage : Page
     {
-        private DispatcherTimer timer = new();
         public VideoPage()
         {
             InitializeComponent();
-            timer.Interval = TimeSpan.FromSeconds(0.1);
-            timer.Tick += timer_tick;
         }
+        
+        private VideoCapture _videoCapture;
 
-        private void timer_tick(object sender, EventArgs e)
-        {
-            time.Text = mediaElement1.Position.ToString(@"mm\:ss");
-        }
+        private Mat _frame;
+
+        private string filepath;
+        private int _currentFrameNumber;
+        private int _countFrames;
+
+        private bool _IsPaused = false;
+        private bool _IsStopped = true;
+
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
         {
-            mediaElement1.Play();
-            timer.Start();
+            _IsPaused = false;
+            while (!_IsPaused && !_IsStopped)
+            {
+                SetFrame();
+                if (Cv2.WaitKey(1) == 113) // Q
+                    break;
+            }
         }
 
         private void MediaPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            mediaElement1.Pause();
-            timer.Stop();
+            _IsPaused = !_IsPaused;
         }
 
         private void MediaStopButton_Click(object sender, RoutedEventArgs e)
         {
-            mediaElement1.Stop();
-            timer.Stop();
+            _IsPaused = true;
+            _currentFrameNumber = 0;
+            _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
+            _IsPaused = true;
         }
-        private void slider2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            mediaElement1.Pause();
-            mediaElement1.Play();
-            timer.Start();
-        }
-        private void mediaElement1_MediaOpened(object sender, RoutedEventArgs e)
-        {
 
+        private void RewindButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber - 1))
+            {
+                _videoCapture.Read(_frame);
+                VideoImage.Source = imageSourceForImageControl(_frame.ToBitmap());
+                _currentFrameNumber--;
+            }
+        }
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetFrame();
         }
 
         private void UploadMediaButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string? filename = FileHandler.OpenFile("Media");
+                filepath = FileHandler.OpenFile("Media");
 
-                if (filename != null)
+
+                _videoCapture = new VideoCapture(filepath);
+                _frame = new Mat();
+
+                _currentFrameNumber = 0;
+                _countFrames = _videoCapture.FrameCount;
+                
+                _IsStopped = false;
+
+                if (!_videoCapture.IsOpened())
                 {
-                    mediaElement1.Source = new Uri(filename);
-                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Media file opened from {filename}");
-                    MediaPlayButton_Click(sender, e);
+                    return;
                 }
-                mediaElement1.Source = new Uri(filename);
-                Logger.LogByTemplate(LogEventLevel.Information, note: $"media file opened from {filename}");
-                if (mediaElement1.Source != null)
-                {
-                    mediaElement1.Play();
-                }
+
+                _videoCapture.Open(filepath);
+                SetFrame();
             }
             catch (Exception ex)
             {
@@ -84,30 +108,39 @@ namespace SocketClient
             ListBoxForResponce.Items.Add(SqlCore.ReturnLogEventAsString(MainWindow.connectionString));
         }
 
-        private void PrevFrameButton_Click(object sender, RoutedEventArgs e)
+        private void SetFrame()
         {
-            TimeSpan currentPosition = mediaElement1.Position;
-            double framesPerSecond = 1;
-            TimeSpan prevFramePosition = currentPosition.Subtract(TimeSpan.FromSeconds(1 / framesPerSecond));
-
-            mediaElement1.Pause();
-            mediaElement1.Position = prevFramePosition;
-            mediaElement1.Play();
-        }
-        private void NextFrameButton_Click(object sender, RoutedEventArgs e)
-        {
-            TimeSpan currentPosition = mediaElement1.Position;
-            double framesPerSecond = 1;
-            TimeSpan nextFramePosition = currentPosition.Add(TimeSpan.FromSeconds(1 / framesPerSecond));
-
-            mediaElement1.Pause(); 
-            mediaElement1.Position = nextFramePosition;
-            mediaElement1.Play();
+            if(_currentFrameNumber  < _countFrames)
+            {
+                _videoCapture.Read(_frame);
+                _currentFrameNumber++;
+                VideoImage.Source = imageSourceForImageControl(_frame.ToBitmap());
+            }
+            else
+            {
+                _currentFrameNumber = 0;
+                _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
+                _IsPaused = true;
+            }
         }
 
-        //public double GetFrameRate(string filePath)
-        //{
+        private BitmapImage imageSourceForImageControl(Bitmap bitmap)
+        {
+            {
+                using (MemoryStream memory = new())
+                {
+                    bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memory.Position = 0;
+                    BitmapImage bitmapimage = new();
+                    bitmapimage.BeginInit();
+                    bitmapimage.StreamSource = memory;
+                    bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapimage.EndInit();
 
-        //}
+                    return bitmapimage;
+                }
+            }
+        }
+
     }
 }
