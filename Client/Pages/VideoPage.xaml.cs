@@ -1,9 +1,6 @@
 ﻿using ClassLibrary;
 using Client;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
 using Serilog.Events;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -16,67 +13,57 @@ namespace SocketClient
     /// </summary>
     public partial class VideoPage : Page
     {
-        MainWindow _window;
+        #region Constructor
         public VideoPage(MainWindow window)
         {
             InitializeComponent();
             _window = window;
         }
-
-        private VideoCapture _videoCapture;
-
-        private Mat _frame;
-
+        #endregion
+        #region Attributes
         private string filepath;
-        private int _currentFrameNumber;
-        private int _countFrames;
+        VideoController videoController;
 
-        private bool _IsPaused = false;
-        private bool _IsStopped = true;
-
+        MainWindow _window;
         private readonly Canvas rectangleContainer = new();
 
         private double originalWidth;
         private double originalHeight;
         private double scaleX;
         private double scaleY;
+        #endregion
 
+        #region Media Control Methods
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
         {
-            _IsPaused = false;
-            while (!_IsPaused && !_IsStopped)
-            {
-                SetFrame();
-                if (Cv2.WaitKey(1) == 113) // Q
-                    break;
-            }
+            videoController.Play();
         }
 
         private void MediaPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            _IsPaused = !_IsPaused;
+            videoController.Pause();
         }
 
         private void MediaStopButton_Click(object sender, RoutedEventArgs e)
         {
-            _IsPaused = true;
-            _currentFrameNumber = 0;
-            _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
-            _IsPaused = true;
+            videoController.Stop();
         }
 
         private void RewindButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber - 1))
-            {
-                _videoCapture.Read(_frame);
-                VideoImage.Source = imageSourceForImageControl(_frame.ToBitmap());
-                _currentFrameNumber--;
-            }
+            videoController.Rewind();
         }
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            SetFrame();
+            videoController.NextFrame();
+        }
+        private void MediaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            ((Slider)sender).SelectionEnd = e.NewValue;
+            if (videoController != null)
+            {
+                videoController.GetSliderValue(e.NewValue);
+            }
         }
 
         private void UploadMediaButton_Click(object sender, RoutedEventArgs e)
@@ -84,69 +71,26 @@ namespace SocketClient
             try
             {
                 filepath = FileHandler.OpenFile("Media");
-
-
-                _videoCapture = new VideoCapture(filepath);
-                _frame = new Mat();
-
-                _currentFrameNumber = 0;
-                _countFrames = _videoCapture.FrameCount;
-                
-                _IsStopped = false;
-
-                if (!_videoCapture.IsOpened())
+                if(filepath != null)
                 {
-                    return;
+                    videoController = new(filepath, VideoImage, MediaSlider);
+                    MediaSlider.Value = 0;
                 }
-
-                _videoCapture.Open(filepath);
-                SetFrame();
+                
             }
             catch (Exception ex)
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Media file openning error.");
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}");
+                MessageBox.Show($"Media file opening error: {ex.Message}");
             }
         }
-
+        #endregion
+        #region Service Communication Button Methods
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
             ListBoxForResponce.Items.Add(SqlCore.ReturnLogEventAsString(MainWindow.connectionString));
         }
-
-        private void SetFrame()
-        {
-            if(_currentFrameNumber  < _countFrames)
-            {
-                _videoCapture.Read(_frame);
-                _currentFrameNumber++;
-                VideoImage.Source = imageSourceForImageControl(_frame.ToBitmap());
-            }
-            else
-            {
-                _currentFrameNumber = 0;
-                _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
-                _IsPaused = true;
-            }
-        }
-
-        private BitmapImage imageSourceForImageControl(System.Drawing.Bitmap bitmap)
-        {
-            {
-                using (MemoryStream memory = new())
-                {
-                    bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                    memory.Position = 0;
-                    BitmapImage bitmapimage = new();
-                    bitmapimage.BeginInit();
-                    bitmapimage.StreamSource = memory;
-                    bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapimage.EndInit();
-                    MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapimage, ConnectionWindow.ConnectionUri);
-                    return bitmapimage;
-                }
-            }
-        }
+        
         public void DrawBoundingBoxes(List<ObjectOnPhoto> aircraftObjects)
         {
             foreach (var obj in aircraftObjects)
@@ -208,5 +152,6 @@ namespace SocketClient
             }
             Logger.LogByTemplate(LogEventLevel.Debug, note: "The image scale is calculated");
         }
+        #endregion
     }
 }
