@@ -28,29 +28,32 @@ namespace ClassLibrary
             }
         }
 
-        public static void CreateTableUserss(string connectionString)
+        public static void CreateTable(string connectionString, string tableName, string[] columns)
         {
             try
             {
-                Logger.LogByTemplate(LogEventLevel.Information, null, "Creating Userss table...");
+                Logger.LogByTemplate(LogEventLevel.Information, null, $"Creating {tableName} table...");
                 using (SqlConnection databaseConnection = new SqlConnection(connectionString))
                 {
                     databaseConnection.Open();
-                    SqlCommand createTableCommand = new SqlCommand(@"
-                    CREATE TABLE Userss (
-                    Personid INT PRIMARY KEY IDENTITY,
-                    Login VARCHAR(255) NOT NULL,
-                    PassWord VARCHAR(255) NOT NULL
-                    )", databaseConnection);
+                    SqlCommand createTableCommand = new SqlCommand($@"
+                    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}')
+                    BEGIN
+                        CREATE TABLE {tableName} (
+                        {string.Join(", ", columns)}
+                        )
+                    END", databaseConnection);
                     createTableCommand.ExecuteNonQuery();
-                    Logger.LogByTemplate(LogEventLevel.Information, null, "Userss table created successfully.");
+                    Logger.LogByTemplate(LogEventLevel.Information, null, $"{tableName} table created successfully.");
                 }
             }
             catch (Exception ex)
             {
-                Logger.LogByTemplate(LogEventLevel.Error, ex, "Error creating Userss table.");
+                Logger.LogByTemplate(LogEventLevel.Error, ex, $"Error creating {tableName} table.");
             }
         }
+
+
         public static bool TableExists(string databaseName, string tableName)
         {
             using (SqlConnection databaseConnection = new SqlConnection($"server=(localdb)\\MSSqlLocalDb;Trusted_Connection=Yes;DataBase={databaseName};"))

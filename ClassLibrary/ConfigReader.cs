@@ -14,9 +14,6 @@ namespace ClassLibrary
 
                 Dictionary<string, string> configDictionary = new()
                 {
-                    { "Number1", ReadNodeValue(xmlDoc, "//Config/Numbers/Number1") },
-                    { "Number2", ReadNodeValue(xmlDoc, "//Config/Numbers/Number2") },
-                    { "DelayInMilliseconds", ReadNodeValue(xmlDoc, "//Config/DelayInMilliseconds") },
                     { "Port", ReadNodeValue(xmlDoc, "//Config/Network/Port") },
                     { "Ip", ReadNodeValue(xmlDoc, "//Config/Network/Ip") },
                     { "ConnectionString", ReadNodeValue(xmlDoc, "//Config/Database/ConnectionString") }
@@ -40,16 +37,17 @@ namespace ClassLibrary
                 UpdateNodeValues(xmlDoc, updatedValues);
 
                 xmlDoc.Save(path);
-                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Information, note: "Config file updated successfully.");
+                Logger.LogByTemplate(LogEventLevel.Information, note: "Config file updated successfully.");
             }
             catch (Exception ex)
             {
-                Logger.LogByTemplate(Serilog.Events.LogEventLevel.Error, ex, $"An error occurred while updating the config file: {ex.Message}");
+                Logger.LogByTemplate(LogEventLevel.Error, ex, $"An error occurred while updating the config file: {ex.Message}");
             }
         }
 
-        private static void UpdateNodeValues(XmlDocument xmlDoc, Dictionary<string, string> updatedValues)
+        public static void UpdateNodeValues(XmlDocument xmlDoc, Dictionary<string, string> updatedValues)
         {
+
             foreach (var kvp in updatedValues)
             {
                 string xpath = GetXPathForNode(kvp.Key);
@@ -68,9 +66,8 @@ namespace ClassLibrary
 
         private static string GetXPathForNode(string nodeName)
         {
-            return $"//Config/*[local-name()='{nodeName}']";
+            return $"//*[local-name()='{nodeName}']";
         }
-
 
         private static string ReadNodeValue(XmlDocument xmlDoc, string xpath)
         {

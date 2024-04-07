@@ -50,7 +50,13 @@ namespace SocketClient
             else
             {
                 SqlCore.CreateDatabase();
-                SqlCore.CreateTableUserss(MainWindow.connectionString);
+                string[] usersColumns =
+                {
+                    "Personid INT PRIMARY KEY IDENTITY",
+                    "Login VARCHAR(255) NOT NULL",
+                    "PassWord VARCHAR(255) NOT NULL"
+                };
+                SqlCore.CreateTable(MainWindow.connectionString, "Userss", usersColumns);
                 MessageBox.Show("DataBase or Table does not exist and was created, repeat process");
             }
         }
