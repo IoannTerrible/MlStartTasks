@@ -12,7 +12,7 @@ namespace SocketClient
     public partial class MainWindow : Window
     {
         public static string connectionString = App.ContentFromConfig["ConnectionString"];
-        public bool areWeLogin = false;
+        public bool areWeLogin = true;
 
         public ImagePage activyImagePage;
         public VideoPage activyVideoPage;
@@ -28,6 +28,7 @@ namespace SocketClient
             InitializeComponent();
             _app = (App)Application.Current;
             apiClient = new ApiClient(this);
+            UpdateButtonVisibility(areWeLogin);
         }
 
         private async void FastConnectClick(object sender, RoutedEventArgs e)

@@ -11,7 +11,7 @@ namespace Client
             { "Image", "Image files (*.png;*.jpg;*.jpeg;*.gif;*.bmp)|*.png;*.jpg;*.jpeg;*.gif;*.bmp" },
             { "Media", "Media files (*.mp4;*.avi;*.wmv)|*.mp4;*.avi;*.wmv" }
         };
-        public static string? OpenFile(string fileType)
+        public static string OpenFile(string fileType)
         {
             OpenFileDialog ofd = new()
             {
