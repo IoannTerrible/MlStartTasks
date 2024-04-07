@@ -13,7 +13,7 @@ namespace SocketClient
     public partial class App : Application
     {
         public static Dictionary<string, string> ContentFromConfig { get; set; }
-
+        public static string PathToConfig { get; set; }
         [STAThread]
         public static void Main(string[] args)
         {
@@ -25,18 +25,18 @@ namespace SocketClient
             );
             SocketClient.App app = new SocketClient.App();
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = System.IO.Path.Combine(currentDirectory, "config.xml");
+            PathToConfig = System.IO.Path.Combine(currentDirectory, "config.xml");
 
             Logger.LogByTemplate(Debug, note: "Checking and configuring file for client");
-            Logger.LogByTemplate(Information, note: $"Config file path: {filePath}");
+            Logger.LogByTemplate(Information, note: $"Config file path: {PathToConfig}");
 
-            if (!File.Exists(filePath))
+            if (!File.Exists(PathToConfig))
             {
                 Logger.LogByTemplate(Debug, note: "Config file not found, creating with default content ");
-                ConfigCreator.CreateDefaultConfigFile(filePath);
+                ConfigCreator.CreateDefaultConfigFile(PathToConfig);
             }
 
-            ContentFromConfig = ConfigReader.ReadConfigFromFile(filePath);
+            ContentFromConfig = ConfigReader.ReadConfigFromFile(PathToConfig);
 
             app.InitializeComponent();
             app.Run();

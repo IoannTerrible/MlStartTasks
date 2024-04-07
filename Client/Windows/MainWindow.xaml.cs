@@ -32,10 +32,11 @@ namespace SocketClient
         }
 
         private async void FastConnectClick(object sender, RoutedEventArgs e)
-
         {
-            ConnectionWindow.ConnectionUri = @"http://localhost:8000/";
+
+            ConnectionWindow.ConnectionUri = $"http://{App.ContentFromConfig["Ip"]}:{App.ContentFromConfig["Port"]}/";
             Logger.LogByTemplate(LogEventLevel.Information, note: "Used fast connection to localhost:8000.");
+            UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
         }
         private async void ConnectionClick(object sender, RoutedEventArgs e)
         {

@@ -66,9 +66,9 @@
 
                 <Button x:Name ="SendButton" Content="Send Service" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CustomButtonStyle}" Height="50" Width="114" Margin="10,0,0,0" Click="SendButton_Click"/>
             </Grid>
-            <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="5,65,0,8" Grid.RowSpan="2" Grid.ColumnSpan="2">
-                <ListBox x:Name ="ListBoxForResponce" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Width="256" Height="307" VerticalAlignment="Top"/>
-                <Button x:Name="UploadMediaButton" Style="{StaticResource CustomButtonStyle}" Content="Upload Media" Width="256" Height="25" Margin="0,312,0,0" Click="UploadMediaButton_Click" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="5,65,0,8" Grid.RowSpan="2">
+                <ListBox x:Name ="ListBoxForResponce" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Width="256" Margin="0,0,0,30"/>
+                <Button x:Name="UploadMediaButton" Style="{StaticResource CustomButtonStyle}" Content="Upload Media" Width="256" Margin="0,312,0,0" Click="UploadMediaButton_Click" VerticalAlignment="Bottom"/>
             </Grid>
             
         </Grid>
