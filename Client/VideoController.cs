@@ -135,7 +135,7 @@ namespace Client
             }
             mediaSlider.Value = _currentFrameNumber;
         }
-        public BitmapImage imageSourceForImageControl(System.Drawing.Bitmap bitmap)
+        public static BitmapImage imageSourceForImageControl(System.Drawing.Bitmap bitmap)
         {
             {
                 using MemoryStream memory = new();

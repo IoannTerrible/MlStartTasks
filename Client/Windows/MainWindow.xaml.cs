@@ -40,7 +40,9 @@ namespace SocketClient
         //}
         private async void FastConnectClick(object sender, RoutedEventArgs e)
         {
+
             ConnectionWindow.ConnectionUri = @"http://localhost:7000/";
+            Logger.LogByTemplate(LogEventLevel.Information, note: "Used fast connection to localhost:7000.");
         }
         private async void ConnectionClick(object sender, RoutedEventArgs e)
         {
