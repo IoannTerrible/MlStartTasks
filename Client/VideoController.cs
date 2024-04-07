@@ -2,6 +2,7 @@
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using Serilog.Events;
+using SocketClient;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,6 +55,7 @@ namespace Client
         private VideoCapture _videoCapture;
 
         private Mat _frame;
+        private BitmapImage bitmapImage;
 
         private int _currentFrameNumber;
         private int _countFrames;
@@ -63,20 +65,20 @@ namespace Client
         private bool _IsStopped = true;
         #endregion
         #region Methods
-        public void Play()
+        public async void Play()
         {
             _IsPaused = false;
             while (!_IsPaused && !_IsStopped)
             {
-                SetFrame();
+                await SetFrame();
                 Cv2.WaitKey(_fps);
             }
         }
-        public void Stop()
+        public async void Stop()
         {
             _currentFrameNumber = 0;
             _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
-            SetFrame();
+            await SetFrame();
             _IsPaused = true;
         }
         public void Pause()
@@ -84,41 +86,44 @@ namespace Client
             _IsPaused = !_IsPaused;
             if (!_IsPaused) Play();
         }
-        public void Rewind()
+        public async void Rewind()
         {
             _IsPaused = true;
             if (_videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber - 1))
             {
                 _videoCapture.Read(_frame);
-                mediaPlayer.Source = imageSourceForImageControl(_frame.ToBitmap());
+                bitmapImage = imageSourceForImageControl(_frame.ToBitmap());
+                await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
                 _currentFrameNumber--;
                 mediaSlider.Value = _currentFrameNumber;
             }
         }
-        public void NextFrame()
+        public async void NextFrame()
         {
             _IsPaused = true;
-            SetFrame();
+            await SetFrame();
         }
-        public void ShowInfo()
+        public async void ShowInfo()
         {
             MessageBox.Show($@"Frames = {_countFrames},
                             Current Frame = {_currentFrameNumber},
                             Frames Per Second = {_fps}");
         }
-        public void GetSliderValue(double value)
+        public async void GetSliderValue(double value)
         {
             mediaSlider.Value = value;
             _currentFrameNumber = (int)mediaSlider.Value;
         }
-        private void SetFrame()
+        private async Task SetFrame()
         {
             if (_currentFrameNumber < _countFrames)
             {
                 _videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber);
                 _videoCapture.Read(_frame);
                 _currentFrameNumber++;
-                mediaPlayer.Source = imageSourceForImageControl(_frame.ToBitmap());
+                
+                bitmapImage = imageSourceForImageControl(_frame.ToBitmap());
+                await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
             }
             else
             {
