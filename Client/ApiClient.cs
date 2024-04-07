@@ -139,9 +139,9 @@ namespace SocketClient
                     { new ByteArrayContent(imageBytes), "image", "image.png" }
                 };
 
-                if (await CheckHealthAsync($"{apiUrl}health"))
-                {
-                    HttpResponseMessage response = await client.PostAsync($"{apiUrl}file", form);
+                //if (await CheckHealthAsync($"{apiUrl}health"))
+                //{
+                    HttpResponseMessage response = await client.PostAsync($"{apiUrl}file/", form);
                     if (response.IsSuccessStatusCode)
                     {
                         var responseContent = await response.Content.ReadAsStringAsync();
@@ -163,12 +163,12 @@ namespace SocketClient
                         MessageBox.Show(response.StatusCode.ToString());
                         Logger.LogByTemplate(LogEventLevel.Warning, note: $"HTTP request failed with status code {response.StatusCode}.");
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Health check failed before sending image");
-                    Logger.LogByTemplate(LogEventLevel.Warning, note: "Health check failed before sending image.");
-                }
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Health check failed before sending image");
+                //    Logger.LogByTemplate(LogEventLevel.Warning, note: "Health check failed before sending image.");
+                //}
             }
             catch (HttpRequestException httpEx)
             {

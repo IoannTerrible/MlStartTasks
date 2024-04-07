@@ -12,8 +12,9 @@ namespace Client
 {
     internal class VideoController
     {
+        public MainWindow _window;
         #region Constructor
-        public VideoController(string filepath, Image imagePlace, Slider slider)
+        public VideoController(string filepath, Image imagePlace, Slider slider, MainWindow window)
         {
             try
             {
@@ -36,7 +37,7 @@ namespace Client
                 {
                     return;
                 }
-
+                _window = window;
                 _videoCapture.Open(filepath);
                 SetFrame();
             }
@@ -121,7 +122,7 @@ namespace Client
                 _videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber);
                 _videoCapture.Read(_frame);
                 _currentFrameNumber++;
-                
+                _window.activyVideoPage.ClearRectangles();
                 bitmapImage = imageSourceForImageControl(_frame.ToBitmap());
                 await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
             }

@@ -48,7 +48,9 @@
                 <ColumnDefinition Width="Auto" MinWidth="0"/>
             </Grid.ColumnDefinitions>
             <Viewbox Grid.Column="0" Stretch="Uniform" Grid.RowSpan="2" Margin="0,0,0,38">
-                <Image x:Name="VideoImage" Source="{Binding ImageSource}" Stretch="Fill" Canvas.Left="-1" HorizontalAlignment="Left" Loaded="VideoBox_SourceUpdated" VerticalAlignment="Top"/>
+                <Canvas x:Name="canvas2" Width="577" Height="500" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Image x:Name="VideoImage" Source="{Binding ImageSource}" Stretch="Fill" Canvas.Left="-1" HorizontalAlignment="Left" Loaded="VideoBox_SourceUpdated" VerticalAlignment="Top"/>
+                </Canvas>
             </Viewbox>
             <Grid Grid.Row="1" VerticalAlignment="Bottom">
                 <Slider x:Name="MediaSlider" IsSelectionRangeEnabled="True" SelectionStart="0" HorizontalAlignment="Left" Margin="0,175,0,0" Grid.Row="1" VerticalAlignment="Top" Width="500" ValueChanged="MediaSlider_ValueChanged"/>
@@ -62,7 +64,7 @@
 
             <Grid Grid.Column="1" Margin="0,10,10,131">
 
-                <Button x:Name ="HealthCheckButton" Content="Health Check" Style="{StaticResource CustomButtonStyle}" RenderTransformOrigin="0.498,0.559" Margin="146,0,0,0" HorizontalAlignment="Left" Width="114" Height="50" VerticalAlignment="Top" Grid.Column="1"/>
+                <Button x:Name ="HealthCheckButton" Content="Health Check" Style="{StaticResource CustomButtonStyle}" RenderTransformOrigin="0.498,0.559" Margin="146,0,0,0" HorizontalAlignment="Left" Width="114" Height="50" VerticalAlignment="Top" Grid.Column="1" Click="HealthCheckButton_Click"/>
 
                 <Button x:Name ="SendButton" Content="Send Service" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CustomButtonStyle}" Height="50" Width="114" Margin="10,0,0,0" Click="SendButton_Click"/>
             </Grid>

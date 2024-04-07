@@ -13,11 +13,14 @@ namespace SocketClient
     /// </summary>
     public partial class VideoPage : Page
     {
+        private readonly Canvas rectangleContainer = new();
         #region Constructor
         public VideoPage(MainWindow window)
         {
             InitializeComponent();
             _window = window;
+            Canvas canvas = FindName("canvas2") as Canvas;
+            canvas.Children.Add(rectangleContainer);
         }
         #endregion
         #region Attributes
@@ -25,7 +28,6 @@ namespace SocketClient
         VideoController videoController;
 
         MainWindow _window;
-        private readonly Canvas rectangleContainer = new();
 
         private double originalWidth;
         private double originalHeight;
@@ -71,12 +73,12 @@ namespace SocketClient
             try
             {
                 filepath = FileHandler.OpenFile("Media");
-                if(filepath != null)
+                if (filepath != null)
                 {
-                    videoController = new(filepath, VideoImage, MediaSlider);
+                    videoController = new(filepath, VideoImage, MediaSlider, _window);
                     MediaSlider.Value = 0;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -90,7 +92,7 @@ namespace SocketClient
         {
             ListBoxForResponce.Items.Add(SqlCore.ReturnLogEventAsString(MainWindow.connectionString));
         }
-        
+
         public void DrawBoundingBoxes(List<ObjectOnPhoto> aircraftObjects)
         {
             foreach (var obj in aircraftObjects)
@@ -99,12 +101,12 @@ namespace SocketClient
                 double ytl = obj.YTopLeftCorner;
                 double xbr = obj.XBottonRigtCorner;
                 double ybr = obj.YBottonRigtCorner;
-
-                DrawBoundingBox(xtl, ytl, xbr, ybr);
+                string name = obj.Class_name;
+                DrawBoundingBox(xtl, ytl, xbr, ybr, name);
             }
             Logger.LogByTemplate(LogEventLevel.Information, note: $"{aircraftObjects.Count} borders of objects have been drawn.");
         }
-        private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight)
+        private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name)
         {
             CalculateScale();
             Rectangle boundingBox = new Rectangle();
@@ -116,16 +118,28 @@ namespace SocketClient
 
             boundingBox.Width = scaledWidth;
             boundingBox.Height = scaledHeight;
-            Canvas.SetLeft(boundingBox, scaledXTopLeft);
-            Canvas.SetTop(boundingBox, scaledYTopLeft);
+            Canvas canvas = FindName("canvas2") as Canvas;
+            if (canvas != null)
+            {
+                TextBlock textBlock = new TextBlock();
+                textBlock.Text = name;
+                textBlock.FontSize = 16; 
+                textBlock.Foreground = Brushes.Red; 
+                Canvas.SetLeft(textBlock, scaledXTopLeft);
+                Canvas.SetTop(textBlock, scaledYTopLeft);
+                rectangleContainer.Children.Add(textBlock);
+                Canvas.SetLeft(boundingBox, scaledXTopLeft);
+                Canvas.SetTop(boundingBox, scaledYTopLeft);
+                Canvas.SetZIndex(boundingBox, int.MaxValue);
 
-            boundingBox.Stroke = Brushes.Red;
-            boundingBox.StrokeThickness = 2;
-            boundingBox.Fill = Brushes.Transparent;
+                boundingBox.Stroke = Brushes.Red;
+                boundingBox.StrokeThickness = 2;
+                boundingBox.Fill = Brushes.Transparent;
 
-            rectangleContainer.Children.Add(boundingBox);
+                rectangleContainer.Children.Add(boundingBox);
+            }
         }
-        private void ClearRectangles()
+        public void ClearRectangles()
         {
             rectangleContainer.Children.Clear();
         }
@@ -153,5 +167,13 @@ namespace SocketClient
             Logger.LogByTemplate(LogEventLevel.Debug, note: "The image scale is calculated");
         }
         #endregion
+
+        private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (await MainWindow.apiClient.CheckHealthAsync($"{ConnectionWindow.ConnectionUri}health"))
+            {
+                MessageBox.Show("Yes");
+            }
+        }
     }
 }

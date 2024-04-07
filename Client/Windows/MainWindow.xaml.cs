@@ -31,12 +31,16 @@ namespace SocketClient
             UpdateButtonVisibility(areWeLogin);
         }
 
+        //private async void FastConnectClick(object sender, RoutedEventArgs e)
+        //{
+
+        //    ConnectionWindow.ConnectionUri = $"http://{App.ContentFromConfig["Ip"]}:{App.ContentFromConfig["Port"]}/";
+        //    Logger.LogByTemplate(LogEventLevel.Information, note: $"Used fast connection to {App.ContentFromConfig["Ip"]}:{App.ContentFromConfig["Port"]}");
+        //    UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+        //}
         private async void FastConnectClick(object sender, RoutedEventArgs e)
         {
-
-            ConnectionWindow.ConnectionUri = $"http://{App.ContentFromConfig["Ip"]}:{App.ContentFromConfig["Port"]}/";
-            Logger.LogByTemplate(LogEventLevel.Information, note: "Used fast connection to localhost:8000.");
-            UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+            ConnectionWindow.ConnectionUri = @"http://localhost:7000/";
         }
         private async void ConnectionClick(object sender, RoutedEventArgs e)
         {
