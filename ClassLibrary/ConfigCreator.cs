@@ -5,30 +5,6 @@ namespace ClassLibrary
     public class ConfigCreator
     {
         #region Public Methods
-
-        public static void CreateDefaultConfigFileForClient(string path)
-        {
-            XmlDocument xmlDoc = new();
-            XmlElement root = xmlDoc.CreateElement("Config");
-            xmlDoc.AppendChild(root);
-
-            AddDatabase(xmlDoc, root);
-
-            Dictionary<string, string> numbersDictionary = new()
-            {
-                { "DelayInMilliseconds", "2000" }
-            };
-
-            foreach (var pair in numbersDictionary)
-            {
-                XmlElement numberElement = xmlDoc.CreateElement(pair.Key);
-                numberElement.InnerText = pair.Value;
-                root.AppendChild(numberElement);
-            }
-
-            xmlDoc.Save(path);
-        }
-
         public static void CreateDefaultConfigFile(string path)
         {
             try
