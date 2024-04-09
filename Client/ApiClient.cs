@@ -148,7 +148,7 @@ namespace SocketClient
                         ResponseObject responseObject = JsonConvert.DeserializeObject<ResponseObject>(responseContent);
 
                         List<ObjectOnPhoto> objectsOnPhoto = new List<ObjectOnPhoto>(responseObject.Objects);
-                        window.activyVideoPage.DrawBoundingBoxes(objectsOnPhoto);
+                        window.activyVideoPage.localDrawer.DrawBoundingBoxes(objectsOnPhoto);
                         string[] parts = responseContent.Split(",");
 
                         parts[0] = parts[0].Substring(1);

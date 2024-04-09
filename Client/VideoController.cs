@@ -122,7 +122,8 @@ namespace Client
                 _videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber);
                 _videoCapture.Read(_frame);
                 _currentFrameNumber++;
-                _window.activyVideoPage.ClearRectangles();
+                _window.activyVideoPage.localDrawer.ClearRectangles();
+                _window.activyVideoPage.localDrawer.CalculateScale();
                 bitmapImage = imageSourceForImageControl(_frame.ToBitmap());
                 await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
             }
