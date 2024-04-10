@@ -37,7 +37,7 @@ namespace Client
                 }
                 _window = window;
                 _videoCapture.Open(filepath);
-                SetFrame();
+                SetFirstFrame();
             }
             catch (Exception ex)
             {
@@ -94,7 +94,13 @@ namespace Client
             {
                 _videoCapture.Read(_frame);
                 bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
-                await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
+                _window.activyVideoPage.VideoImage.Source = bitmapImage;
+                _window.activyVideoPage.localDrawer.ClearRectangles();
+                _window.activyVideoPage.localDrawer.CalculateScale();
+                if (_currentFrameNumber - 1 < _objectsOnFrame.Count && _currentFrameNumber > 0)
+                {
+                    _window.activyVideoPage.localDrawer.DrawBoundingBoxes(_objectsOnFrame[_currentFrameNumber - 1]);
+                }
                 _currentFrameNumber--;
                 mediaSlider.Value = _currentFrameNumber;
             }
@@ -115,7 +121,7 @@ namespace Client
             mediaSlider.Value = value;
             _currentFrameNumber = (int)mediaSlider.Value;
         }
-        private async Task SetFrame()
+        private async Task SetFirstFrame()
         {
             if (_currentFrameNumber < _countFrames)
             {
@@ -126,6 +132,32 @@ namespace Client
                 _window.activyVideoPage.localDrawer.CalculateScale();
                 bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
                 await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
+            }
+            else
+            {
+                _currentFrameNumber = 0;
+                _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
+                _IsPaused = true;
+            }
+            mediaSlider.Value = _currentFrameNumber;
+        }
+        private async Task SetFrame()
+        {
+            if (_currentFrameNumber < _countFrames)
+            {
+                _videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber);
+                _videoCapture.Read(_frame);
+                _currentFrameNumber++;
+                _window.activyVideoPage.localDrawer.ClearRectangles();
+                _window.activyVideoPage.localDrawer.CalculateScale();
+                bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
+                //await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
+
+                _window.activyVideoPage.VideoImage.Source = bitmapImage;
+                if (_currentFrameNumber - 1 < _objectsOnFrame.Count)
+                {
+                    _window.activyVideoPage.localDrawer.DrawBoundingBoxes(_objectsOnFrame[_currentFrameNumber - 1]);
+                }
             }
             else
             {
