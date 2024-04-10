@@ -59,6 +59,7 @@
                 <Button x:Name="MediaPauseButton" Content="Pause" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,196,0,0" Width="50" Click="MediaPauseButton_Click"/>
                 <Button x:Name="RewindButton" Content="Back" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="165,196,0,0" Width="50" Click="RewindButton_Click"/>
                 <Button x:Name="NextButton" Content="Next" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,196,0,0" Width="50" Click="NextButton_Click"/>
+                <Button x:Name="ShowInfoButton" Content="Info" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="275,196,0,0" Width="50" Click="ShowInfoButton_Click"/>
             </Grid>
 
 
