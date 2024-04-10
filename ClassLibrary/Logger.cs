@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using LibGit2Sharp;
+using Serilog;
 using Serilog.Events;
 using System.Diagnostics;
 using System.Text;
@@ -90,25 +91,13 @@ namespace ClassLibrary
         {
             try
             {
-                Process process = new();
-                process.StartInfo.FileName = "git";
-                process.StartInfo.Arguments = "log --format=\"%h|%s\" -n 1 HEAD"; 
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.UseShellExecute = false;
-                process.Start();
-
-                string output = process.StandardOutput.ReadToEnd();
-                process.WaitForExit();
-
-                string[] parts = output.Trim().Split('|');
-                if (parts.Length == 2)
+                using (var repo = new Repository("https://github.com/IoannTerrible/MlStartTasks"))
                 {
-                    string commitVersion = parts[1].Split(' ')[0];
-                    return (parts[0], commitVersion);
-                }
-                else
-                {
-                    throw new Exception("Unexpected output format from git log.");
+                    var commit = repo.Head.Tip;
+                    string shortCommitId = commit.Sha.Substring(0, 7); // Short commit ID
+                    string commitVersion = commit.MessageShort.Trim().Split(' ')[0]; // First word of commit message
+
+                    return (shortCommitId, commitVersion);
                 }
             }
             catch (Exception ex)

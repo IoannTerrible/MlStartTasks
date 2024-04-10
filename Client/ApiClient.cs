@@ -204,8 +204,6 @@ namespace SocketClient
                     { new ByteArrayContent(imageBytes), "image", "image.png" }
                 };
 
-                //if (await CheckHealthAsync($"{apiUrl}health"))
-                //{
                 HttpResponseMessage response = await client.PostAsync($"{apiUrl}file/", form);
                 if (response.IsSuccessStatusCode)
                 {
