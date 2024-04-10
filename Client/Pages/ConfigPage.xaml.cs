@@ -44,7 +44,7 @@ namespace SocketClient
             {
                 App.ContentFromConfig.Add(row["Key"].ToString(), row["Value"].ToString());
             }
-            //ConfigReader.UpdateConfigValues(App.PathToConfig, App.ContentFromConfig);
+            ConfigReader.UpdateConfigValues(App.PathToConfig, App.ContentFromConfig);
         }
     }
 }
