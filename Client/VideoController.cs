@@ -3,6 +3,7 @@ using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using Serilog.Events;
 using SocketClient;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,6 @@ namespace Client
 {
     internal class VideoController
     {
-        public MainWindow _window;
         #region Constructor
         public VideoController(string filepath, Image imagePlace, Slider slider, MainWindow window)
         {
@@ -31,8 +31,6 @@ namespace Client
                 mediaSlider.Minimum = 0;
                 mediaSlider.Maximum = _countFrames;
 
-                _IsStopped = false;
-
                 if (!_videoCapture.IsOpened())
                 {
                     return;
@@ -48,8 +46,9 @@ namespace Client
             }
         }
         #endregion
-
         #region Attributes
+        public MainWindow _window;
+
         public Image mediaPlayer;
         public Slider mediaSlider;
 
@@ -62,17 +61,18 @@ namespace Client
         private int _countFrames;
         private int _fps;
 
+        private List<List<ObjectOnPhoto>> _objectsOnFrame;
+
         private bool _IsPaused = false;
-        private bool _IsStopped = true;
         #endregion
         #region Methods
         public async void Play()
         {
             _IsPaused = false;
-            while (!_IsPaused && !_IsStopped)
+            while (!_IsPaused)
             {
                 await SetFrame();
-                Cv2.WaitKey(_fps);
+                Cv2.WaitKey(1);
             }
         }
         public async void Stop()
@@ -93,7 +93,7 @@ namespace Client
             if (_videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber - 1))
             {
                 _videoCapture.Read(_frame);
-                bitmapImage = imageSourceForImageControl(_frame.ToBitmap());
+                bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
                 await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
                 _currentFrameNumber--;
                 mediaSlider.Value = _currentFrameNumber;
@@ -124,7 +124,7 @@ namespace Client
                 _currentFrameNumber++;
                 _window.activyVideoPage.localDrawer.ClearRectangles();
                 _window.activyVideoPage.localDrawer.CalculateScale();
-                bitmapImage = imageSourceForImageControl(_frame.ToBitmap());
+                bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
                 await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
             }
             else
@@ -135,7 +135,7 @@ namespace Client
             }
             mediaSlider.Value = _currentFrameNumber;
         }
-        public BitmapImage imageSourceForImageControl(System.Drawing.Bitmap bitmap)
+        public BitmapImage ImageSourceForImageControl(System.Drawing.Bitmap bitmap)
         {
             {
                 using MemoryStream memory = new();
@@ -148,6 +148,13 @@ namespace Client
                 bitmapimage.EndInit();
                 return bitmapimage;
             }
+        }
+        public async void GetProcessedVideo()
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            _objectsOnFrame = await MainWindow.apiClient.GetObjectsOnFrames(_videoCapture, ConnectionWindow.ConnectionUri);
+            stopwatch.Stop();
+            MessageBox.Show($"Success, {_objectsOnFrame.Count}, times - {stopwatch.ElapsedMilliseconds/1000}s");
         }
         #endregion
     }

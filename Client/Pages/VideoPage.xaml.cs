@@ -3,9 +3,6 @@ using Client;
 using Serilog.Events;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 namespace SocketClient
 {
     /// <summary>
@@ -57,7 +54,10 @@ namespace SocketClient
         {
             videoController.NextFrame();
         }
-
+        private void ShowInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            videoController.ShowInfo();
+        }
         private void MediaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             ((Slider)sender).SelectionEnd = e.NewValue;
@@ -66,7 +66,6 @@ namespace SocketClient
                 videoController.GetSliderValue(e.NewValue);
             }
         }
-
         private void UploadMediaButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -85,9 +84,10 @@ namespace SocketClient
             }
         }
 
-        private void SendButton_Click(object sender, RoutedEventArgs e)
+        private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxForResponce.Items.Add(SqlCore.ReturnLogEventAsString(MainWindow.connectionString));
+            //ListBoxForResponce.Items.Add(SqlCore.ReturnLogEventAsString(MainWindow.connectionString));
+            videoController.GetProcessedVideo();
         }
 
         private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)
