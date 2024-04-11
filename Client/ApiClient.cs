@@ -237,12 +237,10 @@ namespace SocketClient
             }
             catch (HttpRequestException httpEx)
             {
-                MessageBox.Show($"HTTP request error: {httpEx.Message}");
                 Logger.LogByTemplate(LogEventLevel.Error, httpEx, note: "HTTP request error while sending image.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error sending image: {ex.Message}");
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while sending image.");
             }
             return null;
@@ -253,10 +251,15 @@ namespace SocketClient
             List<List<ObjectOnPhoto>> result = [];
             Mat frame = new();
 
-            videoCapture.Set(VideoCaptureProperties.PosFrames, 1);
+            videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
 
-            for (int i = 1; i < videoCapture.FrameCount; i++)
+            for (int i = 0; i < videoCapture.FrameCount; i++)
             {
+                if(await CheckHealthAsync(apiUrl) == false)
+                {
+                    MessageBox.Show("Failed Health Check", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+                }
                 videoCapture.Read(frame);
                 List<ObjectOnPhoto> checkerObjects = await GetObjectsOnFrame(ImageSourceForImageControl(frame.ToBitmap()), apiUrl);
                 if(checkerObjects != null) result.Add(checkerObjects);
