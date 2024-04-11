@@ -60,6 +60,7 @@
                 <Button x:Name="RewindButton" Content="Back" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="165,196,0,0" Width="50" Click="RewindButton_Click"/>
                 <Button x:Name="NextButton" Content="Next" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,196,0,0" Width="50" Click="NextButton_Click"/>
                 <Button x:Name="ShowInfoButton" Content="Info" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="275,196,0,0" Width="50" Click="ShowInfoButton_Click"/>
+                <Button x:Name="CloseButton" Content="Close" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,196,0,0" Width="50" Click="CloseButton_Click"/>
             </Grid>
 
 
@@ -70,10 +71,12 @@
                 <Button x:Name ="SendButton" Content="Send Service" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CustomButtonStyle}" Height="50" Width="114" Margin="10,0,0,0" Click="SendButton_Click"/>
             </Grid>
             <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="5,65,0,8" Grid.RowSpan="2">
-                <ListBox x:Name ="ListBoxForResponce" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Width="256" Margin="0,0,0,30"/>
-                <Button x:Name="UploadMediaButton" Style="{StaticResource CustomButtonStyle}" Content="Upload Media" Width="256" Margin="0,312,0,0" Click="UploadMediaButton_Click" VerticalAlignment="Bottom"/>
+                <ListBox x:Name ="ListBoxForResponce" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Width="256" Margin="0,0,0,44" SelectionMode="Single" SelectionChanged="ListBoxForResponce_SelectionChanged"/>
+                <ProgressBar x:Name="ProcessVideoProgressBar" HorizontalAlignment="Center" Height="17" VerticalAlignment="Bottom" Width="256" Margin="0,0,0,22" Visibility="Hidden"/>
+                <Button x:Name="UploadMediaButton" Style="{StaticResource CustomButtonStyle}" Content="Upload Media" Width="256" Margin="0,319,0,0" Click="UploadMediaButton_Click" VerticalAlignment="Bottom"/>
             </Grid>
 
         </Grid>
+        
     </Grid>
 </Page>

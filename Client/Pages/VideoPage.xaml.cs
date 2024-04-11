@@ -1,6 +1,7 @@
 ﻿using ClassLibrary;
 using Client;
 using Serilog.Events;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 namespace Client
@@ -10,57 +11,62 @@ namespace Client
     /// </summary>
     public partial class VideoPage : Page
     {
-        private readonly Canvas rectangleContainer = new();
-        public readonly Drawer localDrawer;
-
         public VideoPage(MainWindow window)
         {
             InitializeComponent();
             _window = window;
             Canvas canvas = FindName("canvas2") as Canvas;
             canvas.Children.Add(rectangleContainer);
+
+            ListBoxForResponce.ItemsSource = OpenVideos;
             localDrawer = new Drawer(rectangleContainer, VideoImage, _window);
         }
+        
+        MainWindow _window;
+
+        private readonly Canvas rectangleContainer = new();
+        public readonly Drawer localDrawer;
+
+        public ObservableCollection<string> OpenVideos { get; } = new ObservableCollection<string>();
+        private List<VideoController> _videoControllers = [];
+        VideoController currentVideoController;
 
         private string filepath;
-        VideoController videoController;
+
         MainWindow _window;
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
         {
-            videoController.Play();
+            currentVideoController?.Play();
         }
 
         private void MediaPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            videoController.Pause();
+            currentVideoController?.Pause();
         }
 
         private void MediaStopButton_Click(object sender, RoutedEventArgs e)
         {
-            videoController.Stop();
+            currentVideoController?.Stop();
         }
 
         private void RewindButton_Click(object sender, RoutedEventArgs e)
         {
-            videoController.Rewind();
+            currentVideoController?.Rewind();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            videoController.NextFrame();
+            currentVideoController?.NextFrame();
         }
         private void ShowInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            videoController.ShowInfo();
+            currentVideoController?.ShowInfo();
         }
         private void MediaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             ((Slider)sender).SelectionEnd = e.NewValue;
-            if (videoController != null)
-            {
-                videoController.GetSliderValue(e.NewValue);
-            }
+            currentVideoController?.GetSliderValue(e.NewValue);
         }
         private void UploadMediaButton_Click(object sender, RoutedEventArgs e)
         {
@@ -69,8 +75,10 @@ namespace Client
                 filepath = FileHandler.OpenFile("Media");
                 if (filepath != null)
                 {
-                    videoController = new(filepath, VideoImage, MediaSlider, _window);
+                    currentVideoController = new(filepath, VideoImage, MediaSlider, _window);
                     MediaSlider.Value = 0;
+                    _videoControllers.Add(currentVideoController);
+                    OpenVideos.Add($"{_videoControllers.Count}. {currentVideoController.shortName}");
                 }
             }
             catch (Exception ex)
@@ -82,7 +90,8 @@ namespace Client
 
         private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            videoController.GetProcessedVideo();
+            currentVideoController.GetProcessedVideo();
+
         }
 
         private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)
@@ -97,6 +106,33 @@ namespace Client
             localDrawer.CalculateScale();
             localDrawer.ClearRectangles();
             Logger.LogByTemplate(LogEventLevel.Information, note: $"Image uploaded.");
+        }
+        private void ListBoxForResponce_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ListBoxForResponce.SelectedIndex != -1)
+            {
+                currentVideoController = _videoControllers[ListBoxForResponce.SelectedIndex];
+                currentVideoController.SetFirstFrame();
+            }
+            else
+            {
+                currentVideoController = null;
+                VideoImage.Source = null;
+                _window.activyVideoPage.localDrawer.ClearRectangles();
+            }
+        }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(ListBoxForResponce.Items.Count == 1)
+            {
+                ListBoxForResponce.SelectedIndex = -1;
+                _videoControllers.Clear();
+                OpenVideos.Clear();
+                return;
+            }
+            ListBoxForResponce.SelectedIndex--;
+            _videoControllers.RemoveAt(ListBoxForResponce.SelectedIndex+1);
+            OpenVideos.RemoveAt(ListBoxForResponce.SelectedIndex+1);
         }
     }
 }

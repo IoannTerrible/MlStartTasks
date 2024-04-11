@@ -25,7 +25,7 @@ namespace Client
 
                 _currentFrameNumber = 0;
                 _countFrames = _videoCapture.FrameCount;
-                _fps = (int)(1000 / _videoCapture.Fps);
+                _fps = (int)_videoCapture.Fps;
 
                 mediaSlider.Value = 0;
                 mediaSlider.Minimum = 0;
@@ -37,6 +37,7 @@ namespace Client
                 }
                 _window = window;
                 _videoCapture.Open(filepath);
+                shortName = Logger.GetLastFile(filepath);
                 SetFirstFrame();
             }
             catch (Exception ex)
@@ -60,6 +61,8 @@ namespace Client
         private int _currentFrameNumber;
         private int _countFrames;
         private int _fps;
+
+        public string shortName;
 
         private List<List<ObjectOnPhoto>> _objectsOnFrame;
 
@@ -125,7 +128,7 @@ namespace Client
             mediaSlider.Value = value;
             _currentFrameNumber = (int)mediaSlider.Value;
         }
-        private async Task SetFirstFrame()
+        public async Task SetFirstFrame()
         {
             if (_currentFrameNumber < _countFrames && _currentFrameNumber >= 0)
             {
