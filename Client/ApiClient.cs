@@ -27,7 +27,7 @@ namespace SocketClient
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                HttpResponseMessage response = await client.GetAsync(apiUrl+"health");
                 if (response.IsSuccessStatusCode)
                 {
                     string responseContent = await response.Content.ReadAsStringAsync();
@@ -253,6 +253,10 @@ namespace SocketClient
 
             videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
 
+            window.activyVideoPage.ProcessVideoProgressBar.Minimum = 0;
+            window.activyVideoPage.ProcessVideoProgressBar.Maximum = videoCapture.FrameCount;
+            window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Visible;
+
             for (int i = 0; i < videoCapture.FrameCount; i++)
             {
                 if(await CheckHealthAsync(apiUrl) == false)
@@ -263,7 +267,9 @@ namespace SocketClient
                 videoCapture.Read(frame);
                 List<ObjectOnPhoto> checkerObjects = await GetObjectsOnFrame(ImageSourceForImageControl(frame.ToBitmap()), apiUrl);
                 if(checkerObjects != null) result.Add(checkerObjects);
+                window.activyVideoPage.ProcessVideoProgressBar.Value = i;
             }
+            window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Hidden;
             return result;
         }
 
