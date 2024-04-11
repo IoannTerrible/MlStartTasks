@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using Client;
 using OpenCvSharp.Extensions;
 
-namespace SocketClient
+namespace Client
 {
     public class ApiClient
     {
@@ -27,7 +27,8 @@ namespace SocketClient
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync(apiUrl+"health");
+
+                HttpResponseMessage response = await client.GetAsync($"{apiUrl}health");
                 if (response.IsSuccessStatusCode)
                 {
                     string responseContent = await response.Content.ReadAsStringAsync();
@@ -154,13 +155,6 @@ namespace SocketClient
                     List<ObjectOnPhoto> objectsOnPhoto = new List<ObjectOnPhoto>(responseObject.Objects);
                     window.activyVideoPage.localDrawer.DrawBoundingBoxes(objectsOnPhoto);
                     string[] parts = responseContent.Split(",");
-
-                    parts[0] = parts[0].Substring(1);
-                    int lastIndex = parts.Length - 1;
-                    parts[lastIndex] = parts[lastIndex].Substring(0, parts[lastIndex].Length - 1);
-                    StringBuilder tempStringBuilder = new StringBuilder();
-                    string tempString = tempStringBuilder.ToString();
-                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Response for server {tempString}");
                 }
                 else
                 {
@@ -256,6 +250,7 @@ namespace SocketClient
             window.activyVideoPage.ProcessVideoProgressBar.Minimum = 0;
             window.activyVideoPage.ProcessVideoProgressBar.Maximum = videoCapture.FrameCount;
             window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Visible;
+
 
             for (int i = 0; i < videoCapture.FrameCount; i++)
             {

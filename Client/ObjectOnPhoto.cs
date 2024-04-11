@@ -4,7 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace SocketClient
+namespace Client
 {
     public class ObjectOnPhoto
     {
@@ -22,5 +22,7 @@ namespace SocketClient
 
         [JsonProperty("class_name")]
         public string Class_name { get; set; }
+        [JsonProperty("tracked_id")]
+        public int Class_id { get; set; }
     }
 }

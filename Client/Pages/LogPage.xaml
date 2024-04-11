@@ -1,0 +1,63 @@
+﻿<Page x:Class="Client.LogPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LogPage">
+
+    <Page.Resources>
+        <Style TargetType="Border" x:Key="ImageBorderStyle">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style TargetType="Button" x:Key="CustomButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#800080" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#F0F0F0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Event Log" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+
+        <ListView x:Name="ListWithSqlResponce" Grid.Row="1" ItemsSource="{Binding LogEntries}" Margin="20,20,20,43" Background="#FFDAECE2" RenderTransformOrigin="0.5,0.5">
+            <ListView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.139"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.441"/>
+                </TransformGroup>
+            </ListView.RenderTransform>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="User Name" DisplayMemberBinding="{Binding UserName}"/>
+                    <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}"/>
+                    <GridViewColumn Header="Frame Path" DisplayMemberBinding="{Binding FramePath}"/>
+                    <GridViewColumn Header="Meta Data" DisplayMemberBinding="{Binding MetaData}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button x:Name="refreshButton" Grid.Row="1" Style="{StaticResource CustomButtonStyle}" Content="Refresh" Command="{Binding RefreshCommand}" Margin="0,0,10,9" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" Click="RefreshButton_Click"/>
+    </Grid>
+</Page>

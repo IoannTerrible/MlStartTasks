@@ -4,7 +4,7 @@ using Serilog.Events;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-namespace SocketClient
+namespace Client
 {
     /// <summary>
     /// Логика взаимодействия для VideoPage.xaml
@@ -17,9 +17,9 @@ namespace SocketClient
             _window = window;
             Canvas canvas = FindName("canvas2") as Canvas;
             canvas.Children.Add(rectangleContainer);
-            localDrawer = new Drawer(rectangleContainer, VideoImage);
 
             ListBoxForResponce.ItemsSource = OpenVideos;
+            localDrawer = new Drawer(rectangleContainer, VideoImage, _window);
         }
         
         MainWindow _window;
@@ -32,6 +32,8 @@ namespace SocketClient
         VideoController currentVideoController;
 
         private string filepath;
+
+        MainWindow _window;
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
         {
@@ -89,6 +91,7 @@ namespace SocketClient
         private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
             currentVideoController.GetProcessedVideo();
+
         }
 
         private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)

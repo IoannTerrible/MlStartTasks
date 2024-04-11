@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SocketClient
+namespace Client
 {
     /// <summary>
     /// Логика взаимодействия для LogInPage.xaml

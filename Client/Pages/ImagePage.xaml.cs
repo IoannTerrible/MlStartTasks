@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SocketClient
+namespace Client
 {
     /// <summary>
     /// Логика взаимодействия для ImagePage.xaml

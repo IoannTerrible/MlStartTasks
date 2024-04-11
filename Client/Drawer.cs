@@ -1,10 +1,12 @@
 ﻿using Serilog.Events;
-using SocketClient;
+
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using ClassLibrary;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Data.SqlClient;
+using OpenCvSharp;
 
 namespace Client
 {
@@ -14,8 +16,12 @@ namespace Client
         private readonly Image videoImage;
         private double scaleX;
         private double scaleY;
-        public Drawer(Canvas canvas, Image videoImage)
+        MainWindow _window;
+        private Dictionary<int, string> previousClassNames = new Dictionary<int, string>();
+
+        public Drawer(Canvas canvas, Image videoImage, MainWindow window)
         {
+            this._window = window;
             this.canvas = canvas;
             this.videoImage = videoImage;
         }
@@ -29,12 +35,47 @@ namespace Client
                 double xbr = obj.XBottonRigtCorner;
                 double ybr = obj.YBottonRigtCorner;
                 string name = obj.Class_name;
-                DrawBoundingBox(xtl, ytl, xbr, ybr, name);
+                int id = obj.Class_id;
+
+                if (IsClassNameChanged(id, name))
+                {
+                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Class_name for object with id {id} changed to {name}");
+                    CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.videoController, MainWindow.connectionString);
+                }
+                DrawBoundingBox(xtl, ytl, xbr, ybr, name, id);
+                Logger.LogByTemplate(LogEventLevel.Debug, note: $"DrawObject with {xtl},{ytl}, {xbr}, {ybr}, {name}, {id}");
             }
+
             Logger.LogByTemplate(LogEventLevel.Information, note: $"{aircraftObjects.Count} borders of objects have been drawn.");
         }
+        private void CreateEventLogEntry(string userName,
+            string fileName, string framePath, string metaData, string sqlConnectionString)
+        {
+            string insertQuery = $"INSERT INTO EventLog (UserName, FileName, FramePath, MetaData) " +
+                                 $"VALUES ('{userName}', '{fileName}', '{framePath}', '{metaData}')";
+            SqlCommand sqlCommand = new SqlCommand(insertQuery);
 
-        private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name)
+            SqlCore.ExecuteSQL(sqlCommand, sqlConnectionString);
+        }
+        private bool IsClassNameChanged(int id, string newClassName)
+        {
+            if (previousClassNames.ContainsKey(id))
+            {
+                string previousClassName = previousClassNames[id];
+                if (previousClassName != newClassName)
+                {
+                    previousClassNames[id] = newClassName;
+                    return true; 
+                }
+            }
+            else
+            {
+                previousClassNames[id] = newClassName;
+            }
+
+            return false;
+        }
+        private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name, int id)
         {
             Rectangle boundingBox = new Rectangle();
 
@@ -49,7 +90,7 @@ namespace Client
             if (canvas != null)
             {
                 TextBlock textBlock = new TextBlock();
-                textBlock.Text = name;
+                textBlock.Text = $"{name} {id}";
                 textBlock.FontSize = 16;
                 textBlock.Foreground = Brushes.Red;
                 Canvas.SetLeft(textBlock, scaledXTopLeft);
