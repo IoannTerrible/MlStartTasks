@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SocketClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1130" Background="#FFE4C9E3" >
+        Title="MainWindow" Height="650" Width="1318" Background="#FFE4C9E3" >
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Template">

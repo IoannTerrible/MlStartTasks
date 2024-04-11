@@ -25,10 +25,6 @@ namespace SocketClient
         private string filepath;
         VideoController videoController;
         MainWindow _window;
-        private double originalWidth;
-        private double originalHeight;
-        private double scaleX;
-        private double scaleY;
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
         {
