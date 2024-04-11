@@ -119,7 +119,7 @@ namespace Client
         {
             MessageBox.Show($@"Frames = {_countFrames},
                             Current Frame = {_currentFrameNumber},
-                            Frames Per Second = {_fps}");
+                            OriginalFrames Per Second = {_fps}");
         }
         public async void GetSliderValue(double value)
         {
@@ -219,6 +219,7 @@ namespace Client
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Video processing error.");
             }
+
         }
         #endregion
     }
