@@ -114,7 +114,7 @@ namespace Client
         {
             MessageBox.Show($@"Frames = {_countFrames},
                             Current Frame = {_currentFrameNumber},
-                            Frames Per Second = {_fps}");
+                            OriginalFrames Per Second = {_fps}");
         }
         public async void GetSliderValue(double value)
         {
@@ -186,7 +186,8 @@ namespace Client
             Stopwatch stopwatch = Stopwatch.StartNew();
             _objectsOnFrame = await MainWindow.apiClient.GetObjectsOnFrames(_videoCapture, ConnectionWindow.ConnectionUri);
             stopwatch.Stop();
-            MessageBox.Show($"Success, {_objectsOnFrame.Count}, times - {stopwatch.ElapsedMilliseconds/1000}s");
+            MessageBox.Show($"Success, {_objectsOnFrame.Count}, times - {stopwatch.ElapsedMilliseconds / 1000}s Process Fps {(double)_countFrames/(stopwatch.ElapsedMilliseconds / 1000)}");
+
         }
         #endregion
     }
