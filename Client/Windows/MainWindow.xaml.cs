@@ -42,7 +42,9 @@ namespace Client
         }
         private async void FastConnectClick(object sender, RoutedEventArgs e)
         {
-            ConnectionWindow.ConnectionUri = @"http://localhost:7000/";
+
+            //ConnectionWindow.ConnectionUri = @"http://localhost:7000/";
+            ConnectionWindow.ConnectionUri = $"http://{App.ContentFromConfig["Ip"]}:{App.ContentFromConfig["Port"]}/";
             areWeConnected = true;
             UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
         }
