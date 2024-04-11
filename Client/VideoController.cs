@@ -3,7 +3,6 @@ using Microsoft.VisualBasic;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using Serilog.Events;
-using SocketClient;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;

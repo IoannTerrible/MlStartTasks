@@ -5,7 +5,7 @@ using ClassLibrary;
 using static Serilog.Events.LogEventLevel;
 
 
-namespace SocketClient
+namespace Client
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -23,7 +23,7 @@ namespace SocketClient
                 Warning,
                 Error
             );
-            SocketClient.App app = new SocketClient.App();
+            Client.App app = new Client.App();
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             PathToConfig = System.IO.Path.Combine(currentDirectory, "config.xml");
 

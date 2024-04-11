@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace SocketClient
+namespace Client
 {
     /// <summary>
     /// Логика взаимодействия для StoryPage.xaml

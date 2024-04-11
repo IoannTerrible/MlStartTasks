@@ -1,5 +1,5 @@
 ﻿using Serilog.Events;
-using SocketClient;
+
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using ClassLibrary;
@@ -29,12 +29,13 @@ namespace Client
                 double xbr = obj.XBottonRigtCorner;
                 double ybr = obj.YBottonRigtCorner;
                 string name = obj.Class_name;
-                DrawBoundingBox(xtl, ytl, xbr, ybr, name);
+                int id = obj.Class_id;
+                DrawBoundingBox(xtl, ytl, xbr, ybr, name, id);
             }
             Logger.LogByTemplate(LogEventLevel.Information, note: $"{aircraftObjects.Count} borders of objects have been drawn.");
         }
 
-        private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name)
+        private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name, int id)
         {
             Rectangle boundingBox = new Rectangle();
 

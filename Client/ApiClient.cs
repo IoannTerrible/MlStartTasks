@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using Client;
 using OpenCvSharp.Extensions;
 
-namespace SocketClient
+namespace Client
 {
     public class ApiClient
     {
@@ -27,7 +27,7 @@ namespace SocketClient
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                HttpResponseMessage response = await client.GetAsync($"{apiUrl}health");
                 if (response.IsSuccessStatusCode)
                 {
                     string responseContent = await response.Content.ReadAsStringAsync();

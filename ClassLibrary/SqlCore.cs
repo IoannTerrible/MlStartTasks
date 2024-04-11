@@ -180,6 +180,7 @@ namespace ClassLibrary
         }
         public static string ReturnLogEventAsString(string con)
         {
+
             DataTable dataTable = ExecuteSQL(new SqlCommand($"SELECT TOP(1000) [UserName],[FileName],[FramePath],[MetaDate] FROM[MLstartDataBase].[dbo].[EventLog]"), con);
             StringBuilder stringBuilder = new StringBuilder();
             foreach (DataRow row in dataTable.Rows)

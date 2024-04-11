@@ -3,7 +3,7 @@ using Client;
 using Serilog.Events;
 using System.Windows;
 using System.Windows.Controls;
-namespace SocketClient
+namespace Client
 {
     /// <summary>
     /// Логика взаимодействия для VideoPage.xaml
@@ -82,7 +82,6 @@ namespace SocketClient
 
         private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            //ListBoxForResponce.Items.Add(SqlCore.ReturnLogEventAsString(MainWindow.connectionString));
             videoController.GetProcessedVideo();
         }
 
