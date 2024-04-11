@@ -19,7 +19,7 @@ namespace Client
             _window = window;
             Canvas canvas = FindName("canvas2") as Canvas;
             canvas.Children.Add(rectangleContainer);
-            localDrawer = new Drawer(rectangleContainer, VideoImage);
+            localDrawer = new Drawer(rectangleContainer, VideoImage, _window);
         }
 
         private string filepath;

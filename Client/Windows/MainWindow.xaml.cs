@@ -14,6 +14,7 @@ namespace Client
     {
         public static string connectionString = App.ContentFromConfig["ConnectionString"];
         public bool areWeLogin = false;
+        public bool areWeConnected = false;
 
         public ImagePage activyImagePage;
         public VideoPage activyVideoPage;
@@ -32,7 +33,6 @@ namespace Client
             UpdateButtonVisibility(areWeLogin);
             string[] eventLogColumns =
             [
-                            "EventId INT PRIMARY KEY IDENTITY",
                             "UserName VARCHAR(255) NULL",
                             "FileName VARCHAR(255) NULL",
                             "FramePath NVARCHAR(MAX) NULL",
@@ -43,6 +43,8 @@ namespace Client
         private async void FastConnectClick(object sender, RoutedEventArgs e)
         {
             ConnectionWindow.ConnectionUri = @"http://localhost:7000/";
+            areWeConnected = true;
+            UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
         }
         private async void ConnectionClick(object sender, RoutedEventArgs e)
         {
@@ -50,18 +52,23 @@ namespace Client
             if (ConnectionWindow.ConnectionUri != null)
             {
                 UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+                areWeConnected = true;
             }
         }
         private async void DisconnectClick(object sender, RoutedEventArgs e)
         {
             ConnectionWindow.ConnectionUri = null;
+            areWeConnected = false;
             UserStatus.Text = "YouAreDisconnect";
             Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from the server.");
         }
         private async void ImagePageClick(object sender, RoutedEventArgs e)
         {
-            activyVideoPage = new VideoPage(this);
-            MainFrame.Navigate(activyVideoPage);
+            if (areWeConnected)
+            {
+                activyVideoPage = new VideoPage(this);
+                MainFrame.Navigate(activyVideoPage);
+            }
         }
         private async void ConfigClick(object sender, RoutedEventArgs e)
         {

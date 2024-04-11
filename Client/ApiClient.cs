@@ -154,13 +154,6 @@ namespace Client
                     List<ObjectOnPhoto> objectsOnPhoto = new List<ObjectOnPhoto>(responseObject.Objects);
                     window.activyVideoPage.localDrawer.DrawBoundingBoxes(objectsOnPhoto);
                     string[] parts = responseContent.Split(",");
-
-                    parts[0] = parts[0].Substring(1);
-                    int lastIndex = parts.Length - 1;
-                    parts[lastIndex] = parts[lastIndex].Substring(0, parts[lastIndex].Length - 1);
-                    StringBuilder tempStringBuilder = new StringBuilder();
-                    string tempString = tempStringBuilder.ToString();
-                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Response for server {tempString}");
                 }
                 else
                 {

@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace Client
 {
-    internal class VideoController
+    public class VideoController
     {
         #region Constructor
         public VideoController(string filepath, Image imagePlace, Slider slider, MainWindow window)

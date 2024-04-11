@@ -22,7 +22,7 @@ namespace Client
 
         [JsonProperty("class_name")]
         public string Class_name { get; set; }
-        [JsonProperty("track_id")]
+        [JsonProperty("tracked_id")]
         public int Class_id { get; set; }
     }
 }
