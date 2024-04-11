@@ -29,11 +29,9 @@ namespace Client
 
         public ObservableCollection<string> OpenVideos { get; } = new ObservableCollection<string>();
         private List<VideoController> _videoControllers = [];
-        VideoController currentVideoController;
+        public VideoController currentVideoController;
 
         private string filepath;
-
-        MainWindow _window;
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
         {

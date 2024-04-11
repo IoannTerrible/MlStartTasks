@@ -37,10 +37,12 @@ namespace Client
                 string name = obj.Class_name;
                 int id = obj.Class_id;
 
+                string metdate = $"{xtl},{ytl},{xbr},{ybr},{name},{id}";
+
                 if (IsClassNameChanged(id, name))
                 {
                     Logger.LogByTemplate(LogEventLevel.Information, note: $"Class_name for object with id {id} changed to {name}");
-                    CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.videoController, MainWindow.connectionString);
+                    CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.currentVideoController.shortName, "PlaceHolder", metdate, MainWindow.connectionString);
                 }
                 DrawBoundingBox(xtl, ytl, xbr, ybr, name, id);
                 Logger.LogByTemplate(LogEventLevel.Debug, note: $"DrawObject with {xtl},{ytl}, {xbr}, {ybr}, {name}, {id}");
@@ -51,7 +53,7 @@ namespace Client
         private void CreateEventLogEntry(string userName,
             string fileName, string framePath, string metaData, string sqlConnectionString)
         {
-            string insertQuery = $"INSERT INTO EventLog (UserName, FileName, FramePath, MetaData) " +
+            string insertQuery = $"INSERT INTO EventLog (UserName, FileName, FramePath, MetaDate) " +
                                  $"VALUES ('{userName}', '{fileName}', '{framePath}', '{metaData}')";
             SqlCommand sqlCommand = new SqlCommand(insertQuery);
 
@@ -65,7 +67,7 @@ namespace Client
                 if (previousClassName != newClassName)
                 {
                     previousClassNames[id] = newClassName;
-                    return true; 
+                    return true;
                 }
             }
             else
