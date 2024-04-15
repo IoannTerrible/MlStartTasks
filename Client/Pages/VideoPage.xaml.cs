@@ -1,5 +1,4 @@
 ﻿using ClassLibrary;
-using Client;
 using Serilog.Events;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -31,7 +30,7 @@ namespace Client
         private List<VideoController> _videoControllers = [];
         public VideoController currentVideoController;
 
-        private string filepath;
+        private string[] files;
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
         {
@@ -70,13 +69,16 @@ namespace Client
         {
             try
             {
-                filepath = FileHandler.OpenFile("Media");
-                if (filepath != null)
+                files = FileHandler.OpenFile(FileTypes.Media);
+                if (files != null)
                 {
-                    currentVideoController = new(filepath, VideoImage, MediaSlider, _window);
+                    foreach (var file in files)
+                    {
+                        currentVideoController = new(file, VideoImage, MediaSlider, _window);
+                        _videoControllers.Add(currentVideoController);
+                        OpenVideos.Add($"{_videoControllers.Count}. {currentVideoController.shortName}");
+                    }
                     MediaSlider.Value = 0;
-                    _videoControllers.Add(currentVideoController);
-                    OpenVideos.Add($"{_videoControllers.Count}. {currentVideoController.shortName}");
                 }
             }
             catch (Exception ex)
@@ -121,6 +123,7 @@ namespace Client
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            if (ListBoxForResponce.Items.Count == 0) return;
             if(ListBoxForResponce.Items.Count == 1)
             {
                 ListBoxForResponce.SelectedIndex = -1;

@@ -54,7 +54,7 @@
             </Viewbox>
             <Grid Grid.Row="1" VerticalAlignment="Bottom">
                 <Slider x:Name="MediaSlider" IsSelectionRangeEnabled="True" SelectionStart="0" HorizontalAlignment="Left" Margin="0,175,0,0" Grid.Row="1" VerticalAlignment="Top" Width="500" ValueChanged="MediaSlider_ValueChanged"/>
-                <Button x:Name="MediaPlayButton" Content="Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,196,0,0" Width="50" Click="MediaPlayButton_Click"/>
+                <Button x:Name="MediaPlayButton" Content="Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" Margin="0,196,0,0" Width="50" Click="MediaPlayButton_Click"/>
                 <Button x:Name="MediaStopButton" Content="Stop" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,196,0,0" Width="50" Click="MediaStopButton_Click"/>
                 <Button x:Name="MediaPauseButton" Content="Pause" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,196,0,0" Width="50" Click="MediaPauseButton_Click"/>
                 <Button x:Name="RewindButton" Content="Back" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="165,196,0,0" Width="50" Click="RewindButton_Click"/>

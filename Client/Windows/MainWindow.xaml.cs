@@ -175,7 +175,7 @@ namespace Client
                     return;
                 }
 
-                string? openedFile = FileHandler.OpenFile("Image");
+                string? openedFile = FileHandler.OpenFile(FileTypes.Image)[0];
 
                 if(openedFile != null)
                 {
