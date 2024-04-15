@@ -14,6 +14,7 @@ namespace Client
     {
         public static Dictionary<string, string> ContentFromConfig { get; set; }
         public static string PathToConfig { get; set; }
+        public static string PathToDirectory { get; set; }
         [STAThread]
         public static void Main(string[] args)
         {
@@ -24,8 +25,8 @@ namespace Client
                 Error
             );
             Client.App app = new Client.App();
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            PathToConfig = System.IO.Path.Combine(currentDirectory, "config.xml");
+            PathToDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            PathToConfig = System.IO.Path.Combine(PathToDirectory, "config.xml");
 
             Logger.LogByTemplate(Debug, note: "Checking and configuring file for client");
             Logger.LogByTemplate(Information, note: $"Config file path: {PathToConfig}");

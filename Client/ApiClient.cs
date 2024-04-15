@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Client;
 using OpenCvSharp.Extensions;
+using System.Drawing;
 
 namespace Client
 {
@@ -153,7 +154,7 @@ namespace Client
                     ResponseObject responseObject = JsonConvert.DeserializeObject<ResponseObject>(responseContent);
 
                     List<ObjectOnPhoto> objectsOnPhoto = new List<ObjectOnPhoto>(responseObject.Objects);
-                    window.activyVideoPage.localDrawer.DrawBoundingBoxes(objectsOnPhoto);
+                   // window.activyVideoPage.localDrawer.DrawBoundingBoxes(objectsOnPhoto, (Bitmap)imageBytes);
                     string[] parts = responseContent.Split(",");
                 }
                 else

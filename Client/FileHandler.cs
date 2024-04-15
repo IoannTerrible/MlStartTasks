@@ -1,6 +1,10 @@
 ﻿using ClassLibrary;
 using Microsoft.Win32;
 using Serilog.Events;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace Client
 {
@@ -11,6 +15,8 @@ namespace Client
     }
     public class FileHandler
     {
+        public static string LastKeyFrameName { get; set; }
+
         private static Dictionary<FileTypes, string> fileTypes = new()
         {
             { FileTypes.Image, "Image files (*.png;*.jpg;*.jpeg;*.gif;*.bmp)|*.png;*.jpg;*.jpeg;*.gif;*.bmp" },
@@ -34,5 +40,15 @@ namespace Client
                 return null;
             }
         }
+        public static void SaveBitmapImageToFile(Bitmap bitmapImage)
+        {
+            string directoryPath = Path.Combine(App.PathToDirectory, "KeyFrames");
+            Directory.CreateDirectory(directoryPath);
+            LastKeyFrameName = $"Image_{DateTime.Now:yyyyMMddHHmmssfff}.png";
+            string filePath = Path.Combine(directoryPath, LastKeyFrameName);
+            ImageFormat format = ImageFormat.Png;
+            bitmapImage.Save(filePath, format);
+        }
+
     }
 }

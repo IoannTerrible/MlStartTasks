@@ -26,7 +26,7 @@ namespace Client
             this.videoImage = videoImage;
         }
 
-        public void DrawBoundingBoxes(List<ObjectOnPhoto> aircraftObjects)
+        public void DrawBoundingBoxes(List<ObjectOnPhoto> aircraftObjects, System.Drawing.Bitmap keyFrame)
         {
             foreach (var obj in aircraftObjects)
             {
@@ -42,7 +42,8 @@ namespace Client
                 if (IsClassNameChanged(id, name))
                 {
                     Logger.LogByTemplate(LogEventLevel.Information, note: $"Class_name for object with id {id} changed to {name}");
-                    CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.currentVideoController.shortName, "PlaceHolder", metdate, MainWindow.connectionString);
+                    FileHandler.SaveBitmapImageToFile(keyFrame);
+                    CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.currentVideoController.shortName, FileHandler.LastKeyFrameName, metdate, MainWindow.connectionString);
                 }
                 DrawBoundingBox(xtl, ytl, xbr, ybr, name, id);
                 Logger.LogByTemplate(LogEventLevel.Debug, note: $"DrawObject with {xtl},{ytl}, {xbr}, {ybr}, {name}, {id}");
@@ -97,15 +98,25 @@ namespace Client
                 textBlock.Foreground = Brushes.Red;
                 Canvas.SetLeft(textBlock, scaledXTopLeft);
                 Canvas.SetTop(textBlock, scaledYTopLeft);
-                canvas.Children.Add(textBlock);
+
                 Canvas.SetLeft(boundingBox, scaledXTopLeft);
                 Canvas.SetTop(boundingBox, scaledYTopLeft);
                 Canvas.SetZIndex(boundingBox, int.MaxValue);
+                if(name == "fall")
+                {
+                    boundingBox.Stroke = Brushes.Red;
+                    textBlock.Foreground = Brushes.Cyan;
 
-                boundingBox.Stroke = Brushes.Red;
+                }
+                else
+                {
+                    boundingBox.Stroke = Brushes.Cyan;
+                    textBlock.Foreground = Brushes.Red;
+
+                }
                 boundingBox.StrokeThickness = 2;
                 boundingBox.Fill = Brushes.Transparent;
-
+                canvas.Children.Add(textBlock);
                 canvas.Children.Add(boundingBox);
             }
         }

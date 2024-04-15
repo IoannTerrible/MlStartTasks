@@ -104,7 +104,7 @@ namespace Client
                     _window.activyVideoPage.localDrawer.CalculateScale();
                     if (_currentFrameNumber - 1 < _objectsOnFrame.Count && _currentFrameNumber > 0)
                     {
-                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(_objectsOnFrame[_currentFrameNumber - 1]);
+                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(_objectsOnFrame[_currentFrameNumber - 1], _frame.ToBitmap());
                     }
                 }
                 _currentFrameNumber--;
@@ -165,7 +165,7 @@ namespace Client
                 {
                     if (_currentFrameNumber - 1 < _objectsOnFrame.Count)
                     {
-                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(_objectsOnFrame[_currentFrameNumber - 1]);
+                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(_objectsOnFrame[_currentFrameNumber - 1], _frame.ToBitmap());
                     }
                 }
             }
