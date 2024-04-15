@@ -4,30 +4,29 @@ using Serilog.Events;
 
 namespace Client
 {
+    public enum FileTypes
+    {
+        Image,
+        Media
+    }
     public class FileHandler
     {
-        private static Dictionary<string, string> fileTypes = new()
+        private static Dictionary<FileTypes, string> fileTypes = new()
         {
-            { "Image", "Image files (*.png;*.jpg;*.jpeg;*.gif;*.bmp)|*.png;*.jpg;*.jpeg;*.gif;*.bmp" },
-            { "Media", "Media files (*.mp4;*.avi;*.wmv)|*.mp4;*.avi;*.wmv" }
+            { FileTypes.Image, "Image files (*.png;*.jpg;*.jpeg;*.gif;*.bmp)|*.png;*.jpg;*.jpeg;*.gif;*.bmp" },
+            { FileTypes.Media, "Media files (*.mp4;*.avi;*.wmv)|*.mp4;*.avi;*.wmv" }
         };
-        public static string OpenFile(string fileType)
+        public static string[] OpenFile(FileTypes fileType)
         {
             OpenFileDialog ofd = new()
             {
-                Multiselect = false,
+                Multiselect = true,
                 Filter = fileTypes[fileType]
             };
             if(ofd.ShowDialog() == true)
             {
-                string filename = ofd.FileName;
-                string shortFileName = Logger.GetLastFile(filename);
-                if (!System.IO.File.Exists(filename))
-                {
-                    Logger.LogByTemplate(LogEventLevel.Error, note: "Selected file does not exist: " + shortFileName);
-                    return null;
-                }
-                return filename;
+                string[] filenames = ofd.FileNames;
+                return filenames;
             }
             else
             {
