@@ -55,6 +55,6 @@ public class ConnectionWindow
         stackPanel.Children.Add(connectButton);
         dialog.Content = stackPanel;
 
-        dialog.ShowDialog(); // Показать окно для ввода адреса и подключения
+        dialog.ShowDialog();
     }
 }
