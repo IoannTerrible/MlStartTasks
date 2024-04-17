@@ -16,7 +16,8 @@ namespace ClassLibrary
                 {
                     { "Port", ReadNodeValue(xmlDoc, "//Config/Network/Port") },
                     { "Ip", ReadNodeValue(xmlDoc, "//Config/Network/Ip") },
-                    { "ConnectionString", ReadNodeValue(xmlDoc, "//Config/Database/ConnectionString") }
+                    { "ConnectionString", ReadNodeValue(xmlDoc, "//Config/Database/ConnectionString") },
+                    { "VideoProcessInRealTime", ReadNodeValue(xmlDoc, "//Config/VideoProcessing/ProcessInRealTime") }
                 };
 
                 return configDictionary;

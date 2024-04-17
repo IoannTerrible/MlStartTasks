@@ -236,6 +236,7 @@ namespace Client
             window.activyVideoPage.ProcessVideoProgressBar.Maximum = videoCapture.FrameCount;
             window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Visible;
 
+            videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
 
             for (int i = 0; i < videoCapture.FrameCount; i++)
             {
@@ -251,6 +252,28 @@ namespace Client
             }
             window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Hidden;
             return result;
+        }
+
+        public async Task GetProcessedInRealTimeVideo(VideoCapture videoCapture, VideoController videoController, string apiUrl)
+        {
+            videoController.ObjectsOnFrame = new();
+            Mat frame = new();
+
+            videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
+
+            window.activyVideoPage.ProcessVideoProgressBar.Minimum = 0;
+            window.activyVideoPage.ProcessVideoProgressBar.Maximum = videoCapture.FrameCount;
+            window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Visible;
+
+
+            for (int i = 0; i < videoCapture.FrameCount; i++)
+            {
+                videoCapture.Read(frame);
+                List<ObjectOnPhoto> checkerObjects = await MainWindow.apiClient.GetObjectsOnFrame(ImageSourceForImageControl(frame.ToBitmap()), ConnectionWindow.ConnectionUri);
+                if (checkerObjects != null) videoController.ObjectsOnFrame.Add(checkerObjects);
+                window.activyVideoPage.ProcessVideoProgressBar.Value = i;
+            }
+            window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Hidden;
         }
 
         //TODO: Delete duplicate code (method exists in VideoController).

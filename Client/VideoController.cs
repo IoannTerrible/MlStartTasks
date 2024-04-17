@@ -19,6 +19,8 @@ namespace Client
             try
             {
                 _videoCapture = new VideoCapture(filepath);
+                _videoCaptureForProcess = new VideoCapture(filepath);
+
                 _frame = new Mat();
                 mediaPlayer = imagePlace;
                 mediaSlider = slider;
@@ -54,6 +56,7 @@ namespace Client
         public Slider mediaSlider;
 
         private VideoCapture _videoCapture;
+        private VideoCapture _videoCaptureForProcess;
 
         private Mat _frame;
         private BitmapImage bitmapImage;
@@ -64,7 +67,7 @@ namespace Client
 
         public string shortName;
 
-        private List<List<ObjectOnPhoto>> _objectsOnFrame;
+        public List<List<ObjectOnPhoto>> ObjectsOnFrame;
 
         private bool _IsPaused = false;
         #endregion
@@ -98,13 +101,13 @@ namespace Client
                 _videoCapture.Read(_frame);
                 bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
                 _window.activyVideoPage.VideoImage.Source = bitmapImage;
-                if (_objectsOnFrame != null)
+                if (ObjectsOnFrame != null)
                 {
                     _window.activyVideoPage.localDrawer.ClearRectangles();
                     _window.activyVideoPage.localDrawer.CalculateScale();
-                    if (_currentFrameNumber - 1 < _objectsOnFrame.Count && _currentFrameNumber > 0)
+                    if (_currentFrameNumber - 1 < ObjectsOnFrame.Count && _currentFrameNumber > 0)
                     {
-                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(_objectsOnFrame[_currentFrameNumber - 1], _frame.ToBitmap());
+                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame.ToBitmap());
                     }
                 }
                 _currentFrameNumber--;
@@ -161,11 +164,11 @@ namespace Client
                 //await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
 
                 _window.activyVideoPage.VideoImage.Source = bitmapImage;
-                if (_objectsOnFrame != null)
+                if (ObjectsOnFrame != null)
                 {
-                    if (_currentFrameNumber - 1 < _objectsOnFrame.Count)
+                    if (_currentFrameNumber - 1 < ObjectsOnFrame.Count)
                     {
-                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(_objectsOnFrame[_currentFrameNumber - 1], _frame.ToBitmap());
+                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame.ToBitmap());
                     }
                 }
             }
@@ -195,25 +198,34 @@ namespace Client
         {
             try
             {
-                if (_objectsOnFrame == null)
+                if (ObjectsOnFrame == null)
                 {
                     Stopwatch stopwatch = Stopwatch.StartNew();
-                    _objectsOnFrame = await MainWindow.apiClient.GetObjectsOnFrames(_videoCapture, ConnectionWindow.ConnectionUri);
+                    if (App.ContentFromConfig["VideoProcessInRealTime"] == "false")
+                    {
+                        MessageBox.Show("start false");
+                        ObjectsOnFrame = await MainWindow.apiClient.GetObjectsOnFrames(_videoCaptureForProcess, ConnectionWindow.ConnectionUri);
+                    }
+                    else
+                    {
+                        MessageBox.Show("start true");
+                        await MainWindow.apiClient.GetProcessedInRealTimeVideo(_videoCaptureForProcess, this, ConnectionWindow.ConnectionUri);
+                    }
                     stopwatch.Stop();
-                    MessageBox.Show($"Success, {_objectsOnFrame.Count}, times - {stopwatch.ElapsedMilliseconds / 1000}s");
-                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Video processed, frames count - {_countFrames}, frames processed - {_objectsOnFrame.Count}");
+                    MessageBox.Show($"Success, {ObjectsOnFrame.Count}, times - {stopwatch.ElapsedMilliseconds / 1000}s");
+                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Video processed, frames count - {_countFrames}, frames processed - {ObjectsOnFrame.Count}");
                 }
                 else
                 {
-                    if (_objectsOnFrame.Count != _countFrames)
+                    if (ObjectsOnFrame.Count != _countFrames)
                     {
-                        _objectsOnFrame = null;
+                        ObjectsOnFrame = null;
                         GetProcessedVideo();
                     }
                     else
                     {
                         Logger.LogByTemplate(LogEventLevel.Warning, note: "An attempt to re-process the video.");
-                        MessageBox.Show($"Video processed. frames - {_objectsOnFrame.Count}");
+                        MessageBox.Show($"Video processed. frames - {ObjectsOnFrame.Count}");
                     }
                 }
             }
@@ -221,7 +233,6 @@ namespace Client
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Video processing error.");
             }
-
         }
         #endregion
     }

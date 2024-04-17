@@ -15,6 +15,7 @@ namespace ClassLibrary
 
                 AddNetwork(xmlDoc, root);
                 AddDatabase(xmlDoc, root);
+                AddCheckRealTimeProcessVideo(xmlDoc, root);
 
                 xmlDoc.Save(path);
                 Logger.LogByTemplate(Serilog.Events.LogEventLevel.Information, note: "Default configuration file created successfully.");
@@ -55,6 +56,16 @@ namespace ClassLibrary
             XmlElement connectionStringElement = xmlDoc.CreateElement("ConnectionString");
             connectionStringElement.InnerText = @"server=(localdb)\MSSqlLocalDb; Trusted_Connection = Yes; DataBase = MLstartDataBase";
             databaseElement.AppendChild(connectionStringElement);
+        }
+
+        private static void AddCheckRealTimeProcessVideo(XmlDocument xmlDoc, XmlElement root)
+        {
+            XmlElement videoElement = xmlDoc.CreateElement("VideoProcessing");
+            root.AppendChild(videoElement);
+
+            XmlElement connectionStringElement = xmlDoc.CreateElement("ProcessInRealTime");
+            connectionStringElement.InnerText = "false";
+            videoElement.AppendChild(connectionStringElement);
         }
 
         #endregion
