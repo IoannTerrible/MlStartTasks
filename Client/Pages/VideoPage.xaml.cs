@@ -96,9 +96,13 @@ namespace Client
 
         private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)
         {
-            if (await MainWindow.apiClient.CheckHealthAsync($"{ConnectionWindow.ConnectionUri}health"))
+            if (await MainWindow.apiClient.CheckHealthAsync($"{ConnectionWindow.ConnectionUri}"))
             {
                 MessageBox.Show("Yes");
+            }
+            else
+            {
+                MessageBox.Show("No");
             }
         }
         private void VideoBox_SourceUpdated(object sender, RoutedEventArgs e)

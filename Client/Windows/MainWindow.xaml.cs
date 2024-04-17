@@ -15,12 +15,14 @@ namespace Client
         public static string connectionString = App.ContentFromConfig["ConnectionString"];
         public bool areWeLogin = false;
         public bool areWeConnected = false;
+        public bool isServerAlive = false;
 
         public ImagePage activyImagePage;
         public VideoPage activyVideoPage;
         public static ApiClient apiClient;
 
         public static HttpClient client = new();
+        public static HealthChecker healthChecker;
 
         private App _app;
         
@@ -47,6 +49,9 @@ namespace Client
             ConnectionWindow.ConnectionUri = $"http://{App.ContentFromConfig["Ip"]}:{App.ContentFromConfig["Port"]}/";
             areWeConnected = true;
             UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
+            healthChecker = new(this, statusTextBox);
+            healthChecker.StartHealthCheckLoop(ConnectionWindow.ConnectionUri, 2);
+
         }
         private async void ConnectionClick(object sender, RoutedEventArgs e)
         {
@@ -68,7 +73,10 @@ namespace Client
         {
             if (areWeConnected)
             {
-                activyVideoPage = new VideoPage(this);
+                if(activyImagePage == null)
+                {
+                    activyVideoPage = new VideoPage(this);
+                }
                 MainFrame.Navigate(activyVideoPage);
             }
         }
@@ -128,73 +136,6 @@ namespace Client
                 registrationButton.Visibility = Visibility.Visible;
             }
         }
-        public static void ReciveResponce(string responce)
-        {
-            MessageBox.Show(responce);
-        }
-        public static async Task PerfomHealthChekAsync()
-        {
-            try
-            
-            {
-                if (ConnectionWindow.ConnectionUri == null)
-                {
-                    MessageBox.Show("Need to press the Connect button.");
-                    return;
-                }
-                if (await apiClient.CheckHealthAsync($"{ConnectionWindow.ConnectionUri}health"))
-                {
-                    MessageBox.Show("All good! The health check succeeded.");
-                    Logger.LogByTemplate(LogEventLevel.Information, note: "Health check succeeded.");
-                }
-                else
-                {
-                    MessageBox.Show("Health check returned false");
-                    Logger.LogByTemplate(LogEventLevel.Warning, note: "Health check returned false.");
-                }
-            }
-            catch (HttpRequestException httpEx)
-            {
-                Logger.LogByTemplate(LogEventLevel.Error, httpEx, note: "HTTP request error while performing health check.");
-                MessageBox.Show($"HTTP request error: {httpEx.Message}");
-            }
-            catch (Exception ex)
-            {
-                Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while performing health check.");
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}");
-            }
-        }
-
-        public static async void SendImage()
-        {
-            try
-            {
-                if(ConnectionWindow.ConnectionUri == null)
-                {
-                    MessageBox.Show("Need press Connect button");
-                    return;
-                }
-
-                string? openedFile = FileHandler.OpenFile(FileTypes.Image)[0];
-
-                if(openedFile != null)
-                {
-                    Uri uriFile = new(openedFile);
-                    Logger.LogByTemplate(LogEventLevel.Information, note: "Sending image: " + openedFile);
-                    await apiClient.SendImageAndReceiveJSONAsync(openedFile, ConnectionWindow.ConnectionUri);
-                    Logger.LogByTemplate(LogEventLevel.Information, note: "Image sent successfully: " + openedFile);
-                }
-            }
-            catch (HttpRequestException httpEx)
-            {
-                Logger.LogByTemplate(LogEventLevel.Error, httpEx, note: "HTTP request error while performing health check.");
-                MessageBox.Show($"HTTP request error: {httpEx.Message}");
-            }
-            catch (Exception ex)
-            {
-                Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while performing health check.");
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}");
-            }
-        }
+    
     }
 }
