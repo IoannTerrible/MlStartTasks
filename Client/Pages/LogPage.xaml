@@ -39,7 +39,7 @@
 
         <TextBlock Grid.Row="0" Text="Event Log" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,10"/>
 
-        <ListView x:Name="ListWithSqlResponce" Grid.Row="1" ItemsSource="{Binding LogEntries}" Margin="20,20,20,43" Background="#FFDAECE2" RenderTransformOrigin="0.5,0.5">
+        <ListView x:Name="ListWithSqlResponce" Grid.Row="1" ItemsSource="{Binding LogEntries}" Margin="20,20,394,43" Background="#FFDAECE2" RenderTransformOrigin="0.5,0.5">
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -56,7 +56,16 @@
                     <GridViewColumn Header="Meta Data" DisplayMemberBinding="{Binding MetaData}"/>
                 </GridView>
             </ListView.View>
+            <ListView.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
+            </ListView.InputBindings>
         </ListView>
+        
+        <Viewbox Grid.Column="0" Margin="420,24,20,187" Stretch="Uniform" Grid.Row="1">
+            <Canvas x:Name="canvas" Width="99" Height="49" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Image x:Name="ImageBoxThree" Source="{Binding ImageSource}" Stretch="Uniform" Width="99" Height="54" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </Canvas>
+        </Viewbox>
 
         <Button x:Name="refreshButton" Grid.Row="1" Style="{StaticResource CustomButtonStyle}" Content="Refresh" Command="{Binding RefreshCommand}" Margin="0,0,10,9" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" Click="RefreshButton_Click"/>
     </Grid>

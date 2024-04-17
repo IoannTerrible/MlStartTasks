@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Client
 {
@@ -16,10 +17,23 @@ namespace Client
         {
             _window = window;
             InitializeComponent();
+
+            ListWithSqlResponce.MouseDoubleClick += ListWithSqlResponce_MouseDoubleClick;
+
         }
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             RefreshLogEntries();
+        }
+        private void ListWithSqlResponce_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+                if (ListWithSqlResponce.SelectedItem is LogEntry selectedLogEntry)
+                {
+                    string userName = selectedLogEntry.UserName;
+                    string fileName = selectedLogEntry.FileName;
+                    string framePath = selectedLogEntry.FramePath;
+                    string metaData = selectedLogEntry.MetaData;
+                }
         }
         private void RefreshLogEntries()
         {
