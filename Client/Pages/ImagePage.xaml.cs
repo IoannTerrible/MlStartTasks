@@ -49,12 +49,12 @@ namespace Client
         private void SendAndReciveButton_Click(object sender, RoutedEventArgs e)
         {
             ListBoxForResponce.Items.Clear();
-            MainWindow.SendImage();
+            //MainWindow.SendImage();
             ClearRectangles();
         }
         private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)
         {
-            await MainWindow.PerfomHealthChekAsync();
+            //await MainWindow.PerfomHealthChekAsync();
         }
         private void ClearRectangles()
         {
