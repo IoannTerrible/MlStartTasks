@@ -50,7 +50,7 @@ namespace Client
             areWeConnected = true;
             UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
             healthChecker = new(this, statusTextBox);
-            healthChecker.StartHealthCheckLoop(ConnectionWindow.ConnectionUri, 2);
+            healthChecker.StartHealthCheckLoop(ConnectionWindow.ConnectionUri, 600);
 
         }
         private async void ConnectionClick(object sender, RoutedEventArgs e)
@@ -77,6 +77,7 @@ namespace Client
                 {
                     activyVideoPage = new VideoPage(this);
                 }
+
                 MainFrame.Navigate(activyVideoPage);
             }
         }

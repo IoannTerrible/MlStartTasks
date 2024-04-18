@@ -25,11 +25,11 @@ namespace Client
             this.statusTextBox = statusTextBox;
         }
 
-        public async Task StartHealthCheckLoop(string apiUrl, int intervalInSeconds)
+        public async Task StartHealthCheckLoop(string apiUrl, int intervalInMillyseconds)
         {
             while (true)
             {
-                await Task.Delay(intervalInSeconds * 1000); // Delay before the next health check
+                await Task.Delay(intervalInMillyseconds); // Delay before the next health check
                 bool isHealthy = await CheckHealthAsync(apiUrl);
 
                 mainWindow.Dispatcher.Invoke(() =>

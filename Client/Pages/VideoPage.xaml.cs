@@ -90,7 +90,12 @@ namespace Client
 
         private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            currentVideoController.GetProcessedVideo();
+            try
+            {
+                currentVideoController.GetProcessedVideo();
+            }
+            catch { }
+
         }
 
         private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)

@@ -78,7 +78,7 @@ namespace Client
 
             return false;
         }
-        public void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name, int id)
+        public void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name, int id, bool itIsLog = false)
         {
             Rectangle boundingBox = new Rectangle();
 
@@ -113,9 +113,12 @@ namespace Client
                     textBlock.Foreground = Brushes.Red;
 
                 }
-                boundingBox.StrokeThickness = 2;
+                boundingBox.StrokeThickness = 1;
                 boundingBox.Fill = Brushes.Transparent;
-                canvas.Children.Add(textBlock);
+                if(itIsLog == false)
+                {
+                    canvas.Children.Add(textBlock);
+                }
                 canvas.Children.Add(boundingBox);
             }
         }

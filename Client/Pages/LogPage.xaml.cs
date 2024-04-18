@@ -61,7 +61,8 @@ namespace Client
                         objectOnPhoto.XBottonRigtCorner,
                         objectOnPhoto.YBottonRigtCorner,
                         objectOnPhoto.Class_name,
-                        objectOnPhoto.Class_id);
+                        objectOnPhoto.Class_id,
+                        true);
                 }
                 catch (Exception ex)
                 {
