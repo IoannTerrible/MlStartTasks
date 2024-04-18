@@ -203,12 +203,10 @@ namespace Client
                     Stopwatch stopwatch = Stopwatch.StartNew();
                     if (App.ContentFromConfig["VideoProcessInRealTime"] == "false")
                     {
-                        MessageBox.Show("start false");
                         ObjectsOnFrame = await MainWindow.apiClient.GetObjectsOnFrames(_videoCaptureForProcess, ConnectionWindow.ConnectionUri);
                     }
                     else
                     {
-                        MessageBox.Show("start true");
                         await MainWindow.apiClient.GetProcessedInRealTimeVideo(_videoCaptureForProcess, this, ConnectionWindow.ConnectionUri);
                     }
                     stopwatch.Stop();

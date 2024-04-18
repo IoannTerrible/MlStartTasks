@@ -12,15 +12,15 @@ namespace ClassLibrary
         {
             StackTrace stackTrace = new StackTrace(true);
             StringBuilder info = new StringBuilder($"Note: {note}");
-            if (logEventLevel == LogEventLevel.Debug)
-            {
-                var (shortCommitId, commitVersion) = GetCommitInfo();
-                if (!string.IsNullOrEmpty(shortCommitId) && !string.IsNullOrEmpty(commitVersion))
-                {
-                    info.Append($" CommitID: {shortCommitId}");
-                    info.Append($" AppVersion: {commitVersion}");
-                }
-            }
+            //if (logEventLevel == LogEventLevel.Debug)
+            //{
+            //    //var (shortCommitId, commitVersion) = GetCommitInfo();
+            //    //if (!string.IsNullOrEmpty(shortCommitId) && !string.IsNullOrEmpty(commitVersion))
+            //    //{
+            //    //    info.Append($" CommitID: {shortCommitId}");
+            //    //    info.Append($" AppVersion: {commitVersion}");
+            //    //}
+            //}
             if (ex != null)
             {
                 info.Append($"{ex.Message} ");
@@ -87,24 +87,25 @@ namespace ClassLibrary
                 return null;
             }   
         }
-        private static (string shortCommitId, string commitVersion) GetCommitInfo()
-        {
-            try
-            {
-                using (var repo = new Repository("https://github.com/IoannTerrible/MlStartTasks"))
-                {
-                    var commit = repo.Head.Tip;
-                    string shortCommitId = commit.Sha.Substring(0, 7); // Short commit ID
-                    string commitVersion = commit.MessageShort.Trim().Split(' ')[0]; // First word of commit message
+        //Unfortunately, we will have to abandon this functionality due to the fact that it only works with local repositories
+        //private static (string shortCommitId, string commitVersion) GetCommitInfo()
+        //{
+        //    //try
+        //    //{
+        //    //    using (var repo = new Repository("https://github.com/IoannTerrible/MlStartTasks"))
+        //    //    {
+        //    //        var commit = repo.Head.Tip;
+        //    //        string shortCommitId = commit.Sha.Substring(0, 7); // Short commit ID
+        //    //        string commitVersion = commit.MessageShort.Trim().Split(' ')[0]; // First word of commit message
 
-                    return (shortCommitId, commitVersion);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Write(LogEventLevel.Error, ex.ToString());
-                return (null, null);
-            }
-        }
+        //    //        return (shortCommitId, commitVersion);
+        //    //    }
+        //    //}
+        //    //catch (Exception ex)
+        //    //{
+        //    //    Log.Write(LogEventLevel.Error, ex.ToString());
+        //    //    return (null, null);
+        //    //}
+        //}
     }
 }

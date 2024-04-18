@@ -36,10 +36,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="336" />
+            <ColumnDefinition Width="449"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Event Log" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+        <TextBlock Grid.Row="0" Text="Event Log" FontSize="20" HorizontalAlignment="Center" Margin="0,10,0,10" Width="86"/>
 
-        <ListView x:Name="ListWithSqlResponce" Grid.Row="1" ItemsSource="{Binding LogEntries}" Margin="20,20,394,43" Background="#FFDAECE2" RenderTransformOrigin="0.5,0.5">
+        <ListView x:Name="ListWithSqlResponce" Grid.Row="1" ItemsSource="{Binding LogEntries}" Margin="20,20,80,43" Background="#FFDAECE2" RenderTransformOrigin="0.5,0.5">
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -60,13 +64,13 @@
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
             </ListView.InputBindings>
         </ListView>
-        
-        <Viewbox Grid.Column="0" Margin="420,24,20,187" Stretch="Uniform" Grid.Row="1">
-            <Canvas x:Name="canvas" Width="99" Height="49" HorizontalAlignment="Center" VerticalAlignment="Top">
-                <Image x:Name="ImageBoxThree" Source="{Binding ImageSource}" Stretch="Uniform" Width="99" Height="54" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Viewbox Grid.Column="1" Margin="10,0,10,0" Stretch="Uniform" Grid.Row="1" Height="361">
+            <Canvas x:Name="canvas3" Width="99" Height="85" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <Image x:Name="ImageBoxThree" Source="{Binding ImageSource}" Stretch="Uniform" Width="99" Height="85" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Canvas>
         </Viewbox>
 
-        <Button x:Name="refreshButton" Grid.Row="1" Style="{StaticResource CustomButtonStyle}" Content="Refresh" Command="{Binding RefreshCommand}" Margin="0,0,10,9" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" Click="RefreshButton_Click"/>
+        <Button x:Name="refreshButton" Grid.Row="1" Style="{StaticResource CustomButtonStyle}" Content="Refresh" Command="{Binding RefreshCommand}" Margin="272,339,0,20" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="70" Click="RefreshButton_Click"/>
     </Grid>
 </Page>

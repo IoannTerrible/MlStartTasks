@@ -78,11 +78,10 @@ namespace Client
 
             return false;
         }
-        private void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name, int id)
+        public void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name, int id)
         {
             Rectangle boundingBox = new Rectangle();
 
-            // Calculate scaled coordinates here using the actual image size and calculated scale
             double scaledXTopLeft = xTopLeft * scaleX;
             double scaledYTopLeft = yTopLeft * scaleY;
             double scaledWidth = (xBottomRight - xTopLeft) * scaleX;
@@ -94,7 +93,7 @@ namespace Client
             {
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = $"{name} {id}";
-                textBlock.FontSize = 16;
+                textBlock.FontSize = 12;
                 textBlock.Foreground = Brushes.Red;
                 Canvas.SetLeft(textBlock, scaledXTopLeft);
                 Canvas.SetTop(textBlock, scaledYTopLeft);
