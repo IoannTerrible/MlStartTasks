@@ -14,25 +14,33 @@
 ### Example:  
 1.009 Merge and small code improvements  
 
-# MlStartTasks
+# MlStartTasks  
 StartDate:14.01.2024  
-## Technologies Used
-
+## Technologies Used  
 - 🛢️ **DBMS**: Microsoft SQL Server
 - 🖥️ **Framework**: WPF app targeting .NET 8.0, including net8.0-windows, and utilizing WPF components.
 - 🚀 **Project Entry Points**:
-  - For the client: `SocketClient\App.Xaml.cs.Main`
-  - For the Host Server: `ServerHost\Programm.cs`
-- 📜 **Logs Directory**: `(SocketClient\ServerHost)\bin\Debug\logs\`
-- ⚙️ **Configuration File**: `SocketClient\bin\Debug\config.xml` 
+  - For the client: `Client\App.Xaml.cs.Main`
+- 📜 **Logs Directory**: `Client\bin\Debug\logs\`
+- ⚙️ **Configuration File**: `Client\bin\Debug\config.xml` 
 
 ## Database Structure
 DataBase name: MLstartDataBase
 
-### Table `Userss`
+### Table `Userss`  
 ```sql
 CREATE TABLE IF NOT EXISTS Userss (
     Personid INT PRIMARY KEY IDENTITY,
     Login VARCHAR(255) NOT NULL,
     PassWord VARCHAR(255) NOT NULL
 );
+```
+### Table `EventLog`  
+```sql
+CREATE TABLE IF NOT EXISTS EventLog (
+    UserName VARCHAR(255) NULL,
+    FileName VARCHAR(255) NULL,
+    FramePath NVARCHAR(MAX) NULL,
+    MetaData NVARCHAR(MAX) NULL
+);
+```
