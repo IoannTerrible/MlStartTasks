@@ -78,7 +78,7 @@ namespace Client
             while (!_IsPaused)
             {
                 await SetFrame();
-                Cv2.WaitKey(1);
+                Cv2.WaitKey(1000/_fps);
             }
         }
         public async void Stop()
@@ -201,7 +201,7 @@ namespace Client
                 if (ObjectsOnFrame == null)
                 {
                     Stopwatch stopwatch = Stopwatch.StartNew();
-                    if (App.ContentFromConfig["VideoProcessInRealTime"] == "false")
+                    if (App.ContentFromConfig["ProcessInRealTime"] == "false")
                     {
                         ObjectsOnFrame = await MainWindow.apiClient.GetObjectsOnFrames(_videoCaptureForProcess, ConnectionWindow.ConnectionUri);
                     }

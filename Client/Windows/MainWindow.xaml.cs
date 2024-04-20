@@ -12,47 +12,51 @@ namespace Client
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Fields
+
         public static string connectionString = App.ContentFromConfig["ConnectionString"];
         public bool areWeLogin = false;
         public bool areWeConnected = false;
         public bool isServerAlive = false;
 
-        public ImagePage activyImagePage;
         public VideoPage activyVideoPage;
         public static ApiClient apiClient;
 
         public static HttpClient client = new();
         public static HealthChecker healthChecker;
 
-        private App _app;
-        
+        #endregion
+
+        #region Constructor
 
         public MainWindow()
         {
             InitializeComponent();
-            _app = (App)Application.Current;
             apiClient = new ApiClient(this);
             UpdateButtonVisibility(areWeLogin);
             string[] eventLogColumns =
-            [
-                            "UserName VARCHAR(255) NULL",
-                            "FileName VARCHAR(255) NULL",
-                            "FramePath NVARCHAR(MAX) NULL",
-                            "MetaData NVARCHAR(MAX) NULL"
-            ];
+            {
+                "UserName VARCHAR(255) NULL",
+                "FileName VARCHAR(255) NULL",
+                "FramePath NVARCHAR(MAX) NULL",
+                "MetaData NVARCHAR(MAX) NULL"
+            };
             SqlCore.CreateTable(connectionString, "EventLog", eventLogColumns);
         }
+
+        #endregion
+
+        #region Event Handlers
+
         private async void FastConnectClick(object sender, RoutedEventArgs e)
         {
-
-            //ConnectionWindow.ConnectionUri = @"http://localhost:7000/";
             ConnectionWindow.ConnectionUri = $"http://{App.ContentFromConfig["Ip"]}:{App.ContentFromConfig["Port"]}/";
             areWeConnected = true;
             UserStatus.Text = ConnectionWindow.ConnectionUri.ToString();
             healthChecker = new(this, statusTextBox);
             healthChecker.StartHealthCheckLoop(ConnectionWindow.ConnectionUri, 600);
-
         }
+
         private async void ConnectionClick(object sender, RoutedEventArgs e)
         {
             ConnectionWindow.ShowConnectionDialog();
@@ -62,6 +66,7 @@ namespace Client
                 areWeConnected = true;
             }
         }
+
         private async void DisconnectClick(object sender, RoutedEventArgs e)
         {
             ConnectionWindow.ConnectionUri = null;
@@ -69,11 +74,12 @@ namespace Client
             UserStatus.Text = "YouAreDisconnect";
             Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from the server.");
         }
+
         private async void ImagePageClick(object sender, RoutedEventArgs e)
         {
             if (areWeConnected)
             {
-                if(activyImagePage == null)
+                if (activyVideoPage == null)
                 {
                     activyVideoPage = new VideoPage(this);
                 }
@@ -81,10 +87,12 @@ namespace Client
                 MainFrame.Navigate(activyVideoPage);
             }
         }
+
         private async void ConfigClick(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new ConfigPage(this));
         }
+
         private void RegistrPageClick(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new RegInPage(this));
@@ -110,33 +118,51 @@ namespace Client
         {
             MainFrame.Navigate(new LogPage(this));
         }
+
+        #endregion
+
+        #region Methods
         public void UpdateButtonVisibility(bool areWeLoggedIn)
         {
             if (areWeLoggedIn)
             {
-                fastConnectButton.Visibility = Visibility.Visible;
-                disconButton.Visibility = Visibility.Visible;
-                imagePageButton.Visibility = Visibility.Visible;
-                configButton.Visibility = Visibility.Visible;
-                connectButton.Visibility = Visibility.Visible;
-                eventLogButton.Visibility = Visibility.Visible;
-
-                loginButton.Visibility = Visibility.Collapsed;
-                registrationButton.Visibility = Visibility.Collapsed;
+                ShowFunButtons();
+                HideLogInButtons();
             }
             else
             {
-                fastConnectButton.Visibility = Visibility.Collapsed;
-                disconButton.Visibility = Visibility.Collapsed;
-                imagePageButton.Visibility = Visibility.Collapsed;
-                configButton.Visibility = Visibility.Collapsed;
-                connectButton.Visibility = Visibility.Collapsed;
-                eventLogButton.Visibility = Visibility.Collapsed;
-
-                loginButton.Visibility = Visibility.Visible;
-                registrationButton.Visibility = Visibility.Visible;
+                HideFunButtons();
+                ShowLogInButtons();
             }
         }
-    
+        private void ShowFunButtons()
+        {
+            fastConnectButton.Visibility = Visibility.Visible;
+            disconButton.Visibility = Visibility.Visible;
+            imagePageButton.Visibility = Visibility.Visible;
+            configButton.Visibility = Visibility.Visible;
+            connectButton.Visibility = Visibility.Visible;
+            eventLogButton.Visibility = Visibility.Visible;
+        }
+        private void ShowLogInButtons()
+        {
+            loginButton.Visibility = Visibility.Visible;
+            registrationButton.Visibility = Visibility.Visible;
+        }
+        private void HideLogInButtons()
+        {
+            loginButton.Visibility = Visibility.Collapsed;
+            registrationButton.Visibility = Visibility.Collapsed;
+        }
+        private void HideFunButtons()
+        {
+            fastConnectButton.Visibility = Visibility.Collapsed;
+            disconButton.Visibility = Visibility.Collapsed;
+            imagePageButton.Visibility = Visibility.Collapsed;
+            configButton.Visibility = Visibility.Collapsed;
+            connectButton.Visibility = Visibility.Collapsed;
+            eventLogButton.Visibility = Visibility.Collapsed;
+        }
+        #endregion
     }
 }

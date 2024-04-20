@@ -1,10 +1,13 @@
 ﻿using Serilog.Events;
+using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace ClassLibrary
 {
     public static class ConfigReader
     {
+        #region Public Methods
         public static Dictionary<string, string> ReadConfigFromFile(string path)
         {
             try
@@ -17,7 +20,7 @@ namespace ClassLibrary
                     { "Port", ReadNodeValue(xmlDoc, "//Config/Network/Port") },
                     { "Ip", ReadNodeValue(xmlDoc, "//Config/Network/Ip") },
                     { "ConnectionString", ReadNodeValue(xmlDoc, "//Config/Database/ConnectionString") },
-                    { "VideoProcessInRealTime", ReadNodeValue(xmlDoc, "//Config/VideoProcessing/ProcessInRealTime") }
+                    { "ProcessInRealTime", ReadNodeValue(xmlDoc, "//Config/VideoProcessing/ProcessInRealTime") }
                 };
 
                 return configDictionary;
@@ -45,10 +48,10 @@ namespace ClassLibrary
                 Logger.LogByTemplate(LogEventLevel.Error, ex, $"An error occurred while updating the config file: {ex.Message}");
             }
         }
-
-        public static void UpdateNodeValues(XmlDocument xmlDoc, Dictionary<string, string> updatedValues)
+        #endregion
+        #region Private Methods
+        private static void UpdateNodeValues(XmlDocument xmlDoc, Dictionary<string, string> updatedValues)
         {
-
             foreach (var kvp in updatedValues)
             {
                 string xpath = GetXPathForNode(kvp.Key);
@@ -64,21 +67,20 @@ namespace ClassLibrary
                 }
             }
         }
-
         private static string GetXPathForNode(string nodeName)
         {
             return $"//*[local-name()='{nodeName}']";
         }
-
         private static string ReadNodeValue(XmlDocument xmlDoc, string xpath)
         {
             XmlNode? node = xmlDoc.SelectSingleNode(xpath);
             if (node != null)
             {
-                Logger.LogByTemplate(LogEventLevel.Debug, note: $"Read from congif {node.InnerText}");
+                Logger.LogByTemplate(LogEventLevel.Debug, note: $"Read from config {node.InnerText}");
                 return node.InnerText;
             }
             throw new Exception($"Node with XPath '{xpath}' not found.");
         }
+        #endregion
     }
 }
