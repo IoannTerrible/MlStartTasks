@@ -1,0 +1,11 @@
+opencv-python==4.9.0.80
+pillow==10.2.0
+fastapi[full]==0.110.0
+pydantic==2.6.4
+
+numpy~=1.26.4
+uvicorn~=0.29.0
+ultralytics~=8.1.40
+torch~=2.2.2
+torchvision~=0.17.2
+norfair~=2.2.0

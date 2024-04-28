@@ -1,0 +1,31 @@
+{
+    "width": 640,
+    "height": 480,
+    "channels": 3,
+    "objects": [
+        {
+            "xtl": 132,
+            "ytl": 73,
+            "xbr": 226,
+            "ybr": 300,
+            "class_name": "stand",
+            "tracked_id": 25
+        },
+        {
+            "xtl": 507,
+            "ytl": 53,
+            "xbr": 596,
+            "ybr": 202,
+            "class_name": "stand",
+            "tracked_id": 27
+        },
+        {
+            "xtl": 582,
+            "ytl": 126,
+            "xbr": 711,
+            "ybr": 378,
+            "class_name": "stand",
+            "tracked_id": 28
+        }
+    ]
+}
