@@ -97,11 +97,5 @@ namespace Client
             ListWithSqlResponce.ItemsSource = LogEntries;
         }
     }
-    public class LogEntry
-    {
-        public string UserName { get; set; }
-        public string FileName { get; set; }
-        public string FramePath { get; set; }
-        public string MetaData { get; set; }
-    }
+
 }

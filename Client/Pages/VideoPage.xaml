@@ -71,12 +71,44 @@
                 <Button x:Name ="SendButton" Content="Send Service" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CustomButtonStyle}" Height="50" Width="114" Margin="10,0,0,0" Click="SendButton_Click"/>
             </Grid>
             <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="5,65,0,8" Grid.RowSpan="2">
-                <ListBox x:Name ="ListBoxForResponce" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Width="256" Margin="0,0,0,44" SelectionMode="Single" SelectionChanged="ListBoxForResponce_SelectionChanged"/>
-                <ProgressBar x:Name="ProcessVideoProgressBar" HorizontalAlignment="Center" Height="17" VerticalAlignment="Bottom" Width="256" Margin="0,0,0,22" Visibility="Hidden"/>
-                <Button x:Name="UploadMediaButton" Style="{StaticResource CustomButtonStyle}" Content="Upload Media" Width="256" Margin="0,319,0,0" Click="UploadMediaButton_Click" VerticalAlignment="Bottom"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="ComboBoxForResponse" HorizontalAlignment="Left" Width="256" Margin="0,3,0,311" SelectionChanged="ComboBoxForResponse_SelectionChanged" Grid.ColumnSpan="2" Height="23" VerticalAlignment="Top">
+                    <ComboBox.ItemsSource>
+                        <CompositeCollection>
+                            <ComboBoxItem Content="Item 1"/>
+                            <ComboBoxItem Content="Item 2"/>
+                        </CompositeCollection>
+                    </ComboBox.ItemsSource>
+                </ComboBox>
+                <ListView x:Name="ListWithSqlResponce" ItemsSource="{Binding LogEntries}" Margin="-1,26,8,37" Background="#FFDAECE2" RenderTransformOrigin="0.5,0.5">
+                    <ListView.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="0.139"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0.441"/>
+                        </TransformGroup>
+                    </ListView.RenderTransform>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="User Name" DisplayMemberBinding="{Binding UserName}"/>
+                            <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}"/>
+                            <GridViewColumn Header="Frame Path" DisplayMemberBinding="{Binding FramePath}"/>
+                            <GridViewColumn Header="Meta Data" DisplayMemberBinding="{Binding MetaData}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
+                    </ListView.InputBindings>
+                </ListView>
+                <ProgressBar x:Name="ProcessVideoProgressBar" HorizontalAlignment="Left" Height="17" VerticalAlignment="Bottom" Width="256" Margin="0,0,0,22" Visibility="Hidden" Grid.ColumnSpan="2"/>
+                <Button x:Name="UploadMediaButton" Style="{StaticResource CustomButtonStyle}" Content="Upload Media" Width="256" Click="UploadMediaButton_Click" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
             </Grid>
 
         </Grid>
-        
+
     </Grid>
 </Page>

@@ -17,7 +17,7 @@ namespace Client
             Canvas canvas = FindName("canvas2") as Canvas;
             canvas.Children.Add(rectangleContainer);
 
-            ListBoxForResponce.ItemsSource = OpenVideos;
+            ComboBoxForResponse.ItemsSource = OpenVideos;
             localDrawer = new Drawer(rectangleContainer, VideoImage, _window);
         }
         
@@ -115,11 +115,12 @@ namespace Client
             localDrawer.ClearRectangles();
             Logger.LogByTemplate(LogEventLevel.Information, note: $"Image uploaded.");
         }
-        private void ListBoxForResponce_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBoxForResponse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ListBoxForResponce.SelectedIndex != -1)
+            ComboBox comboBox = sender as ComboBox;
+            if (comboBox.SelectedItem != null)
             {
-                currentVideoController = _videoControllers[ListBoxForResponce.SelectedIndex];
+                currentVideoController = _videoControllers[comboBox.SelectedIndex];
                 currentVideoController.SetFirstFrame();
             }
             else
@@ -129,19 +130,22 @@ namespace Client
                 _window.activyVideoPage.localDrawer.ClearRectangles();
             }
         }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ListBoxForResponce.Items.Count == 0) return;
-            if(ListBoxForResponce.Items.Count == 1)
+            if (ComboBoxForResponse.Items.Count == 0) return;
+            if (ComboBoxForResponse.Items.Count == 1)
             {
-                ListBoxForResponce.SelectedIndex = -1;
+                ComboBoxForResponse.SelectedIndex = -1;
                 _videoControllers.Clear();
                 OpenVideos.Clear();
                 return;
             }
-            ListBoxForResponce.SelectedIndex--;
-            _videoControllers.RemoveAt(ListBoxForResponce.SelectedIndex+1);
-            OpenVideos.RemoveAt(ListBoxForResponce.SelectedIndex+1);
+            int selectedIndex = ComboBoxForResponse.SelectedIndex;
+            ComboBoxForResponse.SelectedIndex = selectedIndex > 0 ? selectedIndex - 1 : 0;
+            _videoControllers.RemoveAt(selectedIndex);
+            OpenVideos.RemoveAt(selectedIndex);
         }
+
     }
 }
