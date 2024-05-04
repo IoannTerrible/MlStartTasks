@@ -55,15 +55,15 @@ namespace Client
                         Class_name = metaDataParts[4],
                         Class_id = int.Parse(metaDataParts[5])
                     };
-                    await LoadImageAndCalculateScale(filePath);
-                    localDrawerForLogPage.DrawBoundingBox(objectOnPhoto.XTopLeftCorner,
-                        objectOnPhoto.YTopLeftCorner,
-                        objectOnPhoto.XBottonRigtCorner,
-                        objectOnPhoto.YBottonRigtCorner,
-                        objectOnPhoto.Class_name,
-                        objectOnPhoto.Class_id,
-                        true);
-                }
+                //    await LoadImageAndCalculateScale(filePath);
+                //    localDrawerForLogPage.DrawBoundingBox(objectOnPhoto.XTopLeftCorner,
+                //        objectOnPhoto.YTopLeftCorner,
+                //        objectOnPhoto.XBottonRigtCorner,
+                //        objectOnPhoto.YBottonRigtCorner,
+                //        objectOnPhoto.Class_name,
+                //        objectOnPhoto.Class_id,
+                //        true);
+}
                 catch (Exception ex)
                 {
 

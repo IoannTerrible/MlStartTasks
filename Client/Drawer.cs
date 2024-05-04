@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using OpenCvSharp;
+using OpenCvSharp.Extensions;
 
 namespace Client
 {
@@ -26,8 +27,10 @@ namespace Client
             this.videoImage = videoImage;
         }
 
-        public void DrawBoundingBoxes(List<ObjectOnPhoto> aircraftObjects, System.Drawing.Bitmap keyFrame)
+        public Mat DrawBoundingBoxes(List<ObjectOnPhoto> aircraftObjects, Mat keyFrame)
         {
+            Mat frame = keyFrame.Clone();
+
             foreach (var obj in aircraftObjects)
             {
                 double xtl = obj.XTopLeftCorner;
@@ -42,14 +45,28 @@ namespace Client
                 if (IsClassNameChanged(id, name))
                 {
                     Logger.LogByTemplate(LogEventLevel.Information, note: $"Class_name for object with id {id} changed to {name}");
-                    FileHandler.SaveBitmapImageToFile(keyFrame);
+                    FileHandler.SaveBitmapImageToFile(frame.ToBitmap());
                     CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.currentVideoController.shortName, FileHandler.LastKeyFrameName, metdate, MainWindow.connectionString);
                 }
-                DrawBoundingBox(xtl, ytl, xbr, ybr, name, id);
+
+                DrawBoundingBox(frame, xtl, ytl, xbr, ybr, name, id);
                 Logger.LogByTemplate(LogEventLevel.Debug, note: $"DrawObject with {xtl},{ytl}, {xbr}, {ybr}, {name}, {id}");
             }
 
             Logger.LogByTemplate(LogEventLevel.Information, note: $"{aircraftObjects.Count} borders of objects have been drawn.");
+
+            return frame;
+        }
+
+        public void DrawBoundingBox(Mat frame, double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name, int id)
+        {
+            Point topLeft = new Point((int)xTopLeft, (int)yTopLeft);
+            Point bottomRight = new Point((int)xBottomRight, (int)yBottomRight);
+            Scalar color = Scalar.Red;
+            int thickness = 2;
+
+            frame.Rectangle(topLeft, bottomRight, color, thickness);
+            Cv2.PutText(frame, $"{name} {id}", topLeft, HersheyFonts.HersheySimplex, 1.0, color, thickness);
         }
         private void CreateEventLogEntry(string userName,
             string fileName, string framePath, string metaData, string sqlConnectionString)
@@ -78,50 +95,7 @@ namespace Client
 
             return false;
         }
-        public void DrawBoundingBox(double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name, int id, bool itIsLog = false)
-        {
-            Rectangle boundingBox = new Rectangle();
 
-            double scaledXTopLeft = xTopLeft * scaleX;
-            double scaledYTopLeft = yTopLeft * scaleY;
-            double scaledWidth = (xBottomRight - xTopLeft) * scaleX;
-            double scaledHeight = (yBottomRight - yTopLeft) * scaleY;
-
-            boundingBox.Width = scaledWidth;
-            boundingBox.Height = scaledHeight;
-            if (canvas != null)
-            {
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = $"{name} {id}";
-                textBlock.FontSize = 12;
-                textBlock.Foreground = Brushes.Red;
-                Canvas.SetLeft(textBlock, scaledXTopLeft);
-                Canvas.SetTop(textBlock, scaledYTopLeft);
-
-                Canvas.SetLeft(boundingBox, scaledXTopLeft);
-                Canvas.SetTop(boundingBox, scaledYTopLeft);
-                Canvas.SetZIndex(boundingBox, int.MaxValue);
-                if(name == "fall")
-                {
-                    boundingBox.Stroke = Brushes.Red;
-                    textBlock.Foreground = Brushes.Cyan;
-
-                }
-                else
-                {
-                    boundingBox.Stroke = Brushes.Cyan;
-                    textBlock.Foreground = Brushes.Red;
-
-                }
-                boundingBox.StrokeThickness = 1;
-                boundingBox.Fill = Brushes.Transparent;
-                if(itIsLog == false)
-                {
-                    canvas.Children.Add(textBlock);
-                }
-                canvas.Children.Add(boundingBox);
-            }
-        }
 
         public void ClearRectangles()
         {

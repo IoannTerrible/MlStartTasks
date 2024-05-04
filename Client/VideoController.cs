@@ -99,17 +99,21 @@ namespace Client
             if (_videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber - 1) && _currentFrameNumber > 0)
             {
                 _videoCapture.Read(_frame);
-                bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
-                _window.activyVideoPage.VideoImage.Source = bitmapImage;
                 if (ObjectsOnFrame != null)
                 {
                     _window.activyVideoPage.localDrawer.ClearRectangles();
                     _window.activyVideoPage.localDrawer.CalculateScale();
                     if (_currentFrameNumber - 1 < ObjectsOnFrame.Count && _currentFrameNumber > 0)
                     {
-                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame.ToBitmap());
-                    }
+                        bitmapImage = ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap()));                    
+                            }
                 }
+                else
+                {
+                    bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
+
+                }
+                _window.activyVideoPage.VideoImage.Source = bitmapImage;
                 _currentFrameNumber--;
                 mediaSlider.Value = _currentFrameNumber;
             }
@@ -160,17 +164,20 @@ namespace Client
                 _currentFrameNumber++;
                 _window.activyVideoPage.localDrawer.ClearRectangles();
                 _window.activyVideoPage.localDrawer.CalculateScale();
-                bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
                 //await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
 
-                _window.activyVideoPage.VideoImage.Source = bitmapImage;
                 if (ObjectsOnFrame != null)
                 {
                     if (_currentFrameNumber - 1 < ObjectsOnFrame.Count)
                     {
-                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame.ToBitmap());
+                        bitmapImage = ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap()));
                     }
                 }
+                else
+                {
+                    bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
+                }
+                _window.activyVideoPage.VideoImage.Source = bitmapImage;
             }
             else
             {
