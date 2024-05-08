@@ -105,12 +105,12 @@ namespace Client
                     _window.activyVideoPage.localDrawer.CalculateScale();
                     if (_currentFrameNumber - 1 < ObjectsOnFrame.Count && _currentFrameNumber > 0)
                     {
-                        bitmapImage = ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap()));                    
+                        bitmapImage = ImageConverter.ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap()));                    
                             }
                 }
                 else
                 {
-                    bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
+                    bitmapImage = ImageConverter.ImageSourceForImageControl(_frame.ToBitmap());
 
                 }
                 _window.activyVideoPage.VideoImage.Source = bitmapImage;
@@ -144,7 +144,7 @@ namespace Client
                 _currentFrameNumber++;
                 _window.activyVideoPage.localDrawer.ClearRectangles();
                 _window.activyVideoPage.localDrawer.CalculateScale();
-                bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
+                bitmapImage = ImageConverter.ImageSourceForImageControl(_frame.ToBitmap());
                 await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
             }
             else
@@ -170,12 +170,12 @@ namespace Client
                 {
                     if (_currentFrameNumber - 1 < ObjectsOnFrame.Count)
                     {
-                        bitmapImage = ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap()));
+                        bitmapImage = ImageConverter.ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap()));
                     }
                 }
                 else
                 {
-                    bitmapImage = ImageSourceForImageControl(_frame.ToBitmap());
+                    bitmapImage = ImageConverter.ImageSourceForImageControl(_frame.ToBitmap());
                 }
                 _window.activyVideoPage.VideoImage.Source = bitmapImage;
             }
@@ -187,20 +187,7 @@ namespace Client
             }
             mediaSlider.Value = _currentFrameNumber;
         }
-        public BitmapImage ImageSourceForImageControl(System.Drawing.Bitmap bitmap)
-        {
-            {
-                using MemoryStream memory = new();
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
-                return bitmapimage;
-            }
-        }
+
         public async void GetProcessedVideo()
         {
             try

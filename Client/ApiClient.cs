@@ -1,16 +1,14 @@
-﻿using ClassLibrary;
+﻿using System.IO;
+using System.Net.Http;
+using System.Windows;
+using System.Windows.Media.Imaging;
+
+using ClassLibrary;
 using Newtonsoft.Json;
 using OpenCvSharp;
-using Serilog.Events;
-using System.IO;
-using System.Net.Http;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using Client;
 using OpenCvSharp.Extensions;
-using System.Drawing;
+using Serilog.Events;
+
 
 namespace Client
 {
@@ -188,7 +186,7 @@ namespace Client
                     break;
                 }
                 videoCapture.Read(frame);
-                List<ObjectOnPhoto> checkerObjects = await GetObjectsOnFrame(ImageSourceForImageControl(frame.ToBitmap()), apiUrl);
+                List<ObjectOnPhoto> checkerObjects = await GetObjectsOnFrame(ImageConverter.ImageSourceForImageControl(frame.ToBitmap()), apiUrl);
                 if(checkerObjects != null) result.Add(checkerObjects);
                 window.activyVideoPage.ProcessVideoProgressBar.Value = i;
             }
@@ -211,27 +209,12 @@ namespace Client
             for (int i = 0; i < videoCapture.FrameCount; i++)
             {
                 videoCapture.Read(frame);
-                List<ObjectOnPhoto> checkerObjects = await MainWindow.apiClient.GetObjectsOnFrame(ImageSourceForImageControl(frame.ToBitmap()), ConnectionWindow.ConnectionUri);
+                List<ObjectOnPhoto> checkerObjects = await MainWindow.apiClient.GetObjectsOnFrame(ImageConverter.ImageSourceForImageControl(frame.ToBitmap()), ConnectionWindow.ConnectionUri);
                 if (checkerObjects != null) videoController.ObjectsOnFrame.Add(checkerObjects);
                 window.activyVideoPage.ProcessVideoProgressBar.Value = i;
             }
             window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Hidden;
         }
-
-        //TODO: Delete duplicate code (method exists in VideoController).
-        private static BitmapImage ImageSourceForImageControl(System.Drawing.Bitmap bitmap)
-        {
-            {
-                using MemoryStream memory = new();
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
-                return bitmapimage;
-            }
-        }
+        //TODO. Only for lead. I'm sure you'll remember tomorrow what you want to do here. Doubtful solid. It is in the directory with the processor.
     }
 }
