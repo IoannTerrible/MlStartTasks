@@ -55,6 +55,7 @@ namespace Client
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while performing health check.");
             }
+
             return false;
         }
 
@@ -64,43 +65,22 @@ namespace Client
             {
                 window.activyVideoPage.VideoImage.Source = bitmapImage;
 
-                byte[] imageBytes;
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    BitmapEncoder encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-                    encoder.Save(stream);
-                    imageBytes = stream.ToArray();
-                }
+                byte[] imageBytes = await ImageConverter.ConvertImageToByteArrayAsync(bitmapImage);
 
                 MultipartFormDataContent form = new()
                 {
                     { new ByteArrayContent(imageBytes), "image", "image.png" }
                 };
 
-                //if (await CheckHealthAsync($"{apiUrl}health"))
-                //{
-                HttpResponseMessage response = await client.PostAsync($"{apiUrl}file/", form);
-                if (response.IsSuccessStatusCode)
+                if (window.isServerAlive)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    ResponseObject responseObject = JsonConvert.DeserializeObject<ResponseObject>(responseContent);
-
-                    List<ObjectOnPhoto> objectsOnPhoto = new List<ObjectOnPhoto>(responseObject.Objects);
-                   // window.activyVideoPage.localDrawer.DrawBoundingBoxes(objectsOnPhoto, (Bitmap)imageBytes);
-                    string[] parts = responseContent.Split(",");
+                    HttpResponseMessage response = await client.PostAsync($"{apiUrl}file/", form);
+                    await ProcessResponseAsync(response);
                 }
                 else
                 {
-                    MessageBox.Show(response.StatusCode.ToString());
-                    Logger.LogByTemplate(LogEventLevel.Warning, note: $"HTTP request failed with status code {response.StatusCode}.");
+                    Logger.LogByTemplate(LogEventLevel.Error, note: "Server is not alive and you try to recive response from him");
                 }
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Health check failed before sending image");
-                //    Logger.LogByTemplate(LogEventLevel.Warning, note: "Health check failed before sending image.");
-                //}
             }
             catch (HttpRequestException httpEx)
             {
@@ -113,7 +93,6 @@ namespace Client
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Error while sending image.");
             }
         }
-
         public async Task<List<ObjectOnPhoto>> GetObjectsOnFrame(BitmapImage bitmapImage, string apiUrl)
         {
             try
@@ -180,14 +159,14 @@ namespace Client
 
             for (int i = 0; i < videoCapture.FrameCount; i++)
             {
-                if(await CheckHealthAsync(apiUrl) == false)
+                if (await CheckHealthAsync(apiUrl) == false)
                 {
                     MessageBox.Show("Failed Health Check", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
                 }
                 videoCapture.Read(frame);
                 List<ObjectOnPhoto> checkerObjects = await GetObjectsOnFrame(ImageConverter.ImageSourceForImageControl(frame.ToBitmap()), apiUrl);
-                if(checkerObjects != null) result.Add(checkerObjects);
+                if (checkerObjects != null) result.Add(checkerObjects);
                 window.activyVideoPage.ProcessVideoProgressBar.Value = i;
             }
             window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Hidden;
@@ -214,6 +193,22 @@ namespace Client
                 window.activyVideoPage.ProcessVideoProgressBar.Value = i;
             }
             window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Hidden;
+        }
+        private static async Task ProcessResponseAsync(HttpResponseMessage response)
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                ResponseObject responseObject = JsonConvert.DeserializeObject<ResponseObject>(responseContent);
+
+                List<ObjectOnPhoto> objectsOnPhoto = new List<ObjectOnPhoto>(responseObject.Objects);
+                string[] parts = responseContent.Split(",");
+            }
+            else
+            {
+                MessageBox.Show(response.StatusCode.ToString());
+                Logger.LogByTemplate(LogEventLevel.Warning, note: $"HTTP request failed with status code {response.StatusCode}.");
+            }
         }
         //TODO. Only for lead. I'm sure you'll remember tomorrow what you want to do here. Doubtful solid. It is in the directory with the processor.
     }

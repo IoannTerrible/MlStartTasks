@@ -11,6 +11,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Serilog;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace Client
 {
@@ -18,6 +19,7 @@ namespace Client
     {
         private readonly TextBox statusTextBox;
         private readonly MainWindow mainWindow;
+        private bool isHealthy;
 
         public HealthChecker(MainWindow mainWindow, TextBox statusTextBox) : base(mainWindow)
         {
@@ -30,11 +32,12 @@ namespace Client
             while (true)
             {
                 await Task.Delay(intervalInMillyseconds); // Delay before the next health check
-                bool isHealthy = await CheckHealthAsync(apiUrl);
+                isHealthy = await CheckHealthAsync(apiUrl);
 
                 mainWindow.Dispatcher.Invoke(() =>
                 {
                     statusTextBox.Text = isHealthy ? "Server is healthy" : "Server is not healthy";
+                    statusTextBox.Foreground = isHealthy ? Brushes.Green : Brushes.Red;
                     mainWindow.isServerAlive = isHealthy;
                 });
             }
