@@ -1,13 +1,10 @@
-﻿using Serilog.Events;
-
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using ClassLibrary;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Data.SqlClient;
+﻿using ClassLibrary;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
+using Serilog.Events;
+using System.Data.SqlClient;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Client
 {

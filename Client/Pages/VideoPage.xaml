@@ -63,6 +63,7 @@
                     <Button x:Name="ShowInfoButton" Content="Info" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="275,0,0,0" Width="50" Click="ShowInfoButton_Click"/>
                     <Button x:Name="CloseButton" Content="Close" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,0,0,0" Width="50" Click="CloseButton_Click"/>
                     <TextBlock x:Name="TimerBox" HorizontalAlignment="Left" Margin="385,1,0,0" TextWrapping="Wrap" Text="VideoTimer" VerticalAlignment="Top"/>
+                    <Button x:Name="SaveButton" Content="Save" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="385,196,0,0" Width="50" Click="SaveButton_Click"/>
                 </Grid>
             </Grid>
 

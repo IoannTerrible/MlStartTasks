@@ -40,6 +40,23 @@ namespace Client
                 return null;
             }
         }
+        public static string SaveVideoFile(string filename)
+        {
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = fileTypes[FileTypes.Media],
+                DefaultExt = ".avi",
+                FileName = filename.Split('.')[0] + "processed"
+            };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                return saveFileDialog.FileName;
+            }
+            else
+            {
+                return null;
+            }
+        }
         public static void SaveBitmapImageToFile(Bitmap bitmapImage)
         {
             string directoryPath = Path.Combine(App.PathToDirectory, "KeyFrames");

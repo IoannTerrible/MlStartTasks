@@ -147,5 +147,10 @@ namespace Client
             OpenVideos.RemoveAt(selectedIndex);
         }
 
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentVideoController?.SaveFullVideo();
+            MessageBox.Show("Done");
+        }
     }
 }

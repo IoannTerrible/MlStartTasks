@@ -64,6 +64,7 @@ namespace Client
         private VideoCapture _videoCapture;
         private VideoCapture _videoCaptureForProcess;
         private VideoTimer _Vtimer;
+        private VideoWriter _videoWriter;
 
         private Mat _frame;
         private BitmapImage bitmapImage; 
@@ -77,6 +78,7 @@ namespace Client
         public string shortName;
 
         public List<List<ObjectOnPhoto>> ObjectsOnFrame;
+        public bool IsProcessed = false;
 
         private bool _IsPaused = false;
         #endregion
@@ -234,10 +236,35 @@ namespace Client
                         MessageBox.Show($"Video processed. frames - {ObjectsOnFrame.Count}");
                     }
                 }
+                IsProcessed = true;
             }
             catch (Exception ex) 
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Video processing error.");
+            }
+        }
+
+        public void SaveFullVideo()
+        {
+            try
+            {
+                if (ObjectsOnFrame is null) return;
+                string path = FileHandler.SaveVideoFile(shortName);
+                _videoWriter = new(path, FourCC.FromString(_videoCapture.FourCC), _videoCapture.Fps, new OpenCvSharp.Size(_videoCapture.FrameWidth, _videoCapture.FrameHeight));
+                Mat matFrame = new();
+                for (int i = 0; i < _videoCapture.FrameCount; i++)
+                {
+                    _videoCaptureForProcess.Set(VideoCaptureProperties.PosFrames, i);
+                    _videoCaptureForProcess.Read(matFrame);
+                    if (i < ObjectsOnFrame.Count) _videoWriter.Write(_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[i], matFrame)); ;
+                    else _videoWriter.Write(matFrame);
+                }
+                _videoWriter.Release();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, "error save file");
+                MessageBox.Show("error save");
             }
         }
         #endregion
