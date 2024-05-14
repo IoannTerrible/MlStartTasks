@@ -40,6 +40,12 @@ namespace Client
                 _window = window;
                 _videoCapture.Open(filepath);
                 shortName = Logger.GetLastFile(filepath);
+
+                double totalSeconds = _countFrames / _fps;
+                _minutes = (int)(totalSeconds / 60);
+                _seconds = (int)(totalSeconds % 60);
+
+                _Vtimer = new(_countFrames, _fps);
                 SetFirstFrame();
             }
             catch (Exception ex)
@@ -57,13 +63,16 @@ namespace Client
 
         private VideoCapture _videoCapture;
         private VideoCapture _videoCaptureForProcess;
+        private VideoTimer _Vtimer;
 
         private Mat _frame;
-        private BitmapImage bitmapImage;
+        private BitmapImage bitmapImage; 
 
         private int _currentFrameNumber;
         private int _countFrames;
         private int _fps;
+        private int _seconds;
+        private int _minutes;
 
         public string shortName;
 
@@ -105,8 +114,11 @@ namespace Client
                     _window.activyVideoPage.localDrawer.CalculateScale();
                     if (_currentFrameNumber - 1 < ObjectsOnFrame.Count && _currentFrameNumber > 0)
                     {
-                        bitmapImage = ImageConverter.ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap()));                    
-                            }
+                        bitmapImage = ImageConverter.ImageSourceForImageControl
+                            (
+                            (_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap())
+                            );                    
+                    }
                 }
                 else
                 {
@@ -128,7 +140,8 @@ namespace Client
         {
             MessageBox.Show($@"Frames = {_countFrames},
                             Current Frame = {_currentFrameNumber},
-                            OriginalFrames Per Second = {_fps}");
+                            OriginalFrames Per Second = {_fps},
+                            Time {_minutes}:{_seconds:D2}");
         }
         public async void GetSliderValue(double value)
         {
@@ -162,9 +175,10 @@ namespace Client
                 _videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber);
                 _videoCapture.Read(_frame);
                 _currentFrameNumber++;
+                _Vtimer.UpdateCurrentFrame(_currentFrameNumber);
+                _window.activyVideoPage.TimerBox.Text = _Vtimer.GetCurrentTime();
                 _window.activyVideoPage.localDrawer.ClearRectangles();
                 _window.activyVideoPage.localDrawer.CalculateScale();
-                //await MainWindow.apiClient.SendImageAndReceiveJSONAsync(bitmapImage, ConnectionWindow.ConnectionUri);
 
                 if (ObjectsOnFrame != null)
                 {
