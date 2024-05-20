@@ -78,6 +78,10 @@ namespace Client
                         _videoControllers.Add(currentVideoController);
                         OpenVideos.Add($"{_videoControllers.Count}. {currentVideoController.shortName}");
                     }
+                    ComboBoxForResponse.SelectedIndex = 0;
+                    ComboBoxForResponse.UpdateLayout();
+
+
                     MediaSlider.Value = 0;
                 }
             }
@@ -120,6 +124,7 @@ namespace Client
             ComboBox comboBox = sender as ComboBox;
             if (comboBox.SelectedItem != null)
             {
+                currentVideoController.IsPaused = true;
                 currentVideoController = _videoControllers[comboBox.SelectedIndex];
                 currentVideoController.SetFirstFrame();
             }

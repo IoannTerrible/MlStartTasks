@@ -67,7 +67,7 @@ namespace Client
         private VideoWriter _videoWriter;
 
         private Mat _frame;
-        private BitmapImage bitmapImage; 
+        private BitmapImage bitmapImage;
 
         private int _currentFrameNumber;
         private int _countFrames;
@@ -80,16 +80,16 @@ namespace Client
         public List<List<ObjectOnPhoto>> ObjectsOnFrame;
         public bool IsProcessed = false;
 
-        private bool _IsPaused = false;
+        public bool IsPaused = false;
         #endregion
         #region Methods
         public async void Play()
         {
-            _IsPaused = false;
-            while (!_IsPaused)
+            IsPaused = false;
+            while (!IsPaused)
             {
                 await SetFrame();
-                Cv2.WaitKey(1000/_fps);
+                Cv2.WaitKey(1000 / _fps);
             }
         }
         public async void Stop()
@@ -97,16 +97,16 @@ namespace Client
             _currentFrameNumber = 0;
             _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
             await SetFrame();
-            _IsPaused = true;
+            IsPaused = true;
         }
         public void Pause()
         {
-            _IsPaused = !_IsPaused;
-            if (!_IsPaused) Play();
+            IsPaused = !IsPaused;
+            if (!IsPaused) Play();
         }
         public async void Rewind()
         {
-            _IsPaused = true;
+            IsPaused = true;
             if (_videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber - 1) && _currentFrameNumber > 0)
             {
                 _videoCapture.Read(_frame);
@@ -119,7 +119,7 @@ namespace Client
                         bitmapImage = ImageConverter.ImageSourceForImageControl
                             (
                             (_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap())
-                            );                    
+                            );
                     }
                 }
                 else
@@ -135,7 +135,7 @@ namespace Client
         }
         public async void NextFrame()
         {
-            _IsPaused = true;
+            IsPaused = true;
             await SetFrame();
         }
         public async void ShowInfo()
@@ -166,7 +166,7 @@ namespace Client
             {
                 _currentFrameNumber = 0;
                 _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
-                _IsPaused = true;
+                IsPaused = true;
             }
             mediaSlider.Value = _currentFrameNumber;
         }
@@ -199,7 +199,7 @@ namespace Client
             {
                 _currentFrameNumber = 0;
                 _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
-                _IsPaused = true;
+                IsPaused = true;
             }
             mediaSlider.Value = _currentFrameNumber;
         }
@@ -238,7 +238,7 @@ namespace Client
                 }
                 IsProcessed = true;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Video processing error.");
             }
@@ -256,7 +256,10 @@ namespace Client
                 {
                     _videoCaptureForProcess.Set(VideoCaptureProperties.PosFrames, i);
                     _videoCaptureForProcess.Read(matFrame);
-                    if (i < ObjectsOnFrame.Count) _videoWriter.Write(_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[i], matFrame)); ;
+                    if (i < ObjectsOnFrame.Count)
+                    {
+                        _videoWriter.Write(_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[i], matFrame));
+                    }
                     else _videoWriter.Write(matFrame);
                 }
                 _videoWriter.Release();

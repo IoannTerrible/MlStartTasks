@@ -52,18 +52,18 @@
                     <Image x:Name="VideoImage" Stretch="Uniform" Source="{Binding ImageSource}" Canvas.Left="-1" HorizontalAlignment="Left" Loaded="VideoBox_SourceUpdated" VerticalAlignment="Center" Width="997" Height="499"/>
                 </Canvas>
             </Viewbox>
-            <Grid Grid.Row="1" VerticalAlignment="Bottom">
-                <Slider x:Name="MediaSlider" IsSelectionRangeEnabled="True" SelectionStart="0" HorizontalAlignment="Left" Margin="0,175,0,0" Grid.Row="1" VerticalAlignment="Top" Width="500" ValueChanged="MediaSlider_ValueChanged"/>
-                <Grid HorizontalAlignment="Left" Width="455" Margin="0,193,0,-25">
-                    <Button x:Name="MediaPlayButton" Content="Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" Width="50" Click="MediaPlayButton_Click" VerticalAlignment="Top"/>
-                    <Button x:Name="MediaStopButton" Content="Stop" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,0,0,0" Width="50" Click="MediaStopButton_Click"/>
-                    <Button x:Name="MediaPauseButton" Content="Pause" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,0,0,0" Width="50" Click="MediaPauseButton_Click"/>
-                    <Button x:Name="RewindButton" Content="Back" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Click="RewindButton_Click" Margin="165,0,0,0"/>
-                    <Button x:Name="NextButton" Content="Next" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,0,0,0" Width="50" Click="NextButton_Click"/>
-                    <Button x:Name="ShowInfoButton" Content="Info" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="275,0,0,0" Width="50" Click="ShowInfoButton_Click"/>
-                    <Button x:Name="CloseButton" Content="Close" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,0,0,0" Width="50" Click="CloseButton_Click"/>
-                    <TextBlock x:Name="TimerBox" HorizontalAlignment="Left" Margin="385,1,0,0" TextWrapping="Wrap" Text="VideoTimer" VerticalAlignment="Top"/>
-                    <Button x:Name="SaveButton" Content="Save" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="385,196,0,0" Width="50" Click="SaveButton_Click"/>
+            <Grid Grid.Row="1" VerticalAlignment="Top" Margin="0,155,265,0" Grid.ColumnSpan="2">
+                <Grid HorizontalAlignment="Center" Width="490" VerticalAlignment="Top" Height="43" Margin="0,21,0,0">
+                    <Button x:Name="MediaPlayButton" Content="Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" Width="30" Click="MediaPlayButton_Click" VerticalAlignment="Top"/>
+                    <Button x:Name="MediaStopButton" Content="Stop" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="35,0,0,0" Width="30" Click="MediaStopButton_Click"/>
+                    <Button x:Name="MediaPauseButton" Content="Pause" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,0,0,0" Width="30" Click="MediaPauseButton_Click"/>
+                    <Button x:Name="RewindButton" Content="Back" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Click="RewindButton_Click" Margin="105,0,0,0"/>
+                    <Button x:Name="NextButton" Content="Next" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,0,0,0" Width="30" Click="NextButton_Click"/>
+                    <Button x:Name="ShowInfoButton" Content="Info" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,0,0,0" Width="30" Click="ShowInfoButton_Click"/>
+                    <Button x:Name="CloseButton" Content="Close" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,0,0,0" Width="30" Click="CloseButton_Click"/>
+                    <TextBlock x:Name="TimerBox" HorizontalAlignment="Left" Margin="280,0,0,0" TextWrapping="Wrap" Text="VideoTimer" VerticalAlignment="Top" Width="72" Height="18"/>
+                    <Button x:Name="SaveButton" Content="Save" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Click="SaveButton_Click" Margin="245,0,0,0"/>
+                    <Slider x:Name="MediaSlider" IsSelectionRangeEnabled="True" SelectionStart="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="490" ValueChanged="MediaSlider_ValueChanged"/>
                 </Grid>
             </Grid>
 
