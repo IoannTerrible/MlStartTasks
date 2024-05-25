@@ -66,6 +66,10 @@ namespace ClassLibrary
             XmlElement connectionStringElement = xmlDoc.CreateElement("ProcessInRealTime");
             connectionStringElement.InnerText = "false";
             videoElement.AppendChild(connectionStringElement);
+
+            XmlElement ClipLengthElement = xmlDoc.CreateElement("ClipLength");
+            ClipLengthElement.InnerText = "6";
+            videoElement.AppendChild(ClipLengthElement);
         }
 
         #endregion
