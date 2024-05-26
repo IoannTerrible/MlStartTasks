@@ -37,7 +37,7 @@
         </Grid.RowDefinitions>
 
 
-        <Grid Grid.Row="1" Background="#FFDAECE2" Margin="20" Grid.Column="1">
+        <Grid Grid.Row="1" Background="#FFDAECE2" Margin="20,0,20,20" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="191*"/>
                 <RowDefinition Height="219*"/>
@@ -52,8 +52,8 @@
                     <Image x:Name="VideoImage" Stretch="Uniform" Source="{Binding ImageSource}" Canvas.Left="-1" HorizontalAlignment="Left" Loaded="VideoBox_SourceUpdated" VerticalAlignment="Center" Width="997" Height="499"/>
                 </Canvas>
             </Viewbox>
-            <Grid Grid.Row="1" VerticalAlignment="Top" Margin="0,155,265,0" Grid.ColumnSpan="2">
-                <Grid HorizontalAlignment="Center" Width="490" VerticalAlignment="Top" Height="43" Margin="0,21,0,0">
+            <Grid Grid.Row="1" VerticalAlignment="Bottom" Margin="0,155,265,0" Grid.ColumnSpan="2">
+                <Grid HorizontalAlignment="Center" Width="490" VerticalAlignment="Bottom" Height="43">
                     <Button x:Name="MediaPlayButton" Content="Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" Width="30" Click="MediaPlayButton_Click" VerticalAlignment="Top"/>
                     <Button x:Name="MediaStopButton" Content="Stop" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="35,0,0,0" Width="30" Click="MediaStopButton_Click"/>
                     <Button x:Name="MediaPauseButton" Content="Pause" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,0,0,0" Width="30" Click="MediaPauseButton_Click"/>

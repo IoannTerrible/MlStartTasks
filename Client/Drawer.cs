@@ -45,12 +45,11 @@ namespace Client
                     FileHandler.SaveBitmapImageToFile(frame.ToBitmap());
                     CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.currentVideoController.shortName, FileHandler.LastKeyFrameName, metdate, MainWindow.connectionString);
                 }
-
-                DrawBoundingBox(frame, xtl, ytl, xbr, ybr, name, id);
+               
                 Logger.LogByTemplate(LogEventLevel.Debug, note: $"DrawObject with {xtl},{ytl}, {xbr}, {ybr}, {name}, {id}");
+                DrawBoundingBox(frame, xtl, ytl, xbr, ybr, name, id);
             }
 
-            Logger.LogByTemplate(LogEventLevel.Information, note: $"{aircraftObjects.Count} borders of objects have been drawn.");
 
             return frame;
         }
