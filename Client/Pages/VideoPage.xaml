@@ -98,16 +98,17 @@
                     </ListView.RenderTransform>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="User Name" DisplayMemberBinding="{Binding UserName}"/>
                             <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}"/>
-                            <GridViewColumn Header="Frame Path" DisplayMemberBinding="{Binding FramePath}"/>
-                            <GridViewColumn Header="Meta Data" DisplayMemberBinding="{Binding MetaData}"/>
+                            <GridViewColumn Header="Object" DisplayMemberBinding="{Binding ObjectName}"/>
+                            <GridViewColumn Header="Timing" DisplayMemberBinding="{Binding Timing}"/>
+                            <GridViewColumn Header="Video Title" DisplayMemberBinding="{Binding VideoTitle}"/>
                         </GridView>
                     </ListView.View>
                     <ListView.InputBindings>
                         <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
                     </ListView.InputBindings>
                 </ListView>
+
                 <ProgressBar x:Name="ProcessVideoProgressBar" HorizontalAlignment="Left" Height="17" VerticalAlignment="Bottom" Width="256" Margin="0,0,0,22" Visibility="Hidden"/>
                 <Button x:Name="UploadMediaButton" Style="{StaticResource CustomButtonStyle}" Content="Upload Media" Click="UploadMediaButton_Click" VerticalAlignment="Bottom" Height="18" Margin="6,319,5,0"/>
             </Grid>

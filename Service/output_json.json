@@ -4,28 +4,36 @@
     "channels": 3,
     "objects": [
         {
-            "xtl": 132,
-            "ytl": 73,
-            "xbr": 226,
-            "ybr": 300,
-            "class_name": "stand",
-            "tracked_id": 25
+            "xtl": 424,
+            "ytl": 332,
+            "xbr": 539,
+            "ybr": 422,
+            "class_name": "Car",
+            "tracked_id": 1
         },
         {
-            "xtl": 507,
-            "ytl": 53,
-            "xbr": 596,
-            "ybr": 202,
-            "class_name": "stand",
-            "tracked_id": 27
+            "xtl": 719,
+            "ytl": 343,
+            "xbr": 768,
+            "ybr": 379,
+            "class_name": "Car",
+            "tracked_id": 2
         },
         {
-            "xtl": 582,
-            "ytl": 126,
-            "xbr": 711,
-            "ybr": 378,
-            "class_name": "stand",
-            "tracked_id": 28
+            "xtl": 792,
+            "ytl": 347,
+            "xbr": 901,
+            "ybr": 419,
+            "class_name": "Car",
+            "tracked_id": 3
+        },
+        {
+            "xtl": 179,
+            "ytl": 338,
+            "xbr": 342,
+            "ybr": 434,
+            "class_name": "Car",
+            "tracked_id": 4
         }
     ]
 }

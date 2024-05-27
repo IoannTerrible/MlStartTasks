@@ -60,7 +60,6 @@
             <TextBox x:Name="UserStatus" TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="1,7,0,0" Text="Host" VerticalAlignment="Top" Width="203" Height="27" TextAlignment="Center" FontFamily="Skranji" FontSize="11" Grid.ColumnSpan="2" Grid.Column="2"/>
             <Button x:Name="registrationButton" Content="RegistrationPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="RegistrPageClick" Margin="0,159,0,0" Grid.ColumnSpan="2" Grid.Column="2" />
             <Button x:Name="loginButton" Content="LoginPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="LoginPageClick" Margin="0,127,0,0" Grid.Column="2" Grid.ColumnSpan="2" />
-            <Button x:Name="eventLogButton"  Content="EventLogPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Margin="0,27,0,0" Click="eventLogButton_Click" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" />
             <TextBox x:Name="statusTextBox" TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="1,34,0,0" Text="ServerStatus:" VerticalAlignment="Top" Width="203" Height="27" TextAlignment="Center" FontFamily="Skranji" FontSize="16" Grid.ColumnSpan="2" Grid.Column="2"/>
         </Grid>
         <Frame x:Name="MainFrame" Content="Frame" Margin="206,10,0,5" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden"/>

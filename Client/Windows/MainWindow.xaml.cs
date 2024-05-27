@@ -114,11 +114,6 @@ namespace Client
             }
         }
 
-        private void eventLogButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new LogPage(this));
-        }
-
         #endregion
 
         #region Methods
@@ -142,7 +137,6 @@ namespace Client
             imagePageButton.Visibility = Visibility.Visible;
             configButton.Visibility = Visibility.Visible;
             connectButton.Visibility = Visibility.Visible;
-            eventLogButton.Visibility = Visibility.Visible;
         }
         private void ShowLogInButtons()
         {
@@ -161,7 +155,6 @@ namespace Client
             imagePageButton.Visibility = Visibility.Collapsed;
             configButton.Visibility = Visibility.Collapsed;
             connectButton.Visibility = Visibility.Collapsed;
-            eventLogButton.Visibility = Visibility.Collapsed;
         }
         #endregion
     }

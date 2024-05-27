@@ -45,7 +45,7 @@ namespace Client
                 _minutes = (int)(totalSeconds / 60);
                 _seconds = (int)(totalSeconds % 60);
 
-                _Vtimer = new(_countFrames, _fps);
+                Vtimer = new(_countFrames, _fps);
                 SetFirstFrame();
             }
             catch (Exception ex)
@@ -57,13 +57,13 @@ namespace Client
         #endregion
         #region Attributes
         public MainWindow _window;
+        public VideoTimer Vtimer;
 
         public Image mediaPlayer;
         public Slider mediaSlider;
 
         private VideoCapture _videoCapture;
         private VideoCapture _videoCaptureForProcess;
-        private VideoTimer _Vtimer;
         private VideoWriter _videoWriter;
 
         private Mat _frame;
@@ -89,7 +89,7 @@ namespace Client
             while (!IsPaused)
             {
                 await SetFrame();
-                Cv2.WaitKey(1000 / _fps);
+                Cv2.WaitKey(500 / _fps);
             }
         }
         public async void Stop()
@@ -177,15 +177,15 @@ namespace Client
                 _videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber);
                 _videoCapture.Read(_frame);
                 _currentFrameNumber++;
-                _Vtimer.UpdateCurrentFrame(_currentFrameNumber);
-                _window.activyVideoPage.TimerBox.Text = _Vtimer.GetCurrentTime();
+                Vtimer.UpdateCurrentFrame(_currentFrameNumber);
+                _window.activyVideoPage.TimerBox.Text = Vtimer.GetCurrentTime();
                 _window.activyVideoPage.localDrawer.ClearRectangles();
-                _window.activyVideoPage.localDrawer.CalculateScale();
 
                 if (ObjectsOnFrame != null)
                 {
                     if (_currentFrameNumber - 1 < ObjectsOnFrame.Count)
                     {
+                        _window.activyVideoPage.localDrawer.CalculateScale();
                         bitmapImage = ImageConverter.ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap()));
                     }
                 }

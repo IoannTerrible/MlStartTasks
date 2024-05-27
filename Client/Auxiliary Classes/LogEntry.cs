@@ -8,9 +8,11 @@ namespace Client
 {
     public class LogEntry
     {
-        public string UserName { get; set; }
         public string FileName { get; set; }
-        public string FramePath { get; set; }
-        public string MetaData { get; set; }
+        public string ObjectName { get; set; } 
+        public string Timing { get; set; } 
+        public string VideoTitle { get; set; } 
     }
+
+
 }

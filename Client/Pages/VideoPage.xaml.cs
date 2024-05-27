@@ -3,6 +3,7 @@ using Serilog.Events;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 namespace Client
 {
     /// <summary>
@@ -20,16 +21,18 @@ namespace Client
             ComboBoxForResponse.ItemsSource = OpenVideos;
             localDrawer = new Drawer(rectangleContainer, VideoImage, _window);
         }
-        
+
         MainWindow _window;
 
-        private readonly Canvas rectangleContainer = new();
         public readonly Drawer localDrawer;
+        public ObservableCollection<LogEntry> LogEntries { get; } = new ObservableCollection<LogEntry>();
+
 
         public ObservableCollection<string> OpenVideos { get; } = new ObservableCollection<string>();
-        private List<VideoController> _videoControllers = [];
         public VideoController currentVideoController;
 
+        private List<VideoController> _videoControllers = [];
+        private readonly Canvas rectangleContainer = new();
         private string[] files;
 
         private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
@@ -135,7 +138,21 @@ namespace Client
                 _window.activyVideoPage.localDrawer.ClearRectangles();
             }
         }
-
+        private async void ListWithSqlResponce_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (ListWithSqlResponce.SelectedItem is LogEntry selectedLogEntry)
+            {
+                try
+                {
+                    int selectedTime = int.Parse(selectedLogEntry.Timing);
+                    currentVideoController.Vtimer.FrameToTime(selectedTime);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogByTemplate(LogEventLevel.Error, ex);
+                }
+            }
+        }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             if (ComboBoxForResponse.Items.Count == 0) return;
