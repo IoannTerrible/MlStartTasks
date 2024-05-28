@@ -13,6 +13,7 @@ namespace Client
     {
         private Canvas canvas;
         private readonly Image videoImage;
+        private readonly Dictionary<string, Scalar> _classColors;
         private double scaleX;
         private double scaleY;
         MainWindow _window;
@@ -23,6 +24,16 @@ namespace Client
             this._window = window;
             this.canvas = canvas;
             this.videoImage = videoImage;
+            _classColors = new Dictionary<string, Scalar>
+            {
+            { "Additional signs", Scalar.Red },
+            { "Car", Scalar.Green },
+            { "Forbidding signs", Scalar.Blue },
+            { "Information signs", Scalar.Yellow },
+            { "Priority signs", Scalar.Cyan },
+            { "Warning signs", Scalar.Magenta },
+            { "Zebra crossing", Scalar.Orange }
+            };
         }
 
         public Mat DrawBoundingBoxes(List<ObjectOnPhoto> aircraftObjects, Mat keyFrame)
@@ -40,12 +51,6 @@ namespace Client
 
                 string metdate = $"{xtl},{ytl},{xbr},{ybr},{name},{id}";
 
-                if (IsClassNameChanged(id, name))
-                {
-                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Class_name for object with id {id} changed to {name}");
-                    //FileHandler.SaveBitmapImageToFile(frame.ToBitmap());
-                    //CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.currentVideoController.shortName, FileHandler.LastKeyFrameName, metdate, MainWindow.connectionString);
-                }
                 var videoController = _window.activyVideoPage.currentVideoController;
                 var time = videoController.vtimer.FrameToTime(videoController.currentFrameNumber);
                 var newEntry = new LogEntry(id.ToString(), name, time, "temp");
@@ -62,8 +67,6 @@ namespace Client
                 Logger.LogByTemplate(LogEventLevel.Debug, note: $"DrawObject with {xtl},{ytl}, {xbr}, {ybr}, {name}, {id}");
                 DrawBoundingBox(frame, xtl, ytl, xbr, ybr, name, id);
             }
-
-
             return frame;
         }
 
@@ -71,41 +74,15 @@ namespace Client
         {
             Point topLeft = new Point((int)xTopLeft, (int)yTopLeft);
             Point bottomRight = new Point((int)xBottomRight, (int)yBottomRight);
-            Scalar color = Scalar.Red;
+            if (!_classColors.TryGetValue(name, out var color))
+            {
+                color = Scalar.White;
+            }
             int thickness = 2;
 
-            frame.Rectangle(topLeft, bottomRight, color, thickness);
+                frame.Rectangle(topLeft, bottomRight, color, thickness);
             Cv2.PutText(frame, $"{name} {id}", topLeft, HersheyFonts.HersheySimplex, 1.0, color, thickness);
         }
-        private void CreateEventLogEntry(string userName,
-            string fileName, string framePath, string metaData, string sqlConnectionString)
-        {
-            string insertQuery = $"INSERT INTO EventLog (UserName, TrackId, FramePath, MetaDate) " +
-                                 $"VALUES ('{userName}', '{fileName}', '{framePath}', '{metaData}')";
-            SqlCommand sqlCommand = new SqlCommand(insertQuery);
-
-            SqlCore.ExecuteSQL(sqlCommand, sqlConnectionString);
-        }
-        private bool IsClassNameChanged(int id, string newClassName)
-        {
-            if (previousClassNames.ContainsKey(id))
-            {
-                string previousClassName = previousClassNames[id];
-                if (previousClassName != newClassName)
-                {
-                    previousClassNames[id] = newClassName;
-                    return true;
-                }
-            }
-            else
-            {
-                previousClassNames[id] = newClassName;
-            }
-
-            return false;
-        }
-
-
         public void ClearRectangles()
         {
             canvas.Children.Clear();

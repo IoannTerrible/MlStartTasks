@@ -2,5 +2,14 @@
     "width": 640,
     "height": 480,
     "channels": 3,
-    "objects": []
+    "objects": [
+        {
+            "xtl": 459,
+            "ytl": 350,
+            "xbr": 533,
+            "ybr": 404,
+            "class_name": "Car",
+            "tracked_id": 1
+        }
+    ]
 }
