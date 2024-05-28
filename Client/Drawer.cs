@@ -43,8 +43,8 @@ namespace Client
                 if (IsClassNameChanged(id, name))
                 {
                     Logger.LogByTemplate(LogEventLevel.Information, note: $"Class_name for object with id {id} changed to {name}");
-                    FileHandler.SaveBitmapImageToFile(frame.ToBitmap());
-                    CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.currentVideoController.shortName, FileHandler.LastKeyFrameName, metdate, MainWindow.connectionString);
+                    //FileHandler.SaveBitmapImageToFile(frame.ToBitmap());
+                    //CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.currentVideoController.shortName, FileHandler.LastKeyFrameName, metdate, MainWindow.connectionString);
                 }
                 var videoController = _window.activyVideoPage.currentVideoController;
                 var time = videoController.vtimer.FrameToTime(videoController.currentFrameNumber);

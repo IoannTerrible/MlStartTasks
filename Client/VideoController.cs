@@ -203,6 +203,38 @@ namespace Client
             }
             mediaSlider.Value = currentFrameNumber;
         }
+        public async void SetFrame(int frameNumber)
+        {
+            IsPaused = true;
+            if (frameNumber >= 0 && frameNumber < _countFrames)
+            {
+                currentFrameNumber = frameNumber;
+                _videoCapture.Set(VideoCaptureProperties.PosFrames, currentFrameNumber);
+                _videoCapture.Read(_frame);
+
+                vtimer.UpdateCurrentFrame(currentFrameNumber);
+                _window.activyVideoPage.TimerBox.Text = vtimer.GetCurrentTime();
+                _window.activyVideoPage.localDrawer.ClearRectangles();
+
+                if (ObjectsOnFrame != null && currentFrameNumber < ObjectsOnFrame.Count)
+                {
+                    _window.activyVideoPage.localDrawer.CalculateScale();
+                    bitmapImage = ImageConverter.ImageSourceForImageControl(
+                        _window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[currentFrameNumber], _frame).ToBitmap()
+                    );
+                }
+                else
+                {
+                    bitmapImage = ImageConverter.ImageSourceForImageControl(_frame.ToBitmap());
+                }
+                _window.activyVideoPage.VideoImage.Source = bitmapImage;
+                mediaSlider.Value = currentFrameNumber;
+            }
+            else
+            {
+                MessageBox.Show("Invalid frame number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         public async void GetProcessedVideo()
         {
@@ -250,7 +282,7 @@ namespace Client
             {
                 if (ObjectsOnFrame is null) return;
                 string path = FileHandler.SaveVideoFile(shortName);
-                _videoWriter = new(path, FourCC.FromString(_videoCapture.FourCC), _videoCapture.Fps, new OpenCvSharp.Size(_videoCapture.FrameWidth, _videoCapture.FrameHeight));
+                _videoWriter = new(path, FourCC.FromString("H264"), _videoCapture.Fps, new OpenCvSharp.Size(_videoCapture.FrameWidth, _videoCapture.FrameHeight));
                 Mat matFrame = new();
                 for (int i = 0; i < _videoCapture.FrameCount; i++)
                 {
@@ -270,6 +302,8 @@ namespace Client
                 MessageBox.Show("error save");
             }
         }
+
+
         #endregion
     }
 }

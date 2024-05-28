@@ -18,6 +18,8 @@ namespace Client
             Canvas canvas = FindName("canvas2") as Canvas;
             canvas.Children.Add(rectangleContainer);
 
+            ListWithSqlResponce.MouseDoubleClick += ListWithSqlResponce_MouseDoubleClick;
+
             ComboBoxForResponse.ItemsSource = OpenVideos;
             localDrawer = new Drawer(rectangleContainer, VideoImage, _window);
         }
@@ -144,8 +146,7 @@ namespace Client
             {
                 try
                 {
-                    int selectedTime = int.Parse(selectedLogEntry.Timing);
-                    currentVideoController.vtimer.FrameToTime(selectedTime);
+                    currentVideoController.SetFrame(currentVideoController.vtimer.TimeToFrame(selectedLogEntry.Timing));
                 }
                 catch (Exception ex)
                 {

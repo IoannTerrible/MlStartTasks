@@ -2,38 +2,5 @@
     "width": 640,
     "height": 480,
     "channels": 3,
-    "objects": [
-        {
-            "xtl": 424,
-            "ytl": 332,
-            "xbr": 539,
-            "ybr": 422,
-            "class_name": "Car",
-            "tracked_id": 9
-        },
-        {
-            "xtl": 719,
-            "ytl": 343,
-            "xbr": 768,
-            "ybr": 379,
-            "class_name": "Car",
-            "tracked_id": 10
-        },
-        {
-            "xtl": 792,
-            "ytl": 347,
-            "xbr": 901,
-            "ybr": 419,
-            "class_name": "Car",
-            "tracked_id": 11
-        },
-        {
-            "xtl": 179,
-            "ytl": 338,
-            "xbr": 342,
-            "ybr": 434,
-            "class_name": "Car",
-            "tracked_id": 12
-        }
-    ]
+    "objects": []
 }

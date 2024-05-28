@@ -40,4 +40,19 @@ public class VideoTimer
 
         return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+    public int TimeToFrame(string time)
+    {
+        string[] timeParts = time.Split(':');
+        if (timeParts.Length != 2)
+        {
+            throw new ArgumentException("Time format should be MM:SS");
+        }
+
+        int minutes = int.Parse(timeParts[0]);
+        int seconds = int.Parse(timeParts[1]);
+        int totalSeconds = (minutes * 60) + seconds;
+        int frameNumber = (totalSeconds * fps) + 1;
+
+        return frameNumber;
+    }
 }
