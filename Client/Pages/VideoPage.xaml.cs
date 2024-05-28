@@ -145,7 +145,7 @@ namespace Client
                 try
                 {
                     int selectedTime = int.Parse(selectedLogEntry.Timing);
-                    currentVideoController.Vtimer.FrameToTime(selectedTime);
+                    currentVideoController.vtimer.FrameToTime(selectedTime);
                 }
                 catch (Exception ex)
                 {
@@ -153,6 +153,7 @@ namespace Client
                 }
             }
         }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             if (ComboBoxForResponse.Items.Count == 0) return;

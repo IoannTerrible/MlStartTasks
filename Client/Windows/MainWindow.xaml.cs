@@ -37,7 +37,7 @@ namespace Client
             string[] eventLogColumns =
             {
                 "UserName VARCHAR(255) NULL",
-                "FileName VARCHAR(255) NULL",
+                "TrackId VARCHAR(255) NULL",
                 "FramePath NVARCHAR(MAX) NULL",
                 "MetaData NVARCHAR(MAX) NULL"
             };

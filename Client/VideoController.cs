@@ -25,7 +25,7 @@ namespace Client
                 mediaPlayer = imagePlace;
                 mediaSlider = slider;
 
-                _currentFrameNumber = 0;
+                currentFrameNumber = 0;
                 _countFrames = _videoCapture.FrameCount;
                 _fps = (int)_videoCapture.Fps;
 
@@ -45,7 +45,7 @@ namespace Client
                 _minutes = (int)(totalSeconds / 60);
                 _seconds = (int)(totalSeconds % 60);
 
-                Vtimer = new(_countFrames, _fps);
+                vtimer = new(_countFrames, _fps);
                 SetFirstFrame();
             }
             catch (Exception ex)
@@ -57,7 +57,8 @@ namespace Client
         #endregion
         #region Attributes
         public MainWindow _window;
-        public VideoTimer Vtimer;
+        public VideoTimer vtimer;
+        public int currentFrameNumber;
 
         public Image mediaPlayer;
         public Slider mediaSlider;
@@ -69,7 +70,6 @@ namespace Client
         private Mat _frame;
         private BitmapImage bitmapImage;
 
-        private int _currentFrameNumber;
         private int _countFrames;
         private int _fps;
         private int _seconds;
@@ -94,7 +94,7 @@ namespace Client
         }
         public async void Stop()
         {
-            _currentFrameNumber = 0;
+            currentFrameNumber = 0;
             _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
             await SetFrame();
             IsPaused = true;
@@ -107,18 +107,18 @@ namespace Client
         public async void Rewind()
         {
             IsPaused = true;
-            if (_videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber - 1) && _currentFrameNumber > 0)
+            if (_videoCapture.Set(VideoCaptureProperties.PosFrames, currentFrameNumber - 1) && currentFrameNumber > 0)
             {
                 _videoCapture.Read(_frame);
                 if (ObjectsOnFrame != null)
                 {
                     _window.activyVideoPage.localDrawer.ClearRectangles();
                     _window.activyVideoPage.localDrawer.CalculateScale();
-                    if (_currentFrameNumber - 1 < ObjectsOnFrame.Count && _currentFrameNumber > 0)
+                    if (currentFrameNumber - 1 < ObjectsOnFrame.Count && currentFrameNumber > 0)
                     {
                         bitmapImage = ImageConverter.ImageSourceForImageControl
                             (
-                            (_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap())
+                            (_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[currentFrameNumber - 1], _frame).ToBitmap())
                             );
                     }
                 }
@@ -128,8 +128,8 @@ namespace Client
 
                 }
                 _window.activyVideoPage.VideoImage.Source = bitmapImage;
-                _currentFrameNumber--;
-                mediaSlider.Value = _currentFrameNumber;
+                currentFrameNumber--;
+                mediaSlider.Value = currentFrameNumber;
             }
             else MessageBox.Show("There is no road", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -141,22 +141,22 @@ namespace Client
         public async void ShowInfo()
         {
             MessageBox.Show($@"Frames = {_countFrames},
-                            Current Frame = {_currentFrameNumber},
+                            Current Frame = {currentFrameNumber},
                             OriginalFrames Per Second = {_fps},
                             Time {_minutes}:{_seconds:D2}");
         }
         public async void GetSliderValue(double value)
         {
             mediaSlider.Value = value;
-            _currentFrameNumber = (int)mediaSlider.Value;
+            currentFrameNumber = (int)mediaSlider.Value;
         }
         public async Task SetFirstFrame()
         {
-            if (_currentFrameNumber < _countFrames && _currentFrameNumber >= 0)
+            if (currentFrameNumber < _countFrames && currentFrameNumber >= 0)
             {
-                _videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber);
+                _videoCapture.Set(VideoCaptureProperties.PosFrames, currentFrameNumber);
                 _videoCapture.Read(_frame);
-                _currentFrameNumber++;
+                currentFrameNumber++;
                 _window.activyVideoPage.localDrawer.ClearRectangles();
                 _window.activyVideoPage.localDrawer.CalculateScale();
                 bitmapImage = ImageConverter.ImageSourceForImageControl(_frame.ToBitmap());
@@ -164,29 +164,29 @@ namespace Client
             }
             else
             {
-                _currentFrameNumber = 0;
+                currentFrameNumber = 0;
                 _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
                 IsPaused = true;
             }
-            mediaSlider.Value = _currentFrameNumber;
+            mediaSlider.Value = currentFrameNumber;
         }
         private async Task SetFrame()
         {
-            if (_currentFrameNumber < _countFrames && _currentFrameNumber >= 0)
+            if (currentFrameNumber < _countFrames && currentFrameNumber >= 0)
             {
-                _videoCapture.Set(VideoCaptureProperties.PosFrames, _currentFrameNumber);
+                _videoCapture.Set(VideoCaptureProperties.PosFrames, currentFrameNumber);
                 _videoCapture.Read(_frame);
-                _currentFrameNumber++;
-                Vtimer.UpdateCurrentFrame(_currentFrameNumber);
-                _window.activyVideoPage.TimerBox.Text = Vtimer.GetCurrentTime();
+                currentFrameNumber++;
+                vtimer.UpdateCurrentFrame(currentFrameNumber);
+                _window.activyVideoPage.TimerBox.Text = vtimer.GetCurrentTime();
                 _window.activyVideoPage.localDrawer.ClearRectangles();
 
                 if (ObjectsOnFrame != null)
                 {
-                    if (_currentFrameNumber - 1 < ObjectsOnFrame.Count)
+                    if (currentFrameNumber - 1 < ObjectsOnFrame.Count)
                     {
                         _window.activyVideoPage.localDrawer.CalculateScale();
-                        bitmapImage = ImageConverter.ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[_currentFrameNumber - 1], _frame).ToBitmap()));
+                        bitmapImage = ImageConverter.ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[currentFrameNumber - 1], _frame).ToBitmap()));
                     }
                 }
                 else
@@ -197,11 +197,11 @@ namespace Client
             }
             else
             {
-                _currentFrameNumber = 0;
+                currentFrameNumber = 0;
                 _videoCapture.Set(VideoCaptureProperties.PosFrames, 0);
                 IsPaused = true;
             }
-            mediaSlider.Value = _currentFrameNumber;
+            mediaSlider.Value = currentFrameNumber;
         }
 
         public async void GetProcessedVideo()

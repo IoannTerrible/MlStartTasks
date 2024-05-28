@@ -3,6 +3,7 @@ using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using Serilog.Events;
 using System.Data.SqlClient;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -45,7 +46,19 @@ namespace Client
                     FileHandler.SaveBitmapImageToFile(frame.ToBitmap());
                     CreateEventLogEntry(LogInPage.login, _window.activyVideoPage.currentVideoController.shortName, FileHandler.LastKeyFrameName, metdate, MainWindow.connectionString);
                 }
-               
+                var videoController = _window.activyVideoPage.currentVideoController;
+                var time = videoController.vtimer.FrameToTime(videoController.currentFrameNumber);
+                var newEntry = new LogEntry(id.ToString(), name, time, "temp");
+
+                if (!_window.activyVideoPage.LogEntries.Any(entry =>
+                    entry.TrackId == newEntry.TrackId &&
+                    entry.ObjectName == newEntry.ObjectName &&
+                    entry.VideoTitle == newEntry.VideoTitle &&
+                    entry.Timing == newEntry.Timing))
+                {
+                    _window.activyVideoPage.LogEntries.Add(newEntry);
+                    _window.activyVideoPage.ListWithSqlResponce.ItemsSource = _window.activyVideoPage.LogEntries;
+                }
                 Logger.LogByTemplate(LogEventLevel.Debug, note: $"DrawObject with {xtl},{ytl}, {xbr}, {ybr}, {name}, {id}");
                 DrawBoundingBox(frame, xtl, ytl, xbr, ybr, name, id);
             }
@@ -67,7 +80,7 @@ namespace Client
         private void CreateEventLogEntry(string userName,
             string fileName, string framePath, string metaData, string sqlConnectionString)
         {
-            string insertQuery = $"INSERT INTO EventLog (UserName, FileName, FramePath, MetaDate) " +
+            string insertQuery = $"INSERT INTO EventLog (UserName, TrackId, FramePath, MetaDate) " +
                                  $"VALUES ('{userName}', '{fileName}', '{framePath}', '{metaData}')";
             SqlCommand sqlCommand = new SqlCommand(insertQuery);
 
