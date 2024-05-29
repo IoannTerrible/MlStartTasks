@@ -53,12 +53,11 @@ namespace Client
 
                 var videoController = _window.activyVideoPage.currentVideoController;
                 var time = videoController.vtimer.FrameToTime(videoController.currentFrameNumber);
-                var newEntry = new LogEntry(id.ToString(), name, time, "temp");
+                var newEntry = new LogEntry(id.ToString(), name, time, videoController.currentFrameNumber.ToString());
 
                 if (!_window.activyVideoPage.LogEntries.Any(entry =>
                     entry.TrackId == newEntry.TrackId &&
                     entry.ObjectName == newEntry.ObjectName &&
-                    entry.VideoTitle == newEntry.VideoTitle &&
                     entry.Timing == newEntry.Timing))
                 {
                     _window.activyVideoPage.LogEntries.Add(newEntry);

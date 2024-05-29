@@ -126,12 +126,6 @@ namespace Client
                     Logger.LogByTemplate(LogEventLevel.Warning, note: $"HTTP request failed with status code {response.StatusCode}.");
                     return null;
                 }
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Health check failed before sending image");
-                //    Logger.LogByTemplate(LogEventLevel.Warning, note: "Health check failed before sending image.");
-                //}
             }
             catch (HttpRequestException httpEx)
             {

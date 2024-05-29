@@ -146,7 +146,7 @@ namespace Client
             {
                 try
                 {
-                    currentVideoController.SetFrame(currentVideoController.vtimer.TimeToFrame(selectedLogEntry.Timing));
+                    currentVideoController.SetFrame(int.Parse(selectedLogEntry.VideoTitle));
                 }
                 catch (Exception ex)
                 {

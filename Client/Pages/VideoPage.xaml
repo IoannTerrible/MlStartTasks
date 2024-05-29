@@ -101,7 +101,6 @@
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding TrackId}"/>
                             <GridViewColumn Header="Object" DisplayMemberBinding="{Binding ObjectName}"/>
                             <GridViewColumn Header="Timing" DisplayMemberBinding="{Binding Timing}"/>
-                            <GridViewColumn Header="Video Title" DisplayMemberBinding="{Binding VideoTitle}"/>
                         </GridView>
                     </ListView.View>
                     <ListView.InputBindings>

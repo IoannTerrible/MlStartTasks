@@ -57,15 +57,5 @@ namespace Client
                 return null;
             }
         }
-        public static void SaveBitmapImageToFile(Bitmap bitmapImage)
-        {
-            string directoryPath = Path.Combine(App.PathToDirectory, "KeyFrames");
-            Directory.CreateDirectory(directoryPath);
-            LastKeyFrameName = $"Image_{DateTime.Now:yyyyMMddHHmmssfff}.png";
-            string filePath = Path.Combine(directoryPath, LastKeyFrameName);
-            ImageFormat format = ImageFormat.Png;
-            bitmapImage.Save(filePath, format);
-        }
-
     }
 }
