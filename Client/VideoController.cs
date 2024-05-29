@@ -117,9 +117,7 @@ namespace Client
                     if (currentFrameNumber - 1 < ObjectsOnFrame.Count && currentFrameNumber > 0)
                     {
                         bitmapImage = ImageConverter.ImageSourceForImageControl
-                            (
-                            (_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[currentFrameNumber - 1], _frame).ToBitmap())
-                            );
+                            (_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[currentFrameNumber - 1], _frame).ToBitmap());
                     }
                 }
                 else
@@ -143,7 +141,9 @@ namespace Client
             MessageBox.Show($@"Frames = {_countFrames},
                             Current Frame = {currentFrameNumber},
                             OriginalFrames Per Second = {_fps},
-                            Time {_minutes}:{_seconds:D2}");
+                            Time {_minutes}:{_seconds:D2},
+                            FourCC = {_videoCapture.FourCC}");
+
         }
         public async void GetSliderValue(double value)
         {
@@ -187,6 +187,10 @@ namespace Client
                     {
                         _window.activyVideoPage.localDrawer.CalculateScale();
                         bitmapImage = ImageConverter.ImageSourceForImageControl((_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[currentFrameNumber - 1], _frame).ToBitmap()));
+                    }
+                    else
+                    {
+                        bitmapImage = ImageConverter.ImageSourceForImageControl(_frame.ToBitmap());
                     }
                 }
                 else
@@ -282,13 +286,13 @@ namespace Client
             {
                 if (ObjectsOnFrame is null) return;
                 string path = FileHandler.SaveVideoFile(shortName);
-                _videoWriter = new(path, FourCC.FromString("H264"), _videoCapture.Fps, new OpenCvSharp.Size(_videoCapture.FrameWidth, _videoCapture.FrameHeight));
+                _videoWriter = new(path, FourCC.FromString("FMP4"), _videoCapture.Fps, new OpenCvSharp.Size(_videoCapture.FrameWidth, _videoCapture.FrameHeight));
                 Mat matFrame = new();
                 for (int i = 0; i < _videoCapture.FrameCount; i++)
                 {
                     _videoCaptureForProcess.Set(VideoCaptureProperties.PosFrames, i);
                     _videoCaptureForProcess.Read(matFrame);
-                    if (i < ObjectsOnFrame.Count)
+                    if (i < ObjectsOnFrame?.Count)
                     {
                         _videoWriter.Write(_window.activyVideoPage.localDrawer.DrawBoundingBoxes(ObjectsOnFrame[i], matFrame));
                     }
@@ -302,7 +306,6 @@ namespace Client
                 MessageBox.Show("error save");
             }
         }
-
 
         #endregion
     }
