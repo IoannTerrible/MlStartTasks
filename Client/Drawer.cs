@@ -55,13 +55,13 @@ namespace Client
                 var time = videoController.vtimer.FrameToTime(videoController.currentFrameNumber);
                 var newEntry = new LogEntry(id.ToString(), name, time, videoController.currentFrameNumber.ToString());
 
-                if (!_window.activyVideoPage.LogEntries.Any(entry =>
+                if (!videoController.LogEntries.Any(entry =>
                     entry.TrackId == newEntry.TrackId &&
                     entry.ObjectName == newEntry.ObjectName &&
                     entry.Timing == newEntry.Timing))
                 {
-                    _window.activyVideoPage.LogEntries.Add(newEntry);
-                    _window.activyVideoPage.ListWithSqlResponce.ItemsSource = _window.activyVideoPage.LogEntries;
+                    videoController.LogEntries.Add(newEntry);
+                    _window.activyVideoPage.ListWithSqlResponce.ItemsSource = videoController.LogEntries;
                 }
                 Logger.LogByTemplate(LogEventLevel.Debug, note: $"DrawObject with {xtl},{ytl}, {xbr}, {ybr}, {name}, {id}");
                 DrawBoundingBox(frame, xtl, ytl, xbr, ybr, name, id);

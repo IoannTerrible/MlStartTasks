@@ -5,6 +5,7 @@ using OpenCvSharp.Extensions;
 using Serilog.Events;
 using System.Diagnostics;
 using System.IO;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -77,6 +78,7 @@ namespace Client
 
         public string shortName;
 
+        public ObservableCollection<LogEntry> LogEntries { get; } = new ObservableCollection<LogEntry>();
         public List<List<ObjectOnPhoto>> ObjectsOnFrame;
         public bool IsProcessed = false;
 

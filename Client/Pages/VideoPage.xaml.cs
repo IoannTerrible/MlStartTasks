@@ -27,7 +27,6 @@ namespace Client
         MainWindow _window;
 
         public readonly Drawer localDrawer;
-        public ObservableCollection<LogEntry> LogEntries { get; } = new ObservableCollection<LogEntry>();
 
 
         public ObservableCollection<string> OpenVideos { get; } = new ObservableCollection<string>();
@@ -132,6 +131,7 @@ namespace Client
                 currentVideoController.IsPaused = true;
                 currentVideoController = _videoControllers[comboBox.SelectedIndex];
                 currentVideoController.SetFirstFrame();
+                ListWithSqlResponce.ItemsSource = currentVideoController.LogEntries;
             }
             else
             {
