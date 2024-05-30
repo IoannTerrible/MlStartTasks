@@ -73,6 +73,7 @@
                 <Button x:Name ="HealthCheckButton" Content="Health Check" Style="{StaticResource CustomButtonStyle}" RenderTransformOrigin="0.498,0.559" Margin="10,25,0,0" HorizontalAlignment="Left" Width="114" Height="25" VerticalAlignment="Top" Click="HealthCheckButton_Click"/>
 
                 <Button x:Name ="SendButton" Content="Send Service" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CustomButtonStyle}" Height="25" Width="114" Margin="10,0,0,0" Click="SendButton_Click"/>
+                <Button x:Name ="StatsButton" Content="Statistics " HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource CustomButtonStyle}" Height="49" Width="120" Margin="130,0,0,0" Click="StatsButton_Click" FontSize="16" />
             </Grid>
             <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="5,65,0,8" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>

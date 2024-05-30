@@ -176,5 +176,11 @@ namespace Client
             currentVideoController?.SaveFullVideo();
             MessageBox.Show("Done");
         }
+
+        private void StatsButton_Click(object sender, RoutedEventArgs e)
+        {
+            StatisticsWindow statisticsWindow = new StatisticsWindow(currentVideoController.LogEntries);
+            statisticsWindow.ShowDialog();
+        }
     }
 }
