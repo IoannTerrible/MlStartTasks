@@ -75,7 +75,6 @@ namespace Client
                 if (window.isServerAlive)
                 {
                     HttpResponseMessage response = await client.PostAsync($"{apiUrl}file/", form);
-                    await ProcessResponseAsync(response);
                 }
                 else
                 {
@@ -188,22 +187,7 @@ namespace Client
             }
             window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Hidden;
         }
-        private static async Task ProcessResponseAsync(HttpResponseMessage response)
-        {
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                ResponseObject responseObject = JsonConvert.DeserializeObject<ResponseObject>(responseContent);
 
-                List<ObjectOnPhoto> objectsOnPhoto = new List<ObjectOnPhoto>(responseObject.Objects);
-                string[] parts = responseContent.Split(",");
-            }
-            else
-            {
-                MessageBox.Show(response.StatusCode.ToString());
-                Logger.LogByTemplate(LogEventLevel.Warning, note: $"HTTP request failed with status code {response.StatusCode}.");
-            }
-        }
         //TODO. Only for lead. I'm sure you'll remember tomorrow what you want to do here. Doubtful solid. It is in the directory with the processor.
     }
 }

@@ -179,8 +179,22 @@ namespace Client
 
         private void StatsButton_Click(object sender, RoutedEventArgs e)
         {
-            StatisticsWindow statisticsWindow = new StatisticsWindow(currentVideoController.LogEntries);
-            statisticsWindow.ShowDialog();
+            try
+            {
+                if (currentVideoController != null && currentVideoController.LogEntries != null)
+                {
+                    StatisticsWindow statisticsWindow = new StatisticsWindow(currentVideoController.LogEntries);
+                    statisticsWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("You need to process video");
+                }
+            }
+            catch(Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, "Error with Stats");
+            }
         }
     }
 }
