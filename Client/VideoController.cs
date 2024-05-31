@@ -79,6 +79,7 @@ namespace Client
         public string shortName;
 
         public ObservableCollection<LogEntry> LogEntries { get; } = new ObservableCollection<LogEntry>();
+        public List<int[]> valuesForSave = [];
         public List<List<ObjectOnPhoto>> ObjectsOnFrame;
         public bool IsProcessed = false;
 
@@ -265,6 +266,7 @@ namespace Client
                 {
                     if (ObjectsOnFrame.Count != _countFrames)
                     {
+                        IsProcessed = false;
                         ObjectsOnFrame = null;
                         GetProcessedVideo();
                     }
@@ -282,15 +284,16 @@ namespace Client
             }
         }
 
-        public void SaveFullVideo()
+        private void SaveVideo(string path, int startFrame, int endFrame)
         {
+            if (startFrame < 0) startFrame = 0;
+            if (endFrame > _videoCapture.FrameCount-1) endFrame = _videoCapture.FrameCount-1;
+
             try
             {
-                if (ObjectsOnFrame is null) return;
-                string path = FileHandler.SaveVideoFile(shortName);
                 _videoWriter = new(path, FourCC.FromString("FMP4"), _videoCapture.Fps, new OpenCvSharp.Size(_videoCapture.FrameWidth, _videoCapture.FrameHeight));
                 Mat matFrame = new();
-                for (int i = 0; i < _videoCapture.FrameCount; i++)
+                for (int i = startFrame; i < endFrame; i++)
                 {
                     _videoCaptureForProcess.Set(VideoCaptureProperties.PosFrames, i);
                     _videoCaptureForProcess.Read(matFrame);
@@ -306,6 +309,66 @@ namespace Client
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, "error save file");
                 MessageBox.Show("error save");
+            }
+        }
+
+        public void SaveAllVideos()
+        {
+            if (!IsProcessed) return;
+            SelectFragmentsForSave();
+            for (int i = 0; i < valuesForSave.Count; i++)
+            {
+                string path = FileHandler.SaveVideoFile(shortName, i, valuesForSave[i][0]);
+                int keyframe = (valuesForSave[i][1] + valuesForSave[i][2])/2;
+                int lenght = int.Parse(App.ContentFromConfig["ClipLength"]);
+                SaveVideo(path, keyframe-lenght*_fps/2, keyframe+lenght*_fps/2);
+                MessageBox.Show($"Done, keyframe = {keyframe}, length = {lenght}, border - {keyframe-lenght*_fps/2}, {keyframe+lenght*_fps/2}");
+            }
+            
+        }
+        private void SelectFragmentsForSave()
+        {
+            try
+            {
+                int[] bannedID = [];
+                for (int i = 0; i < ObjectsOnFrame.Count; i++)
+                {
+                    int zebraCount = 0;
+                    foreach (ObjectOnPhoto obj in ObjectsOnFrame[i])
+                    {
+                        if (obj.Class_name == "Zebra crossing")
+                        {
+                            zebraCount++;
+                            if (zebraCount > 1)
+                            {
+                                bannedID.Append(obj.Class_id);
+                                continue;
+                            }
+                            if (!bannedID.Contains(obj.Class_id))
+                            {
+                                if (valuesForSave.Count > 0)
+                                {
+                                    if (valuesForSave[^1][0] != obj.Class_id)
+                                    {
+                                        valuesForSave.Add([obj.Class_id, i, i]);
+                                    }
+                                    else
+                                    {
+                                        valuesForSave[^1][2] = i;
+                                    }
+                                }
+                                else
+                                {
+                                    valuesForSave.Add([obj.Class_id, i, i]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogByTemplate(LogEventLevel.Error, ex, "Error calculating fragments for save");
             }
         }
 

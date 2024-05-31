@@ -1,9 +1,7 @@
 ﻿using ClassLibrary;
 using OpenCvSharp;
-using OpenCvSharp.Extensions;
 using Serilog.Events;
-using System.Data.SqlClient;
-using System.Security.Cryptography.X509Certificates;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -71,8 +69,8 @@ namespace Client
 
         public void DrawBoundingBox(Mat frame, double xTopLeft, double yTopLeft, double xBottomRight, double yBottomRight, string name, int id)
         {
-            Point topLeft = new Point((int)xTopLeft, (int)yTopLeft);
-            Point bottomRight = new Point((int)xBottomRight, (int)yBottomRight);
+            OpenCvSharp.Point topLeft = new OpenCvSharp.Point((int)xTopLeft, (int)yTopLeft);
+            OpenCvSharp.Point bottomRight = new OpenCvSharp.Point((int)xBottomRight, (int)yBottomRight);
             if (!_classColors.TryGetValue(name, out var color))
             {
                 color = Scalar.White;

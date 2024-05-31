@@ -40,13 +40,13 @@ namespace Client
                 return null;
             }
         }
-        public static string SaveVideoFile(string filename)
+        public static string SaveVideoFile(string filename, int num, int objectID)
         {
             SaveFileDialog saveFileDialog = new()
             {
                 Filter = fileTypes[FileTypes.Media],
                 DefaultExt = ".avi",
-                FileName = filename.Split('.')[0] + "processed"
+                FileName = filename.Split('.')[0] + $"num{num}objID{objectID}"
             };
             if (saveFileDialog.ShowDialog() == true)
             {
@@ -57,5 +57,6 @@ namespace Client
                 return null;
             }
         }
+
     }
 }

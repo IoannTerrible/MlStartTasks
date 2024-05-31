@@ -79,7 +79,7 @@ namespace Client
         {
             try
             {
-                currentVideoController.GetProcessedVideo();
+                currentVideoController?.GetProcessedVideo();
             }
             catch { }
 
@@ -145,8 +145,7 @@ namespace Client
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            currentVideoController?.SaveFullVideo();
-            MessageBox.Show("Done");
+            currentVideoController?.SaveAllVideos();
         }
 
         private void StatsButton_Click(object sender, RoutedEventArgs e)
