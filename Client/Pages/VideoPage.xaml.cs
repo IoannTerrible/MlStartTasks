@@ -36,34 +36,13 @@ namespace Client
         private readonly Canvas rectangleContainer = new();
         private string[] files;
 
-        private void MediaPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            currentVideoController?.Play();
-        }
+        private void MediaPlayButton_Click(object sender, RoutedEventArgs e) => currentVideoController?.Play();
+        private void MediaPauseButton_Click(object sender, RoutedEventArgs e) => currentVideoController?.Pause();
+        private void MediaStopButton_Click(object sender, RoutedEventArgs e) => currentVideoController?.Stop();
+        private void RewindButton_Click(object sender, RoutedEventArgs e) => currentVideoController?.Rewind();
+        private void NextButton_Click(object sender, RoutedEventArgs e) => currentVideoController?.NextFrame();
+        private void ShowInfoButton_Click(object sender, RoutedEventArgs e) => currentVideoController?.ShowInfo();
 
-        private void MediaPauseButton_Click(object sender, RoutedEventArgs e)
-        {
-            currentVideoController?.Pause();
-        }
-
-        private void MediaStopButton_Click(object sender, RoutedEventArgs e)
-        {
-            currentVideoController?.Stop();
-        }
-
-        private void RewindButton_Click(object sender, RoutedEventArgs e)
-        {
-            currentVideoController?.Rewind();
-        }
-
-        private void NextButton_Click(object sender, RoutedEventArgs e)
-        {
-            currentVideoController?.NextFrame();
-        }
-        private void ShowInfoButton_Click(object sender, RoutedEventArgs e)
-        {
-            currentVideoController?.ShowInfo();
-        }
         private void MediaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             ((Slider)sender).SelectionEnd = e.NewValue;
@@ -105,17 +84,10 @@ namespace Client
             catch { }
 
         }
-
         private async void HealthCheckButton_Click(object sender, RoutedEventArgs e)
         {
-            if (await MainWindow.apiClient.CheckHealthAsync($"{ConnectionWindow.ConnectionUri}"))
-            {
-                MessageBox.Show("Yes");
-            }
-            else
-            {
-                MessageBox.Show("No");
-            }
+            var healthStatus = await MainWindow.apiClient.CheckHealthAsync(ConnectionWindow.ConnectionUri);
+            MessageBox.Show(healthStatus ? "Yes" : "No");
         }
         private void VideoBox_SourceUpdated(object sender, RoutedEventArgs e)
         {
@@ -191,7 +163,7 @@ namespace Client
                     MessageBox.Show("You need to process video");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, "Error with Stats");
             }
