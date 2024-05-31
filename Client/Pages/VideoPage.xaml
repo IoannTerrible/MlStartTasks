@@ -61,8 +61,8 @@
                     <Button x:Name="NextButton" Content="Next" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,0,0,0" Width="30" Click="NextButton_Click"/>
                     <Button x:Name="ShowInfoButton" Content="Info" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,0,0,0" Width="30" Click="ShowInfoButton_Click"/>
                     <Button x:Name="CloseButton" Content="Close" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,0,0,0" Width="30" Click="CloseButton_Click"/>
-                    <TextBlock x:Name="TimerBox" HorizontalAlignment="Left" Margin="280,0,0,0" TextWrapping="Wrap" Text="VideoTimer" VerticalAlignment="Top" Width="72" Height="18"/>
-                    <Button x:Name="SaveButton" Content="Save" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Click="SaveButton_Click" Margin="245,0,0,0"/>
+                    <TextBlock x:Name="TimerBox" HorizontalAlignment="Left" Margin="321,0,0,0" TextWrapping="Wrap" Text="VideoTimer" VerticalAlignment="Top" Width="72" Height="18"/>
+                    <Button x:Name="SaveButton" Content="ManualSave" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="71" Click="SaveButton_Click" Margin="245,0,0,0"/>
                     <Slider x:Name="MediaSlider" IsSelectionRangeEnabled="True" SelectionStart="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="490" ValueChanged="MediaSlider_ValueChanged"/>
                 </Grid>
             </Grid>

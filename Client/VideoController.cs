@@ -209,6 +209,11 @@ namespace Client
                 IsPaused = true;
             }
             mediaSlider.Value = currentFrameNumber;
+            if (_window.activyVideoPage.saveWindow != null)
+            {
+                _window.activyVideoPage.saveWindow.VideoSource_Update();
+                _window.activyVideoPage.saveWindow.TimerBoxForSave.Text = vtimer.GetCurrentTime();
+            }
         }
         public async void SetFrame(int frameNumber)
         {

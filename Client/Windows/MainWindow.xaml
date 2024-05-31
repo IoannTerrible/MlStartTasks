@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="1318" >
     <Window.Resources>
-        <Style TargetType="Button">
+        <Style TargetType="Button" x:Key="CustomButtonStyle">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -52,14 +52,14 @@
                 <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="fastConnectButton" Content="FastConnect" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="FastConnectClick" Grid.ColumnSpan="2" Margin="0,191,0,0" Grid.Column="2" />
-            <Button x:Name="connectButton"  Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="202" Click="ConnectionClick" Height="32" Grid.ColumnSpan="2" Grid.Column="2" Margin="0,223,0,0" />
-            <Button x:Name="imagePageButton"   Content="VideoPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="ImagePageClick" Margin="0,319,0,0" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2" />
-            <Button x:Name="configButton" Content="ConfigPage"  HorizontalAlignment="Left" Margin="0,287,0,0" VerticalAlignment="Top" Height="32" Width="202" Click="ConfigClick" Grid.ColumnSpan="2" Grid.Column="2"/>
-            <Button x:Name="disconButton"  Content="Disconnect" HorizontalAlignment="Left" Margin="0,255,0,0" VerticalAlignment="Top" Height="32" Width="202" Click="DisconnectClick" Grid.ColumnSpan="2" Grid.Column="2" />
+            <Button x:Name="fastConnectButton" Style="{StaticResource CustomButtonStyle}" Content="FastConnect" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="FastConnectClick" Grid.ColumnSpan="2" Margin="0,191,0,0" Grid.Column="2" />
+            <Button x:Name="connectButton"  Style="{StaticResource CustomButtonStyle}" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="202" Click="ConnectionClick" Height="32" Grid.ColumnSpan="2" Grid.Column="2" Margin="0,223,0,0" />
+            <Button x:Name="imagePageButton"   Style="{StaticResource CustomButtonStyle}" Content="VideoPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="ImagePageClick" Margin="0,319,0,0" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2" />
+            <Button x:Name="configButton" Style="{StaticResource CustomButtonStyle}" Content="ConfigPage"  HorizontalAlignment="Left" Margin="0,287,0,0" VerticalAlignment="Top" Height="32" Width="202" Click="ConfigClick" Grid.ColumnSpan="2" Grid.Column="2"/>
+            <Button x:Name="disconButton"  Style="{StaticResource CustomButtonStyle}" Content="Disconnect" HorizontalAlignment="Left" Margin="0,255,0,0" VerticalAlignment="Top" Height="32" Width="202" Click="DisconnectClick" Grid.ColumnSpan="2" Grid.Column="2" />
             <TextBox x:Name="UserStatus" TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="1,7,0,0" Text="Host" VerticalAlignment="Top" Width="203" Height="27" TextAlignment="Center" FontFamily="Skranji" FontSize="11" Grid.ColumnSpan="2" Grid.Column="2"/>
-            <Button x:Name="registrationButton" Content="RegistrationPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="RegistrPageClick" Margin="0,159,0,0" Grid.ColumnSpan="2" Grid.Column="2" />
-            <Button x:Name="loginButton" Content="LoginPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="LoginPageClick" Margin="0,127,0,0" Grid.Column="2" Grid.ColumnSpan="2" />
+            <Button x:Name="registrationButton" Style="{StaticResource CustomButtonStyle}"  Content="RegistrationPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="RegistrPageClick" Margin="0,159,0,0" Grid.ColumnSpan="2" Grid.Column="2" />
+            <Button x:Name="loginButton" Style="{StaticResource CustomButtonStyle}"  Content="LoginPage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="202" Click="LoginPageClick" Margin="0,127,0,0" Grid.Column="2" Grid.ColumnSpan="2" />
             <TextBox x:Name="statusTextBox" TextWrapping="NoWrap" HorizontalAlignment="Left" Margin="1,34,0,0" Text="ServerStatus:" VerticalAlignment="Top" Width="203" Height="27" TextAlignment="Center" FontFamily="Skranji" FontSize="16" Grid.ColumnSpan="2" Grid.Column="2"/>
         </Grid>
         <Frame x:Name="MainFrame" Content="Frame" Margin="206,10,0,5" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden"/>

@@ -31,6 +31,7 @@ namespace Client
 
         public ObservableCollection<string> OpenVideos { get; } = new ObservableCollection<string>();
         public VideoController currentVideoController;
+        public SaveWindow saveWindow;
 
         private List<VideoController> _videoControllers = [];
         private readonly Canvas rectangleContainer = new();
@@ -94,6 +95,7 @@ namespace Client
             localDrawer.CalculateScale();
             localDrawer.ClearRectangles();
             Logger.LogByTemplate(LogEventLevel.Information, note: $"Image uploaded.");
+
         }
         private void ComboBoxForResponse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -145,7 +147,8 @@ namespace Client
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            currentVideoController?.SaveAllVideos();
+            saveWindow = new(_window, currentVideoController);
+            saveWindow.Show();
         }
 
         private void StatsButton_Click(object sender, RoutedEventArgs e)
