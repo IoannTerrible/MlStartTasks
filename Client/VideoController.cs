@@ -78,7 +78,8 @@ namespace Client
 
         public string shortName;
 
-        public ObservableCollection<LogEntry> LogEntries { get; } = new ObservableCollection<LogEntry>();
+        public ObservableCollection<LogEntry> logEntries { get; } = new ObservableCollection<LogEntry>();
+        public ObservableCollection<LogEntry> filteredLogEntries = new();
         public List<int[]> valuesForSave = [];
         public List<List<ObjectOnPhoto>> ObjectsOnFrame;
         public bool IsProcessed = false;

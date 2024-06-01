@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 namespace Client
 {
     /// <summary>
@@ -21,6 +22,7 @@ namespace Client
             ListWithSqlResponce.MouseDoubleClick += ListWithSqlResponce_MouseDoubleClick;
 
             ComboBoxForResponse.ItemsSource = OpenVideos;
+            ClassFilterComboBox.ItemsSource = new string[] { "None", "Additional signs", "Car", "Forbidding signs", "Information signs", "Priority signs", "Warning signs", "Zebra crossing" };
             localDrawer = new Drawer(rectangleContainer, VideoImage, _window);
         }
 
@@ -105,7 +107,7 @@ namespace Client
                 currentVideoController.IsPaused = true;
                 currentVideoController = _videoControllers[comboBox.SelectedIndex];
                 currentVideoController.SetFirstFrame();
-                ListWithSqlResponce.ItemsSource = currentVideoController.LogEntries;
+                ListWithSqlResponce.ItemsSource = currentVideoController.logEntries;
             }
             else
             {
@@ -125,6 +127,28 @@ namespace Client
                 catch (Exception ex)
                 {
                     Logger.LogByTemplate(LogEventLevel.Error, ex);
+                }
+            }
+        }
+        private void ClassFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedClassItem = ClassFilterComboBox.SelectedItem.ToString();
+            if (selectedClassItem != null)
+            {
+                if (currentVideoController.filteredLogEntries != null) currentVideoController.filteredLogEntries.Clear();
+                foreach (var entry in currentVideoController.logEntries.Where(le => le.ObjectName == selectedClassItem))
+                {
+                    currentVideoController.filteredLogEntries.Add(entry);
+                }
+                ListWithSqlResponce.ItemsSource = currentVideoController.filteredLogEntries;
+                if (selectedClassItem == "None") ListWithSqlResponce.ItemsSource = currentVideoController.logEntries;
+            }
+            else
+            {
+                if (currentVideoController.filteredLogEntries != null) currentVideoController.filteredLogEntries.Clear();
+                foreach (var entry in currentVideoController.logEntries)
+                {
+                    currentVideoController.filteredLogEntries.Add(entry);
                 }
             }
         }
@@ -155,9 +179,9 @@ namespace Client
         {
             try
             {
-                if (currentVideoController != null && currentVideoController.LogEntries != null)
+                if (currentVideoController != null && currentVideoController.logEntries != null)
                 {
-                    StatisticsWindow statisticsWindow = new StatisticsWindow(currentVideoController.LogEntries);
+                    StatisticsWindow statisticsWindow = new StatisticsWindow(currentVideoController.logEntries);
                     statisticsWindow.ShowDialog();
                 }
                 else

@@ -21,6 +21,7 @@ namespace Client
 
             _configTable = new DataTable();
             DataColumn keyColumn = _configTable.Columns.Add("Key");
+            DataColumn valueColumn = _configTable.Columns.Add("Value");
             keyColumn.ReadOnly = true;
 
             foreach (var item in App.ContentFromConfig)
