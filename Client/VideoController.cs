@@ -251,11 +251,13 @@ namespace Client
 
         public async void GetProcessedVideo()
         {
+            Stopwatch stopwatch;
             try
             {
                 if (ObjectsOnFrame == null)
                 {
-                    Stopwatch stopwatch = Stopwatch.StartNew();
+                    _window.activyVideoPage.StatusBox.Text = $"processing video {shortName}...";
+                    stopwatch = Stopwatch.StartNew();
                     if (App.ContentFromConfig["ProcessInRealTime"] == "false")
                     {
                         ObjectsOnFrame = await MainWindow.apiClient.GetObjectsOnFrames(_videoCaptureForProcess, ConnectionWindow.ConnectionUri);
@@ -265,8 +267,9 @@ namespace Client
                         await MainWindow.apiClient.GetProcessedInRealTimeVideo(_videoCaptureForProcess, this, ConnectionWindow.ConnectionUri);
                     }
                     stopwatch.Stop();
-                    MessageBox.Show($"Success, {ObjectsOnFrame.Count}, times - {stopwatch.ElapsedMilliseconds / 1000}s");
-                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Video processed, frames count - {_countFrames}, frames processed - {ObjectsOnFrame.Count}");
+                    Logger.LogByTemplate(LogEventLevel.Information, note: $"Video processed, frames count - {_countFrames}, frames processed - {ObjectsOnFrame.Count}, times - {stopwatch.ElapsedMilliseconds/1000}");
+                    IsProcessed = true;
+                    SaveAllVideos(stopwatch);
                 }
                 else
                 {
@@ -282,15 +285,15 @@ namespace Client
                         MessageBox.Show($"Video processed. frames - {ObjectsOnFrame.Count}");
                     }
                 }
-                IsProcessed = true;
             }
             catch (Exception ex)
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Video processing error.");
+                _window.activyVideoPage.StatusBox.Text = "ERROR";
             }
         }
 
-        private void SaveVideo(string path, int startFrame, int endFrame)
+        public void SaveVideo(string path, int startFrame, int endFrame)
         {
             if (startFrame < 0) startFrame = 0;
             if (endFrame > _videoCapture.FrameCount-1) endFrame = _videoCapture.FrameCount-1;
@@ -315,11 +318,13 @@ namespace Client
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, "error save file");
                 MessageBox.Show("error save");
+                _window.activyVideoPage.StatusBox.Text = "ERROR";
             }
         }
 
-        public void SaveAllVideos()
+        public void SaveAllVideos(Stopwatch timer)
         {
+            _window.activyVideoPage.StatusBox.Text = "saving video segments";
             if (!IsProcessed) return;
             SelectFragmentsForSave();
             for (int i = 0; i < valuesForSave.Count; i++)
@@ -328,9 +333,11 @@ namespace Client
                 int keyframe = (valuesForSave[i][1] + valuesForSave[i][2])/2;
                 int lenght = int.Parse(App.ContentFromConfig["ClipLength"]);
                 SaveVideo(path, keyframe-lenght*_fps/2, keyframe+lenght*_fps/2);
-                MessageBox.Show($"Done, keyframe = {keyframe}, length = {lenght}, border - {keyframe-lenght*_fps/2}, {keyframe+lenght*_fps/2}");
             }
-            
+            _window.activyVideoPage.StatusBox.Text = "DONE";
+            MessageBox.Show($"DONE, processed {ObjectsOnFrame.Count} frames,\n" +
+                $"times - {timer.ElapsedMilliseconds / 1000} seconds,\n" +
+                $"saved videos - {valuesForSave.Count}");
         }
         private void SelectFragmentsForSave()
         {

@@ -72,6 +72,7 @@ namespace Client
             ConnectionWindow.ConnectionUri = null;
             areWeConnected = false;
             UserStatus.Text = "YouAreDisconnect";
+            healthChecker = null;
             Logger.LogByTemplate(LogEventLevel.Information, note: "Disconnected from the server.");
         }
 

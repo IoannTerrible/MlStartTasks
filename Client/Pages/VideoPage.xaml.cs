@@ -171,15 +171,26 @@ namespace Client
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            saveWindow = new(_window, currentVideoController);
-            saveWindow.Show();
+            if (currentVideoController == null) return;
+            if (currentVideoController.IsProcessed)
+            {
+                saveWindow = new(_window, currentVideoController);
+                if (saveWindow.ShowDialog() == true)
+                {
+                    MessageBox.Show("success save", "complete", MessageBoxButton.OK);
+                }
+            }
+            else
+            {
+                MessageBox.Show("you need process video before save", "save error", MessageBoxButton.OK);
+            }
         }
 
         private void StatsButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (currentVideoController != null && currentVideoController.logEntries != null)
+                if (currentVideoController != null && currentVideoController.logEntries != null && currentVideoController.IsProcessed)
                 {
                     StatisticsWindow statisticsWindow = new StatisticsWindow(currentVideoController.logEntries);
                     statisticsWindow.ShowDialog();

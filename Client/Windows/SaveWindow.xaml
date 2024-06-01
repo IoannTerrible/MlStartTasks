@@ -42,8 +42,8 @@
                 <Canvas x:Name="CanvasForPoints">
                     <Slider x:Name="MediaSliderForSave" IsSelectionRangeEnabled="True" SelectionStart="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="490" ValueChanged="MediaSlider_ValueChanged" Canvas.Top="22"/>
                 </Canvas>
-                <Button x:Name="SetStartButton" Content="Set Start" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,0,0,0" Width="57" Click="SetPointButton_Click"/>
-                <Button x:Name="SetEndButton" Content="Set End" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="237,0,0,0" Width="59" Click="SetPointButton_Click"/>
+                <Button x:Name="SetStartButton" Content="First Point" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,0,0,0" Width="57" Click="SetPointButton_Click"/>
+                <Button x:Name="SetEndButton" Content="Second Point" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="237,0,0,0" Width="59" Click="SetPointButton_Click"/>
                 <Button x:Name="SaveSegmentButton" Content="Save Segment" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="301,0,0,0" Width="100" Click="SaveSegmentButton_Click"/>
             </Grid>
         </Grid>

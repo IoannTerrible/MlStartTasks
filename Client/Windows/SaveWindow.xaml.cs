@@ -85,7 +85,7 @@ namespace Client
                 Canvas.SetLeft(_startPointEllipse, thumbCanvasPosition.X - _startPointEllipse.Width / 2.0);
                 Canvas.SetTop(_startPointEllipse, thumbCanvasPosition.Y - _startPointEllipse.Height / 2.0);
 
-                MessageBox.Show($"Start point set at {_start}");
+                MessageBox.Show($"First point set at {_start}");
             }
             else
             {
@@ -105,7 +105,7 @@ namespace Client
                 Canvas.SetLeft(_endPointEllipse, thumbCanvasPosition.X - _endPointEllipse.Width / 2);
                 Canvas.SetTop(_endPointEllipse, thumbCanvasPosition.Y - _endPointEllipse.Height / 2);
 
-                MessageBox.Show($"End point set at {_end}");
+                MessageBox.Show($"Second point set at {_end}");
             }
 
             DrawLineBetweenPoints();
@@ -141,13 +141,18 @@ namespace Client
         {
             if (_start < _end)
             {
-                //SaveVideoSegment(_start, _end);
-                MessageBox.Show($"{_start} {_end}");
+                _videoController.SaveVideo(FileHandler.SaveVideoFile(_videoController.shortName), (int)_start, (int)_end);
+            }
+            else if (_start > _end)
+            {
+                _videoController.SaveVideo(FileHandler.SaveVideoFile(_videoController.shortName), (int)_end, (int)_start);
             }
             else
             {
-                MessageBox.Show("Invalid range. Start point must be less than end point.");
+                MessageBox.Show("Invalid range.");
+                return;
             }
+            DialogResult = true;
         }
 
         public void VideoSource_Update()
