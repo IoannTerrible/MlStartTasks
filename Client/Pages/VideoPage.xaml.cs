@@ -30,10 +30,10 @@ namespace Client
 
         public readonly Drawer localDrawer;
 
-
         public ObservableCollection<string> OpenVideos { get; } = new ObservableCollection<string>();
         public VideoController currentVideoController;
         public SaveWindow saveWindow;
+        public bool IsProcessingVideoController = false;
 
         private List<VideoController> _videoControllers = [];
         private readonly Canvas rectangleContainer = new();
@@ -158,11 +158,13 @@ namespace Client
             if (ComboBoxForResponse.Items.Count == 0) return;
             if (ComboBoxForResponse.Items.Count == 1)
             {
+                currentVideoController.Dispose();
                 ComboBoxForResponse.SelectedIndex = -1;
                 _videoControllers.Clear();
                 OpenVideos.Clear();
                 return;
             }
+            currentVideoController.Dispose();
             int selectedIndex = ComboBoxForResponse.SelectedIndex;
             ComboBoxForResponse.SelectedIndex = selectedIndex > 0 ? selectedIndex - 1 : 0;
             _videoControllers.RemoveAt(selectedIndex);

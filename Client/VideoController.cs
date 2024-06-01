@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 
 namespace Client
 {
-    public class VideoController
+    public class VideoController : IDisposable
     {
         #region Constructor
         public VideoController(string filepath, Image imagePlace, Slider slider, MainWindow window)
@@ -83,7 +83,7 @@ namespace Client
         public List<int[]> valuesForSave = [];
         public List<List<ObjectOnPhoto>> ObjectsOnFrame;
         public bool IsProcessed = false;
-
+        public bool IsProcessing = false;
         public bool IsPaused = false;
         #endregion
         #region Methods
@@ -251,6 +251,16 @@ namespace Client
 
         public async void GetProcessedVideo()
         {
+            if (_window.activyVideoPage.IsProcessingVideoController) 
+            {
+                MessageBox.Show("Wait for the video processing to finish", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            else
+            {
+                IsProcessing = true;
+                _window.activyVideoPage.IsProcessingVideoController = true;
+            }
             Stopwatch stopwatch;
             try
             {
@@ -281,6 +291,8 @@ namespace Client
                     }
                     else
                     {
+                        IsProcessing = false;
+                        _window.activyVideoPage.IsProcessingVideoController = false;
                         Logger.LogByTemplate(LogEventLevel.Warning, note: "An attempt to re-process the video.");
                         MessageBox.Show($"Video processed. frames - {ObjectsOnFrame.Count}");
                     }
@@ -290,6 +302,8 @@ namespace Client
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, note: "Video processing error.");
                 _window.activyVideoPage.StatusBox.Text = "ERROR";
+                IsProcessing = false;
+                _window.activyVideoPage.IsProcessingVideoController = false;
             }
         }
 
@@ -338,6 +352,8 @@ namespace Client
             MessageBox.Show($"DONE, processed {ObjectsOnFrame.Count} frames,\n" +
                 $"times - {timer.ElapsedMilliseconds / 1000} seconds,\n" +
                 $"saved videos - {valuesForSave.Count}");
+            IsProcessing = false;
+            _window.activyVideoPage.IsProcessingVideoController = false;
         }
         private void SelectFragmentsForSave()
         {
@@ -383,6 +399,11 @@ namespace Client
             {
                 Logger.LogByTemplate(LogEventLevel.Error, ex, "Error calculating fragments for save");
             }
+        }
+
+        public void Dispose()
+        {
+            if(IsProcessing) _window.activyVideoPage.IsProcessingVideoController = false;
         }
 
         #endregion

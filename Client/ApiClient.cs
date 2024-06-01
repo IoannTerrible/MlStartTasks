@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.CodeDom;
+using System.IO;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -16,6 +17,7 @@ namespace Client
     {
         private readonly HttpClient client;
         private MainWindow window;
+        private bool IsErrorHappen = false;
         public ApiClient(MainWindow window)
         {
             client = new HttpClient();
@@ -122,6 +124,7 @@ namespace Client
                 else
                 {
                     MessageBox.Show(response.StatusCode.ToString());
+                    IsErrorHappen = true;
                     Logger.LogByTemplate(LogEventLevel.Warning, note: $"HTTP request failed with status code {response.StatusCode}.");
                     return null;
                 }
@@ -157,6 +160,7 @@ namespace Client
                     MessageBox.Show("Failed Health Check", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
                 }
+                if (ErrorCheck()) break;
                 videoCapture.Read(frame);
                 List<ObjectOnPhoto> checkerObjects = await GetObjectsOnFrame(ImageConverter.ImageSourceForImageControl(frame.ToBitmap()), apiUrl);
                 if (checkerObjects != null) result.Add(checkerObjects);
@@ -180,6 +184,8 @@ namespace Client
 
             for (int i = 0; i < videoCapture.FrameCount; i++)
             {
+                if (!window.activyVideoPage.IsProcessingVideoController) break;
+                if (ErrorCheck()) break;
                 videoCapture.Read(frame);
                 List<ObjectOnPhoto> checkerObjects = await MainWindow.apiClient.GetObjectsOnFrame(ImageConverter.ImageSourceForImageControl(frame.ToBitmap()), ConnectionWindow.ConnectionUri);
                 if (checkerObjects != null) videoController.ObjectsOnFrame.Add(checkerObjects);
@@ -188,6 +194,15 @@ namespace Client
             window.activyVideoPage.ProcessVideoProgressBar.Visibility = Visibility.Hidden;
         }
 
+        private bool ErrorCheck()
+        {
+            if (IsErrorHappen)
+            {
+                IsErrorHappen = false;
+                return true;
+            }
+            return false;
+        }
         //TODO. Only for lead. I'm sure you'll remember tomorrow what you want to do here. Doubtful solid. It is in the directory with the processor.
     }
 }
