@@ -64,12 +64,16 @@ namespace ClassLibrary
             root.AppendChild(videoElement);
 
             XmlElement connectionStringElement = xmlDoc.CreateElement("ProcessInRealTime");
-            connectionStringElement.InnerText = "false";
+            connectionStringElement.InnerText = "true";
             videoElement.AppendChild(connectionStringElement);
 
             XmlElement ClipLengthElement = xmlDoc.CreateElement("ClipLength");
             ClipLengthElement.InnerText = "6";
             videoElement.AppendChild(ClipLengthElement);
+
+            XmlElement AutoSaveElement = xmlDoc.CreateElement("AutoSave");
+            AutoSaveElement.InnerText = "true";
+            videoElement.AppendChild(AutoSaveElement);
         }
 
         #endregion

@@ -21,7 +21,8 @@ namespace ClassLibrary
                     { "Ip", ReadNodeValue(xmlDoc, "//Config/Network/Ip") },
                     { "ConnectionString", ReadNodeValue(xmlDoc, "//Config/Database/ConnectionString") },
                     { "ProcessInRealTime", ReadNodeValue(xmlDoc, "//Config/VideoProcessing/ProcessInRealTime") },
-                    { "ClipLength", ReadNodeValue(xmlDoc, "//Config/VideoProcessing/ClipLength") }
+                    { "ClipLength", ReadNodeValue(xmlDoc, "//Config/VideoProcessing/ClipLength") },
+                    { "AutoSave", ReadNodeValue(xmlDoc, "//Config/VideoProcessing/AutoSave") }
                 };
 
                 return configDictionary;

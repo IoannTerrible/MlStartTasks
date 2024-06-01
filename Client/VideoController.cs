@@ -279,7 +279,16 @@ namespace Client
                     stopwatch.Stop();
                     Logger.LogByTemplate(LogEventLevel.Information, note: $"Video processed, frames count - {_countFrames}, frames processed - {ObjectsOnFrame.Count}, times - {stopwatch.ElapsedMilliseconds/1000}");
                     IsProcessed = true;
-                    SaveAllVideos(stopwatch);
+                    if (App.ContentFromConfig["AutoSave"] == "true")
+                    {
+                        SaveAllVideos(stopwatch);
+                    }
+                    else
+                    {
+                        MessageBox.Show("AutoSave if off,\n" +
+                            $"Processed {ObjectsOnFrame.Count} frames,\n" +
+                            $"time - {stopwatch.ElapsedMilliseconds/1000} s");
+                    }
                 }
                 else
                 {
